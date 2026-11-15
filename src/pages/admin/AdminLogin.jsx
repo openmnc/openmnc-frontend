@@ -396,7 +396,9 @@ export default function AdminLogin() {
               role="alert"
               className="mb-4 p-3.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-300 text-xs leading-relaxed text-center"
             >
-              <div className="font-semibold text-red-200 mb-1">Access Restricted</div>
+              {(serverError.toLowerCase().includes('denied') || serverError.toLowerCase().includes('invited') || serverError.toLowerCase().includes('authorized')) && (
+                <div className="font-semibold text-red-200 mb-1">Access Restricted</div>
+              )}
               {serverError}
               {serverError.includes('invited') && (
                 <div className="mt-2 text-[11px] text-gray-400">
