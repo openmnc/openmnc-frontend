@@ -10,6 +10,13 @@ export const careersApi = {
   delete: (id) => apiClient.delete(`/careers/${id}`),
 
   // Candidate applications (Zero-Storage resume handling)
+  uploadResume: (file) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return apiClient.post('/careers/upload-resume', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+  },
   apply: (data) => apiClient.post('/careers/apply', data),
   trackApplications: (email, oauthSub = '') =>
     apiClient.get('/careers/track/my-applications', {

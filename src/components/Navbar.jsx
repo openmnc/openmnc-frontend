@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useAuthContext } from '../context/AuthContext.jsx'
 
 const NAV_LINKS = [
   { label: 'Home', to: '/' },
@@ -14,13 +15,23 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [candidateEmail, setCandidateEmail] = useState('')
   const location = useLocation()
+  const auth = useAuthContext()
+  const isAuthenticated = auth?.isAuthenticated || false
+  const userRole = auth?.role || 'admin'
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Check candidate session from browser storage
+  useEffect(() => {
+    const saved = localStorage.getItem('openmnc_candidate_email')
+    if (saved) setCandidateEmail(saved)
+  }, [location.pathname])
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -81,8 +92,19 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right side — CTA + Admin */}
+        {/* Right side — Candidate Track + Consultation + Admin Portal */}
         <div className="hidden md:flex items-center gap-3">
+          {candidateEmail && (
+            <Link
+              to="/careers/track"
+              className="text-xs font-medium text-purple-300 hover:text-white bg-purple-500/10 border border-purple-500/20 px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5"
+              title="Track your submitted job applications"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+              My Applications
+            </Link>
+          )}
+
           <Link
             to="/contact"
             className="
@@ -94,13 +116,30 @@ export default function Navbar() {
           >
             Get Free Consultation
           </Link>
-          <Link
-            to="/admin/login"
-            className="text-xs text-gray-500 hover:text-gray-300 transition-colors duration-200 px-2 py-1"
-            aria-label="Admin login"
-          >
-            Admin
-          </Link>
+
+          {isAuthenticated ? (
+            <Link
+              to="/admin/dashboard"
+              className="
+                px-3 py-1.5 text-xs font-semibold rounded-lg
+                bg-cyan-neon/15 text-cyan-neon border border-cyan-neon/30
+                hover:bg-cyan-neon hover:text-navy-950
+                transition-all duration-200 flex items-center gap-1.5 shadow-sm
+              "
+              aria-label="Admin Control Center"
+            >
+              <span className="w-2 h-2 rounded-full bg-cyan-neon animate-pulse" />
+              Admin Portal
+            </Link>
+          ) : (
+            <Link
+              to="/admin/login"
+              className="text-xs text-gray-400 hover:text-cyan-neon transition-colors duration-200 px-2 py-1 flex items-center gap-1"
+              aria-label="Admin login"
+            >
+              Admin Access
+            </Link>
+          )}
         </div>
 
         {/* Mobile hamburger */}
@@ -170,13 +209,32 @@ export default function Navbar() {
                   Get Free Consultation
                 </Link>
               </li>
+              {candidateEmail && (
+                <li>
+                  <Link
+                    to="/careers/track"
+                    className="block px-4 py-2 text-xs text-purple-300 hover:text-white bg-purple-500/10 rounded-lg transition-colors"
+                  >
+                    📋 My Job Applications ({candidateEmail})
+                  </Link>
+                </li>
+              )}
               <li>
-                <Link
-                  to="/admin/login"
-                  className="block px-4 py-2 text-xs text-gray-500 hover:text-gray-300 transition-colors duration-200"
-                >
-                  Admin Login
-                </Link>
+                {isAuthenticated ? (
+                  <Link
+                    to="/admin/dashboard"
+                    className="block px-4 py-2 text-xs font-semibold text-cyan-neon bg-cyan-neon/10 rounded-lg hover:bg-cyan-neon hover:text-navy-950 transition-colors"
+                  >
+                    ⚙️ Open Admin Dashboard ({userRole.toUpperCase()})
+                  </Link>
+                ) : (
+                  <Link
+                    to="/admin/login"
+                    className="block px-4 py-2 text-xs text-gray-400 hover:text-cyan-neon transition-colors duration-200"
+                  >
+                    🔒 Admin Portal Access
+                  </Link>
+                )}
               </li>
             </ul>
           </motion.div>
