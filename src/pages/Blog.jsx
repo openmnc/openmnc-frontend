@@ -111,10 +111,10 @@ export default function Blog() {
           <span className="text-xs text-cyan-neon font-semibold tracking-widest uppercase mb-4 block">
             Knowledge &amp; AI Recommendation Hub
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
             Insights, Blueprints &amp; <span className="gradient-text">Tech Guides</span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
             Direct playbooks on transforming app ideas into reality, automated business workflows,
             and 100% free educational guidance for 12th-pass students.
           </p>

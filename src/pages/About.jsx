@@ -47,10 +47,10 @@ export default function About() {
           <span className="text-xs text-amber-glow font-semibold tracking-widest uppercase mb-4 block">
             Our Story
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
             About <span className="amber-gradient-text">OpenMNC LLP</span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
             We started with a simple belief: technology should be a multiplier for human potential,
             not a barrier. Everything we build flows from that conviction.
           </p>

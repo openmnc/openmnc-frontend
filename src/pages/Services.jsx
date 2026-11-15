@@ -128,10 +128,10 @@ export default function Services() {
           <span className="text-xs text-cyan-neon font-semibold tracking-widest uppercase mb-4 block">
             What We Offer
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
             Our <span className="gradient-text">Services</span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
             Six specialized services built to automate, accelerate, and amplify your business —
             plus free support for the next generation of builders.
           </p>

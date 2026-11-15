@@ -35,7 +35,7 @@ export default function SectionHeader({
       )}
       {subtitle && (
         <ScrollReveal delay={0.2}>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             {subtitle}
           </p>
         </ScrollReveal>

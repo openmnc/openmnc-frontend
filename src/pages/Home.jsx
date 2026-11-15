@@ -133,9 +133,9 @@ export default function Home() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-neon/30 bg-cyan-neon/5 text-cyan-neon text-xs font-semibold tracking-widest uppercase mb-8"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-semibold tracking-wider uppercase mb-8"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-neon animate-pulse" aria-hidden="true" />
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" aria-hidden="true" />
             AI-First · India-Based · Full-Cycle
           </motion.div>
 
@@ -143,7 +143,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight mb-6"
+            className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.12] tracking-tight mb-6"
           >
             <span className="text-white">{heroHeadline.split(' ').slice(0, 3).join(' ')}</span>
             {' '}
@@ -154,7 +154,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.25 }}
-            className="text-gray-300 text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto mb-10"
+            className="text-slate-300 text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto mb-10 font-normal"
           >
             {heroSubline}
           </motion.p>

@@ -49,15 +49,16 @@ export default function TeamAdmin() {
         role: inviteRole,
       })
       const token = res.data.token
-      const baseUrl = window.location.origin
-      const fullInviteUrl = `${baseUrl}/admin/join?token=${token}`
+      const origin = window.location.origin
+      const baseHost = (origin && !origin.includes('localhost') && !origin.includes('127.0.0.1')) ? origin : 'https://www.openmnc.com'
+      const fullInviteUrl = res.data.invite_url || `${baseHost}/admin/join?token=${token}`
 
       setGeneratedInvite({
         email: res.data.email,
         role: res.data.role,
         url: fullInviteUrl,
       })
-      setSuccess(`✓ Official invitation dispatched to ${res.data.email} via Brevo SMTP!`)
+      setSuccess(`✓ Official invitation dispatched to ${res.data.email}!`)
       setInviteEmail('')
       setInviteName('')
       loadTeam()
@@ -74,7 +75,7 @@ export default function TeamAdmin() {
     setSuccess('')
     try {
       const res = await apiClient.post('/auth/team/resend-invite', { email })
-      setSuccess(res.data?.message || `✓ Invitation email resent to ${email} via Brevo!`)
+      setSuccess(res.data?.message || `✓ Invitation email resent to ${email}!`)
     } catch (err) {
       setError(err?.response?.data?.detail || 'Failed to resend invitation email.')
     } finally {
@@ -127,7 +128,7 @@ export default function TeamAdmin() {
                 Team & Role Management
               </h1>
               <p className="text-gray-400 text-xs sm:text-sm mt-0.5">
-                Manage administrators, operations editors, and content authors with Brevo-powered invitations.
+                Manage administrators, operations editors, and content authors with role-based access.
               </p>
             </div>
           </div>
@@ -221,11 +222,11 @@ export default function TeamAdmin() {
               <span>✉️</span> Invite New Colleague or Member
             </h2>
             <p className="text-gray-400 text-xs mt-0.5">
-              An official invitation email will automatically be sent to their inbox via <strong>Brevo High-Speed SMTP</strong> with a secure activation link.
+              An official invitation email will automatically be sent to their inbox with a secure 7-day activation link.
             </p>
           </div>
           <span className="self-start text-[11px] font-mono px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
-            Powered by Brevo
+            Enterprise Security Gateway
           </span>
         </div>
 
@@ -416,7 +417,7 @@ export default function TeamAdmin() {
                         )}
                       </td>
                       <td className="py-3.5 pr-4 text-gray-400 capitalize">
-                        {m.auth_provider === 'google' ? 'Google OAuth' : m.auth_provider === 'otp_email' ? 'Brevo OTP' : 'Password'}
+                        {m.auth_provider === 'google' ? 'Google OAuth' : m.auth_provider === 'otp_email' ? 'Email OTP' : 'Password'}
                       </td>
                       <td className="py-3.5 pr-4 text-gray-400 text-[11px]">
                         {m.last_login ? new Date(m.last_login).toLocaleString() : 'Never'}
@@ -474,7 +475,9 @@ export default function TeamAdmin() {
               </thead>
               <tbody className="divide-y divide-white/5">
                 {teamData.invitations.map((inv) => {
-                  const inviteUrl = `${window.location.origin}/admin/join?token=${inv.token}`
+                  const origin = window.location.origin
+                  const baseHost = (origin && !origin.includes('localhost') && !origin.includes('127.0.0.1')) ? origin : 'https://www.openmnc.com'
+                  const inviteUrl = `${baseHost}/admin/join?token=${inv.token}`
                   const isResending = resendingEmail === inv.email
 
                   return (
@@ -502,7 +505,7 @@ export default function TeamAdmin() {
                           onClick={() => handleResendInvite(inv.email)}
                           disabled={isResending}
                           className="px-2.5 py-1 rounded-lg bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 border border-cyan-500/20 text-[11px] transition-colors disabled:opacity-50"
-                          title="Resend invitation email via Brevo"
+                          title="Resend official invitation email"
                         >
                           {isResending ? 'Resending...' : '✉️ Resend Email'}
                         </button>
