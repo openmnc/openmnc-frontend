@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -11,7 +11,7 @@ export default function AdminLogin() {
   const [serverError, setServerError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // Forgot Password / OTP states: 'login' | 'forgot_email' | 'verify_otp' | 'new_password'
+  // Auth states: 'login' | 'setup' | 'forgot_email' | 'verify_otp' | 'new_password'
   const [authMode, setAuthMode] = useState('login')
   const [forgotEmail, setForgotEmail] = useState('')
   const [otpCode, setOtpCode] = useState('')
@@ -20,6 +20,90 @@ export default function AdminLogin() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [otpMessage, setOtpMessage] = useState('')
   const [otpDebug, setOtpDebug] = useState('')
+
+  // First-Time Setup State
+  const [setupEmail, setSetupEmail] = useState('amit@openmnc.com')
+  const [setupPassword, setSetupPassword] = useState('')
+  const [setupConfirm, setSetupConfirm] = useState('')
+
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || ''
+
+  useEffect(() => {
+    if (!googleClientId) return
+
+    function initGoogle() {
+      if (window.google?.accounts?.id) {
+        window.google.accounts.id.initialize({
+          client_id: googleClientId,
+          callback: async (response) => {
+            setLoading(true)
+            setServerError('')
+            try {
+              const res = await apiClient.post('/auth/google-login', {
+                credential: response.credential,
+              })
+              const { access_token } = res.data
+              localStorage.setItem('openmnc_admin_token', access_token)
+              window.location.href = '/admin/dashboard'
+            } catch (err) {
+              setServerError(err?.response?.data?.detail || 'Google sign-in failed. Please verify authorization.')
+            } finally {
+              setLoading(false)
+            }
+          },
+        })
+
+        const btnEl = document.getElementById('google-signin-target')
+        if (btnEl) {
+          window.google.accounts.id.renderButton(btnEl, {
+            theme: 'filled_black',
+            size: 'large',
+            width: '100%',
+            text: 'signin_with',
+            shape: 'rectangular',
+          })
+        }
+      }
+    }
+
+    if (window.google?.accounts?.id) {
+      initGoogle()
+    } else {
+      const timer = setTimeout(initGoogle, 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [googleClientId, authMode])
+
+  async function handleInitialSetup(e) {
+    e.preventDefault()
+    if (setupPassword.length < 6) {
+      setServerError('Password must be at least 6 characters long.')
+      return
+    }
+    if (setupPassword !== setupConfirm) {
+      setServerError('Passwords do not match.')
+      return
+    }
+    setLoading(true)
+    setServerError('')
+    try {
+      const res = await apiClient.post('/auth/setup-admin', {
+        email: setupEmail,
+        password: setupPassword,
+      })
+      if (res.data.access_token) {
+        localStorage.setItem('openmnc_admin_token', res.data.access_token)
+        window.location.href = '/admin/dashboard'
+      } else {
+        alert(res.data.message || 'Credentials set! Please sign in.')
+        setAuthMode('login')
+      }
+    } catch (err) {
+      setServerError(err?.response?.data?.detail || 'First-time setup failed. Check MongoDB connection.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const { register, handleSubmit, formState: { errors } } = useForm()
 
@@ -130,7 +214,11 @@ export default function AdminLogin() {
               <span className="ml-0.5 w-2 h-2 rounded-full bg-cyan-neon" aria-hidden="true" />
             </div>
             <p className="text-gray-400 text-sm">
-              {authMode === 'login' ? 'Administrator Login' : 'Password Recovery (OTP)'}
+              {authMode === 'login'
+                ? 'Administrator & Staff Login'
+                : authMode === 'setup'
+                ? 'First-Time Admin Setup'
+                : 'Password Recovery (OTP)'}
             </p>
           </div>
 
@@ -239,8 +327,107 @@ export default function AdminLogin() {
                       Authenticating...
                     </>
                   ) : (
-                    'Sign In to Admin'
+                    'Sign In to Dashboard'
                   )}
+                </button>
+
+                {/* Google Sign-in Target */}
+                <div className="mt-4 pt-4 border-t border-white/10 text-center">
+                  <div id="google-signin-target" className="flex justify-center mb-3 min-h-[40px]" />
+                  
+                  <div className="flex flex-col gap-2 mt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAuthMode('setup')
+                        setServerError('')
+                        setOtpMessage('')
+                      }}
+                      className="text-xs text-emerald-400 hover:text-emerald-300 transition-colors"
+                    >
+                      ★ First Time Here? Set Admin Password
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAuthMode('forgot_email')
+                        setServerError('')
+                        setOtpMessage('')
+                      }}
+                      className="text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+                    >
+                      Forgot password? Reset via OTP
+                    </button>
+                  </div>
+                </div>
+              </motion.form>
+            )}
+
+            {/* 0. First-Time Setup Form */}
+            {authMode === 'setup' && (
+              <motion.form
+                key="setup-form"
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                onSubmit={handleInitialSetup}
+              >
+                <p className="text-xs text-gray-400 mb-4 leading-relaxed">
+                  Set the primary administrator password for <strong className="text-cyan-300">amit@openmnc.com</strong>.
+                </p>
+                <div className="space-y-3 mb-4">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-300 mb-1">
+                      Admin Email
+                    </label>
+                    <input
+                      type="email"
+                      value={setupEmail}
+                      onChange={(e) => setSetupEmail(e.target.value)}
+                      required
+                      className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/50"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-300 mb-1">
+                      New Admin Password
+                    </label>
+                    <input
+                      type="password"
+                      value={setupPassword}
+                      onChange={(e) => setSetupPassword(e.target.value)}
+                      required
+                      placeholder="At least 6 characters"
+                      className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/50"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-300 mb-1">
+                      Confirm Password
+                    </label>
+                    <input
+                      type="password"
+                      value={setupConfirm}
+                      onChange={(e) => setSetupConfirm(e.target.value)}
+                      required
+                      placeholder="Repeat password"
+                      className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/50"
+                    />
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-2.5 px-4 rounded-lg font-display font-medium text-sm text-navy-950 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 transition-all duration-200 shadow-cyan-glow-sm flex items-center justify-center gap-2"
+                >
+                  {loading ? 'Initializing Password...' : 'Save & Enter Dashboard →'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setAuthMode('login'); setServerError(''); }}
+                  className="w-full mt-3 text-xs text-gray-400 hover:text-white transition-colors text-center"
+                >
+                  ← Back to Login
                 </button>
               </motion.form>
             )}
