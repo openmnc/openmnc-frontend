@@ -2,7 +2,13 @@ import axios from 'axios'
 
 const getBaseURL = () => {
   const envUrl = import.meta.env.VITE_API_URL
-  if (!envUrl) return '/api'
+  if (!envUrl) {
+    if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+      return '/api'
+    }
+    // Production default: connects directly to your live Render backend API
+    return 'https://openmnc-backend.onrender.com/api'
+  }
   const trimmed = envUrl.replace(/\/+$/, '')
   return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`
 }
