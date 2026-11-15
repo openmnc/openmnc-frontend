@@ -13,6 +13,7 @@ import ApplicationTracker from './pages/ApplicationTracker.jsx'
 
 // Admin Views
 import AdminLogin from './pages/admin/AdminLogin.jsx'
+import AdminJoin from './pages/admin/AdminJoin.jsx'
 import AdminLayout from './pages/admin/AdminLayout.jsx'
 import Dashboard from './pages/admin/Dashboard.jsx'
 import ServicesAdmin from './pages/admin/ServicesAdmin.jsx'
@@ -21,6 +22,7 @@ import SettingsAdmin from './pages/admin/SettingsAdmin.jsx'
 import ContactList from './pages/admin/ContactList.jsx'
 import BlogsAdmin from './pages/admin/BlogsAdmin.jsx'
 import ApplicationsAdmin from './pages/admin/ApplicationsAdmin.jsx'
+import TeamAdmin from './pages/admin/TeamAdmin.jsx'
 
 function PublicLayout({ children }) {
   return (
@@ -49,6 +51,7 @@ export default function App() {
 
           {/* Admin & HR Panel Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/join" element={<AdminJoin />} />
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
@@ -56,6 +59,7 @@ export default function App() {
             <Route path="applications" element={<ApplicationsAdmin />} />
             <Route path="services" element={<ServicesAdmin />} />
             <Route path="careers" element={<CareersAdmin />} />
+            <Route path="team" element={<TeamAdmin />} />
             <Route path="settings" element={<SettingsAdmin />} />
             <Route path="contacts" element={<ContactList />} />
           </Route>
