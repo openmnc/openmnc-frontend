@@ -32,10 +32,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand column */}
           <div className="lg:col-span-2">
-            <Link to="/" className="inline-flex items-center gap-1 mb-4" aria-label="OpenMNC LLP">
-              <span className="font-display text-2xl font-bold text-white">Open</span>
-              <span className="font-display text-2xl font-bold text-cyan-neon">MNC</span>
-              <span className="ml-0.5 w-2 h-2 rounded-full bg-cyan-neon" aria-hidden="true" />
+            <Link to="/" className="inline-flex items-center gap-2.5 mb-4 group" aria-label="OpenMNC LLP">
+              <img
+                src="/logo.png"
+                alt="OpenMNC Emblem"
+                className="w-8 h-8 object-contain transition-transform duration-200 group-hover:scale-105"
+              />
+              <div className="flex items-center">
+                <span className="font-display text-2xl font-bold text-white">Open</span>
+                <span className="font-display text-2xl font-bold text-cyan-neon">MNC</span>
+                <span className="ml-0.5 w-2 h-2 rounded-full bg-cyan-neon" aria-hidden="true" />
+              </div>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
               AI automation, custom software development, social media management,

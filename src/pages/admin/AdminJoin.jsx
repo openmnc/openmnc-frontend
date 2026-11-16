@@ -133,7 +133,12 @@ export default function AdminJoin() {
         <div className="glass-card p-8 border border-white/10 rounded-2xl backdrop-blur-xl shadow-2xl">
           {/* Logo */}
           <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-1 mb-2">
+            <img
+              src="/logo.png"
+              alt="OpenMNC Logo"
+              className="w-14 h-14 mx-auto mb-3 object-contain drop-shadow-[0_4px_12px_rgba(0,245,255,0.2)]"
+            />
+            <div className="inline-flex items-center gap-1 mb-1">
               <span className="font-display text-2xl font-bold text-white">Open</span>
               <span className="font-display text-2xl font-bold text-cyan-neon">MNC</span>
               <span className="ml-0.5 w-2 h-2 rounded-full bg-cyan-neon" aria-hidden="true" />

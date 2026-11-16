@@ -56,19 +56,26 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           to="/"
-          className="flex items-center gap-1 group"
+          className="flex items-center gap-2.5 group"
           aria-label="OpenMNC LLP — Home"
         >
-          <span className="font-display text-xl font-bold text-white group-hover:text-cyan-neon transition-colors duration-200">
-            Open
-          </span>
-          <span className="font-display text-xl font-bold text-cyan-neon">
-            MNC
-          </span>
-          <span
-            className="ml-0.5 w-1.5 h-1.5 rounded-full bg-cyan-neon animate-glow-pulse"
-            aria-hidden="true"
+          <img
+            src="/logo.png"
+            alt="OpenMNC Emblem"
+            className="w-8 h-8 object-contain transition-transform duration-200 group-hover:scale-105"
           />
+          <div className="flex items-center">
+            <span className="font-display text-xl font-bold text-white group-hover:text-cyan-neon transition-colors duration-200">
+              Open
+            </span>
+            <span className="font-display text-xl font-bold text-cyan-neon">
+              MNC
+            </span>
+            <span
+              className="ml-0.5 w-1.5 h-1.5 rounded-full bg-cyan-neon animate-glow-pulse"
+              aria-hidden="true"
+            />
+          </div>
         </Link>
 
         {/* Desktop Navigation */}

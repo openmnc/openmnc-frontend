@@ -51,9 +51,12 @@ export default function AdminLayout() {
           >
             {mobileMenuOpen ? '✕' : '☰'}
           </button>
-          <div className="flex items-center gap-1">
-            <span className="font-display text-base font-bold text-white">Open</span>
-            <span className="font-display text-base font-bold text-cyan-neon">MNC</span>
+          <div className="flex items-center gap-2">
+            <img src="/logo.png" alt="OpenMNC" className="w-6 h-6 object-contain" />
+            <div className="flex items-center gap-1">
+              <span className="font-display text-base font-bold text-white">Open</span>
+              <span className="font-display text-base font-bold text-cyan-neon">MNC</span>
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -90,13 +93,16 @@ export default function AdminLayout() {
       >
         {/* Brand / Logo */}
         <div className="p-5 border-b border-white/5 flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-1">
-              <span className="font-display text-lg font-bold text-white">Open</span>
-              <span className="font-display text-lg font-bold text-cyan-neon">MNC</span>
-              <span className="ml-0.5 w-1.5 h-1.5 rounded-full bg-cyan-neon animate-pulse" aria-hidden="true" />
+          <div className="flex items-center gap-2.5">
+            <img src="/logo.png" alt="OpenMNC" className="w-8 h-8 object-contain" />
+            <div>
+              <div className="flex items-center gap-1">
+                <span className="font-display text-lg font-bold text-white">Open</span>
+                <span className="font-display text-lg font-bold text-cyan-neon">MNC</span>
+                <span className="ml-0.5 w-1.5 h-1.5 rounded-full bg-cyan-neon animate-pulse" aria-hidden="true" />
+              </div>
+              <p className="text-gray-500 text-xs mt-0.5">Control Center</p>
             </div>
-            <p className="text-gray-500 text-xs mt-0.5">Control Center</p>
           </div>
           <button
             onClick={() => setMobileMenuOpen(false)}
