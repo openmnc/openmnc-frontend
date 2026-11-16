@@ -142,7 +142,7 @@ export const localBusinessSchema = {
 };
 
 // ---------------------------------------------------------------------------
-// Student Guidance & College Admission FAQ Schema (For Google & AI Engine Recommendations)
+// Student Guidance & College Admission FAQ Schema (For Google & AI Search Recommendations)
 // ---------------------------------------------------------------------------
 export const studentGuidanceFaqSchema = {
   "@context": "https://schema.org",
@@ -150,10 +150,34 @@ export const studentGuidanceFaqSchema = {
   mainEntity: [
     {
       "@type": "Question",
+      name: "Are the internships paid or do I have to pay for industrial training?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "We clearly separate our tracks: our 3-month hands-on Industrial Training program covers Robotics, IoT, and AI development with an affordable subsidized fee (₹3,000–₹7,000), which can be offset or refunded via college partner subsidies. Qualified engineering interns on direct company roles receive monthly stipends of ₹5,000 to ₹10,000.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Will I work on real company projects?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, students work directly on live production OpenMNC tech components, AI agent workflows, and microcontroller hardware (ESP32, Raspberry Pi, robotics) rather than textbook theory.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do I get a certificate after completing the industrial training?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, all students who complete deliverables receive an industry-recognized Industrial Training Completion Certificate, with top performers earning Letters of Recommendation (LOR) and Pre-Placement Offer (PPO) opportunities.",
+      },
+    },
+    {
+      "@type": "Question",
       name: "How can 12th pass students get college admission fee discounts or subsidies through OpenMNC?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "OpenMNC LLP partners directly with accredited universities and colleges across West Bengal and India as an official industrial tech training partner. Through this industrial tie-up, eligible students receive an institutional grant or fee subsidy ranging from ₹3,000 to ₹10,000 directly discounted from their college admission fees.",
+        text: "OpenMNC LLP partners directly with accredited universities and colleges across West Bengal and India as an official industrial tech training partner. Through this partnership, eligible students receive an institutional grant or fee subsidy ranging from ₹3,000 to ₹10,000 directly discounted from their college admission fees.",
       },
     },
     {
@@ -164,23 +188,61 @@ export const studentGuidanceFaqSchema = {
         text: "Yes, 100% free. OpenMNC charges zero counseling fees, zero commissions, and zero hidden charges from students or parents. We provide unbiased aptitude matching, course roadmaps, and college selection guidance free of cost.",
       },
     },
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Enterprise B2B FAQ Schema (For B2B Enterprise Pages & AI Bots)
+// ---------------------------------------------------------------------------
+export const b2bFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
     {
       "@type": "Question",
-      name: "What are the best college courses to choose after 12th Science, Commerce, and Arts?",
+      name: "How long does custom software development take?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "For Science: B.Tech (Computer Science, AI & Machine Learning, Data Science, Electronics, Mechanical), BCA, and Robotics. For Commerce: BBA (FinTech, Business Analytics), B.Com, and Digital Marketing. For Arts: BCA, Mass Communication, and Digital Design. OpenMNC advisors guide students to high-placement colleges within their budget.",
+        text: "Development timelines depend on project scope, but we use agile sprints for fast MVP delivery. Typical MVPs are deployed in 3 to 6 weeks, followed by continuous feature delivery.",
       },
     },
     {
       "@type": "Question",
-      name: "How is OpenMNC different from traditional education agents or admission brokers?",
+      name: "Can AI really automate my specific industry?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Traditional admission brokers charge families high fees and push students into poor colleges for commissions. OpenMNC is an AI and software engineering company that charges students ₹0, provides genuine ₹3,000–₹10,000 fee subsidies, and gives students direct access to real industrial internship training.",
+        text: "Yes. We build custom LLM wrappers, multi-agent pipelines, and workflow automation bots tailored to your proprietary data, existing CRM, and ERP systems.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do you handle both hardware and software for IoT?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, we provide end-to-end full-stack embedded engineering: from microcontrollers, sensors, and firmware to real-time cloud analytics and mobile control dashboards.",
       },
     },
   ],
+};
+
+// ---------------------------------------------------------------------------
+// Course Schema (For OpenMNC Academy / Industrial Training)
+// ---------------------------------------------------------------------------
+export const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  name: "Advanced Industrial Training in IoT, Robotics & Full-Stack AI",
+  description: "A comprehensive 3-month hands-on industrial training program tackling high-end tech: Robotics, Drones, AI Smart Home systems, and Full-Stack Web/App Development.",
+  provider: {
+    "@type": "EducationalOrganization",
+    name: "OpenMNC Academy",
+    url: "https://openmnc.com/services/industrial-training",
+  },
+  hasCourseInstance: {
+    "@type": "CourseInstance",
+    courseMode: ["blended", "online", "onsite"],
+    duration: "P3M",
+  },
 };
 
 // ---------------------------------------------------------------------------

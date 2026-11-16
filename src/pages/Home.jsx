@@ -11,7 +11,7 @@ import SEO from '../components/SEO.jsx'
 import { servicesApi } from '../api/services.js'
 import { settingsApi } from '../api/settings.js'
 import { whatsappUrl } from '../utils/helpers.js'
-import { localBusinessSchema } from '../utils/jsonld.js'
+import { localBusinessSchema, b2bFaqSchema } from '../utils/jsonld.js'
 
 // Static fallback data matching OpenMNC LLP's core verticals
 const DEFAULT_SERVICES = [
@@ -118,11 +118,11 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="OpenMNC LLP — Global AI Automation, Custom Software & Enterprise Solutions"
-        description="OpenMNC LLP is a global technology and AI automation company headquartered in West Bengal, India. We architect custom AI agents, automated enterprise workflows, web & mobile applications, and student career guidance for worldwide and domestic sectors."
+        title="OpenMNC LLP — AI Automation Company & Custom Software Development India"
+        description="OpenMNC LLP is an enterprise technology partner engineering autonomous AI workflows, custom full-stack software, and IoT systems, serving businesses worldwide and across India."
         canonical="/"
-        keywords="OpenMNC, Open MNC, OpenMNC LLP, global AI automation company, enterprise AI workflows, LLM integration, custom software development, SaaS engineering, FinTech AI automation, Healthcare AI bots, E-commerce automation, best colleges after 12th, free student career guidance, college admission discount subsidy, industrial training IoT robotics, tech company West Bengal India, Amit Barai"
-        schema={localBusinessSchema}
+        keywords="AI automation company Kolkata, Custom software development India, IoT embedded engineering services, B2B AI integration, App development agency, enterprise AI workflows, software company India"
+        schema={[localBusinessSchema, b2bFaqSchema]}
       />
 
       {/* ══════ HERO SECTION ══════ */}
@@ -227,9 +227,9 @@ export default function Home() {
       >
         <div className="container-max">
           <SectionHeader
-            eyebrow="What We Do"
-            title="Services Built for the Future"
-            subtitle="From AI automation to student mentorship — everything we do is designed to create lasting impact."
+            eyebrow="Enterprise Technology Partner (B2B)"
+            title="High-Impact AI Automation & Custom Software"
+            subtitle="We engineer autonomous AI multi-agent workflows, custom SaaS applications, and full-stack software that multiply revenue and eliminate operational waste."
           />
           <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.slice(0, 6).map((service, i) => (

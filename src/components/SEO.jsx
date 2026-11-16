@@ -1,45 +1,10 @@
-import { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 
 const BASE_URL = 'https://openmnc.com'
 const DEFAULT_TITLE = 'OpenMNC LLP — Global AI Automation, Custom Software & Enterprise Solutions'
-const DEFAULT_DESC = 'OpenMNC LLP is a global technology and AI automation company headquartered in West Bengal, India. We architect custom AI agents, automated enterprise workflows, web & mobile applications, and student career guidance for worldwide and domestic sectors.'
-const DEFAULT_IMAGE = `${BASE_URL}/logo.png`
-const DEFAULT_KEYWORDS = 'OpenMNC, Open MNC, OpenMNC LLP, global AI automation company, enterprise AI workflows, LLM integration, custom software development, SaaS engineering, FinTech AI automation, Healthcare AI bots, E-commerce automation, best colleges after 12th, free student career guidance, college admission discount subsidy, industrial training IoT robotics, tech company West Bengal India, Amit Barai'
-
-function updateMetaTag(name, content, isProperty = false) {
-  if (!content) return
-  const attribute = isProperty ? 'property' : 'name'
-  let tag = document.querySelector(`meta[${attribute}="${name}"]`)
-  if (!tag) {
-    tag = document.createElement('meta')
-    tag.setAttribute(attribute, name)
-    document.head.appendChild(tag)
-  }
-  tag.setAttribute('content', content)
-}
-
-function updateCanonical(url) {
-  let link = document.querySelector('link[rel="canonical"]')
-  if (!link) {
-    link = document.createElement('link')
-    link.setAttribute('rel', 'canonical')
-    document.head.appendChild(link)
-  }
-  link.setAttribute('href', url)
-}
-
-function updateJsonLd(schemaId, schemaData) {
-  const existingScript = document.getElementById(schemaId)
-  if (existingScript) {
-    existingScript.remove()
-  }
-  if (!schemaData) return
-  const script = document.createElement('script')
-  script.id = schemaId
-  script.type = 'application/ld+json'
-  script.text = JSON.stringify(schemaData)
-  document.head.appendChild(script)
-}
+const DEFAULT_DESC = 'OpenMNC LLP is an enterprise AI automation and custom software engineering company based in Kolkata, India. Delivering autonomous AI workflows, SaaS platforms, and free student guidance.'
+const DEFAULT_IMAGE = `${BASE_URL}/logo.webp`
+const DEFAULT_KEYWORDS = 'OpenMNC, AI automation company Kolkata, Custom software development India, IoT embedded engineering services, B2B AI integration, App development agency, Free student career guidance India, B.Tech industrial training Kolkata'
 
 export default function SEO({
   title = DEFAULT_TITLE,
@@ -50,48 +15,51 @@ export default function SEO({
   type = 'website',
   schema = null,
 }) {
-  useEffect(() => {
-    // 1. Page Title
-    document.title = title
+  // Ensure canonical is always absolute and points to the specific route
+  const fullCanonical = canonical
+    ? (canonical.startsWith('http') ? canonical : `${BASE_URL}${canonical.startsWith('/') ? canonical : '/' + canonical}`)
+    : BASE_URL
 
-    // 2. Standard Meta Tags
-    updateMetaTag('title', title)
-    updateMetaTag('description', description)
-    updateMetaTag('keywords', keywords)
-    updateMetaTag('author', 'Amit Barai, OpenMNC LLP')
-    updateMetaTag('robots', 'index, follow')
+  const fullImage = image.startsWith('http') ? image : `${BASE_URL}${image.startsWith('/') ? image : '/' + image}`
 
-    // 3. Canonical URL
-    const fullCanonical = canonical.startsWith('http') ? canonical : `${BASE_URL}${canonical}`
-    updateCanonical(fullCanonical)
+  // Support single schema object or array of schema objects
+  const schemas = Array.isArray(schema) ? schema.filter(Boolean) : schema ? [schema] : []
 
-    // 4. Open Graph (Facebook / LinkedIn / WhatsApp)
-    updateMetaTag('og:type', type, true)
-    updateMetaTag('og:url', fullCanonical, true)
-    updateMetaTag('og:title', title, true)
-    updateMetaTag('og:description', description, true)
-    updateMetaTag('og:image', image, true)
-    updateMetaTag('og:site_name', 'OpenMNC LLP', true)
-    updateMetaTag('og:locale', 'en_IN', true)
+  return (
+    <Helmet>
+      {/* 1. Primary Page Metadata */}
+      <title>{title}</title>
+      <meta name="title" content={title} />
+      <meta name="description" content={description} />
+      <meta name="keywords" content={keywords} />
+      <meta name="author" content="Amit Barai, OpenMNC LLP" />
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
-    // 5. Twitter
-    updateMetaTag('twitter:card', 'summary_large_image')
-    updateMetaTag('twitter:url', fullCanonical)
-    updateMetaTag('twitter:title', title)
-    updateMetaTag('twitter:description', description)
-    updateMetaTag('twitter:image', image)
+      {/* 2. Canonical URL (Strictly route-specific to prevent duplicate homepage canonicals) */}
+      <link rel="canonical" href={fullCanonical} />
 
-    // 6. JSON-LD Schema
-    const scriptId = 'page-jsonld-schema'
-    if (schema) {
-      updateJsonLd(scriptId, schema)
-    }
+      {/* 3. Open Graph / Social Embeds */}
+      <meta property="og:type" content={type} />
+      <meta property="og:url" content={fullCanonical} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={fullImage} />
+      <meta property="og:site_name" content="OpenMNC LLP" />
+      <meta property="og:locale" content="en_IN" />
 
-    return () => {
-      const el = document.getElementById(scriptId)
-      if (el) el.remove()
-    }
-  }, [title, description, keywords, canonical, image, type, schema])
+      {/* 4. Twitter Cards */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content={fullCanonical} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={fullImage} />
 
-  return null
+      {/* 5. Rich Snippets & AI Semantic Web (JSON-LD) */}
+      {schemas.map((s, idx) => (
+        <script key={idx} type="application/ld+json">
+          {JSON.stringify(s)}
+        </script>
+      ))}
+    </Helmet>
+  )
 }

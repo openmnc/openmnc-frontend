@@ -8,7 +8,7 @@ import GlowButton from '../components/GlowButton.jsx'
 import SEO from '../components/SEO.jsx'
 import { servicesApi } from '../api/services.js'
 import { getServiceIcon, whatsappUrl } from '../utils/helpers.js'
-import { serviceSchema, studentGuidanceFaqSchema } from '../utils/jsonld.js'
+import { serviceSchema, studentGuidanceFaqSchema, b2bFaqSchema, courseSchema } from '../utils/jsonld.js'
 
 const STATIC_SERVICES = [
   {
@@ -109,8 +109,9 @@ const STATIC_SERVICES = [
   },
 ]
 
-export default function Services() {
-  const { slug } = useParams()
+export default function Services({ initialSlug }) {
+  const params = useParams()
+  const slug = initialSlug || params.slug
   const [services, setServices] = useState(STATIC_SERVICES)
 
   useEffect(() => {
@@ -135,19 +136,43 @@ export default function Services() {
   }, [slug, services])
 
   const currentService = slug ? services.find((s) => s.slug === slug) : null
-  const isStudentGuidance = slug === 'student-guidance'
 
-  let seoTitle = 'Services — Global AI Automation, Custom Software & Training | OpenMNC'
-  let seoDesc = 'Explore OpenMNC services: Enterprise AI Automation, Custom App & SaaS Development, In-House Products, Organic Growth, Free Student Guidance with ₹3,000–₹10,000 College Subsidies, and Industrial IoT Training.'
-  let seoKeywords = 'OpenMNC services, global AI automation, custom software development, student career guidance subsidy, best colleges after 12th, industrial training IoT robotics, enterprise software solutions'
-  let seoSchema = null
+  let seoTitle = 'Enterprise B2B Tech Services & OpenMNC Academy | OpenMNC LLP'
+  let seoDesc = 'Explore OpenMNC services: AI Business Automation, Custom Software Development, In-House Products, Free Student Guidance, and Industrial Training.'
+  let seoKeywords = 'AI automation company Kolkata, Custom software development India, IoT embedded engineering services, B2B AI integration, App development agency, Free student career guidance India, B.Tech industrial training Kolkata'
+  let seoSchema = [b2bFaqSchema, studentGuidanceFaqSchema]
 
   if (currentService) {
-    if (isStudentGuidance) {
-      seoTitle = 'Student Guidance & College Admission Subsidies (₹3,000–₹10,000 Off) | OpenMNC'
-      seoDesc = '100% Free career guidance for 12th-pass students. Claim ₹3,000 to ₹10,000 in official industrial partner college admission fee subsidies for B.Tech, BCA, BBA, and Diploma programs across West Bengal & India.'
-      seoKeywords = 'best colleges after 12th pass, college admission discount subsidy, free student career guidance, btech admission scholarship, direct college admission west bengal, bca bba college roadmaps, OpenMNC student guidance, college counseling without agent fees'
-      seoSchema = studentGuidanceFaqSchema
+    if (slug === 'business-automation') {
+      seoTitle = 'AI Automation Company Kolkata & Enterprise Workflows | OpenMNC'
+      seoDesc = 'OpenMNC provides enterprise AI automation, autonomous multi-agent pipelines, and LLM workflow integrations for FinTech, Healthcare, and E-commerce.'
+      seoKeywords = 'AI automation company Kolkata, B2B AI integration, enterprise AI workflows, autonomous AI agents, business process automation, LLM workflows'
+      seoSchema = [serviceSchema(currentService), b2bFaqSchema]
+    } else if (slug === 'custom-development') {
+      seoTitle = 'Custom Software Development India & Mobile App Agency | OpenMNC'
+      seoDesc = 'Full-cycle custom software development, modern SaaS platforms, iOS/Android mobile applications, and App Store Optimization (ASO) by OpenMNC LLP.'
+      seoKeywords = 'Custom software development India, App development agency, SaaS engineering, mobile app development, React FastAPI developers'
+      seoSchema = [serviceSchema(currentService), b2bFaqSchema]
+    } else if (slug === 'industrial-training') {
+      seoTitle = 'B.Tech Industrial Training Kolkata & Live IoT Engineering | OpenMNC'
+      seoDesc = '3-Month comprehensive industrial training in Advanced IoT, Robotics, Drones, and Full-Stack AI engineering on live OpenMNC production components.'
+      seoKeywords = 'B.Tech industrial training Kolkata, IoT embedded engineering services, engineering internships with live projects, robotics training Kolkata'
+      seoSchema = [serviceSchema(currentService), courseSchema, studentGuidanceFaqSchema]
+    } else if (slug === 'student-guidance') {
+      seoTitle = 'Free Student Career Guidance India & College Subsidies | OpenMNC Academy'
+      seoDesc = '100% Free career guidance for 12th pass students. Claim ₹3,000 to ₹10,000 in official college admission fee subsidies for B.Tech, BCA, and BBA programs.'
+      seoKeywords = 'Free student career guidance India, college admission subsidy, best colleges after 12th pass, btech admission scholarship, career roadmap'
+      seoSchema = [serviceSchema(currentService), studentGuidanceFaqSchema]
+    } else if (slug === 'inhouse-products') {
+      seoTitle = 'In-House Products & Mobile Apps (Kibo VPN, Calorie AI) | OpenMNC'
+      seoDesc = 'Proprietary custom software, digital tools, and mobile apps built and published by OpenMNC LLP on Google Play and Apple App Store.'
+      seoKeywords = 'Kibo VPN, Calorie AI, CardSnap, in-house mobile apps, proprietary software innovation'
+      seoSchema = serviceSchema(currentService)
+    } else if (slug === 'social-media-management') {
+      seoTitle = 'Social Media Management & Organic Growth Marketing | OpenMNC'
+      seoDesc = 'High-ROI organic growth marketing, video scriptwriting, and algorithm-matched content production for businesses and solopreneurs.'
+      seoKeywords = 'social media management, organic growth, video editing, algorithm boost, viral marketing'
+      seoSchema = serviceSchema(currentService)
     } else {
       seoTitle = `${currentService.title} | OpenMNC Enterprise Solutions`
       seoDesc = currentService.description || currentService.tagline
@@ -323,15 +348,64 @@ export default function Services() {
           </div>
         </section>
 
-        {/* ══════ STUDENT GUIDANCE & COLLEGE ADMISSION SUBSIDY FAQ ══════ */}
-        <section className="mt-28 border-t border-white/5 pt-20" aria-label="Student guidance and college subsidy FAQs" id="student-faq">
+        {/* ══════ ENTERPRISE B2B FAQ SECTION ══════ */}
+        <section className="mt-28 border-t border-white/5 pt-20" aria-label="Enterprise B2B FAQs" id="b2b-faq">
           <SectionHeader
-            eyebrow="Student & Parent Clarifications"
-            title="College Admission Guidance & Subsidies FAQ"
-            subtitle="Transparent answers for 12th-pass students and parents regarding college selection, eligibility, and fee subsidies."
+            eyebrow="Enterprise Client Inquiries"
+            title="Enterprise Tech &amp; AI Automation FAQ"
+            subtitle="Straight answers on delivery velocity, custom AI models, and full-stack hardware/software capabilities."
           />
           <div className="mt-12 max-w-4xl mx-auto space-y-6">
             {[
+              {
+                q: 'How long does custom software development take?',
+                a: 'Delivery timelines depend on scope, but we operate in rapid agile sprints for fast MVP delivery. We typically deliver a production-ready MVP in 3 to 6 weeks, followed by bi-weekly releases and continuous monitoring.',
+              },
+              {
+                q: 'Can AI really automate my specific industry workflows?',
+                a: 'Yes. We do not use generic chatbots. We build custom LLM wrappers, autonomous multi-agent pipelines, and proprietary workflow bots connected directly to your private databases, CRM, and internal APIs.',
+              },
+              {
+                q: 'Do you handle both hardware and software for IoT solutions?',
+                a: 'Yes, we provide true full-stack embedded engineering: from microcontrollers (ESP32, Raspberry Pi, STM32) and drone telemetry to cloud data pipelines, analytics, and mobile dashboards.',
+              },
+            ].map((faq, i) => (
+              <ScrollReveal key={i} delay={i * 0.1}>
+                <div className="glass-card p-6 sm:p-7 border border-white/5 hover:border-cyan-neon/30 transition-all">
+                  <h3 className="font-display text-base sm:text-lg font-bold text-white mb-2 flex items-start gap-2.5">
+                    <span className="text-cyan-neon">Q.</span>
+                    <span>{faq.q}</span>
+                  </h3>
+                  <p className="text-gray-300 text-xs sm:text-sm leading-relaxed pl-6">
+                    {faq.a}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+
+        {/* ══════ STUDENT GUIDANCE & COLLEGE ADMISSION SUBSIDY FAQ ══════ */}
+        <section className="mt-28 border-t border-white/5 pt-20" aria-label="Student guidance and college subsidy FAQs" id="student-faq">
+          <SectionHeader
+            eyebrow="OpenMNC Academy &amp; Student Wing"
+            title="College Admission Guidance &amp; Training FAQ"
+            subtitle="Transparent answers for students and parents regarding college fee subsidies, real project internships, and certifications."
+          />
+          <div className="mt-12 max-w-4xl mx-auto space-y-6">
+            {[
+              {
+                q: 'Are the internships paid or do I have to pay for industrial training?',
+                a: 'We strictly separate our tracks: our 3-month hands-on Industrial Training program covers Robotics, IoT, and AI development with an affordable subsidized fee (₹3,000–₹7,000), which can be offset or refunded via college partner subsidies. Selective direct engineering interns for company development roles receive monthly stipends of ₹5,000 to ₹10,000.',
+              },
+              {
+                q: 'Will I work on real company projects?',
+                a: 'Yes! Students work directly on live production OpenMNC tech components, autonomous AI agent pipelines, and real microcontroller hardware (ESP32, Raspberry Pi, robotics) rather than outdated textbook slides.',
+              },
+              {
+                q: 'Do I get a certificate after the industrial training?',
+                a: 'Yes, every student who completes deliverables receives an authorized, industry-recognized Industrial Training Completion Certificate, and top performers receive Letters of Recommendation (LOR) and Pre-Placement Offer (PPO) opportunities.',
+              },
               {
                 q: 'How can 12th pass students claim the ₹3,000–₹10,000 college admission fee subsidy?',
                 a: 'OpenMNC LLP acts as an official industrial technology training partner for accredited colleges and universities across West Bengal and India. Because we train students directly on industrial projects, our partner colleges authorize an official institutional grant or admission subsidy of ₹3,000 to ₹10,000 deducted directly from the student’s college fees.',
@@ -339,14 +413,6 @@ export default function Services() {
               {
                 q: 'Is OpenMNC career counseling really 100% free with no hidden charges?',
                 a: 'Yes, 100% free. We never charge students or parents a single rupee for counseling, aptitude assessments, or college recommendations. Unlike traditional education brokers who charge high commissions, OpenMNC earns from industrial engineering and training partnerships — passing the savings directly to students.',
-              },
-              {
-                q: 'Which streams and degree courses are eligible for guidance and partner discounts?',
-                a: 'We provide guidance for B.Tech (Computer Science, AI & Machine Learning, Data Science, Electronics, Mechanical), BCA, BBA (FinTech, Business Analytics), Diploma in Engineering, Medical/Pharmacy, and general degrees. We analyze your 12th marks, interests, and family budget to find the best-fit college with proven placement records.',
-              },
-              {
-                q: 'How is OpenMNC different from traditional education agents or admission consultants?',
-                a: 'Traditional admission agents push students into low-grade private colleges solely to make a fat commission, often charging families ₹20,000 to ₹50,000 in broker fees. OpenMNC is a real AI and software engineering company: we charge students ₹0, offset ₹3,000–₹10,000 from college fees, and offer genuine 3-month industrial internships so you graduate job-ready.',
               },
             ].map((faq, i) => (
               <ScrollReveal key={i} delay={i * 0.1}>
