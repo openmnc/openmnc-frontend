@@ -191,8 +191,9 @@ export default function Services() {
 
       {/* Services List */}
       <main className="bg-navy-950 section-padding">
-        <div className="container-max space-y-20">
-          {services.map((service, i) => {
+        <div className="container-max">
+          <div className="space-y-20">
+            {services.map((service, i) => {
             const icon = getServiceIcon(service.icon, service.slug)
             const isEven = i % 2 === 0
             return (
