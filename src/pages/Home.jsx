@@ -7,9 +7,11 @@ import StatCounter from '../components/StatCounter.jsx'
 import ScrollReveal from '../components/ScrollReveal.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
 import GlowButton from '../components/GlowButton.jsx'
+import SEO from '../components/SEO.jsx'
 import { servicesApi } from '../api/services.js'
 import { settingsApi } from '../api/settings.js'
 import { whatsappUrl } from '../utils/helpers.js'
+import { localBusinessSchema } from '../utils/jsonld.js'
 
 // Static fallback data matching OpenMNC LLP's core verticals
 const DEFAULT_SERVICES = [
@@ -115,6 +117,14 @@ export default function Home() {
 
   return (
     <>
+      <SEO
+        title="OpenMNC LLP — Global AI Automation, Custom Software & Enterprise Solutions"
+        description="OpenMNC LLP is a global technology and AI automation company headquartered in West Bengal, India. We architect custom AI agents, automated enterprise workflows, web & mobile applications, and student career guidance for worldwide and domestic sectors."
+        canonical="/"
+        keywords="OpenMNC, Open MNC, OpenMNC LLP, global AI automation company, enterprise AI workflows, LLM integration, custom software development, SaaS engineering, FinTech AI automation, Healthcare AI bots, E-commerce automation, best colleges after 12th, free student career guidance, college admission discount subsidy, industrial training IoT robotics, tech company West Bengal India, Amit Barai"
+        schema={localBusinessSchema}
+      />
+
       {/* ══════ HERO SECTION ══════ */}
       <section
         className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-gradient"
@@ -136,7 +146,7 @@ export default function Home() {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-semibold tracking-wider uppercase mb-8"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" aria-hidden="true" />
-            AI-First · India-Based · Full-Cycle
+            Global AI &amp; Enterprise Software · Worldwide &amp; Domestic · HQ West Bengal, India
           </motion.div>
 
           <motion.h1
@@ -366,6 +376,63 @@ export default function Home() {
                 </div>
               </ScrollReveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════ STUDENT GUIDANCE & COLLEGE SUBSIDY SPOTLIGHT ══════ */}
+      <section
+        className="py-20 px-4 bg-navy-950 border-t border-cyan-neon/15 relative overflow-hidden"
+        aria-label="Student guidance and college admission subsidies"
+      >
+        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-neon/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="container-max">
+          <div className="glass-card p-8 sm:p-12 border border-cyan-neon/20 bg-gradient-to-br from-cyan-neon/10 via-navy-900 to-navy-950 relative overflow-hidden">
+            <div className="grid lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-8">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-neon/15 text-cyan-neon border border-cyan-neon/30 mb-4 uppercase tracking-wider">
+                  <span>🎓</span> 100% Free Guidance · ₹3,000–₹10,000 College Subsidies
+                </span>
+                <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-4 leading-tight">
+                  Choosing the Best College After 12th?{' '}
+                  <span className="gradient-text">Claim Your Institutional Fee Subsidy.</span>
+                </h2>
+                <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+                  Don&apos;t pay hefty agent commissions or risk enrolling in low-placement colleges. As an industrial technology partner, 
+                  OpenMNC helps 12th-pass students choose the right B.Tech, BCA, BBA, or Diploma course — and offsets 
+                  <strong> ₹3,000 to ₹10,000 directly from your admission fees</strong>.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-gray-200">
+                    <span className="text-cyan-neon font-bold block mb-0.5">✓ ₹0 Cost</span>
+                    100% Free counseling, zero broker fees
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-gray-200">
+                    <span className="text-cyan-neon font-bold block mb-0.5">✓ ₹3k - ₹10k</span>
+                    Official college fee discount grant
+                  </div>
+                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-gray-200">
+                    <span className="text-cyan-neon font-bold block mb-0.5">✓ Real Internships</span>
+                    Live IoT, AI &amp; Web project training
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-4">
+                  <GlowButton to="/contact?intent=student&service=student-guidance" variant="primary">
+                    Claim College Subsidy &amp; Guidance →
+                  </GlowButton>
+                  <GlowButton to="/services/student-guidance#student-faq" variant="outline">
+                    Read College FAQs
+                  </GlowButton>
+                </div>
+              </div>
+              <div className="lg:col-span-4 text-center hidden lg:block">
+                <div className="w-48 h-48 mx-auto rounded-3xl bg-cyan-neon/10 border border-cyan-neon/30 flex flex-col items-center justify-center p-6 shadow-cyan-glow">
+                  <span className="text-5xl mb-2">🏛️</span>
+                  <p className="font-display font-bold text-white text-base">Accredited Colleges</p>
+                  <p className="text-cyan-neon text-xs font-semibold mt-1">₹3,000–₹10,000 Off</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

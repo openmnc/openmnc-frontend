@@ -50,7 +50,87 @@ export const organizationSchema = {
   ],
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Kolkata",
+    addressLocality: "Kolkata",
+    addressRegion: "West Bengal",
+    postalCode: "700001",
     addressCountry: "IN",
+  },
+  areaServed: [
+    { "@type": "Country", "name": "Worldwide" },
+    { "@type": "Country", "name": "United States" },
+    { "@type": "Country", "name": "United Kingdom" },
+    { "@type": "Country", "name": "India" },
+    { "@type": "State", "name": "West Bengal" },
+  ],
+  knowsAbout: [
+    "Artificial Intelligence Workflow Automation",
+    "Large Language Model (LLM) Integration",
+    "Enterprise Business Process Automation (BPA)",
+    "Custom SaaS & Web Application Development",
+    "FinTech & E-Commerce Automation",
+    "Student Career Guidance & College Admission Scholarships",
+    "Industrial IoT & Robotics Engineering",
+    "Organic Social Media Growth & Viral Scripting"
+  ],
+  sameAs: [
+    "https://www.linkedin.com/company/openmnc",
+    "https://www.instagram.com/openmnc",
+    "https://twitter.com/openmnc",
+    "https://www.facebook.com/openmnc",
+    "https://www.youtube.com/@openmnc",
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// LocalBusiness / ProfessionalService Schema
+// Registered headquarters in West Bengal, India — serving Global & Domestic sectors
+// ---------------------------------------------------------------------------
+export const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://openmnc.com/#localbusiness",
+  name: "OpenMNC LLP",
+  alternateName: ["OpenMNC", "Open MNC", "OpenMNC Global", "OpenMNC Tech"],
+  url: "https://openmnc.com",
+  logo: "https://openmnc.com/logo.png",
+  image: "https://openmnc.com/logo.png",
+  description:
+    "OpenMNC LLP is a global technology and AI automation company headquartered in West Bengal, India. We deliver enterprise AI workflows, full-cycle custom software, and free student career guidance serving clients worldwide and across India.",
+  telephone: "+91-8509684056",
+  email: "hello@openmnc.com",
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Kolkata",
+    addressLocality: "Kolkata",
+    addressRegion: "West Bengal",
+    postalCode: "700001",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 22.5726,
+    longitude: 88.3639,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "09:00",
+      closes: "20:00",
+    },
+  ],
+  areaServed: [
+    { "@type": "Country", name: "Worldwide" },
+    { "@type": "Country", name: "United States" },
+    { "@type": "Country", name: "United Kingdom" },
+    { "@type": "Country", name: "India" },
+    { "@type": "State", name: "West Bengal" },
+  ],
+  founder: {
+    "@type": "Person",
+    name: "Amit Barai",
   },
   sameAs: [
     "https://www.linkedin.com/company/openmnc",
@@ -58,6 +138,48 @@ export const organizationSchema = {
     "https://twitter.com/openmnc",
     "https://www.facebook.com/openmnc",
     "https://www.youtube.com/@openmnc",
+  ],
+};
+
+// ---------------------------------------------------------------------------
+// Student Guidance & College Admission FAQ Schema (For Google & AI Engine Recommendations)
+// ---------------------------------------------------------------------------
+export const studentGuidanceFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How can 12th pass students get college admission fee discounts or subsidies through OpenMNC?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "OpenMNC LLP partners directly with accredited universities and colleges across West Bengal and India as an official industrial tech training partner. Through this industrial tie-up, eligible students receive an institutional grant or fee subsidy ranging from ₹3,000 to ₹10,000 directly discounted from their college admission fees.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is OpenMNC student career guidance completely 100% free with no hidden fees?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, 100% free. OpenMNC charges zero counseling fees, zero commissions, and zero hidden charges from students or parents. We provide unbiased aptitude matching, course roadmaps, and college selection guidance free of cost.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What are the best college courses to choose after 12th Science, Commerce, and Arts?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "For Science: B.Tech (Computer Science, AI & Machine Learning, Data Science, Electronics, Mechanical), BCA, and Robotics. For Commerce: BBA (FinTech, Business Analytics), B.Com, and Digital Marketing. For Arts: BCA, Mass Communication, and Digital Design. OpenMNC advisors guide students to high-placement colleges within their budget.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How is OpenMNC different from traditional education agents or admission brokers?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Traditional admission brokers charge families high fees and push students into poor colleges for commissions. OpenMNC is an AI and software engineering company that charges students ₹0, provides genuine ₹3,000–₹10,000 fee subsidies, and gives students direct access to real industrial internship training.",
+      },
+    },
   ],
 };
 
@@ -110,10 +232,16 @@ export const serviceSchema = (service) => ({
     "@id": "https://openmnc.com/#organization",
   },
   serviceType: service.title,
-  areaServed: {
-    "@type": "Country",
-    name: "India",
-  },
+  areaServed: [
+    {
+      "@type": "Country",
+      name: "Worldwide",
+    },
+    {
+      "@type": "Country",
+      name: "India",
+    },
+  ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: `${service.title} Offerings`,

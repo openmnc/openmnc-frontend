@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import ScrollReveal from '../components/ScrollReveal.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
 import GlowButton from '../components/GlowButton.jsx'
+import SEO from '../components/SEO.jsx'
 import { careersApi } from '../api/careers.js'
 import { jobPostingSchema } from '../utils/jsonld.js'
 
@@ -475,8 +476,27 @@ export default function Careers() {
   const departments = ['All', ...new Set(jobs.map((j) => j.department))]
   const filteredJobs = selectedDept === 'All' ? jobs : jobs.filter((j) => j.department === selectedDept)
 
+  // Dynamic SEO based on whether a specific job modal is opened or general listing
+  const activeJob = selectedJobForApply
+  const seoTitle = activeJob
+    ? `Apply for ${activeJob.title} — OpenMNC Careers`
+    : 'Careers & Tech Internships at OpenMNC LLP — Work Worldwide & India'
+  const seoDesc = activeJob
+    ? `Submit your application for ${activeJob.title} (${activeJob.department}) at OpenMNC LLP. ${activeJob.description.slice(0, 140)}...`
+    : 'Join OpenMNC LLP engineering & AI team. Explore remote and hybrid roles in AI workflow engineering, full-stack software, IoT robotics, and paid internships with certificates.'
+  const seoKeywords = activeJob
+    ? `${activeJob.title}, ${activeJob.department} hiring, ${activeJob.requirements ? activeJob.requirements.join(', ') : ''}, OpenMNC careers, apply online`
+    : `OpenMNC careers, tech jobs remote, AI workflow engineer, full stack developer hiring, paid tech internship with certificate, ${jobs.map((j) => j.title).join(', ')}`
+
   return (
     <>
+      <SEO
+        title={seoTitle}
+        description={seoDesc}
+        canonical="/careers"
+        keywords={seoKeywords}
+      />
+
       {/* Google Jobs Schema */}
       {jobs.map((job) => {
         const schema = jobPostingSchema(job)

@@ -64,7 +64,7 @@ export default function Footer() {
               </p>
               <p>
                 <span className="text-cyan-neon">📍</span>{' '}
-                India
+                HQ: West Bengal, India · Serving Worldwide &amp; Domestic
               </p>
             </address>
           </div>

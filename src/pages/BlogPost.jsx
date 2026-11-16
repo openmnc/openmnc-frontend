@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import ScrollReveal from '../components/ScrollReveal.jsx'
 import GlowButton from '../components/GlowButton.jsx'
+import SEO from '../components/SEO.jsx'
 import { blogsApi } from '../api/blogs.js'
 import { blogPostSchema } from '../utils/jsonld.js'
 import { formatDate, whatsappUrl } from '../utils/helpers.js'
@@ -69,13 +70,15 @@ export default function BlogPost() {
 
   return (
     <>
-      {/* Inject JSON-LD into DOM for AI bots */}
-      {schema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      )}
+      <SEO
+        title={`${post.title} — OpenMNC Blog`}
+        description={post.excerpt || post.title}
+        canonical={`/blog/${post.slug}`}
+        image={post.cover_image || 'https://openmnc.com/logo.png'}
+        type="article"
+        keywords={Array.isArray(post.tags) ? post.tags.join(', ') : post.tags || 'OpenMNC, Tech Blog, AI'}
+        schema={schema}
+      />
 
       {/* Article Header */}
       <header className="pt-32 pb-14 px-4 bg-navy-950 border-b border-white/5" aria-label="Article Header">

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import ScrollReveal from '../components/ScrollReveal.jsx'
 import GlowButton from '../components/GlowButton.jsx'
+import SEO from '../components/SEO.jsx'
 import { careersApi } from '../api/careers.js'
 import { formatDate } from '../utils/helpers.js'
 
@@ -84,6 +85,11 @@ export default function ApplicationTracker() {
 
   return (
     <>
+      <SEO
+        title="Track Job Application — OpenMNC LLP Careers"
+        description="Check real-time hiring status, interview scheduling, and feedback for your job applications at OpenMNC LLP."
+        canonical="/careers/track"
+      />
       <section className="pt-32 pb-14 px-4 bg-navy-950" aria-label="Candidate Application Tracker">
         <div className="container-max text-center max-w-3xl">
           <span className="text-xs text-cyan-neon font-semibold tracking-widest uppercase mb-4 block">

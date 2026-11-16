@@ -5,6 +5,7 @@ import ScrollReveal from '../components/ScrollReveal.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
 import ThreeBackground from '../components/ThreeBackground.jsx'
 import GlowButton from '../components/GlowButton.jsx'
+import SEO from '../components/SEO.jsx'
 import { blogsApi } from '../api/blogs.js'
 import { formatDate } from '../utils/helpers.js'
 
@@ -104,6 +105,13 @@ export default function Blog() {
 
   return (
     <>
+      <SEO
+        title="OpenMNC Tech & Career Blog — AI Guides & Industry Roadmaps"
+        description="Read articles and tutorials on business AI automation, modern software development, and free career guidance by the OpenMNC engineering team in Kolkata."
+        canonical="/blog"
+        keywords="OpenMNC blog, tech guides kolkata, AI automation tutorials, student career advice, app development blueprint"
+      />
+
       {/* Hero Header */}
       <section className="relative pt-32 pb-20 px-4 bg-navy-950 overflow-hidden" aria-label="Blog & Insights Hub">
         <ThreeBackground section="hero" className="opacity-30" />

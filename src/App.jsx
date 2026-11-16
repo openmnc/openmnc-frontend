@@ -42,6 +42,7 @@ export default function App() {
           {/* Public Routes */}
           <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
           <Route path="/services" element={<PublicLayout><Services /></PublicLayout>} />
+          <Route path="/services/:slug" element={<PublicLayout><Services /></PublicLayout>} />
           <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
           <Route path="/careers" element={<PublicLayout><Careers /></PublicLayout>} />
           <Route path="/careers/track" element={<PublicLayout><ApplicationTracker /></PublicLayout>} />

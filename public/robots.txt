@@ -1,5 +1,20 @@
+# Robots.txt for OpenMNC LLP (https://openmnc.com)
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+
+# Explicitly allow Googlebot, Bingbot, and AI search engines
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
 
 User-agent: GPTBot
 Allow: /
@@ -16,10 +31,5 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-User-agent: Googlebot
-Allow: /
-
-Disallow: /admin/
-Disallow: /api/
-
+# Sitemap Location
 Sitemap: https://openmnc.com/sitemap.xml

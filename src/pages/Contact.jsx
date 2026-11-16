@@ -3,8 +3,10 @@ import { useSearchParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { motion, AnimatePresence } from 'framer-motion'
 import ScrollReveal from '../components/ScrollReveal.jsx'
+import SEO from '../components/SEO.jsx'
 import apiClient from '../api/client.js'
 import { whatsappUrl } from '../utils/helpers.js'
+import { localBusinessSchema } from '../utils/jsonld.js'
 
 export default function Contact() {
   const [searchParams] = useSearchParams()
@@ -61,11 +63,19 @@ export default function Contact() {
 
   return (
     <>
+      <SEO
+        title="Contact OpenMNC LLP — Global & Domestic Tech Consultation"
+        description="Contact OpenMNC LLP. Direct WhatsApp (+91 8509684056) and consultation for global & domestic founders, B2B software partnerships, and free student college admission subsidies."
+        canonical="/contact"
+        keywords="contact OpenMNC, OpenMNC phone number, software consultation, AI consultation, student guidance contact, college admission subsidy contact"
+        schema={localBusinessSchema}
+      />
+
       {/* Page Hero */}
       <section className="pt-32 pb-14 px-4 bg-navy-950" aria-label="Contact OpenMNC">
         <div className="container-max text-center">
           <span className="text-xs text-cyan-neon font-semibold tracking-widest uppercase mb-4 block">
-            Intent-Based Consultation
+            Worldwide &amp; Domestic Inquiries · HQ West Bengal, India
           </span>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
             Let&apos;s Build Your <span className="gradient-text">Vision</span>
@@ -105,7 +115,7 @@ export default function Contact() {
               {[
                 { icon: '✉', label: 'Inquiries Email', value: 'hello@openmnc.com', href: 'mailto:hello@openmnc.com' },
                 { icon: '📞', label: 'Founder Contact', value: '+91 8509684056', href: 'tel:+918509684056' },
-                { icon: '🏢', label: 'Headquarters', value: 'OpenMNC LLP, India', href: null },
+                { icon: '🏢', label: 'Headquarters', value: 'Kolkata, West Bengal, India (Serving Globally & Domestically)', href: null },
               ].map((item) => (
                 <div key={item.label} className="glass-card p-4 flex items-center gap-3">
                   <div className="w-9 h-9 rounded-lg bg-cyan-neon/10 border border-cyan-neon/20 flex items-center justify-center text-sm flex-shrink-0 text-cyan-neon">

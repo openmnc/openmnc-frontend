@@ -1,42 +1,46 @@
 import { useEffect, useState } from 'react'
+import { useParams, Link } from 'react-router-dom'
 import ServiceCard from '../components/ServiceCard.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
 import ScrollReveal from '../components/ScrollReveal.jsx'
 import ThreeBackground from '../components/ThreeBackground.jsx'
+import GlowButton from '../components/GlowButton.jsx'
+import SEO from '../components/SEO.jsx'
 import { servicesApi } from '../api/services.js'
-import { getServiceIcon } from '../utils/helpers.js'
+import { getServiceIcon, whatsappUrl } from '../utils/helpers.js'
+import { serviceSchema, studentGuidanceFaqSchema } from '../utils/jsonld.js'
 
 const STATIC_SERVICES = [
   {
     slug: 'business-automation',
-    title: 'Business Automation & AI Integration',
-    tagline: 'Multiply revenue. Eliminate manual work.',
+    title: 'Enterprise AI Automation & Multi-Agent Workflows',
+    tagline: 'Multiply revenue. Eliminate repetitive manual work across sectors.',
     icon: 'automation',
     description:
-      'We help businesses automate repetitive tasks, integrate custom AI solutions, increase revenue, improve reliability and efficiency, reduce time-consuming manual labor, and become genuinely competitive in an AI-first world.',
+      'We architect autonomous AI agents, enterprise LLM pipelines (OpenAI, Claude, Gemini), and custom business process automations (BPA) for FinTech, Healthcare, E-Commerce, Real Estate, and Manufacturing. Eliminate manual data entry, automate CRM lead routing, and run 24/7 autonomous operations.',
     features: [
-      'Custom AI workflow automation',
-      'Revenue multiplication strategies',
-      'Business process optimization',
-      'AI integration consulting',
-      'Reliability & uptime guarantee',
-      'Zero time-waste operations',
+      'Custom AI workflow & multi-agent system integration',
+      'FinTech, HealthTech & E-Commerce process automation',
+      'Enterprise LLM & RAG vector search pipelines',
+      'WhatsApp & CRM autonomous lead qualification bots',
+      'Zero-downtime reliability & revenue multiplication SLA',
+      'Worldwide & domestic delivery with dedicated engineering',
     ],
   },
   {
     slug: 'custom-development',
-    title: 'Custom App & Software Development',
-    tagline: 'From your idea to a living product.',
+    title: 'Full-Cycle Software, SaaS & Mobile App Development',
+    tagline: 'From visionary concept to high-scale production.',
     icon: 'code',
     description:
-      'Transforming visionary ideas into reality with deep requirement analysis, full-cycle development, maintenance, marketing, and App Store Optimization (ASO). We understand your vision first before writing a single line of code.',
+      'Transforming ambitious ideas into scalable digital products with deep requirement engineering, modern full-stack architectures (React, Vite, Node, FastAPI, MongoDB), cloud DevOps, and App Store Optimization (ASO). We deliver enterprise-grade software for international startups and domestic market leaders.',
     features: [
-      'Deep requirement analysis',
-      'Full-cycle development & QA',
-      'App Store Optimization (ASO)',
-      'Marketing & growth support',
-      'Ongoing maintenance & SLA',
-      'Solopreneur & founder friendly',
+      'Deep architectural requirement analysis & UX design',
+      'Full-stack web apps, SaaS platforms & mobile apps (iOS & Android)',
+      'App Store Optimization (ASO) & algorithmic growth',
+      'Cloud DevOps, CI/CD pipelines & high-concurrency scaling',
+      'Comprehensive QA, security hardening & maintenance SLA',
+      'Founder-friendly sprint delivery for global & domestic ventures',
     ],
   },
   {
@@ -73,18 +77,18 @@ const STATIC_SERVICES = [
   },
   {
     slug: 'student-guidance',
-    title: 'Student Guidance & EdTech Engine',
-    tagline: '100% free guidance. Real college savings.',
+    title: 'Student Guidance & College Admission Subsidies',
+    tagline: '100% free career guidance. Direct ₹3,000–₹10,000 college fee discounts.',
     icon: 'education',
     description:
-      'We guide 12th-pass students to choose their ideal career and college based on aptitude — 100% free of charge. Eligible students enrolling in our partner colleges receive ₹3,000 to ₹10,000 in partnership discounts/subsidies paid by us as an industrial partner.',
+      'We guide 12th-pass students in selecting the best accredited colleges and career streams based on genuine aptitude — 100% free of charge. Eligible students enrolling in our partner colleges receive an exclusive ₹3,000 to ₹10,000 institutional partnership subsidy directly discounted from college fees, with zero agent commission or hidden charges.',
     features: [
-      '100% free student career consultation',
-      '₹3,000–₹10,000 partner college subsidy',
-      'Field alignment & aptitude matching',
-      'College selection & admission roadmap',
-      'Industrial partnership fee discounts',
-      'Zero charges or hidden fees for students',
+      '100% free career counseling for 12th Science, Commerce & Arts',
+      '₹3,000–₹10,000 direct partner college admission subsidy',
+      'B.Tech (CSE, AI/ML, Robotics), BCA, BBA & Diploma roadmaps',
+      'Aptitude-to-career alignment with top accredited universities',
+      'Direct industrial internship pathway into OpenMNC tech projects',
+      'Zero student charges, zero broker fees, complete transparency',
     ],
   },
   {
@@ -104,8 +108,13 @@ const STATIC_SERVICES = [
     ],
   },
 ]
+      'Partner subsidy offset / cashback option',
+    ],
+  },
+]
 
 export default function Services() {
+  const { slug } = useParams()
   const [services, setServices] = useState(STATIC_SERVICES)
 
   useEffect(() => {
@@ -116,8 +125,53 @@ export default function Services() {
     }).catch(() => {})
   }, [])
 
+  // Auto-scroll to selected service slug if present in URL
+  useEffect(() => {
+    if (slug) {
+      const timer = setTimeout(() => {
+        const el = document.getElementById(slug)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [slug, services])
+
+  const currentService = slug ? services.find((s) => s.slug === slug) : null
+  const isStudentGuidance = slug === 'student-guidance'
+
+  let seoTitle = 'Services — Global AI Automation, Custom Software & Training | OpenMNC'
+  let seoDesc = 'Explore OpenMNC services: Enterprise AI Automation, Custom App & SaaS Development, In-House Products, Organic Growth, Free Student Guidance with ₹3,000–₹10,000 College Subsidies, and Industrial IoT Training.'
+  let seoKeywords = 'OpenMNC services, global AI automation, custom software development, student career guidance subsidy, best colleges after 12th, industrial training IoT robotics, enterprise software solutions'
+  let seoSchema = null
+
+  if (currentService) {
+    if (isStudentGuidance) {
+      seoTitle = 'Student Guidance & College Admission Subsidies (₹3,000–₹10,000 Off) | OpenMNC'
+      seoDesc = '100% Free career guidance for 12th-pass students. Claim ₹3,000 to ₹10,000 in official industrial partner college admission fee subsidies for B.Tech, BCA, BBA, and Diploma programs across West Bengal & India.'
+      seoKeywords = 'best colleges after 12th pass, college admission discount subsidy, free student career guidance, btech admission scholarship, direct college admission west bengal, bca bba college roadmaps, OpenMNC student guidance, college counseling without agent fees'
+      seoSchema = studentGuidanceFaqSchema
+    } else {
+      seoTitle = `${currentService.title} | OpenMNC Enterprise Solutions`
+      seoDesc = currentService.description || currentService.tagline
+      seoKeywords = `OpenMNC ${currentService.title}, enterprise AI automation, custom software development, ${currentService.slug}`
+      seoSchema = serviceSchema(currentService)
+    }
+  }
+
+  const seoCanonical = slug ? `/services/${slug}` : '/services'
+
   return (
     <>
+      <SEO
+        title={seoTitle}
+        description={seoDesc}
+        canonical={seoCanonical}
+        keywords={seoKeywords}
+        schema={seoSchema}
+      />
+
       {/* Page Hero */}
       <section
         className="relative pt-32 pb-20 px-4 bg-navy-950 overflow-hidden"
@@ -126,14 +180,15 @@ export default function Services() {
         <ThreeBackground section="hero" className="opacity-40" />
         <div className="relative z-10 container-max text-center">
           <span className="text-xs text-cyan-neon font-semibold tracking-widest uppercase mb-4 block">
-            What We Offer
+            {currentService ? currentService.tagline || 'Specialized Solution' : 'Enterprise & Educational Solutions'}
           </span>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
-            Our <span className="gradient-text">Services</span>
+            {currentService ? currentService.title : <>Our <span className="gradient-text">Services</span></>}
           </h1>
           <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            Six specialized services built to automate, accelerate, and amplify your business —
-            plus free support for the next generation of builders.
+            {currentService
+              ? currentService.description
+              : 'Six specialized verticals engineered for global & domestic scaling — from enterprise AI multi-agent workflows to zero-fee student career empowerment.'}
           </p>
         </div>
       </section>
@@ -204,7 +259,133 @@ export default function Services() {
             )
           })}
         </div>
-      </main>
+
+        {/* ══════ INDUSTRY SECTORS WE TRANSFORM ══════ */}
+        <section className="mt-28 border-t border-white/5 pt-20" aria-label="Industry sectors we serve">
+          <SectionHeader
+            eyebrow="Sector-Specific Solutions"
+            title="Industry Verticals We Empower with AI"
+            subtitle="Tailored automation and high-concurrency software built for the exact demands of modern industries."
+          />
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: '💳',
+                sector: 'FinTech & Financial Services',
+                desc: 'Automated invoice reconciliation, KYC verification pipelines, fraud anomaly alerts, and conversational banking assistants.',
+                tags: ['Invoice Automation', 'KYC Verification', 'Fraud AI'],
+              },
+              {
+                icon: '🏥',
+                sector: 'Healthcare & Life Sciences',
+                desc: 'HIPAA-compliant LLM clinical documentation summaries, 24/7 patient triage booking bots, and diagnostic report routing.',
+                tags: ['Clinical Summaries', 'Patient Triage', 'HIPAA Bots'],
+              },
+              {
+                icon: '🛍️',
+                sector: 'E-Commerce & D2C Brands',
+                desc: 'Autonomous customer support agents, dynamic catalog SEO descriptions, and predictive inventory restock notifications.',
+                tags: ['24/7 Support Bots', 'Catalog SEO', 'Inventory AI'],
+              },
+              {
+                icon: '🏢',
+                sector: 'Real Estate & PropTech',
+                desc: 'WhatsApp AI lead qualification agents, automated CRM updates, and interactive 24/7 site-visit scheduling workflows.',
+                tags: ['WhatsApp Lead AI', 'CRM Sync', 'Visit Booking'],
+              },
+              {
+                icon: '⚙️',
+                sector: 'Manufacturing & Industrial IoT',
+                desc: 'Microcontroller telemetry, predictive equipment maintenance sensors, and automated drone warehouse inspection.',
+                tags: ['Predictive Maintenance', 'IoT Telemetry', 'Drone AI'],
+              },
+              {
+                icon: '🎓',
+                sector: 'Education & EdTech',
+                desc: '100% Free career guidance, algorithmic college matching, and direct ₹3,000–₹10,000 institutional admission fee subsidies.',
+                tags: ['Free Counseling', '₹3k-₹10k Subsidy', 'College Roadmaps'],
+              },
+            ].map((item, idx) => (
+              <ScrollReveal key={item.sector} delay={idx * 0.08}>
+                <div className="glass-card p-6 h-full flex flex-col justify-between hover:border-cyan-neon/30 transition-all duration-300">
+                  <div>
+                    <span className="text-3xl mb-3 block" aria-hidden="true">{item.icon}</span>
+                    <h3 className="font-display text-lg font-bold text-white mb-2">{item.sector}</h3>
+                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-4">{item.desc}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/5">
+                    {item.tags.map((t) => (
+                      <span key={t} className="px-2 py-0.5 rounded text-[10px] font-medium bg-white/5 text-cyan-neon border border-cyan-neon/20">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+
+        {/* ══════ STUDENT GUIDANCE & COLLEGE ADMISSION SUBSIDY FAQ ══════ */}
+        <section className="mt-28 border-t border-white/5 pt-20" aria-label="Student guidance and college subsidy FAQs" id="student-faq">
+          <SectionHeader
+            eyebrow="Student & Parent Clarifications"
+            title="College Admission Guidance & Subsidies FAQ"
+            subtitle="Transparent answers for 12th-pass students and parents regarding college selection, eligibility, and fee subsidies."
+          />
+          <div className="mt-12 max-w-4xl mx-auto space-y-6">
+            {[
+              {
+                q: 'How can 12th pass students claim the ₹3,000–₹10,000 college admission fee subsidy?',
+                a: 'OpenMNC LLP acts as an official industrial technology training partner for accredited colleges and universities across West Bengal and India. Because we train students directly on industrial projects, our partner colleges authorize an official institutional grant or admission subsidy of ₹3,000 to ₹10,000 deducted directly from the student’s college fees.',
+              },
+              {
+                q: 'Is OpenMNC career counseling really 100% free with no hidden charges?',
+                a: 'Yes, 100% free. We never charge students or parents a single rupee for counseling, aptitude assessments, or college recommendations. Unlike traditional education brokers who charge high commissions, OpenMNC earns from industrial engineering and training partnerships — passing the savings directly to students.',
+              },
+              {
+                q: 'Which streams and degree courses are eligible for guidance and partner discounts?',
+                a: 'We provide guidance for B.Tech (Computer Science, AI & Machine Learning, Data Science, Electronics, Mechanical), BCA, BBA (FinTech, Business Analytics), Diploma in Engineering, Medical/Pharmacy, and general degrees. We analyze your 12th marks, interests, and family budget to find the best-fit college with proven placement records.',
+              },
+              {
+                q: 'How is OpenMNC different from traditional education agents or admission consultants?',
+                a: 'Traditional admission agents push students into low-grade private colleges solely to make a fat commission, often charging families ₹20,000 to ₹50,000 in broker fees. OpenMNC is a real AI and software engineering company: we charge students ₹0, offset ₹3,000–₹10,000 from college fees, and offer genuine 3-month industrial internships so you graduate job-ready.',
+              },
+            ].map((faq, i) => (
+              <ScrollReveal key={i} delay={i * 0.1}>
+                <div className="glass-card p-6 sm:p-7 border border-white/5 hover:border-cyan-neon/30 transition-all">
+                  <h3 className="font-display text-base sm:text-lg font-bold text-white mb-2 flex items-start gap-2.5">
+                    <span className="text-cyan-neon">Q.</span>
+                    <span>{faq.q}</span>
+                  </h3>
+                  <p className="text-gray-300 text-xs sm:text-sm leading-relaxed pl-6">
+                    {faq.a}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+
+            <div className="mt-10 text-center glass-card p-8 border border-cyan-neon/20 bg-cyan-neon/5">
+              <h3 className="font-display text-xl font-bold text-white mb-2">Ready to Plan Your Career or Claim Your Subsidy?</h3>
+              <p className="text-gray-300 text-sm max-w-xl mx-auto mb-6">
+                Consult directly with our academic advisors and lock in your ₹3,000–₹10,000 college partnership discount today.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <GlowButton to="/contact?intent=student&service=student-guidance" variant="primary">
+                  Claim Free Student Guidance →
+                </GlowButton>
+                <GlowButton
+                  href={whatsappUrl('918509684056', 'Hi OpenMNC! I passed 12th and want free college admission guidance and the partner fee subsidy.')}
+                  variant="outline"
+                >
+                  💬 Chat with Counselor on WhatsApp
+                </GlowButton>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
     </>
   )
 }

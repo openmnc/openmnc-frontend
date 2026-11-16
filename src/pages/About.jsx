@@ -2,7 +2,9 @@ import ThreeBackground from '../components/ThreeBackground.jsx'
 import ScrollReveal from '../components/ScrollReveal.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
 import GlowButton from '../components/GlowButton.jsx'
+import SEO from '../components/SEO.jsx'
 import { whatsappUrl } from '../utils/helpers.js'
+import { organizationSchema } from '../utils/jsonld.js'
 
 const VALUES = [
   {
@@ -37,6 +39,14 @@ const MILESTONES = [
 export default function About() {
   return (
     <>
+      <SEO
+        title="About OpenMNC LLP — Global AI Innovators & Custom Software Engineering"
+        description="Learn about OpenMNC LLP, founded by Amit Barai. Operating internationally and across India from our headquarters in West Bengal, we deliver enterprise AI automation, software engineering, and student career empowerment."
+        canonical="/about"
+        schema={organizationSchema}
+        keywords="About OpenMNC, Amit Barai, global AI automation company, custom software development, tech innovators India, student career mentorship"
+      />
+
       {/* Page Hero */}
       <section
         className="relative pt-32 pb-20 px-4 bg-navy-950 overflow-hidden"
@@ -45,14 +55,14 @@ export default function About() {
         <ThreeBackground section="about" className="opacity-30" />
         <div className="relative z-10 container-max text-center">
           <span className="text-xs text-amber-glow font-semibold tracking-widest uppercase mb-4 block">
-            Our Story
+            Our Story &amp; Global Vision
           </span>
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
             About <span className="amber-gradient-text">OpenMNC LLP</span>
           </h1>
           <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            We started with a simple belief: technology should be a multiplier for human potential,
-            not a barrier. Everything we build flows from that conviction.
+            Operating internationally and across India from our headquarters in West Bengal, we started with a simple belief: 
+            technology should be a multiplier for human potential, not a barrier.
           </p>
         </div>
       </section>
@@ -67,9 +77,9 @@ export default function About() {
                 <span className="gradient-text">then build it.</span>
               </h2>
               <p className="text-gray-400 leading-relaxed mb-5">
-                OpenMNC LLP is a future-focused technology company based in India. We specialize in
-                AI automation, custom software development, social media management, and comprehensive
-                student support programs.
+                OpenMNC LLP is a future-focused technology company headquartered in West Bengal, India. We specialize in
+                enterprise AI automation, custom software and SaaS development, digital growth marketing, and comprehensive
+                student career support programs across global and domestic markets.
               </p>
               <p className="text-gray-400 leading-relaxed mb-8">
                 What sets us apart is our discovery-first approach. Before any code is written,
