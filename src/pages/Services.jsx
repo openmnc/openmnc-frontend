@@ -108,10 +108,6 @@ const STATIC_SERVICES = [
     ],
   },
 ]
-      'Partner subsidy offset / cashback option',
-    ],
-  },
-]
 
 export default function Services() {
   const { slug } = useParams()
