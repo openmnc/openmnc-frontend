@@ -118,7 +118,7 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="OpenMNC LLP — AI Automation Company & Custom Software Development India"
+        title="OpenMNC | Tech & Career"
         description="OpenMNC LLP is an enterprise technology partner engineering autonomous AI workflows, custom full-stack software, and IoT systems, serving businesses worldwide and across India."
         canonical="/"
         keywords="AI automation company Kolkata, Custom software development India, IoT embedded engineering services, B2B AI integration, App development agency, enterprise AI workflows, software company India"

@@ -64,6 +64,7 @@ export default function App() {
               <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
               <Route path="/services" element={<PublicLayout><Services /></PublicLayout>} />
               <Route path="/services/:slug" element={<PublicLayout><Services /></PublicLayout>} />
+              <Route path="/services/:slug/:subSlug" element={<PublicLayout><Services /></PublicLayout>} />
 
               {/* Direct B2B Enterprise Route Aliases */}
               <Route

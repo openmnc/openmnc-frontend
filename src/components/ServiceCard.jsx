@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { getServiceIcon } from '../utils/helpers.js'
@@ -17,42 +17,60 @@ export default function ServiceCard({ service, index = 0 }) {
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.4, delay: index * 0.08, ease: 'easeOut' }}
       className="
-        relative group p-6 sm:p-7 rounded-2xl h-full flex flex-col
-        bg-slate-900/80 border border-slate-800 hover:border-sky-500/40
-        hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer
+        relative group flex flex-col p-4 sm:p-6 md:p-7 rounded-2xl h-full
+        bg-white/10 backdrop-blur-lg border border-white/20
+        shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]
+        hover:border-cyan-neon/40 hover:bg-white/[0.14] hover:-translate-y-1
+        transition-all duration-300 cursor-pointer
       "
       aria-label={`Service: ${service.title}`}
     >
-      {/* Icon */}
-      <div className="mb-5 flex items-center justify-between">
+      {/* Icon & Counter */}
+      <div className="mb-4 sm:mb-5 flex items-center justify-between">
         <span
-          className="text-2xl w-12 h-12 flex items-center justify-center rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400"
+          className="text-2xl sm:text-3xl w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-cyan-neon/15 border border-cyan-neon/30 text-cyan-neon shadow-sm"
           aria-hidden="true"
         >
           {icon}
         </span>
-        <span className="text-xs font-mono font-medium text-slate-500 group-hover:text-sky-400 transition-colors">
+        <span className="text-xs font-mono font-medium text-gray-400 group-hover:text-cyan-neon transition-colors">
           0{index + 1}
         </span>
       </div>
 
+      {/* Category / Pillar Tag */}
+      {service.category && (
+        <span className="text-[10px] uppercase font-bold tracking-wider text-cyan-neon/90 mb-1.5 block">
+          {service.category}
+        </span>
+      )}
+
       {/* Title */}
-      <h3 className="font-display text-lg font-bold text-white mb-2 group-hover:text-sky-400 transition-colors duration-200">
+      <h3 className="font-display text-base sm:text-lg font-bold text-white/95 mb-2 group-hover:text-cyan-neon transition-colors duration-200">
         {service.title}
       </h3>
 
       {/* Tagline */}
       {service.tagline && (
-        <p className="text-slate-400 text-sm mb-4 leading-relaxed">{service.tagline}</p>
+        <p className="text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed line-clamp-2">
+          {service.tagline}
+        </p>
+      )}
+
+      {/* Problem / Solution preview badge if present */}
+      {service.expected_outcome && (
+        <div className="mb-4 p-2.5 rounded-xl bg-cyan-neon/5 border border-cyan-neon/15 text-[11px] text-cyan-neon/90">
+          <span className="font-semibold text-white">Outcome:</span> {service.expected_outcome}
+        </div>
       )}
 
       {/* Features */}
       {features.length > 0 && (
-        <ul className="space-y-2 mb-6 flex-1" aria-label="Key features">
+        <ul className="space-y-1.5 sm:space-y-2 mb-5 sm:mb-6 flex-1 text-xs sm:text-sm text-gray-300" aria-label="Key features">
           {features.map((feat, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-              <span className="text-sky-400 mt-0.5 flex-shrink-0" aria-hidden="true">&bull;</span>
-              <span>{feat}</span>
+            <li key={i} className="flex items-start gap-2">
+              <span className="text-cyan-neon mt-0.5 flex-shrink-0" aria-hidden="true">▸</span>
+              <span className="line-clamp-1">{feat}</span>
             </li>
           ))}
         </ul>
@@ -60,14 +78,15 @@ export default function ServiceCard({ service, index = 0 }) {
 
       {/* CTA */}
       <Link
-        to={`/services#${service.slug}`}
+        to={`/services/${service.slug}`}
         className="
-          mt-auto inline-flex items-center gap-1.5 text-sm font-semibold
-          text-sky-400 group-hover:text-sky-300 transition-colors
+          mt-auto inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold
+          text-cyan-neon group-hover:text-white transition-colors
         "
-        aria-label={`Learn more about ${service.title}`}
+        aria-label={`Explore ${service.title}`}
       >
-        Learn More <span className="group-hover:translate-x-1 transition-transform" aria-hidden="true">&rarr;</span>
+        <span>Explore Solution</span>
+        <span className="group-hover:translate-x-1 transition-transform" aria-hidden="true">&rarr;</span>
       </Link>
     </motion.article>
   )

@@ -460,3 +460,64 @@ export const blogPostSchema = (post) => {
     },
   };
 };
+
+// ---------------------------------------------------------------------------
+// AEO (AI Engine Optimization) TechArticle Schema
+// Formatted for ChatGPT, Gemini, Perplexity to cite authoritative Problem/Solution
+// ---------------------------------------------------------------------------
+export const aeoTechArticleSchema = (item) => {
+  if (!item) return null;
+  const headline = item.title || item.name || "Technical Solution Architecture";
+  const problem = item.problem_statement || item.description || "";
+  const solution = item.technical_solution || "";
+  const outcome = item.expected_outcome || "";
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: `${headline} | Problem & Solution`,
+    alternativeHeadline: item.tagline || "Engineered by OpenMNC LLP",
+    description: `${problem} ${solution}`.trim().slice(0, 160),
+    articleBody: `[Problem Statement]\n${problem}\n\n[Technical Solution]\n${solution}\n\n[Expected Outcome]\n${outcome}`,
+    author: {
+      "@type": "Organization",
+      name: "OpenMNC LLP",
+      url: "https://openmnc.com",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "OpenMNC LLP",
+      url: "https://openmnc.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://openmnc.com/logo.webp",
+      },
+    },
+    about: [
+      { "@type": "Thing", name: headline },
+      { "@type": "Thing", name: "AI Engine Optimization (AEO)" },
+      { "@type": "Thing", name: "Software Architecture" },
+    ],
+  };
+};
+
+// ---------------------------------------------------------------------------
+// Dynamic FAQPage Schema for Dynamic Service FAQs & Blog FAQs
+// ---------------------------------------------------------------------------
+export const dynamicFaqSchema = (faqs) => {
+  if (!Array.isArray(faqs) || faqs.length === 0) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs
+      .filter((f) => f && f.question && f.answer)
+      .map((f) => ({
+        "@type": "Question",
+        name: f.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: f.answer,
+        },
+      })),
+  };
+};

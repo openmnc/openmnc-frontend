@@ -24,22 +24,30 @@ const TARGET_SERVICES = [
 ]
 
 function BlogModal({ blog, onClose, onSaved }) {
+  const initialFaqsText = Array.isArray(blog?.faqs)
+    ? blog.faqs.map((f) => `Q: ${f.question}\nA: ${f.answer}`).join('\n\n')
+    : ''
+
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm({
-    defaultValues: blog || {
-      title: '',
-      slug: '',
-      category: 'B2B & Tech Solutions',
-      target_audience: 'Founders & Solopreneurs',
-      excerpt: '',
-      content: '',
-      cover_image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
-      author_name: 'Amit Barai',
-      author_role: 'Founder & Director, OpenMNC LLP',
-      tags: '',
-      target_service_slug: 'custom-development',
-      cta_headline: 'Have an app or business software idea?',
-      cta_button_text: 'Build Your Idea With OpenMNC →',
-      is_published: true,
+    defaultValues: {
+      title: blog?.title || '',
+      slug: blog?.slug || '',
+      category: blog?.category || 'B2B & Tech Solutions',
+      target_audience: blog?.target_audience || 'Founders & Solopreneurs',
+      excerpt: blog?.excerpt || '',
+      content: blog?.content || '',
+      cover_image: blog?.cover_image || 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
+      author_name: blog?.author_name || 'Amit Barai',
+      author_role: blog?.author_role || 'Founder & Director, OpenMNC LLP',
+      tags: Array.isArray(blog?.tags) ? blog.tags.join(', ') : blog?.tags || '',
+      target_service_slug: blog?.target_service_slug || 'custom-development',
+      cta_headline: blog?.cta_headline || 'Have an app or business software idea?',
+      cta_button_text: blog?.cta_button_text || 'Build Your Idea With OpenMNC →',
+      problem_statement: blog?.problem_statement || '',
+      technical_solution: blog?.technical_solution || '',
+      expected_outcome: blog?.expected_outcome || '',
+      faqs_text: initialFaqsText,
+      is_published: blog?.is_published !== false,
     },
   })
   const [loading, setLoading] = useState(false)
@@ -72,7 +80,40 @@ function BlogModal({ blog, onClose, onSaved }) {
       ? data.tags.split(',').map((t) => t.trim()).filter(Boolean)
       : data.tags || []
 
-    const payload = { ...data, tags }
+    const faqs = []
+    if (data.faqs_text) {
+      const blocks = data.faqs_text.split(/\n\s*\n/)
+      for (const block of blocks) {
+        const lines = block.split('\n').map((l) => l.trim()).filter(Boolean)
+        let q = ''
+        let a = ''
+        for (const line of lines) {
+          if (line.toLowerCase().startsWith('q:')) {
+            q = line.substring(2).trim()
+          } else if (line.toLowerCase().startsWith('a:')) {
+            a = line.substring(2).trim()
+          } else if (q && !a) {
+            q += ' ' + line
+          } else if (a) {
+            a += ' ' + line
+          }
+        }
+        if (q && a) {
+          faqs.push({ question: q, answer: a })
+        }
+      }
+    }
+
+    const payload = {
+      ...data,
+      tags,
+      problem_statement: data.problem_statement || null,
+      technical_solution: data.technical_solution || null,
+      expected_outcome: data.expected_outcome || null,
+      faqs,
+    }
+    delete payload.faqs_text
+
     try {
       if (blog?.slug) {
         await blogsApi.update(blog.slug, payload)
@@ -89,16 +130,16 @@ function BlogModal({ blog, onClose, onSaved }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
       <motion.div
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="glass-card w-full max-w-2xl p-6 sm:p-8 max-h-[92vh] overflow-y-auto border border-white/10"
+        className="glass-card w-full max-w-2xl p-5 sm:p-7 max-h-[92vh] overflow-y-auto border border-white/20 bg-white/10 backdrop-blur-lg shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-2xl"
       >
-        <div className="flex items-center justify-between mb-5 border-b border-white/5 pb-3">
+        <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
           <h2 className="font-display text-lg font-bold text-white">
-            {blog ? 'Edit Blog Article' : 'Write New Article (No-Code CMS)'}
+            {blog ? 'Edit Blog Article & AEO Fields' : 'Write New Article (No-Code CMS)'}
           </h2>
           <button onClick={onClose} className="text-gray-400 hover:text-white text-lg">✕</button>
         </div>
@@ -209,6 +250,57 @@ function BlogModal({ blog, onClose, onSaved }) {
               placeholder="Write your article here. Use ## for section headings, ### for subheadings, and - for bullet points."
               className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
             />
+          </div>
+
+          {/* AEO Fields for AI Chatbots & Rich Snippets */}
+          <div className="p-3.5 rounded-xl bg-cyan-neon/5 border border-cyan-neon/20 space-y-3">
+            <h4 className="text-xs font-bold text-cyan-neon uppercase tracking-wider">
+              AEO Scraper Fields (AI Engine Optimization &amp; Search Citations)
+            </h4>
+            <div>
+              <label className="block text-[11px] font-semibold text-red-400 mb-1">
+                🔴 Problem Statement
+              </label>
+              <textarea
+                rows={2}
+                {...register('problem_statement')}
+                placeholder="Core challenge or question this article addresses..."
+                className="w-full px-3 py-1.5 rounded-lg bg-navy-950/80 border border-red-500/30 text-white text-xs leading-relaxed focus:outline-none resize-none"
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-semibold text-cyan-neon mb-1">
+                ⚡ Technical Solution
+              </label>
+              <textarea
+                rows={2}
+                {...register('technical_solution')}
+                placeholder="Technical architecture or methodology recommended..."
+                className="w-full px-3 py-1.5 rounded-lg bg-navy-950/80 border border-cyan-neon/30 text-white text-xs leading-relaxed focus:outline-none resize-none"
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-semibold text-emerald-400 mb-1">
+                🎯 Expected Outcome
+              </label>
+              <textarea
+                rows={2}
+                {...register('expected_outcome')}
+                placeholder="Measurable business or academic outcome..."
+                className="w-full px-3 py-1.5 rounded-lg bg-navy-950/80 border border-emerald-500/30 text-white text-xs leading-relaxed focus:outline-none resize-none"
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] font-semibold text-gray-300 mb-1">
+                Article FAQs (Format: Q: Question? \n A: Answer.)
+              </label>
+              <textarea
+                rows={3}
+                {...register('faqs_text')}
+                placeholder="Q: Why choose custom tracking over AppsFlyer?&#10;A: 100% data ownership and zero recurring fees."
+                className="w-full px-3 py-1.5 rounded-lg bg-navy-950/80 border border-white/15 text-white text-xs leading-relaxed focus:outline-none"
+              />
+            </div>
           </div>
 
           {/* Contextual CTA Settings */}
