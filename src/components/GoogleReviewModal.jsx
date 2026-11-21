@@ -1,15 +1,20 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+export const GOOGLE_PLACE_ID = 'ChIJu2lM2mMLAjoRMqerceA25dY'
+export const DEFAULT_GOOGLE_REVIEW_URL = `https://search.google.com/local/writereview?placeid=${GOOGLE_PLACE_ID}`
+export const DEFAULT_GOOGLE_PROFILE_URL = `https://local.google.com/place?placeid=${GOOGLE_PLACE_ID}&utm_medium=noren&utm_source=gbp&utm_campaign=2026`
+
 export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
   const [copied, setCopied] = useState(false)
+  const [viewMode, setViewMode] = useState('qr') // 'qr' | 'badge'
 
-  // Direct Google Business Profile review link if provided, otherwise targeted search
-  const fallbackSearchUrl = 'https://www.google.com/search?q=OPEN+MNC+LLP+reviews'
-  const targetUrl = (reviewUrl && reviewUrl.trim()) ? reviewUrl.trim() : fallbackSearchUrl
+  // If a custom URL is passed via admin settings, use it, otherwise use direct Google review link
+  const targetReviewUrl = (reviewUrl && reviewUrl.trim()) ? reviewUrl.trim() : DEFAULT_GOOGLE_REVIEW_URL
+  const targetProfileUrl = DEFAULT_GOOGLE_PROFILE_URL
 
   const handleCopy = () => {
-    navigator.clipboard?.writeText(targetUrl)
+    navigator.clipboard?.writeText(targetReviewUrl)
     setCopied(true)
     setTimeout(() => setCopied(false), 2200)
   }
@@ -19,7 +24,7 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
   return (
     <AnimatePresence>
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
         role="dialog"
         aria-modal="true"
         aria-labelledby="google-review-modal-title"
@@ -32,17 +37,17 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
         />
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 12 }}
+          initial={{ opacity: 0, scale: 0.95, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.96, y: 8 }}
-          transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 w-full max-w-sm bg-[#161618]/95 border border-white/16 rounded-3xl p-6 sm:p-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),0_24px_50px_-12px_rgba(0,0,0,0.8)] text-center overflow-hidden backdrop-blur-2xl"
+          exit={{ opacity: 0, scale: 0.95, y: 8 }}
+          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 w-full max-w-md bg-[#161618] border border-white/16 rounded-3xl p-6 sm:p-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),0_28px_60px_-12px_rgba(0,0,0,0.85)] text-center overflow-hidden"
         >
           {/* Close button */}
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 w-7 h-7 rounded-full bg-white/6 border border-white/10 text-[#86868b] hover:text-white flex items-center justify-center transition-colors text-xs"
+            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/6 border border-white/10 text-[#86868b] hover:text-white flex items-center justify-center transition-colors text-sm"
             aria-label="Close modal"
           >
             ✕
@@ -77,52 +82,110 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
             id="google-review-modal-title"
             className="font-display text-xl font-semibold text-white mb-1 tracking-tight"
           >
-            Review OPEN MNC
+            Review M/S. OPEN MNC LLP
           </h3>
 
-          <p className="text-[#86868b] text-xs mb-4 leading-relaxed">
-            Scan the QR code with your phone camera or click below to leave a 5-star rating on Google.
+          <p className="text-[#86868b] text-xs mb-3 leading-relaxed">
+            Scan the official Google QR code below with your phone camera or click to open Google Reviews directly.
           </p>
 
           {/* 5 Golden Stars */}
-          <div className="flex justify-center items-center gap-1 mb-4 text-[#ff9500] text-lg tabular-nums" aria-label="5 out of 5 stars">
+          <div className="flex justify-center items-center gap-1.5 mb-4 text-[#ff9500] text-lg tabular-nums" aria-label="5 out of 5 stars">
             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            <span className="text-white text-xs font-semibold ml-1.5">5.0 Star Rating</span>
           </div>
 
-          {/* Concentric QR Code Container: Outer 24px padding 8px -> inner 16px radius */}
-          <div className="relative mx-auto w-44 h-44 bg-white p-3 rounded-2xl shadow-lg border border-white/20 flex flex-col items-center justify-center mb-4 group">
-            <img
-              src="/google-qr-code.png"
-              alt="Scan QR code to review OPEN MNC on Google"
-              className="w-full h-full object-contain"
-              onError={(e) => {
-                e.target.src = '/google-review-card.png'
-              }}
-            />
+          {/* Toggle View: QR Code vs Official Sticker Badge */}
+          <div className="inline-flex items-center p-1 rounded-full bg-white/6 border border-white/10 mb-4 text-xs">
+            <button
+              type="button"
+              onClick={() => setViewMode('qr')}
+              className={`px-3 py-1 rounded-full transition-all font-medium ${
+                viewMode === 'qr'
+                  ? 'bg-white text-black shadow-sm'
+                  : 'text-[#86868b] hover:text-white'
+              }`}
+            >
+              Google QR
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode('badge')}
+              className={`px-3 py-1 rounded-full transition-all font-medium ${
+                viewMode === 'badge'
+                  ? 'bg-white text-black shadow-sm'
+                  : 'text-[#86868b] hover:text-white'
+              }`}
+            >
+              Official Badge
+            </button>
           </div>
 
-          <div className="text-[10px] text-[#86868b] uppercase tracking-wider font-medium mb-5">
-            Verified Entity: OPEN MNC
-          </div>
-
-          {/* Primary Action Button */}
-          <div className="space-y-2">
+          {/* QR Display Area */}
+          <div className="relative mx-auto mb-4 group flex items-center justify-center">
             <a
-              href={targetUrl}
+              href={targetReviewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="apple-btn-primary w-full text-xs font-semibold py-2.5"
+              className="block cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98]"
+              title="Click to write review directly"
+            >
+              {viewMode === 'qr' ? (
+                <div className="w-52 h-52 bg-white p-3 rounded-2xl shadow-xl border border-white/20 flex flex-col items-center justify-center">
+                  <img
+                    src="/google-qr-framed.png"
+                    alt="Official Google Business QR Code for OPEN MNC"
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.target.src = '/google-qr-code.png'
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="w-56 h-64 bg-white p-2 rounded-2xl shadow-xl border border-white/20 flex flex-col items-center justify-center overflow-hidden">
+                  <img
+                    src="/google-review-badge.png"
+                    alt="Official Google Review Sticker Badge for OPEN MNC"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              )}
+            </a>
+          </div>
+
+          <div className="text-[11px] text-[#86868b] uppercase tracking-wider font-medium mb-4 flex items-center justify-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#34A853] inline-block" />
+            Verified Google Business Profile
+          </div>
+
+          {/* Action Buttons */}
+          <div className="space-y-2">
+            <a
+              href={targetReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="apple-btn-primary w-full text-xs font-semibold py-2.5 block text-center"
             >
               Write a Google Review →
             </a>
 
-            <button
-              type="button"
-              onClick={handleCopy}
-              className="w-full py-1.5 text-xs text-[#86868b] hover:text-white transition-colors flex items-center justify-center gap-1.5"
-            >
-              <span>{copied ? '✓ Link copied!' : '🔗 Copy review link'}</span>
-            </button>
+            <div className="grid grid-cols-2 gap-2 pt-1">
+              <a
+                href={targetProfileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="apple-btn-secondary text-xs py-2 block text-center truncate"
+              >
+                View Profile ↗
+              </a>
+              <button
+                type="button"
+                onClick={handleCopy}
+                className="apple-btn-secondary text-xs py-2 text-center"
+              >
+                {copied ? '✓ Copied!' : '🔗 Copy Link'}
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>

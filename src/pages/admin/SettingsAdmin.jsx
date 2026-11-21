@@ -62,7 +62,7 @@ export default function SettingsAdmin() {
         company_legal_name: 'M/S. OPEN MNC LLP',
         company_brand_name: 'OpenMNC',
         founder_name: 'Amit Barai',
-        google_review_url: '',
+        google_review_url: 'https://search.google.com/local/writereview?placeid=ChIJu2lM2mMLAjoRMqerceA25dY',
         contact_email: 'amit@openmnc.com',
         contact_phone: '+91 8509684056',
         contact_whatsapp: '918509684056',

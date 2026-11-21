@@ -82,7 +82,12 @@ export default function Footer() {
               {/* Google Business Profile Rating Badge */}
               <div className="mb-6 inline-flex items-center gap-3 p-3 rounded-2xl bg-white/5 border border-white/10">
                 <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-1.5 flex-shrink-0">
-                  <img src="/google-qr-code.png" alt="Google QR" className="w-full h-full object-contain" />
+                  <img
+                    src="/google-qr-framed.png"
+                    alt="Google QR"
+                    className="w-full h-full object-contain"
+                    onError={(e) => { e.target.src = '/google-qr-code.png' }}
+                  />
                 </div>
                 <div>
                   <div className="flex items-center gap-1 text-amber-400 text-xs">

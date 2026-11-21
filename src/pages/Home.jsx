@@ -418,9 +418,10 @@ export default function Home() {
                   title="Click to expand Google QR"
                 >
                   <img
-                    src="/google-qr-code.png"
+                    src="/google-qr-framed.png"
                     alt="OPEN MNC Google QR code"
                     className="w-full h-auto object-contain"
+                    onError={(e) => { e.target.src = '/google-qr-code.png' }}
                   />
                   <span className="text-[10px] text-navy-950 font-bold uppercase tracking-wider block mt-1">
                     Scan or Tap to Rate

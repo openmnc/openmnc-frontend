@@ -74,6 +74,9 @@ export const organizationSchema = {
     "Industrial IoT & Robotics Engineering",
     "Organic Social Media Growth & Viral Scripting"
   ],
+  sameAs: [
+    "https://local.google.com/place?placeid=ChIJu2lM2mMLAjoRMqerceA25dY&utm_medium=noren&utm_source=gbp&utm_campaign=2026"
+  ],
 };
 
 // ---------------------------------------------------------------------------
@@ -127,6 +130,10 @@ export const localBusinessSchema = {
     "@type": "Person",
     name: "Amit Barai",
   },
+  hasMap: "https://local.google.com/place?placeid=ChIJu2lM2mMLAjoRMqerceA25dY&utm_medium=noren&utm_source=gbp&utm_campaign=2026",
+  sameAs: [
+    "https://local.google.com/place?placeid=ChIJu2lM2mMLAjoRMqerceA25dY&utm_medium=noren&utm_source=gbp&utm_campaign=2026"
+  ],
 };
 
 // ---------------------------------------------------------------------------
