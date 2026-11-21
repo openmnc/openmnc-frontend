@@ -15,7 +15,6 @@ export default function AdminJoin() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // Form State
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -44,7 +43,6 @@ export default function AdminJoin() {
     checkInvite()
   }, [token])
 
-  // Google Sign-In handler for invited user
   useEffect(() => {
     if (!googleClientId || !inviteInfo) return
 
@@ -121,43 +119,34 @@ export default function AdminJoin() {
   }
 
   return (
-    <div
-      className="min-h-screen bg-navy-950 flex items-center justify-center px-4 py-8"
-      style={{ background: 'linear-gradient(135deg, #0a0e1a 0%, #000000 100%)' }}
-    >
+    <div className="min-h-screen bg-black flex items-center justify-center p-4">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
-        <div className="glass-card p-8 border border-white/10 rounded-2xl backdrop-blur-xl shadow-2xl">
+        <div className="liquid-glass rounded-3xl p-8 sm:p-10 shadow-2xl">
           {/* Logo */}
           <div className="text-center mb-6">
-            <img
-              src="/logo.png"
-              alt="OpenMNC Logo"
-              className="w-14 h-14 mx-auto mb-3 object-contain drop-shadow-[0_4px_12px_rgba(0,245,255,0.2)]"
-            />
-            <div className="inline-flex items-center gap-1 mb-1">
-              <span className="font-display text-2xl font-bold text-white">Open</span>
-              <span className="font-display text-2xl font-bold text-cyan-neon">MNC</span>
-              <span className="ml-0.5 w-2 h-2 rounded-full bg-cyan-neon" aria-hidden="true" />
-            </div>
-            <p className="text-gray-400 text-sm">Team Member Invitation</p>
+            <img src="/logo.png" alt="OpenMNC" className="w-12 h-12 mx-auto mb-3 object-contain" />
+            <h1 className="font-display text-2xl font-semibold text-[#f5f5f7] tracking-tight">
+              Join OpenMNC Team
+            </h1>
+            <p className="text-xs text-[#86868b] mt-1">Accept Invitation &amp; Set Password</p>
           </div>
 
           {checking ? (
-            <div className="p-8 text-center text-gray-400 text-xs animate-pulse">
-              Verifying invitation link...
+            <div className="p-8 text-center text-xs text-[#86868b] animate-pulse">
+              Verifying invitation credentials...
             </div>
           ) : error && !inviteInfo ? (
             <div className="text-center py-6">
               <span className="text-3xl mb-3 block">⚠️</span>
-              <h3 className="text-base font-bold text-white mb-2">Invalid or Expired Link</h3>
+              <h3 className="text-base font-semibold text-[#f5f5f7] mb-2">Invalid or Expired Link</h3>
               <p className="text-xs text-red-400 mb-6">{error}</p>
               <button
                 onClick={() => navigate('/admin/login')}
-                className="px-4 py-2 rounded-lg bg-white/10 text-xs text-white hover:bg-white/20 transition-colors"
+                className="px-5 py-2.5 rounded-full bg-white/10 text-xs text-white hover:bg-white/20 transition-colors"
               >
                 Go to Admin Login
               </button>
@@ -165,82 +154,76 @@ export default function AdminJoin() {
           ) : (
             <div>
               {/* Role Welcome Banner */}
-              <div className="mb-6 p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-center">
-                <p className="text-xs text-gray-300">
-                  You have been invited to join the OpenMNC team as:
+              <div className="mb-6 p-4 rounded-2xl bg-white/[0.03] border border-white/8 text-center">
+                <p className="text-xs text-[#86868b]">
+                  You have been invited to join as:
                 </p>
-                <div className="mt-1 font-mono font-bold text-cyan-300 text-base uppercase tracking-wider">
+                <div className="mt-1 font-mono font-semibold text-[#2997ff] text-sm uppercase tracking-wider">
                   Tier {inviteInfo.role === 'admin' ? '1: Admin' : inviteInfo.role === 'editor' ? '2: Editor' : '3: Author'}
                 </div>
-                <div className="mt-1 text-[11px] text-gray-400">
+                <div className="mt-1 text-[11px] text-[#a1a1a6]">
                   Authorized email: <strong className="text-white">{inviteInfo.email}</strong>
                 </div>
               </div>
 
               {error && (
-                <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs text-center">
+                <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs text-center">
                   {error}
                 </div>
               )}
 
-              {/* Form */}
               <form onSubmit={handleAccept} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-medium text-gray-300 mb-1">
-                    Your Full Name
-                  </label>
+                  <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Your Full Name</label>
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. Priya Sharma"
-                    className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/50"
+                    placeholder="e.g. Priyo Sen"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-gray-300 mb-1">
-                    Create Password
-                  </label>
+                  <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Create Password (6+ chars)</label>
                   <input
                     type="password"
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="At least 6 characters"
-                    className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/50"
+                    placeholder="••••••••"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-gray-300 mb-1">
-                    Confirm Password
-                  </label>
+                  <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Confirm Password</label>
                   <input
                     type="password"
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Repeat password"
-                    className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/50"
+                    placeholder="••••••••"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-2.5 px-4 rounded-lg font-display font-medium text-sm text-navy-950 bg-gradient-to-r from-cyan-neon to-cyan-400 hover:from-cyan-400 hover:to-cyan-300 transition-all shadow-cyan-glow-sm disabled:opacity-50"
+                  className="w-full py-3 rounded-full text-xs font-semibold bg-[#2997ff] text-white hover:bg-[#0071e3] transition-all disabled:opacity-50"
                 >
-                  {loading ? 'Activating Account...' : 'Accept Invitation & Enter Dashboard →'}
+                  {loading ? 'Activating Account...' : 'Activate Account & Access Console →'}
                 </button>
               </form>
 
-              {/* Google Sign-In Alternative */}
-              <div className="mt-6 pt-4 border-t border-white/10 text-center">
-                <p className="text-[11px] text-gray-400 mb-3">Or sign up with your authorized Google account:</p>
-                <div id="google-join-target" className="flex justify-center min-h-[40px]" />
-              </div>
+              {googleClientId && (
+                <div className="mt-6 pt-5 border-t border-white/8 text-center">
+                  <p className="text-xs text-[#86868b] mb-3">Or sign in with Google:</p>
+                  <div id="google-join-target" className="flex justify-center" />
+                </div>
+              )}
             </div>
           )}
         </div>

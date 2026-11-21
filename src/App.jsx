@@ -8,6 +8,7 @@ import Footer from './components/Footer.jsx'
 // Lazy-loaded public views for minimal bundle size & zero initial CLS
 const Home = lazy(() => import('./pages/Home.jsx'))
 const Services = lazy(() => import('./pages/Services.jsx'))
+const CareerGuidance = lazy(() => import('./pages/CareerGuidance.jsx'))
 const About = lazy(() => import('./pages/About.jsx'))
 const Careers = lazy(() => import('./pages/Careers.jsx'))
 const Contact = lazy(() => import('./pages/Contact.jsx'))
@@ -62,7 +63,33 @@ export default function App() {
             <Routes>
               {/* ══════ PUBLIC ROUTES (ZERO ORPHANED ROUTES) ══════ */}
               <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
+              
+              {/* Main Services Hub */}
               <Route path="/services" element={<PublicLayout><Services /></PublicLayout>} />
+
+              {/* 5 DEDICATED LASER-FOCUSED SEO PILLAR ROUTES */}
+              <Route
+                path="/services/vibe-coded-app-audit-and-fixing"
+                element={<PublicLayout><Services initialSlug="vibe-coded-app-audit-and-fixing" /></PublicLayout>}
+              />
+              <Route
+                path="/services/app-store-play-store-publishing-and-approval"
+                element={<PublicLayout><Services initialSlug="app-store-play-store-publishing-and-approval" /></PublicLayout>}
+              />
+              <Route
+                path="/services/app-transfer-and-database-migration"
+                element={<PublicLayout><Services initialSlug="app-transfer-and-database-migration" /></PublicLayout>}
+              />
+              <Route
+                path="/services/custom-software-and-scalable-app-development"
+                element={<PublicLayout><Services initialSlug="custom-software-and-scalable-app-development" /></PublicLayout>}
+              />
+              <Route
+                path="/services/app-maintenance-and-support"
+                element={<PublicLayout><Services initialSlug="app-maintenance-and-support" /></PublicLayout>}
+              />
+
+              {/* Dynamic slug & sub-slug fallback */}
               <Route path="/services/:slug" element={<PublicLayout><Services /></PublicLayout>} />
               <Route path="/services/:slug/:subSlug" element={<PublicLayout><Services /></PublicLayout>} />
 
@@ -73,7 +100,7 @@ export default function App() {
               />
               <Route
                 path="/custom-development"
-                element={<PublicLayout><Services initialSlug="custom-development" /></PublicLayout>}
+                element={<PublicLayout><Services initialSlug="custom-software-and-scalable-app-development" /></PublicLayout>}
               />
               <Route
                 path="/inhouse-products"
@@ -84,18 +111,22 @@ export default function App() {
                 element={<PublicLayout><Services initialSlug="social-media-management" /></PublicLayout>}
               />
 
-              {/* Direct B2C Academy & Training Route Aliases */}
+              {/* ══════ BANK-STYLE DEDICATED CAREER GUIDANCE & ACADEMY PORTAL ══════ */}
+              <Route
+                path="/career-guidance"
+                element={<PublicLayout><CareerGuidance /></PublicLayout>}
+              />
               <Route
                 path="/student-guidance"
-                element={<PublicLayout><Services initialSlug="student-guidance" /></PublicLayout>}
+                element={<PublicLayout><CareerGuidance /></PublicLayout>}
+              />
+              <Route
+                path="/academy"
+                element={<PublicLayout><CareerGuidance /></PublicLayout>}
               />
               <Route
                 path="/industrial-training"
                 element={<PublicLayout><Services initialSlug="industrial-training" /></PublicLayout>}
-              />
-              <Route
-                path="/academy"
-                element={<PublicLayout><Services initialSlug="student-guidance" /></PublicLayout>}
               />
               <Route
                 path="/training"

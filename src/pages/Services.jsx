@@ -6,30 +6,484 @@ import ScrollReveal from '../components/ScrollReveal.jsx'
 import ThreeBackground from '../components/ThreeBackground.jsx'
 import GlowButton from '../components/GlowButton.jsx'
 import SEO from '../components/SEO.jsx'
+import GoogleReviewModal from '../components/GoogleReviewModal.jsx'
 import { servicesApi } from '../api/services.js'
 import { getServiceIcon, whatsappUrl } from '../utils/helpers.js'
 import {
   serviceSchema,
   studentGuidanceFaqSchema,
   b2bFaqSchema,
-  courseSchema,
   aeoTechArticleSchema,
   dynamicFaqSchema,
 } from '../utils/jsonld.js'
 
-// Slug Aliases for Deep Linking and Dynamic Routing
+// Slug Aliases for Deep Linking and Dynamic Routing across all 5 Pillars
 const SLUG_ALIASES = {
-  'custom-software': 'custom-development',
-  'software-development': 'custom-development',
-  'iot-development': 'industrial-training',
-  'iot-engineering': 'industrial-training',
+  // Pillar 1: Vibe-Coded App Audit & Fixing
+  'vibe-coded-app-audit-and-fixing': 'vibe-coded-app-audit-and-fixing',
+  'vibe-code-audit': 'vibe-coded-app-audit-and-fixing',
+  'vibe-coded-app-audit': 'vibe-coded-app-audit-and-fixing',
+  'fix-ai-app': 'vibe-coded-app-audit-and-fixing',
+  'cursor-fix': 'vibe-coded-app-audit-and-fixing',
+
+  // Pillar 2: App Store & Play Store Publishing & Approval
+  'app-store-play-store-publishing-and-approval': 'app-store-play-store-publishing-and-approval',
+  'app-store-publishing': 'app-store-play-store-publishing-and-approval',
+  'play-store-publishing': 'app-store-play-store-publishing-and-approval',
+  'play-store-approval': 'app-store-play-store-publishing-and-approval',
+  'app-publishing': 'app-store-play-store-publishing-and-approval',
+
+  // Pillar 3: App Transfer & Full Database Migration
+  'app-transfer-and-database-migration': 'app-transfer-and-database-migration',
+  'app-transfer': 'app-transfer-and-database-migration',
+  'database-migration': 'app-transfer-and-database-migration',
+  'app-migration': 'app-transfer-and-database-migration',
+
+  // Pillar 4: Custom Software & Scalable App Development
+  'custom-software-and-scalable-app-development': 'custom-software-and-scalable-app-development',
+  'custom-development': 'custom-software-and-scalable-app-development',
+  'custom-software': 'custom-software-and-scalable-app-development',
+  'software-development': 'custom-software-and-scalable-app-development',
+
+  // Pillar 5: App Maintenance & Long-Term Support
+  'app-maintenance-and-support': 'app-maintenance-and-support',
+  'app-maintenance': 'app-maintenance-and-support',
+  'amc': 'app-maintenance-and-support',
+  'support': 'app-maintenance-and-support',
+
+  // B2B Automation & AI
+  'business-automation': 'business-automation',
   'b2b-automation': 'business-automation',
   'ai-automation': 'business-automation',
+
+  // B2C Academy
+  'student-guidance': 'student-guidance',
   'academy': 'student-guidance',
+  'industrial-training': 'industrial-training',
   'training': 'industrial-training',
 }
 
 const STATIC_SERVICES = [
+  // ══════════════════════════════════════════════════════════════════════════
+  // PILLAR 1: VIBE-CODED APP AUDIT & FIXING
+  // ══════════════════════════════════════════════════════════════════════════
+  {
+    slug: 'vibe-coded-app-audit-and-fixing',
+    pillar: 'Pillar 1',
+    meta_title: 'Vibe-Coded App Audit & Production Fixing | Turn AI Prototypes into Real Apps - OPEN MNC',
+    meta_description: 'Built your app with Cursor, Lovable, Bolt, or Replit? OPEN MNC audits your code, fixes security leaks, cleans up databases, and gets your vibe-coded app production-ready.',
+    h1_heading: 'Built Your App with AI? We Audit, Secure, and Make Your Vibe-Coded App Production-Ready.',
+    title: 'Vibe-Coded & AI-Built App Audit, Security Fix & Production Launch',
+    tagline: 'AI tools get you 80% there fast—the last 20% breaks in production. We ship the rest.',
+    icon: 'audit',
+    category: 'AI Code Audit & Rescue',
+    supported_tools: ['Cursor', 'Lovable', 'Bolt', 'Replit', 'v0', 'Windsurf', 'Next.js', 'Supabase', 'Firebase'],
+    description:
+      'AI coding tools get you 80% there fast—the last 20% breaks in production. Senior engineers at OpenMNC audit your AI-generated codebase, seal security vulnerabilities, optimize your database, and ship a stable, high-performance product without forcing a complete rewrite.',
+    problem_statement:
+      'AI fix loops, exposed API keys, missing database Row-Level Security (RLS), and webhook failures under real traffic prevent AI prototypes from launching.',
+    technical_solution:
+      'Comprehensive line-by-line architecture audit, RLS security enforcement, query indexing, payment webhook bulletproofing, and automated CI/CD staging environments.',
+    expected_outcome:
+      'Production-ready, battle-hardened web or mobile app launching safely in 1 to 2 weeks with 100% IP ownership retained by you.',
+    problems_grid: [
+      {
+        title: 'Exposed API Keys & Missing RLS',
+        desc: 'AI coding tools frequently leave Supabase/Firebase keys with open read/write access, letting anyone scrape your database.',
+      },
+      {
+        title: 'Spaghetti Code & Infinite AI Loops',
+        desc: 'Asking AI to fix one UI bug breaks three other screens due to lack of modular architecture and state management.',
+      },
+      {
+        title: 'Payment & Webhook Failures',
+        desc: 'Stripe, Razorpay, and authentication webhooks silently fail or duplicate under real multi-user concurrency.',
+      },
+      {
+        title: 'Slow Queries & High Cloud Bills',
+        desc: 'Unindexed tables and unoptimized serverless calls cause sluggish response times and unexpected monthly cloud costs.',
+      },
+    ],
+    deliverables: [
+      { title: 'Full Codebase & Architecture Audit', desc: 'Line-by-line review of frontend, backend, and API routes to eliminate dead code and bottlenecks.' },
+      { title: 'Security Hardening & Key Protection', desc: 'Environment variable securing, proper JWT/session auth, and strict Supabase/Firebase RLS rules.' },
+      { title: 'Database & Performance Refactoring', desc: 'Indexing slow queries, normalizing schemas, memory leak cleanup, and asset optimization.' },
+      { title: 'Payment & Third-Party Stabilization', desc: 'Bulletproofing Stripe, Razorpay, email triggers, and third-party webhook receivers.' },
+      { title: 'Production Deployment & CI/CD Setup', desc: 'Clean staging/production pipelines, automated database backups, and Sentry error monitoring.' },
+    ],
+    process_steps: [
+      { step: '01', title: 'Private Repo Access & NDA', desc: 'We sign a mutual NDA and gain secure, read-only access to your GitHub repo.' },
+      { step: '02', title: '48-Hour Deep Audit Report', desc: 'Receive a prioritized vulnerability and performance checklist with exact fix recommendations.' },
+      { step: '03', title: 'Systematic Refactoring', desc: 'Senior engineers patch vulnerabilities, refactor broken logic, and optimize databases.' },
+      { step: '04', title: 'Clean Handover or Launch', desc: 'We verify all production flows, run staging tests, and deploy your live app.' },
+    ],
+    features: [
+      'Line-by-line security & code quality review',
+      'Row-Level Security (RLS) enforcement',
+      'Stripe & Razorpay webhook stabilization',
+      'Fast query indexing & memory leak fixes',
+      'Strict NDA & 100% intellectual property guarantee',
+      'Zero unnecessary rewrite philosophy',
+    ],
+    cross_link: {
+      text: 'Ready to publish after securing your app?',
+      title: 'Play Store & App Store Publishing Service',
+      to: '/services/app-store-play-store-publishing-and-approval',
+    },
+    faqs: [
+      {
+        question: 'Will you force me to rewrite my entire app from scratch?',
+        answer: 'No, absolutely not. We preserve what works and refactor only what is broken, insecure, or unscalable.',
+      },
+      {
+        question: 'Do you sign an NDA before checking my GitHub repo?',
+        answer: 'Yes, 100%. We sign a mutual Non-Disclosure Agreement before receiving access, and all intellectual property remains exclusively yours.',
+      },
+      {
+        question: 'How long does a vibe-coded app audit and fix take?',
+        answer: 'The initial deep audit report is delivered within 48 to 72 hours. Code refactoring and security fixes typically take 1 to 2 weeks.',
+      },
+    ],
+    order: 1,
+    is_active: true,
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // PILLAR 2: PLAY STORE & APP STORE PUBLISHING & REJECTION FIX
+  // ══════════════════════════════════════════════════════════════════════════
+  {
+    slug: 'app-store-play-store-publishing-and-approval',
+    pillar: 'Pillar 2',
+    meta_title: 'App Store & Google Play Publishing Service | Fix Rejections & Policy Violations - OPEN MNC',
+    meta_description: 'Struggling with Apple App Store rejections or Google Play policy violations? OPEN MNC handles compliance, testing, metadata, and submission to get your app approved stress-free.',
+    h1_heading: 'Hassle-Free Google Play & Apple App Store Publishing—We Handle Policy Compliance & Rejections.',
+    title: 'Play Store & App Store Publishing, Policy Compliance & Rejection Fix',
+    tagline: 'Don’t risk account bans or weeks of rejection loops. We stay until your app is live.',
+    icon: 'apps',
+    category: 'Store Publishing & Compliance',
+    description:
+      'Publishing a mobile app on the Apple App Store and Google Play Console is stricter than ever. We audit your build against strict developer guidelines, fix Guideline 4.2/2.1 rejections, handle closed testing (12 testers), set up Data Safety declarations, and get your app approved stress-free.',
+    problem_statement:
+      'Apple App Store Guideline 4.2 / 5.1.1 rejections and Google Play 12-tester closed testing rules cause weeks of delay and risk account suspensions.',
+    technical_solution:
+      'Pre-submission policy audit, release build signing (AAB/IPA), closed-testing coordinator management, privacy policy flow implementation, and professional appeal writing.',
+    expected_outcome:
+      '100% approved and publicly live app on Google Play and Apple App Store under your own developer accounts.',
+    problems_grid: [
+      {
+        title: 'Apple Guideline 4.2 (Minimum Functionality)',
+        desc: 'Rejections for apps that Apple flags as simple web wrappers, requiring native device capabilities and offline handling.',
+      },
+      {
+        title: 'Apple Guideline 2.1 (App Completeness & Crashes)',
+        desc: 'Reviewer rejections caused by demo login issues, hidden links, placeholder text, or unexpected crashes on iPad test devices.',
+      },
+      {
+        title: 'Google Play 12-Testers Closed Testing',
+        desc: 'Mandatory 14-day closed testing with 12 active opted-in testers required for new personal Google Play Console developer accounts.',
+      },
+      {
+        title: 'Data Safety & Account Deletion Mandate',
+        desc: 'Apple Guideline 5.1.1 and Google Play privacy policies requiring in-app account deletion buttons and exact data usage forms.',
+      },
+    ],
+    deliverables: [
+      { title: 'Pre-Submission Policy & Technical Audit', desc: 'Verifying permissions, privacy disclosures, account deletion flows, and SDK target levels.' },
+      { title: 'Build Signing & Store Console Configuration', desc: 'Generating release AAB/IPA builds, production signing keystores, provisioning profiles, and store metadata.' },
+      { title: 'Store Listing Optimization (ASO Basics)', desc: 'Optimized screenshots formatting, content ratings, privacy URLs, and reviewer demo credentials.' },
+      { title: 'Rejection Appeal & Code Remediation', desc: 'Decoding reviewer rejections, writing Resolution Center replies, and updating code to comply.' },
+      { title: 'Production Release Monitoring', desc: 'Tracking build status until the app is approved and publicly downloadable worldwide.' },
+    ],
+    process_steps: [
+      { step: '01', title: 'Share Rejection or Build', desc: 'Share your App Store / Google Play rejection screenshot or fresh mobile build.' },
+      { step: '02', title: 'Compliance Gap Checklist', desc: 'We identify all policy non-compliance issues across code, privacy forms, and UI.' },
+      { step: '03', title: 'Code Fixes & Store Setup', desc: 'We implement required flows (account deletion, permissions) and configure console metadata.' },
+      { step: '04', title: 'Submission & Live Approval', desc: 'We manage reviewer communication, answer questions, and secure official live approval.' },
+    ],
+    features: [
+      'Apple App Store Guideline compliance (2.1, 4.2, 5.1.1)',
+      'Google Play 12-testers closed testing guidance',
+      'Target API Level & modern SDK compliance',
+      'In-app account deletion technical implementation',
+      'Direct reviewer resolution center messaging',
+      'Published 100% under YOUR own developer accounts',
+    ],
+    cross_link: {
+      text: 'Need ongoing app maintenance after launch?',
+      title: 'App Maintenance, Bug Fixing & DevOps AMC',
+      to: '/services/app-maintenance-and-support',
+    },
+    faqs: [
+      {
+        question: 'Can you help if my app was already rejected multiple times?',
+        answer: 'Yes, absolutely. We specialize in diagnosing repetitive rejection notices, refactoring the underlying code or UI, and drafting professional resolution appeals.',
+      },
+      {
+        question: 'Will the app be published under MY developer account?',
+        answer: 'Yes, always under your own Apple Developer and Google Play Console accounts so that you retain 100% ownership, revenue, and customer reviews.',
+      },
+      {
+        question: 'Do you implement the required in-app account deletion flow?',
+        answer: 'Yes, both Apple and Google mandate this. We implement both the frontend user deletion button and the backend database wipe endpoint.',
+      },
+    ],
+    order: 2,
+    is_active: true,
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // PILLAR 3: APP OWNERSHIP TRANSFER & FULL DATABASE MIGRATION
+  // ══════════════════════════════════════════════════════════════════════════
+  {
+    slug: 'app-transfer-and-database-migration',
+    pillar: 'Pillar 3',
+    meta_title: 'App Transfer & Full Database Migration Service | Safe Exit & Handover - OPEN MNC',
+    meta_description: 'Selling, buying, or moving an app? OPEN MNC handles end-to-end Play Store & App Store transfers, full database migration, cloud handover, and zero-downtime transitions.',
+    h1_heading: 'Selling, Buying, or Moving an App? Safe App Transfer & Full Database Migration.',
+    title: 'App Ownership Transfer, Full Database & Infrastructure Migration',
+    tagline: 'Zero data loss. Zero subscription breaks. Complete technical handover.',
+    icon: 'transfer',
+    category: 'Acquisition & Migration',
+    description:
+      'One wrong step during an app transfer can break live users, wipe databases, or lock out recurring subscriptions. OpenMNC manages the complete technical handover—store accounts, databases (Firebase, Supabase, PostgreSQL, MongoDB), APIs, domains, and payment gateways—with zero data loss.',
+    problem_statement:
+      'App transfers and database migrations frequently cause corrupted user data, broken in-app subscriptions, and extended downtime during acquisitions.',
+    technical_solution:
+      'Dry-run staging migrations, official Apple/Google store account transfer workflows, automated schema validation, and safe credential rotation.',
+    expected_outcome:
+      'Seamless transfer with 100% database integrity, preserved store reviews and ratings, and zero interruption for live subscribers.',
+    problems_grid: [
+      {
+        title: 'App Sellers (Fast Escrow Release)',
+        desc: 'Handing over a clean, documented codebase, store listing, and live database to the buyer smoothly so acquisition funds release quickly on Acquire.com or Flippa.',
+      },
+      {
+        title: 'App Buyers (Acquisition Due Diligence)',
+        desc: 'Technical due diligence before buying, followed by safely moving all assets into your own cloud accounts so previous owners retain zero lingering access.',
+      },
+      {
+        title: 'Account & Entity Consolidations',
+        desc: 'Moving apps from individual/agency developer accounts to corporate LLP/Pvt Ltd accounts without losing rankings or active subscriptions.',
+      },
+      {
+        title: 'Cloud & Database Migrations',
+        desc: 'Migrating legacy servers (Heroku, Firebase, Supabase, AWS, MongoDB Atlas) without taking the app offline or corrupting live user hashes.',
+      },
+    ],
+    deliverables: [
+      { title: 'App Store & Google Play Transfer', desc: 'Preparing transfer prerequisites, removing conflicts, and executing official store transfers.' },
+      { title: 'Full Database Migration & Verification', desc: 'Exporting, transforming, and migrating user tables, auth hashes, media buckets, and relational schemas.' },
+      { title: 'Cloud, Domain & DNS Handover', desc: 'Migrating AWS/GCP/Vercel environments, DNS routing, GitHub repositories, and APNs/FCM push notification keys.' },
+      { title: 'Payment & Subscription Continuity', desc: 'Safely updating Stripe, Razorpay, or RevenueCat billing webhooks so recurring revenue does not break.' },
+      { title: 'Security Lockout & Credential Rotation', desc: 'Rotating all API keys, database passwords, and admin tokens post-transfer for exclusive buyer control.' },
+    ],
+    process_steps: [
+      { step: '01', title: 'Asset & Dependency Audit', desc: 'We map out every store account, database, cloud server, DNS provider, and payment gateway.' },
+      { step: '02', title: 'Staging Dry-Run Migration', desc: 'We test the database migration on a staging replica to verify table integrity and zero schema loss.' },
+      { step: '03', title: 'Live Cutover & Store Transfer', desc: 'Execute scheduled cutover during low-traffic hours and initiate official Apple/Google transfers.' },
+      { step: '04', title: 'Key Rotation & Handover', desc: 'Rotate all credentials, revoke old agency access, and deliver verified documentation.' },
+    ],
+    features: [
+      'Preserve existing App Store & Google Play ratings and reviews',
+      'Zero downtime database migration with dry-run verification',
+      'Stripe & RevenueCat subscription webhook continuity',
+      'Push notification certificate (APNs/FCM) transfer',
+      'Credential rotation & complete access lockout',
+      'Escrow-friendly milestone verification for Acquire.com & Flippa',
+    ],
+    cross_link: {
+      text: 'Acquired an app and need new scalable features?',
+      title: 'Scalable Custom Software & App Development',
+      to: '/services/custom-software-and-scalable-app-development',
+    },
+    faqs: [
+      {
+        question: 'Will we lose our existing app reviews, ratings, and users during a store transfer?',
+        answer: 'No! When transferred properly through the official Apple App Store and Google Play transfer workflows, all existing reviews, star ratings, and automatic app update paths remain completely intact.',
+      },
+      {
+        question: 'Can you migrate our database without taking the app offline for days?',
+        answer: 'Yes. We run shadow migrations and dry-run tests on staging environments first, enabling near-zero downtime live cutovers.',
+      },
+      {
+        question: 'Do you sign NDAs for confidential acquisitions?',
+        answer: 'Yes, strict NDAs and escrow-friendly milestone verifications are standard protocol for all transfer engagements.',
+      },
+    ],
+    order: 3,
+    is_active: true,
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // PILLAR 4: SCALABLE CUSTOM SOFTWARE & MOBILE APP DEV
+  // ══════════════════════════════════════════════════════════════════════════
+  {
+    slug: 'custom-software-and-scalable-app-development',
+    pillar: 'Pillar 4',
+    meta_title: 'Scalable Custom Software, Web & Mobile App Development | Built for Growth - OPEN MNC',
+    meta_description: 'Planning a serious digital product? OPEN MNC architects and builds scalable custom software, SaaS platforms, web apps, and iOS/Android mobile apps tailored to your business.',
+    h1_heading: 'Custom Software, Web & Mobile Apps Engineered for Serious, Scalable Businesses.',
+    title: 'Scalable Custom Software, Web & Mobile App Development',
+    tagline: 'Off-the-shelf templates hit a ceiling fast. We engineer software that scales to 100k+ users.',
+    icon: 'development',
+    category: 'Full-Cycle Engineering',
+    description:
+      'We partner with ambitious founders, funded startups, and growing enterprises to build fast, secure, and scalable digital products. From multi-tenant SaaS platforms to native iOS/Android apps and AI workflows, we handle architecture, sprint development, QA, and cloud scaling.',
+    problem_statement:
+      'Off-the-shelf templates and low-code platforms hit performance ceilings, compromise data privacy, and become expensive technical debt.',
+    technical_solution:
+      'Architecture-first engineering using modern full-stack frameworks (React, Vite, Node, FastAPI, MongoDB, PostgreSQL) with 100% source code ownership.',
+    expected_outcome:
+      'Production-grade custom software built for high concurrency, microsecond database queries, and seamless future feature expansion.',
+    problems_grid: [
+      {
+        title: 'Custom Web Apps & SaaS Platforms',
+        desc: 'Multi-tenant dashboards, high-speed customer portals, billing engines, and modern SaaS architectures built on React, FastAPI, and Postgres.',
+      },
+      {
+        title: 'Cross-Platform Mobile Apps (iOS & Android)',
+        desc: 'Smooth, 60fps mobile applications engineered with React Native or Flutter, designed for immediate store compliance.',
+      },
+      {
+        title: 'Business Automation & Internal CRM Portals',
+        desc: 'Custom internal workflows, automated client lead routing, and inventory systems that replace messy, unscalable spreadsheets.',
+      },
+      {
+        title: 'AI & Autonomous Workflow Integrations',
+        desc: 'Embedding custom LLMs (OpenAI, Claude, Gemini), smart document parsers, and autonomous multi-agent pipelines directly into your software.',
+      },
+    ],
+    deliverables: [
+      { title: 'Architecture-First Blueprint', desc: 'Clean database schema modeling, API contract definition, and UX wireframes before writing code.' },
+      { title: 'Agile Sprint Development', desc: 'Transparent weekly demos, live staging URLs, and milestone deliveries with no black-box agency delays.' },
+      { title: '100% Source Code & IP Ownership', desc: 'Every repository commit, cloud account, and database belongs exclusively to you from day one.' },
+      { title: 'Security Hardening & QA Testing', desc: 'Automated unit tests, load testing, role-based access control (RBAC), and penetration auditing.' },
+      { title: 'Production Launch & Store Release', desc: 'Zero-downtime deployment, CDN acceleration, DNS setup, and App Store / Play Store approvals.' },
+    ],
+    process_steps: [
+      { step: '01', title: 'Technical Discovery', desc: 'Deep dive into your product requirements, user personas, and scalability goals.' },
+      { step: '02', title: 'UI/UX & Architecture', desc: 'Interactive prototypes, database schema modeling, and third-party API mapping.' },
+      { step: '03', title: 'Sprint Development', desc: 'Bi-weekly sprint deliverables with live staging links and direct founder communication.' },
+      { step: '04', title: 'QA & Security Hardening', desc: 'End-to-end stress testing, input validation, and compliance checks.' },
+      { step: '05', title: 'Store & Cloud Launch', desc: 'Smooth live deployment, store listing publication, and post-launch monitoring.' },
+    ],
+    features: [
+      'React 18, Vite, FastAPI & MongoDB / PostgreSQL tech stack',
+      'Cross-platform iOS and Android mobile development',
+      'Enterprise LLM and autonomous AI agent tool pipelines',
+      'Role-based access control (RBAC) and high security',
+      '100% source code and intellectual property ownership',
+      'Transparent milestone-based pricing with zero hidden fees',
+    ],
+    cross_link: {
+      text: 'Need long-term support and maintenance after launch?',
+      title: 'App Maintenance & Long-Term Support (AMC)',
+      to: '/services/app-maintenance-and-support',
+    },
+    faqs: [
+      {
+        question: 'How do you price custom software projects?',
+        answer: 'We provide either transparent fixed-scope milestone pricing for well-defined builds, or dedicated monthly engineering retainers for rapidly evolving products.',
+      },
+      {
+        question: 'Do I own 100% of the source code and intellectual property?',
+        answer: 'Yes, 100%. Our legal agreement guarantees that all code, repositories, designs, and cloud accounts belong exclusively to your company.',
+      },
+      {
+        question: 'Can you build an MVP fast without creating technical debt?',
+        answer: 'Yes. We engineer lean MVPs on clean, modular architectures so you never have to throw away code when scaling to thousands of active users.',
+      },
+    ],
+    order: 4,
+    is_active: true,
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // PILLAR 5: APP MAINTENANCE, DEVOPS & SUPPORT (AMC)
+  // ══════════════════════════════════════════════════════════════════════════
+  {
+    slug: 'app-maintenance-and-support',
+    pillar: 'Pillar 5',
+    meta_title: 'App Maintenance, Bug Fixing & Ongoing Support Services (AMC) | OPEN MNC',
+    meta_description: 'Keep your web and mobile apps fast, secure, and updated. OPEN MNC provides reliable ongoing app maintenance, OS/SDK updates, bug fixes, server monitoring, and feature upgrades.',
+    h1_heading: 'Reliable App Maintenance & Support—Keep Your Software Fast, Secure, and Always Online.',
+    title: 'App Maintenance, DevOps, Security & Long-Term Support (AMC)',
+    tagline: 'Launching your app is only Day 1. We keep your software fast, updated, and secure.',
+    icon: 'maintenance',
+    category: 'Ongoing Support & DevOps',
+    description:
+      'Mobile operating systems update annually, database storage fills up, and unmaintained code becomes vulnerable to security breaches. OpenMNC provides reliable Annual Maintenance Contracts (AMC) and ongoing DevOps support, serving as your dedicated engineering safety net at a fraction of the cost of an in-house team.',
+    problem_statement:
+      'Google Play/Apple annual SDK deadlines remove unmaintained apps from stores, while silent server crashes and security exploits cause unexpected downtime.',
+    technical_solution:
+      'Proactive SDK upgrades, 24/7 uptime monitoring, automated database backups, priority bug fixing SLAs, and continuous monthly feature sprints.',
+    expected_outcome:
+      '99.9% uptime, perpetual store compliance, rapid bug resolution, and steady product evolution without hiring full-time internal developers.',
+    problems_grid: [
+      {
+        title: 'Mandatory Store SDK Upgrades',
+        desc: 'Google Play and Apple enforce mandatory annual API/SDK deadline removals for apps that fail to update their target build versions.',
+      },
+      {
+        title: 'Silent Server & Database Crashes',
+        desc: 'Database storage filling up, memory leaks, expired SSL certificates, and cloud instance crashes that go unnoticed without monitoring.',
+      },
+      {
+        title: 'Vulnerabilities in Outdated Packages',
+        desc: 'Security holes in unpatched npm, Python, or framework libraries that expose user credentials to automated bots.',
+      },
+      {
+        title: 'Disappearing Freelancers',
+        desc: 'The original developer is unresponsive when an urgent production crash strikes on a weekend or during user traffic spikes.',
+      },
+    ],
+    deliverables: [
+      { title: 'Proactive OS & Store Compliance Updates', desc: 'Keeping your app compliant with new iOS/Android releases and store policies.' },
+      { title: 'Priority Bug Fixing & Crash SLAs', desc: 'Monitoring error analytics via Sentry and resolving production bugs under defined response times.' },
+      { title: 'Server, Database & Backup Management', desc: 'Automated daily database backups, SSL renewals, security patches, and cloud cost tuning.' },
+      { title: 'Performance Optimization', desc: 'Speeding up slow query endpoints, caching heavy responses, and managing traffic spikes.' },
+      { title: 'Continuous Feature Enhancements', desc: 'Monthly bank of engineering hours dedicated to minor UI tweaks, new integrations, and improvements.' },
+    ],
+    process_steps: [
+      { step: '01', title: 'Takeover Audit', desc: 'We inspect your current repository, cloud servers, and third-party dependencies to document technical debt.' },
+      { step: '02', title: 'Monitoring Setup', desc: 'We install uptime ping monitors, automated error reporting, and scheduled database backup routines.' },
+      { step: '03', title: 'Stabilization & Patching', desc: 'We update outdated packages, fix known errors, and establish clean staging/production environments.' },
+      { step: '04', title: 'Ongoing Retainer & SLA', desc: 'Continuous weekly maintenance, monthly feature improvements, and on-call emergency response.' },
+    ],
+    features: [
+      'Proactive Google Play & Apple target SDK upgrades',
+      'Automated 24/7 uptime and health check monitoring',
+      'Daily off-site database backups & disaster recovery plans',
+      'Priority SLA response times for critical production bugs',
+      'Monthly engineering hours for small feature updates',
+      'Dedicated engineering pod at a fraction of in-house hiring cost',
+    ],
+    cross_link: {
+      text: 'Have an AI-built app that needs an initial stabilization audit first?',
+      title: 'Vibe-Coded App Audit & Production Fixing',
+      to: '/services/vibe-coded-app-audit-and-fixing',
+    },
+    faqs: [
+      {
+        question: 'Can you maintain an app that another agency or freelancer built?',
+        answer: 'Yes! We start with a quick technical onboarding audit to document your codebase, identify existing technical debt, and stabilize the system before regular maintenance begins.',
+      },
+      {
+        question: 'What if I only need a few hours of updates and monitoring per month?',
+        answer: 'Our Essential Care Plan is designed specifically for predictable, low-cost maintenance covering uptime checks, automated backups, and critical security patches.',
+      },
+      {
+        question: 'How fast do you respond to urgent production downtime?',
+        answer: 'For critical outages, our team operates under rapid SLA timelines to diagnose and restore service, backed by automated server alerts.',
+      },
+    ],
+    order: 5,
+    is_active: true,
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // EXISTING CORE SERVICE: BUSINESS AUTOMATION & AI INTEGRATION
+  // ══════════════════════════════════════════════════════════════════════════
   {
     slug: 'business-automation',
     title: 'Enterprise AI Automation & Multi-Agent Workflows',
@@ -62,77 +516,18 @@ const STATIC_SERVICES = [
         answer: 'We deploy dedicated on-premise or private-cloud inference pipelines with zero public training exposure and enterprise encryption.',
       },
     ],
-    sub_services: [
-      {
-        slug: 'workflow-bots',
-        title: 'Autonomous Multi-Agent Workflow Bots',
-        tagline: 'Eliminate human coordination bottlenecks',
-        problem_statement: 'Manual coordination across departments slows delivery and increases operational overhead.',
-        technical_solution: 'LangChain and AutoGen multi-agent orchestrations triggering CRM, ERP, and payment webhooks.',
-        expected_outcome: 'Instant task routing and 24/7 automated reconciliation with zero human delay.',
-      },
-    ],
-    order: 1,
+    order: 6,
     is_active: true,
   },
-  {
-    slug: 'custom-development',
-    title: 'Full-Cycle Software, SaaS & Mobile App Development',
-    tagline: 'From visionary concept to high-scale production.',
-    icon: 'development',
-    category: 'B2B Enterprise',
-    description:
-      'Transforming ambitious ideas into scalable digital products with deep requirement engineering, modern full-stack architectures (React, Vite, Node, FastAPI, MongoDB), cloud DevOps, and App Store Optimization (ASO). We deliver enterprise-grade software for international startups and domestic market leaders.',
-    problem_statement:
-      'Companies need alternatives to AppMetrica/AppsFlyer for custom funnel tracking without recurring per-seat fees or data leaks.',
-    technical_solution:
-      'Custom-built tracking APIs, event ingestion pipelines, and full-stack software integrated directly into the client\'s cloud infrastructure.',
-    expected_outcome:
-      '100% data ownership with zero third-party subscription fees and microsecond analytics querying.',
-    features: [
-      'Deep architectural requirement analysis & UX design',
-      'Full-stack web apps, SaaS platforms & mobile apps (iOS & Android)',
-      'App Store Optimization (ASO) & algorithmic growth',
-      'Cloud DevOps, CI/CD pipelines & high-concurrency scaling',
-      'Comprehensive QA, security hardening & maintenance SLA',
-      'Founder-friendly sprint delivery for global & domestic ventures',
-    ],
-    faqs: [
-      {
-        question: 'How long does custom software development take?',
-        answer: 'Depends on scope, but we use agile sprints for fast MVP delivery, typically launching production-ready systems in 4 to 8 weeks.',
-      },
-      {
-        question: 'Do you build alternative analytics and attribution systems?',
-        answer: 'Yes, we build custom analytics & attribution tracking systems replacing AppMetrica or AppsFlyer with 100% private data ownership.',
-      },
-    ],
-    sub_services: [
-      {
-        slug: 'analytics-tracking',
-        title: 'Custom Analytics & Attribution Engine (AppMetrica / AppsFlyer Alternative)',
-        tagline: '100% data ownership with zero third-party subscription fees',
-        problem_statement: 'Companies need alternatives to AppMetrica/AppsFlyer for custom funnel tracking without exorbitant per-event pricing or external data sharing.',
-        technical_solution: 'Custom-built tracking APIs, lightweight mobile SDKs, and event ingestion pipelines integrated directly into the client\'s infrastructure.',
-        expected_outcome: '100% data ownership with zero third-party subscription fees and microsecond attribution query speeds.',
-      },
-      {
-        slug: 'saas-platforms',
-        title: 'Scalable SaaS & Cloud Web Platforms',
-        tagline: 'Engineered for high concurrency and zero downtime',
-        problem_statement: 'Legacy web applications crumble under sudden traffic spikes and unoptimized queries.',
-        technical_solution: 'Distributed React, FastAPI, Node, and Redis architectures designed for horizontal scaling.',
-        expected_outcome: 'Sub-second page speeds, seamless load balancing, and 99.99% operational uptime.',
-      },
-    ],
-    order: 2,
-    is_active: true,
-  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // EXISTING CORE SERVICE: IN-HOUSE PRODUCTS
+  // ══════════════════════════════════════════════════════════════════════════
   {
     slug: 'inhouse-products',
     title: 'In-House Products & Games',
     tagline: 'Products we build, publish, and stand behind.',
-    icon: 'development',
+    icon: 'apps',
     category: 'B2B Enterprise',
     description:
       'OpenMNC develops and publishes proprietary custom software, mobile apps, and games on Google Play and Apple App Store. Flagship titles include Kibo VPN (privacy-first tool), Calorie AI (smart nutrition assistant), and CardSnap (digital networking).',
@@ -156,10 +551,13 @@ const STATIC_SERVICES = [
         answer: 'Yes, we license and customize our proprietary engines (VPN, AI vision, OCR) for enterprise white-label deployment.',
       },
     ],
-    sub_services: [],
-    order: 3,
+    order: 7,
     is_active: true,
   },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // EXISTING CORE SERVICE: SOCIAL MEDIA MANAGEMENT
+  // ══════════════════════════════════════════════════════════════════════════
   {
     slug: 'social-media-management',
     title: 'Social Media Management & Organic Growth',
@@ -188,10 +586,13 @@ const STATIC_SERVICES = [
         answer: 'Clients typically experience noticeable engagement upticks within 3 to 4 weeks as the platform algorithm indexes relatable video hooks.',
       },
     ],
-    sub_services: [],
-    order: 4,
+    order: 8,
     is_active: true,
   },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // EXISTING CORE SERVICE: STUDENT GUIDANCE
+  // ══════════════════════════════════════════════════════════════════════════
   {
     slug: 'student-guidance',
     title: 'Student Guidance & College Admission Subsidies',
@@ -224,19 +625,13 @@ const STATIC_SERVICES = [
         answer: 'Eligible students receive ₹3,000 to ₹10,000 directly discounted from college admission fees as an industrial subsidy.',
       },
     ],
-    sub_services: [
-      {
-        slug: 'college-selection',
-        title: 'Aptitude-Based College Selection',
-        tagline: '100% free guidance for 12th pass students',
-        problem_statement: 'Students choose colleges based on hearsay rather than faculty, labs, and genuine placement track record.',
-        technical_solution: 'Detailed comparative analysis across accredited universities with transparent fee structures.',
-        expected_outcome: 'Optimal college admission with guaranteed partner subsidy offset.',
-      },
-    ],
-    order: 5,
+    order: 9,
     is_active: true,
   },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // EXISTING CORE SERVICE: INDUSTRIAL TRAINING
+  // ══════════════════════════════════════════════════════════════════════════
   {
     slug: 'industrial-training',
     title: 'Advanced Industrial Training',
@@ -269,17 +664,7 @@ const STATIC_SERVICES = [
         answer: 'Yes, our partner college subsidy allows eligible students to offset or claim refunds of ₹3,000 to ₹7,000 directly.',
       },
     ],
-    sub_services: [
-      {
-        slug: 'custom-hardware',
-        title: 'IoT & Embedded Engineering (Robotics, Drones, Firmware)',
-        tagline: 'Full-stack embedded engineering to cloud dashboard',
-        problem_statement: 'Engineering students lack hands-on experience with production IoT hardware and drone telemetry.',
-        technical_solution: 'Full-stack embedded engineering to cloud dashboard with ESP32, sensor buses, firmware, and ROS.',
-        expected_outcome: 'Production-ready IoT devices and verified hardware engineering skills.',
-      },
-    ],
-    order: 6,
+    order: 10,
     is_active: true,
   },
 ]
@@ -287,17 +672,28 @@ const STATIC_SERVICES = [
 export default function Services({ initialSlug }) {
   const params = useParams()
   const rawSlug = initialSlug || params.slug
-  const subSlug = params.subSlug
   const resolvedSlug = rawSlug ? (SLUG_ALIASES[rawSlug.toLowerCase()] || rawSlug.toLowerCase()) : null
 
   const [services, setServices] = useState(STATIC_SERVICES)
   const [activeFaq, setActiveFaq] = useState(null)
+  const [reviewModalOpen, setReviewModalOpen] = useState(false)
 
-  // 100% Dynamic CMS Fetch from FastAPI + MongoDB
+  // Fetch CMS updates from backend if available, merging seamlessly
   useEffect(() => {
     servicesApi.getAll().then((res) => {
       if (Array.isArray(res.data) && res.data.length > 0) {
-        setServices(res.data.filter((s) => s.is_active !== false))
+        // Merge fetched dynamic items with our rich static pillars
+        const activeRemote = res.data.filter((s) => s.is_active !== false)
+        const combined = [...STATIC_SERVICES]
+        activeRemote.forEach((rem) => {
+          const idx = combined.findIndex((c) => c.slug === rem.slug)
+          if (idx !== -1) {
+            combined[idx] = { ...combined[idx], ...rem }
+          } else {
+            combined.push(rem)
+          }
+        })
+        setServices(combined)
       }
     }).catch(() => {})
   }, [])
@@ -315,50 +711,30 @@ export default function Services({ initialSlug }) {
     }
   }, [resolvedSlug, services])
 
-  // Resolve current active service and active sub-service
   const currentService = resolvedSlug ? services.find((s) => s.slug === resolvedSlug) : null
-  const subItem = currentService?.sub_services?.find((sub) => sub.slug === subSlug?.toLowerCase()) || null
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // PHASE 2: ADVANCED SEO & PRECISE METADATA INJECTION
-  // Dynamic rule: <title>{data.serviceName} | OpenMNC</title>
-  // Description rule: Use problem_statement and technical_solution (150 chars)
+  // DYNAMIC SEO METADATA
   // ═══════════════════════════════════════════════════════════════════════════
-  let seoTitle = 'Services & Solutions | OpenMNC'
-  let seoDesc = 'Six specialized verticals engineered for global & domestic scaling — from enterprise AI multi-agent workflows to zero-fee student career empowerment.'
-  let seoKeywords = 'OpenMNC services, AI automation company Kolkata, Custom software development India, IoT embedded engineering services, B2B AI integration, App development agency, Free student career guidance India, B.Tech industrial training Kolkata'
+  let seoTitle = 'Services & Solutions Hub | OpenMNC'
+  let seoDesc = 'Explore OpenMNC engineering solutions: Vibe-coded app audit & fixing, App Store/Play Store publishing, app transfer, custom development, and AMC support.'
+  let seoKeywords = 'vibe coded app audit, publish app on play store, fix app store rejection, app transfer service, custom software development india, app maintenance amc'
   let seoCanonical = '/services'
 
-  if (subItem) {
-    // Dynamic rule for deep-linked sub-service (e.g. Analytics Tracking or Custom Hardware)
-    seoTitle = `${subItem.title} | OpenMNC`
-    const problem = subItem.problem_statement || currentService?.problem_statement || ''
-    const solution = subItem.technical_solution || currentService?.technical_solution || ''
-    const combined = `${problem} ${solution}`.trim()
-    seoDesc = combined ? combined.slice(0, 150) : (subItem.tagline || currentService?.description || '').slice(0, 150)
-    seoCanonical = `/services/${rawSlug}/${subSlug}`
-    seoKeywords = `${subItem.title}, ${rawSlug}, ${subSlug}, OpenMNC, custom software, AEO architecture`
-  } else if (currentService) {
-    // Dynamic rule: <title>{data.serviceName} | OpenMNC</title>
-    seoTitle = `${currentService.title} | OpenMNC`
-    const problem = currentService.problem_statement || ''
-    const solution = currentService.technical_solution || ''
-    const combined = `${problem} ${solution}`.trim()
-    seoDesc = combined ? combined.slice(0, 150) : (currentService.description || currentService.tagline || '').slice(0, 150)
+  if (currentService) {
+    seoTitle = currentService.meta_title || `${currentService.title} | OpenMNC`
+    seoDesc = currentService.meta_description || currentService.description?.slice(0, 160) || ''
     seoCanonical = `/services/${currentService.slug}`
-    seoKeywords = `${currentService.title}, OpenMNC, ${currentService.slug}, enterprise technology, AI automation, software engineering`
+    seoKeywords = `${currentService.title}, OpenMNC, ${currentService.slug}, app engineering, software solutions`
   }
 
-  // JSON-LD AEO Schemas (TechArticle + Dynamic FAQPage)
   const dynamicSchemas = []
-  if (subItem) {
-    dynamicSchemas.push(aeoTechArticleSchema(subItem))
-  } else if (currentService) {
+  if (currentService) {
     dynamicSchemas.push(aeoTechArticleSchema(currentService))
     dynamicSchemas.push(serviceSchema(currentService))
-  }
-  if (currentService?.faqs?.length > 0) {
-    dynamicSchemas.push(dynamicFaqSchema(currentService.faqs))
+    if (currentService.faqs?.length > 0) {
+      dynamicSchemas.push(dynamicFaqSchema(currentService.faqs))
+    }
   } else {
     dynamicSchemas.push(b2bFaqSchema)
     dynamicSchemas.push(studentGuidanceFaqSchema)
@@ -374,128 +750,69 @@ export default function Services({ initialSlug }) {
         schema={dynamicSchemas}
       />
 
-      {/* ══════ HERO SECTION (MOBILE-FIRST GLASSMORPHISM) ══════ */}
+      {/* ══════ HERO SECTION ══════ */}
       <section
-        className="relative pt-28 sm:pt-32 pb-16 sm:pb-20 px-4 bg-navy-950 overflow-hidden"
+        className="relative pt-28 sm:pt-34 pb-16 sm:pb-20 px-4 bg-navy-950 overflow-hidden"
         aria-label="Services hero"
       >
-        {/* Fixed Aspect Ratio Glass Container for 3D Background preventing Layout Shifts on Mobile */}
         <div className="absolute inset-0 aspect-[16/9] sm:aspect-auto overflow-hidden pointer-events-none">
-          <ThreeBackground section="hero" className="opacity-40" />
+          <ThreeBackground section="hero" className="opacity-35" />
         </div>
 
-        <div className="relative z-10 container-max text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-lg border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] mb-4">
-            <span className="w-2 h-2 rounded-full bg-cyan-neon animate-pulse" />
-            <span className="text-[11px] sm:text-xs text-white/90 font-semibold tracking-widest uppercase">
-              {subItem
-                ? `Specialized Deep-Link Solution`
-                : currentService
-                ? currentService.tagline || 'Specialized Vertical'
-                : 'Enterprise & Educational Solutions'}
-            </span>
-          </div>
+        <div className="relative z-10 max-w-5xl mx-auto text-center">
+          {currentService?.pillar && (
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-neon/10 border border-cyan-neon/30 text-cyan-neon text-xs font-semibold tracking-wider uppercase mb-4 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-cyan-neon animate-pulse" />
+              <span>{currentService.pillar}: {currentService.category}</span>
+            </div>
+          )}
 
           <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-4 sm:mb-6 tracking-tight leading-tight">
-            {subItem ? (
-              subItem.title
+            {currentService?.h1_heading ? (
+              currentService.h1_heading
             ) : currentService ? (
               currentService.title
             ) : (
               <>
-                Our <span className="gradient-text">Services</span>
+                Engineered Solutions for <span className="gradient-text">Founders &amp; Enterprises</span>
               </>
             )}
           </h1>
 
-          <p className="text-white/90 text-sm sm:text-lg max-w-3xl mx-auto leading-relaxed">
-            {seoDesc}
+          <p className="text-white/90 text-sm sm:text-lg max-w-3xl mx-auto leading-relaxed mb-6">
+            {currentService?.tagline || seoDesc}
           </p>
 
-          {/* Quick Breadcrumb if on Deep Route */}
-          {(currentService || subItem) && (
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400">
-              <Link to="/services" className="hover:text-cyan-neon underline">All Services</Link>
+          {/* Breadcrumb if on specific pillar */}
+          {currentService && (
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400">
+              <Link to="/services" className="hover:text-cyan-neon underline">All Services Hub</Link>
               <span>/</span>
-              {currentService && (
-                <Link to={`/services/${currentService.slug}`} className="hover:text-cyan-neon underline">
-                  {currentService.title}
+              <span className="text-cyan-neon font-medium">{currentService.title}</span>
+            </div>
+          )}
+
+          {/* Quick Pillar Filter Buttons on Hub Page */}
+          {!currentService && (
+            <div className="mt-8 flex flex-wrap justify-center gap-2 max-w-4xl mx-auto">
+              {STATIC_SERVICES.slice(0, 5).map((p) => (
+                <Link
+                  key={p.slug}
+                  to={`/services/${p.slug}`}
+                  className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-neon/40 text-xs text-gray-300 hover:text-white transition-all"
+                >
+                  {p.pillar}: {p.title.split('&')[0]}
                 </Link>
-              )}
-              {subItem && (
-                <>
-                  <span>/</span>
-                  <span className="text-cyan-neon font-medium">{subItem.title}</span>
-                </>
-              )}
+              ))}
             </div>
           )}
         </div>
       </section>
 
-      {/* ══════ DEEP-LINK SPECIALIZED SPOTLIGHT (When /services/:slug/:subSlug is visited) ══════ */}
-      {subItem && (
-        <section className="bg-navy-950 px-4 py-8" aria-label="Deep-link solution details">
-          <div className="container-max">
-            <div className="glass-card p-6 sm:p-8 md:p-10 border border-cyan-neon/30 bg-white/10 backdrop-blur-lg shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-2xl">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-white/10">
-                <div>
-                  <span className="text-xs uppercase font-bold tracking-wider text-cyan-neon">
-                    Authoritative Technical Architecture
-                  </span>
-                  <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mt-1">
-                    {subItem.title}
-                  </h2>
-                  {subItem.tagline && (
-                    <p className="text-gray-300 text-sm italic mt-1">{subItem.tagline}</p>
-                  )}
-                </div>
-                <div className="flex-shrink-0">
-                  <GlowButton
-                    href={`/contact?intent=b2b&service=${resolvedSlug}&sub=${subItem.slug}`}
-                    variant="primary"
-                  >
-                    Request Technical Proposal →
-                  </GlowButton>
-                </div>
-              </div>
-
-              {/* AEO Problem -> Solution -> Expected Outcome Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div className="p-5 rounded-xl bg-red-950/20 border border-red-500/20 backdrop-blur-md">
-                  <span className="text-xs font-bold text-red-400 uppercase tracking-wider block mb-2">
-                    🔴 The Problem
-                  </span>
-                  <p className="text-xs sm:text-sm text-gray-200 leading-relaxed">
-                    {subItem.problem_statement || currentService?.problem_statement}
-                  </p>
-                </div>
-                <div className="p-5 rounded-xl bg-cyan-950/20 border border-cyan-neon/20 backdrop-blur-md">
-                  <span className="text-xs font-bold text-cyan-neon uppercase tracking-wider block mb-2">
-                    ⚡ The Technical Solution
-                  </span>
-                  <p className="text-xs sm:text-sm text-gray-200 leading-relaxed">
-                    {subItem.technical_solution || currentService?.technical_solution}
-                  </p>
-                </div>
-                <div className="p-5 rounded-xl bg-emerald-950/20 border border-emerald-500/20 backdrop-blur-md">
-                  <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider block mb-2">
-                    🎯 Expected Outcome
-                  </span>
-                  <p className="text-xs sm:text-sm text-gray-200 leading-relaxed">
-                    {subItem.expected_outcome || currentService?.expected_outcome}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ══════ MAIN SERVICES CATALOG (MOBILE-FIRST GLASSMORPHISM) ══════ */}
-      <main className="bg-navy-950 section-padding">
+      {/* ══════ MAIN SERVICES CONTENT ══════ */}
+      <main className="bg-navy-950 section-padding pt-10">
         <div className="container-max">
-          <div className="space-y-16 sm:space-y-24">
+          <div className="space-y-20 sm:space-y-28">
             {services.map((service, i) => {
               const icon = getServiceIcon(service.icon, service.slug)
               const isEven = i % 2 === 0
@@ -503,19 +820,24 @@ export default function Services({ initialSlug }) {
                 <article
                   key={service.slug}
                   id={service.slug}
-                  className="scroll-mt-24"
+                  className="scroll-mt-24 p-6 sm:p-10 rounded-3xl bg-white/2 border border-white/5 hover:border-cyan-neon/20 transition-all duration-300"
                   aria-label={service.title}
                 >
-                  <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${isEven ? '' : 'lg:grid-flow-col-dense'}`}>
+                  <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start ${isEven ? '' : 'lg:grid-flow-col-dense'}`}>
                     
-                    {/* Text Details Side (7 columns) */}
+                    {/* Left Details (7 cols) */}
                     <div className={`lg:col-span-7 ${isEven ? '' : 'lg:col-start-6'}`}>
                       <ScrollReveal direction={isEven ? 'left' : 'right'}>
                         <div>
                           <div className="flex items-center gap-3 mb-3">
                             <span className="text-3xl" aria-hidden="true">{icon}</span>
+                            {service.pillar && (
+                              <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-neon/15 text-cyan-neon border border-cyan-neon/30">
+                                {service.pillar}
+                              </span>
+                            )}
                             {service.category && (
-                              <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-cyan-neon/10 text-cyan-neon border border-cyan-neon/20">
+                              <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/5 text-gray-300 border border-white/10">
                                 {service.category}
                               </span>
                             )}
@@ -535,64 +857,103 @@ export default function Services({ initialSlug }) {
                             {service.description}
                           </p>
 
-                          {/* AEO Problem -> Solution -> Outcome Glass Card */}
-                          {(service.problem_statement || service.technical_solution || service.expected_outcome) && (
-                            <div className="mb-6 p-4 sm:p-5 rounded-2xl bg-white/5 backdrop-blur-lg border border-white/10 shadow-sm space-y-3">
-                              {service.problem_statement && (
-                                <div className="text-xs sm:text-sm">
-                                  <span className="font-bold text-red-400">Problem: </span>
-                                  <span className="text-gray-300">{service.problem_statement}</span>
-                                </div>
-                              )}
-                              {service.technical_solution && (
-                                <div className="text-xs sm:text-sm">
-                                  <span className="font-bold text-cyan-neon">Solution: </span>
-                                  <span className="text-gray-300">{service.technical_solution}</span>
-                                </div>
-                              )}
-                              {service.expected_outcome && (
-                                <div className="text-xs sm:text-sm">
-                                  <span className="font-bold text-emerald-400">Outcome: </span>
-                                  <span className="text-gray-300">{service.expected_outcome}</span>
-                                </div>
-                              )}
-                            </div>
-                          )}
-
-                          {/* Key Features List */}
-                          {service.features && service.features.length > 0 && (
-                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-6" aria-label={`${service.title} features`}>
-                              {service.features.map((f, fi) => (
-                                <li key={fi} className="flex items-start gap-2 text-xs sm:text-sm text-gray-300">
-                                  <span className="text-cyan-neon mt-0.5 flex-shrink-0" aria-hidden="true">▸</span>
-                                  <span>{f}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-
-                          {/* Deep Link Sub-Services Chips */}
-                          {service.sub_services && service.sub_services.length > 0 && (
-                            <div className="mt-4 pt-4 border-t border-white/10">
-                              <span className="text-[11px] uppercase tracking-wider font-semibold text-gray-400 block mb-2">
-                                Deep-Dive Architectures &amp; Niche Solutions:
+                          {/* Supported Tools Badges (if any) */}
+                          {service.supported_tools && (
+                            <div className="mb-6 p-4 rounded-xl bg-white/5 border border-white/10">
+                              <span className="text-[11px] uppercase tracking-wider font-bold text-gray-400 block mb-2">
+                                Supported Stacks &amp; AI Tools:
                               </span>
-                              <div className="flex flex-wrap gap-2">
-                                {service.sub_services.map((sub) => (
-                                  <Link
-                                    key={sub.slug}
-                                    to={`/services/${service.slug}/${sub.slug}`}
-                                    className="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 text-xs font-semibold text-white/90 hover:text-cyan-neon hover:border-cyan-neon/40 transition-all flex items-center gap-1.5 shadow-[0_8px_32px_0_rgba(31,38,135,0.2)]"
-                                  >
-                                    <span>🔍 {sub.title}</span>
-                                    <span className="text-cyan-neon text-xs">→</span>
-                                  </Link>
+                              <div className="flex flex-wrap gap-1.5">
+                                {service.supported_tools.map((tool) => (
+                                  <span key={tool} className="px-2.5 py-1 rounded-lg text-xs font-medium bg-cyan-neon/10 text-cyan-neon border border-cyan-neon/20">
+                                    {tool}
+                                  </span>
                                 ))}
                               </div>
                             </div>
                           )}
 
-                          {/* Interactive Service FAQs Accordion */}
+                          {/* Problem Cards 4-Grid (The Problem founders face) */}
+                          {service.problems_grid && service.problems_grid.length > 0 && (
+                            <div className="mb-8">
+                              <h3 className="text-xs font-bold uppercase tracking-wider text-red-400 mb-3">
+                                Real Challenges We Solve:
+                              </h3>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {service.problems_grid.map((prob, pi) => (
+                                  <div key={pi} className="p-3.5 rounded-xl bg-red-950/20 border border-red-500/20">
+                                    <h4 className="text-xs font-bold text-white mb-1">
+                                      ⚠ {prob.title}
+                                    </h4>
+                                    <p className="text-[11px] text-gray-300 leading-relaxed">
+                                      {prob.desc}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* In-Depth Deliverables */}
+                          {service.deliverables && service.deliverables.length > 0 && (
+                            <div className="mb-8">
+                              <h3 className="text-xs font-bold uppercase tracking-wider text-cyan-neon mb-3">
+                                What Is Included in This Deliverable:
+                              </h3>
+                              <div className="space-y-2.5">
+                                {service.deliverables.map((deliv, di) => (
+                                  <div key={di} className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-start gap-2.5">
+                                    <span className="text-cyan-neon font-bold text-xs mt-0.5">✓</span>
+                                    <div>
+                                      <strong className="text-xs text-white block">{deliv.title}</strong>
+                                      <span className="text-[11px] text-gray-300">{deliv.desc}</span>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* 4-Step Process Timeline */}
+                          {service.process_steps && service.process_steps.length > 0 && (
+                            <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10">
+                              <h3 className="text-xs font-bold uppercase tracking-wider text-amber-glow mb-4">
+                                Our Step-by-Step Process:
+                              </h3>
+                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                                {service.process_steps.map((st) => (
+                                  <div key={st.step} className="p-2.5 rounded-xl bg-navy-950/60 border border-white/5">
+                                    <span className="text-xs font-bold text-amber-glow block mb-1">
+                                      {st.step}
+                                    </span>
+                                    <strong className="text-[11px] text-white block mb-1 leading-tight">
+                                      {st.title}
+                                    </strong>
+                                    <p className="text-[10px] text-gray-400 leading-tight">
+                                      {st.desc}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Cross-Link naturally to complementary services */}
+                          {service.cross_link && (
+                            <div className="mb-6 p-3.5 rounded-xl bg-cyan-neon/5 border border-cyan-neon/20 flex items-center justify-between gap-3">
+                              <span className="text-xs text-gray-300">
+                                💡 {service.cross_link.text}
+                              </span>
+                              <Link
+                                to={service.cross_link.to}
+                                className="text-xs font-bold text-cyan-neon hover:underline whitespace-nowrap"
+                              >
+                                {service.cross_link.title} →
+                              </Link>
+                            </div>
+                          )}
+
+                          {/* Service FAQs */}
                           {service.faqs && service.faqs.length > 0 && (
                             <div className="mt-6 pt-4 border-t border-white/10">
                               <span className="text-xs font-bold uppercase tracking-wider text-cyan-neon block mb-3">
@@ -616,7 +977,7 @@ export default function Services({ initialSlug }) {
                                         <span className="text-cyan-neon text-xs">{isOpen ? '−' : '+'}</span>
                                       </button>
                                       {isOpen && (
-                                        <div className="px-3.5 pb-3 text-xs sm:text-sm text-gray-300 border-t border-white/5 pt-2">
+                                        <div className="px-3.5 pb-3 text-xs sm:text-sm text-gray-300 border-t border-white/5 pt-2 leading-relaxed">
                                           {faq.answer}
                                         </div>
                                       )}
@@ -630,39 +991,50 @@ export default function Services({ initialSlug }) {
                       </ScrollReveal>
                     </div>
 
-                    {/* Visual Card Side (5 columns) with Exact Glassmorphism Formula */}
-                    <div className={`lg:col-span-5 ${isEven ? '' : 'lg:col-start-1 lg:row-start-1'}`}>
+                    {/* Right Action / Contact Card (5 cols) */}
+                    <div className={`lg:col-span-5 ${isEven ? '' : 'lg:col-start-1 lg:row-start-1'} sticky top-24`}>
                       <ScrollReveal direction={isEven ? 'right' : 'left'} delay={0.1}>
-                        <div className="glass-card p-6 sm:p-8 md:p-10 relative overflow-hidden group hover:border-cyan-neon/40 transition-all duration-300">
-                          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-neon/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
-                          <div className="text-5xl sm:text-6xl mb-6 text-center" aria-hidden="true">{icon}</div>
+                        <div className="glass-card p-6 sm:p-8 relative overflow-hidden group hover:border-cyan-neon/40 transition-all duration-300">
+                          <div className="text-5xl mb-4 text-center" aria-hidden="true">{icon}</div>
                           
-                          <h3 className="font-display text-center text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-cyan-neon transition-colors">
+                          <h3 className="font-display text-center text-lg sm:text-xl font-bold text-white mb-1 group-hover:text-cyan-neon transition-colors">
                             {service.title}
                           </h3>
-                          <p className="text-center text-gray-300 text-xs sm:text-sm italic mb-6">
-                            {service.tagline}
+                          <p className="text-center text-gray-400 text-xs mb-6">
+                            Fixed scope milestone or dedicated senior engineers
                           </p>
 
-                          <div className="space-y-3 pt-4 border-t border-white/10 text-center">
+                          <div className="space-y-3 pt-4 border-t border-white/10">
                             <Link
-                              to={`/contact?intent=${service.category?.includes('Academy') ? 'student' : 'b2b'}&service=${service.slug}`}
-                              className="w-full block py-2.5 rounded-xl bg-cyan-neon text-navy-950 font-bold text-xs sm:text-sm shadow-cyan-glow hover:scale-[1.02] active:scale-[0.98] transition-all"
+                              to={`/contact?intent=b2b&service=${service.slug}`}
+                              className="w-full block py-3 rounded-xl bg-cyan-neon text-navy-950 font-bold text-xs sm:text-sm text-center shadow-cyan-glow hover:scale-[1.02] active:scale-[0.98] transition-all"
                             >
-                              Consult on this Solution →
+                              Request Project Proposal →
                             </Link>
 
                             <a
                               href={whatsappUrl(
                                 '918509684056',
-                                `Hi OpenMNC! I want to enquire about ${service.title} (${service.slug}).`
+                                `Hi Amit! I want to consult regarding ${service.title} (${service.slug}).`
                               )}
-                              className="w-full block py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/90 text-xs font-medium transition-all"
+                              className="w-full block py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/90 text-xs font-semibold text-center transition-all"
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              💬 WhatsApp Instant Inquiry
+                              💬 Instant WhatsApp Consultation
                             </a>
+
+                            <div className="pt-3 text-[11px] text-gray-400 space-y-1.5 border-t border-white/5">
+                              <p className="flex items-center gap-1.5">
+                                <span className="text-cyan-neon">✓</span> 100% IP &amp; Code Ownership Stays With You
+                              </p>
+                              <p className="flex items-center gap-1.5">
+                                <span className="text-cyan-neon">✓</span> Strict Mutual NDA Before Code Sharing
+                              </p>
+                              <p className="flex items-center gap-1.5">
+                                <span className="text-cyan-neon">✓</span> Direct Senior Engineering Communication
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </ScrollReveal>
@@ -674,173 +1046,55 @@ export default function Services({ initialSlug }) {
             })}
           </div>
 
-          {/* ══════ INDUSTRY SECTORS WE TRANSFORM ══════ */}
-          <section className="mt-24 sm:mt-28 border-t border-white/10 pt-16 sm:pt-20" aria-label="Industry sectors we serve">
-            <SectionHeader
-              eyebrow="Sector-Specific Solutions"
-              title="Industry Verticals We Empower with AI"
-              subtitle="Tailored automation and high-concurrency software built for the exact demands of modern industries."
-            />
-            <div className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                {
-                  icon: '💳',
-                  sector: 'FinTech & Financial Services',
-                  desc: 'Automated invoice reconciliation, KYC verification pipelines, fraud anomaly alerts, and conversational banking assistants.',
-                  tags: ['Invoice Automation', 'KYC Verification', 'Fraud AI'],
-                },
-                {
-                  icon: '🏥',
-                  sector: 'Healthcare & Life Sciences',
-                  desc: 'HIPAA-compliant LLM clinical documentation summaries, 24/7 patient triage booking bots, and diagnostic report routing.',
-                  tags: ['Clinical Summaries', 'Patient Triage', 'HIPAA Bots'],
-                },
-                {
-                  icon: '🛍️',
-                  sector: 'E-Commerce & D2C Brands',
-                  desc: 'Autonomous customer support agents, dynamic catalog SEO descriptions, and predictive inventory restock notifications.',
-                  tags: ['24/7 Support Bots', 'Catalog SEO', 'Inventory AI'],
-                },
-                {
-                  icon: '🏢',
-                  sector: 'Real Estate & PropTech',
-                  desc: 'WhatsApp AI lead qualification agents, automated CRM updates, and interactive 24/7 site-visit scheduling workflows.',
-                  tags: ['WhatsApp Lead AI', 'CRM Sync', 'Visit Booking'],
-                },
-                {
-                  icon: '⚙️',
-                  sector: 'Manufacturing & Industrial IoT',
-                  desc: 'Microcontroller telemetry, predictive equipment maintenance sensors, and automated drone warehouse inspection.',
-                  tags: ['Predictive Maintenance', 'IoT Telemetry', 'Drone AI'],
-                },
-                {
-                  icon: '🎓',
-                  sector: 'Education & EdTech',
-                  desc: '100% Free career guidance, algorithmic college matching, and direct ₹3,000–₹10,000 institutional admission fee subsidies.',
-                  tags: ['Free Counseling', '₹3k-₹10k Subsidy', 'College Roadmaps'],
-                },
-              ].map((item, idx) => (
-                <ScrollReveal key={item.sector} delay={idx * 0.08}>
-                  <div className="glass-card p-6 h-full flex flex-col justify-between hover:border-cyan-neon/40 transition-all duration-300">
-                    <div>
-                      <span className="text-3xl mb-3 block" aria-hidden="true">{item.icon}</span>
-                      <h3 className="font-display text-lg font-bold text-white mb-2">{item.sector}</h3>
-                      <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-4">{item.desc}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
-                      {item.tags.map((t) => (
-                        <span key={t} className="px-2 py-0.5 rounded text-[10px] font-medium bg-white/5 text-cyan-neon border border-cyan-neon/20">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </section>
-
-          {/* ══════ ENTERPRISE B2B FAQ SECTION ══════ */}
-          <section className="mt-24 sm:mt-28 border-t border-white/10 pt-16 sm:pt-20" aria-label="Enterprise B2B FAQs" id="b2b-faq">
-            <SectionHeader
-              eyebrow="Enterprise Client Inquiries"
-              title="Enterprise Tech &amp; AI Automation FAQ"
-              subtitle="Straight answers on delivery velocity, custom AI models, and full-stack hardware/software capabilities."
-            />
-            <div className="mt-10 sm:mt-12 max-w-4xl mx-auto space-y-4 sm:space-y-6">
-              {[
-                {
-                  q: 'How long does custom software development take?',
-                  a: 'Delivery timelines depend on scope, but we operate in rapid agile sprints for fast MVP delivery. We typically deliver a production-ready MVP in 3 to 6 weeks, followed by bi-weekly releases and continuous monitoring.',
-                },
-                {
-                  q: 'Can AI really automate my specific industry workflows?',
-                  a: 'Yes. We do not use generic chatbots. We build custom LLM wrappers, autonomous multi-agent pipelines, and proprietary workflow bots connected directly to your private databases, CRM, and internal APIs.',
-                },
-                {
-                  q: 'Do you handle both hardware and software for IoT solutions?',
-                  a: 'Yes, we provide true full-stack embedded engineering: from microcontrollers (ESP32, Raspberry Pi, STM32) and drone telemetry to cloud data pipelines, analytics, and mobile dashboards.',
-                },
-              ].map((faq, i) => (
-                <ScrollReveal key={i} delay={i * 0.1}>
-                  <div className="glass-card p-5 sm:p-7 border border-white/15 hover:border-cyan-neon/40 transition-all">
-                    <h3 className="font-display text-base sm:text-lg font-bold text-white mb-2 flex items-start gap-2.5">
-                      <span className="text-cyan-neon">Q.</span>
-                      <span>{faq.q}</span>
-                    </h3>
-                    <p className="text-gray-300 text-xs sm:text-sm leading-relaxed pl-6">
-                      {faq.a}
-                    </p>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </section>
-
-          {/* ══════ STUDENT GUIDANCE & COLLEGE ADMISSION SUBSIDY FAQ ══════ */}
-          <section className="mt-24 sm:mt-28 border-t border-white/10 pt-16 sm:pt-20" aria-label="Student guidance and college subsidy FAQs" id="student-faq">
-            <SectionHeader
-              eyebrow="OpenMNC Academy &amp; Student Wing"
-              title="College Admission Guidance &amp; Training FAQ"
-              subtitle="Transparent answers for students and parents regarding college fee subsidies, real project internships, and certifications."
-            />
-            <div className="mt-10 sm:mt-12 max-w-4xl mx-auto space-y-4 sm:space-y-6">
-              {[
-                {
-                  q: 'Are the internships paid or do I have to pay for industrial training?',
-                  a: 'We strictly separate our tracks: our 3-month hands-on Industrial Training program covers Robotics, IoT, and AI development with an affordable subsidized fee (₹3,000–₹7,000), which can be offset or refunded via college partner subsidies. Selective direct engineering interns for company development roles receive monthly stipends of ₹5,000 to ₹10,000.',
-                },
-                {
-                  q: 'Will I work on real company projects?',
-                  a: 'Yes! Students work directly on live production OpenMNC tech components, autonomous AI agent pipelines, and real microcontroller hardware (ESP32, Raspberry Pi, robotics) rather than outdated textbook slides.',
-                },
-                {
-                  q: 'Do I get a certificate after the industrial training?',
-                  a: 'Yes, every student who completes deliverables receives an authorized, industry-recognized Industrial Training Completion Certificate, and top performers receive Letters of Recommendation (LOR) and Pre-Placement Offer (PPO) opportunities.',
-                },
-                {
-                  q: 'How can 12th pass students claim the ₹3,000–₹10,000 college admission fee subsidy?',
-                  a: 'OpenMNC LLP acts as an official industrial technology training partner for accredited colleges and universities across West Bengal and India. Because we train students directly on industrial projects, our partner colleges authorize an official institutional grant or admission subsidy of ₹3,000 to ₹10,000 deducted directly from the student’s college fees.',
-                },
-                {
-                  q: 'Is OpenMNC career counseling really 100% free with no hidden charges?',
-                  a: 'Yes, 100% free. We never charge students or parents a single rupee for counseling, aptitude assessments, or college recommendations. Unlike traditional education brokers who charge high commissions, OpenMNC earns from industrial engineering and training partnerships — passing the savings directly to students.',
-                },
-              ].map((faq, i) => (
-                <ScrollReveal key={i} delay={i * 0.1}>
-                  <div className="glass-card p-5 sm:p-7 border border-white/15 hover:border-cyan-neon/40 transition-all">
-                    <h3 className="font-display text-base sm:text-lg font-bold text-white mb-2 flex items-start gap-2.5">
-                      <span className="text-cyan-neon">Q.</span>
-                      <span>{faq.q}</span>
-                    </h3>
-                    <p className="text-gray-300 text-xs sm:text-sm leading-relaxed pl-6">
-                      {faq.a}
-                    </p>
-                  </div>
-                </ScrollReveal>
-              ))}
-
-              <div className="mt-10 text-center glass-card p-6 sm:p-8 border border-cyan-neon/30 bg-cyan-neon/5">
-                <h3 className="font-display text-lg sm:text-xl font-bold text-white mb-2">Ready to Plan Your Career or Claim Your Subsidy?</h3>
-                <p className="text-gray-300 text-xs sm:text-sm max-w-xl mx-auto mb-6">
-                  Consult directly with our academic advisors and lock in your ₹3,000–₹10,000 college partnership discount today.
+          {/* ══════ BANK-STYLE CLEAR REDIRECT TO CAREER GUIDANCE ══════ */}
+          <section className="mt-20 p-8 rounded-3xl bg-amber-glow/10 border border-amber-glow/20 relative overflow-hidden" aria-label="Career Portal Banner">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <span className="text-xs font-bold text-amber-glow uppercase tracking-wider block mb-1">
+                  🎓 Looking for Higher Education &amp; Student Mentorship?
+                </span>
+                <h3 className="font-display text-2xl font-bold text-white mb-2">
+                  Visit the OpenMNC 100% Free Career Guidance Portal
+                </h3>
+                <p className="text-gray-300 text-sm max-w-xl">
+                  A separate wing dedicated to 12th-pass students. Claim ₹3,000–₹10,000 partner college fee subsidies and 3-month advanced industrial IoT/AI training.
                 </p>
-                <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-                  <GlowButton to="/contact?intent=student&service=student-guidance" variant="primary">
-                    Claim Free Student Guidance →
-                  </GlowButton>
-                  <GlowButton
-                    href={whatsappUrl('918509684056', 'Hi OpenMNC! I passed 12th and want free college admission guidance and the partner fee subsidy.')}
-                    variant="outline"
-                  >
-                    💬 WhatsApp Counselor
-                  </GlowButton>
-                </div>
               </div>
+              <Link
+                to="/career-guidance"
+                className="px-6 py-3.5 rounded-xl bg-amber-glow text-navy-950 font-bold text-xs uppercase tracking-wider hover:bg-amber-glow/90 shadow-amber-glow transition-all whitespace-nowrap"
+              >
+                Go to Career Guidance Portal →
+              </Link>
+            </div>
+          </section>
+
+          {/* ══════ GOOGLE BUSINESS PROFILE RATING BANNER ══════ */}
+          <section className="mt-16 text-center glass-card p-8 border border-white/10">
+            <div className="max-w-xl mx-auto">
+              <span className="text-amber-400 text-xl block mb-2">★★★★★</span>
+              <h3 className="font-display text-xl font-bold text-white mb-2">
+                Have We Built or Audited Your Software?
+              </h3>
+              <p className="text-gray-400 text-xs sm:text-sm mb-4">
+                Your feedback helps other founders find reliable engineering partners. Leave a verified review on our Google Business Profile.
+              </p>
+              <button
+                type="button"
+                onClick={() => setReviewModalOpen(true)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white text-xs font-bold transition-all"
+              >
+                <span>⭐</span> Rate OPEN MNC on Google
+              </button>
             </div>
           </section>
         </div>
       </main>
+
+      <GoogleReviewModal
+        isOpen={reviewModalOpen}
+        onClose={() => setReviewModalOpen(false)}
+      />
     </>
   )
 }

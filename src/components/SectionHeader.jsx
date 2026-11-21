@@ -5,37 +5,25 @@ export default function SectionHeader({
   title,
   subtitle,
   centered = true,
-  accentColor = 'cyan',
   className = '',
 }) {
-  const accent = accentColor === 'amber' ? 'bg-amber-glow' : 'bg-cyan-neon'
-  const textAccent = accentColor === 'amber' ? 'text-amber-glow' : 'text-cyan-neon'
-
   return (
     <div className={`${centered ? 'text-center' : ''} ${className}`}>
       {eyebrow && (
         <ScrollReveal delay={0}>
-          <span className={`inline-block text-xs font-semibold tracking-widest uppercase ${textAccent} mb-3`}>
+          <span className="inline-block text-[11px] font-semibold tracking-widest uppercase text-[#2997ff] mb-3">
             {eyebrow}
           </span>
         </ScrollReveal>
       )}
-      <ScrollReveal delay={0.1}>
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+      <ScrollReveal delay={0.08}>
+        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#f5f5f7] mb-4 tracking-tight leading-tight">
           {title}
         </h2>
       </ScrollReveal>
-      {centered && (
-        <ScrollReveal delay={0.15}>
-          <div className={`mx-auto w-16 h-1 rounded-full ${accent} mb-6`} />
-        </ScrollReveal>
-      )}
-      {!centered && (
-        <div className={`w-16 h-1 rounded-full ${accent} mb-6`} />
-      )}
       {subtitle && (
-        <ScrollReveal delay={0.2}>
-          <p className="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+        <ScrollReveal delay={0.16}>
+          <p className="text-[#86868b] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             {subtitle}
           </p>
         </ScrollReveal>

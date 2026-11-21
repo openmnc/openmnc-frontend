@@ -6,21 +6,11 @@ import { mediaApi } from '../../api/media.js'
 import { formatDate } from '../../utils/helpers.js'
 
 const BLOG_CATEGORIES = [
-  'B2B & Tech Solutions',
-  'Student Guidance',
-  'AI & Automation',
+  'Engineering & Architecture',
+  'Career Guidance',
+  'Automation & AI',
   'Industrial Training',
-  'Social Media Growth',
   'General Tech',
-]
-
-const TARGET_SERVICES = [
-  { slug: 'custom-development', label: 'Custom App & Software Development' },
-  { slug: 'business-automation', label: 'Business Automation & AI Integration' },
-  { slug: 'student-guidance', label: 'Student Guidance & College Subsidies' },
-  { slug: 'industrial-training', label: 'Advanced Industrial Training (3 Months)' },
-  { slug: 'social-media-management', label: 'Social Media Management & Organic Growth' },
-  { slug: 'inhouse-products', label: 'In-House Products Partnership' },
 ]
 
 function BlogModal({ blog, onClose, onSaved }) {
@@ -32,17 +22,17 @@ function BlogModal({ blog, onClose, onSaved }) {
     defaultValues: {
       title: blog?.title || '',
       slug: blog?.slug || '',
-      category: blog?.category || 'B2B & Tech Solutions',
+      category: blog?.category || 'Engineering & Architecture',
       target_audience: blog?.target_audience || 'Founders & Solopreneurs',
       excerpt: blog?.excerpt || '',
       content: blog?.content || '',
       cover_image: blog?.cover_image || 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
       author_name: blog?.author_name || 'Amit Barai',
-      author_role: blog?.author_role || 'Founder & Director, OpenMNC LLP',
+      author_role: blog?.author_role || 'Founder & Director, M/S. OPEN MNC LLP',
       tags: Array.isArray(blog?.tags) ? blog.tags.join(', ') : blog?.tags || '',
-      target_service_slug: blog?.target_service_slug || 'custom-development',
-      cta_headline: blog?.cta_headline || 'Have an app or business software idea?',
-      cta_button_text: blog?.cta_button_text || 'Build Your Idea With OpenMNC →',
+      target_service_slug: blog?.target_service_slug || 'vibe-coded-app-audit-and-fixing',
+      cta_headline: blog?.cta_headline || 'Have a custom software or app codebase question?',
+      cta_button_text: blog?.cta_button_text || 'Start an Engineering Review →',
       problem_statement: blog?.problem_statement || '',
       technical_solution: blog?.technical_solution || '',
       expected_outcome: blog?.expected_outcome || '',
@@ -53,8 +43,6 @@ function BlogModal({ blog, onClose, onSaved }) {
   const [loading, setLoading] = useState(false)
   const [uploadingImage, setUploadingImage] = useState(false)
   const [err, setErr] = useState('')
-
-  const coverImageUrl = watch('cover_image')
 
   async function handleCloudinaryUpload(e) {
     const file = e.target.files?.[0]
@@ -67,7 +55,7 @@ function BlogModal({ blog, onClose, onSaved }) {
         setValue('cover_image', res.data.url)
       }
     } catch (uploadErr) {
-      setErr(uploadErr?.response?.data?.detail || 'Cloudinary upload failed. Check Cloudinary API credentials.')
+      setErr(uploadErr?.response?.data?.detail || 'Cloudinary upload failed.')
     } finally {
       setUploadingImage(false)
     }
@@ -130,45 +118,51 @@ function BlogModal({ blog, onClose, onSaved }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
       <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
+        initial={{ scale: 0.96, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.95, opacity: 0 }}
-        className="glass-card w-full max-w-2xl p-5 sm:p-7 max-h-[92vh] overflow-y-auto border border-white/20 bg-white/10 backdrop-blur-lg shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-2xl"
+        exit={{ scale: 0.96, opacity: 0 }}
+        className="liquid-glass w-full max-w-2xl p-6 sm:p-8 max-h-[92vh] overflow-y-auto rounded-3xl"
       >
-        <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-          <h2 className="font-display text-lg font-bold text-white">
-            {blog ? 'Edit Blog Article & AEO Fields' : 'Write New Article (No-Code CMS)'}
+        <div className="flex items-center justify-between mb-5 border-b border-white/8 pb-4">
+          <h2 className="font-display text-lg font-semibold text-white">
+            {blog ? 'Edit Newsroom Article' : 'Draft New Article'}
           </h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-white text-lg">✕</button>
+          <button onClick={onClose} className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-[#86868b] hover:text-white flex items-center justify-center transition-colors">✕</button>
         </div>
+
+        {err && (
+          <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
+            {err}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1">Article Title *</label>
+            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Article Title *</label>
             <input
               {...register('title', { required: 'Title is required' })}
               placeholder="e.g. How Visionary Founders Turn App Ideas into Scalable Realities"
-              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
             />
             {errors.title && <p className="text-red-400 text-[11px] mt-0.5">{errors.title.message}</p>}
           </div>
 
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">URL Slug *</label>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">URL Slug *</label>
               <input
                 {...register('slug', { required: 'Slug is required' })}
                 placeholder="turn-app-idea-into-reality"
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">Category</label>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Category</label>
               <select
                 {...register('category')}
-                className="w-full px-3 py-2 rounded-lg bg-navy-900 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1c20] border border-white/10 text-white text-sm focus:outline-none"
               >
                 {BLOG_CATEGORIES.map((c) => (
                   <option key={c} value={c}>{c}</option>
@@ -179,195 +173,123 @@ function BlogModal({ blog, onClose, onSaved }) {
 
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">Target Audience</label>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Target Audience</label>
               <input
                 {...register('target_audience')}
-                placeholder="e.g. Founders & Solopreneurs / 12th Students"
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+                placeholder="e.g. Founders & Solopreneurs"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
               />
             </div>
-          <div className="p-3 rounded-xl bg-white/5 border border-white/10 space-y-2">
-            <div className="flex items-center justify-between">
-              <label className="block text-xs font-medium text-gray-300">
-                Cover Image (Cloudinary CDN Hosted)
-              </label>
-              {uploadingImage && (
-                <span className="text-[11px] text-cyan-neon animate-pulse">
-                  Uploading to Cloudinary...
-                </span>
-              )}
-            </div>
-
-            <div className="flex gap-2">
+            <div>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Tags (comma separated)</label>
               <input
-                {...register('cover_image')}
-                placeholder="https://res.cloudinary.com/... or paste image URL"
-                className="flex-1 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+                {...register('tags')}
+                placeholder="App Development, ASO, Startup Advice"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
               />
-              <label className="px-3 py-2 rounded-lg bg-cyan-neon/10 hover:bg-cyan-neon/20 border border-cyan-neon/30 text-cyan-neon text-xs font-semibold cursor-pointer whitespace-nowrap transition-all flex items-center gap-1.5">
-                <span>📁</span>
-                <span>Upload Image</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleCloudinaryUpload}
-                  className="hidden"
-                  disabled={uploadingImage}
-                />
-              </label>
             </div>
-
-            {coverImageUrl && (
-              <div className="flex items-center gap-3 pt-1">
-                <img
-                  src={coverImageUrl}
-                  alt="Cover preview"
-                  className="w-14 h-10 object-cover rounded border border-white/10"
-                />
-                <span className="text-[10px] text-gray-400 truncate max-w-sm">
-                  {coverImageUrl}
-                </span>
-              </div>
-            )}
-          </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1">Short Excerpt (SEO Meta) *</label>
+            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Summary / Excerpt *</label>
             <textarea
               rows={2}
               {...register('excerpt', { required: 'Excerpt is required' })}
-              placeholder="Brief summary that appears on cards and search engine results..."
-              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/40 resize-none"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff] resize-none"
+            />
+          </div>
+
+          {/* Cover image with upload */}
+          <div>
+            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Cover Image URL</label>
+            <input
+              {...register('cover_image')}
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
+            />
+            <div className="mt-1 flex items-center gap-3">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleCloudinaryUpload}
+                className="text-xs text-[#86868b] file:mr-2 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:bg-white/10 file:text-white cursor-pointer"
+              />
+              {uploadingImage && <span className="text-xs text-[#2997ff] animate-pulse">Uploading image...</span>}
+            </div>
+          </div>
+
+          {/* AEO Fields Surface */}
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/8 space-y-3">
+            <span className="text-xs font-semibold text-[#2997ff] uppercase tracking-wider block">
+              AEO Architecture Fields (Google Knowledge Graph & AI Crawlers)
+            </span>
+            <div>
+              <label className="block text-[11px] text-[#86868b] mb-1">Problem Statement</label>
+              <textarea
+                rows={2}
+                {...register('problem_statement')}
+                placeholder="The exact founder or business problem this article solves..."
+                className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#2997ff] resize-none"
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] text-[#86868b] mb-1">Technical Solution</label>
+              <textarea
+                rows={2}
+                {...register('technical_solution')}
+                placeholder="The engineering architecture or method used to resolve it..."
+                className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#2997ff] resize-none"
+              />
+            </div>
+            <div>
+              <label className="block text-[11px] text-[#86868b] mb-1">Expected Outcome</label>
+              <textarea
+                rows={2}
+                {...register('expected_outcome')}
+                placeholder="Measurable business or academic impact..."
+                className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#2997ff] resize-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Full Article Content (Markdown format) *</label>
+            <textarea
+              rows={8}
+              {...register('content', { required: 'Content is required' })}
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1">Full Article Content (Markdown / Text) *</label>
+            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">
+              FAQs (Format: Q: Question? \n A: Answer...)
+            </label>
             <textarea
-              rows={8}
-              {...register('content', { required: 'Content is required' })}
-              placeholder="Write your article here. Use ## for section headings, ### for subheadings, and - for bullet points."
-              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm font-mono focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+              rows={3}
+              {...register('faqs_text')}
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#2997ff]"
             />
           </div>
 
-          {/* AEO Fields for AI Chatbots & Rich Snippets */}
-          <div className="p-3.5 rounded-xl bg-cyan-neon/5 border border-cyan-neon/20 space-y-3">
-            <h4 className="text-xs font-bold text-cyan-neon uppercase tracking-wider">
-              AEO Scraper Fields (AI Engine Optimization &amp; Search Citations)
-            </h4>
-            <div>
-              <label className="block text-[11px] font-semibold text-red-400 mb-1">
-                🔴 Problem Statement
-              </label>
-              <textarea
-                rows={2}
-                {...register('problem_statement')}
-                placeholder="Core challenge or question this article addresses..."
-                className="w-full px-3 py-1.5 rounded-lg bg-navy-950/80 border border-red-500/30 text-white text-xs leading-relaxed focus:outline-none resize-none"
-              />
-            </div>
-            <div>
-              <label className="block text-[11px] font-semibold text-cyan-neon mb-1">
-                ⚡ Technical Solution
-              </label>
-              <textarea
-                rows={2}
-                {...register('technical_solution')}
-                placeholder="Technical architecture or methodology recommended..."
-                className="w-full px-3 py-1.5 rounded-lg bg-navy-950/80 border border-cyan-neon/30 text-white text-xs leading-relaxed focus:outline-none resize-none"
-              />
-            </div>
-            <div>
-              <label className="block text-[11px] font-semibold text-emerald-400 mb-1">
-                🎯 Expected Outcome
-              </label>
-              <textarea
-                rows={2}
-                {...register('expected_outcome')}
-                placeholder="Measurable business or academic outcome..."
-                className="w-full px-3 py-1.5 rounded-lg bg-navy-950/80 border border-emerald-500/30 text-white text-xs leading-relaxed focus:outline-none resize-none"
-              />
-            </div>
-            <div>
-              <label className="block text-[11px] font-semibold text-gray-300 mb-1">
-                Article FAQs (Format: Q: Question? \n A: Answer.)
-              </label>
-              <textarea
-                rows={3}
-                {...register('faqs_text')}
-                placeholder="Q: Why choose custom tracking over AppsFlyer?&#10;A: 100% data ownership and zero recurring fees."
-                className="w-full px-3 py-1.5 rounded-lg bg-navy-950/80 border border-white/15 text-white text-xs leading-relaxed focus:outline-none"
-              />
-            </div>
+          <div className="flex items-center gap-2 pt-2">
+            <input
+              type="checkbox"
+              id="is_published"
+              {...register('is_published')}
+              className="accent-[#2997ff] w-4 h-4 cursor-pointer"
+            />
+            <label htmlFor="is_published" className="text-xs text-[#d2d2d7] cursor-pointer">
+              Publish immediately on public website
+            </label>
           </div>
 
-          {/* Contextual CTA Settings */}
-          <div className="p-4 rounded-xl bg-cyan-neon/5 border border-cyan-neon/20 space-y-3">
-            <h4 className="text-xs font-bold text-cyan-neon uppercase tracking-wider">
-              Integrated Call-to-Action (AI Contextual Routing)
-            </h4>
-            <div className="grid sm:grid-cols-2 gap-3">
-              <div>
-                <label className="block text-[11px] text-gray-400 mb-1">Target Service Route</label>
-                <select
-                  {...register('target_service_slug')}
-                  className="w-full px-3 py-1.5 rounded-lg bg-navy-900 border border-white/10 text-white text-xs focus:outline-none"
-                >
-                  {TARGET_SERVICES.map((s) => (
-                    <option key={s.slug} value={s.slug}>{s.label}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-[11px] text-gray-400 mb-1">CTA Headline</label>
-                <input
-                  {...register('cta_headline')}
-                  className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-3">
-            <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">Tags (comma-separated)</label>
-              <input
-                {...register('tags')}
-                placeholder="App Development, ASO, Startup"
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-sm"
-              />
-            </div>
-            <div className="flex items-center gap-2 pt-6">
-              <input
-                type="checkbox"
-                id="is_published"
-                {...register('is_published')}
-                className="rounded text-cyan-neon"
-              />
-              <label htmlFor="is_published" className="text-xs font-medium text-white cursor-pointer">
-                Publish immediately to website &amp; AI crawlers
-              </label>
-            </div>
-          </div>
-
-          {err && <div className="p-2 rounded bg-red-500/10 text-red-400 text-xs">{err}</div>}
-
-          <div className="flex gap-3 pt-3 border-t border-white/5">
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 py-2.5 rounded-lg text-xs font-semibold bg-white/5 hover:bg-white/10 text-gray-300"
-            >
-              Cancel
-            </button>
+          <div className="pt-2">
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 py-2.5 rounded-lg text-xs font-semibold bg-cyan-neon text-navy-950 hover:bg-cyan-neon/90 disabled:opacity-50"
+              className="w-full py-3 rounded-full text-xs font-semibold bg-[#2997ff] text-white hover:bg-[#0071e3] transition-all disabled:opacity-50"
             >
-              {loading ? 'Saving...' : 'Save & Publish Article →'}
+              {loading ? 'Saving Article...' : 'Save Article & Update Schema →'}
             </button>
           </div>
         </form>
@@ -380,7 +302,7 @@ export default function BlogsAdmin() {
   const [blogs, setBlogs] = useState([])
   const [loading, setLoading] = useState(true)
   const [editingBlog, setEditingBlog] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
     loadBlogs()
@@ -389,10 +311,9 @@ export default function BlogsAdmin() {
   async function loadBlogs() {
     setLoading(true)
     try {
-      const res = await blogsApi.getAllAdmin()
+      const res = await blogsApi.getAdminAll()
       setBlogs(res.data || [])
     } catch {
-      // Fallback
       setBlogs([])
     } finally {
       setLoading(false)
@@ -400,107 +321,74 @@ export default function BlogsAdmin() {
   }
 
   async function handleDelete(slug) {
-    if (!window.confirm(`Are you sure you want to delete this blog post?`)) return
+    if (!window.confirm(`Delete article "${slug}"?`)) return
     try {
       await blogsApi.delete(slug)
       loadBlogs()
     } catch {
-      alert('Delete failed.')
+      alert('Failed to delete article.')
     }
   }
 
   return (
-    <div className="p-8 max-w-6xl">
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-6 lg:p-8 max-w-7xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className="font-display text-2xl font-bold text-white mb-1">
-            Blog &amp; AI Recommendation Hub CMS
+          <h1 className="font-display text-2xl font-semibold text-[#f5f5f7] tracking-tight">
+            Newsroom &amp; Editorial CMS
           </h1>
-          <p className="text-gray-400 text-sm">
-            Publish guides, career tips, and tech articles. Optimized for ChatGPT, Gemini, and Google indexing.
+          <p className="text-[#86868b] text-xs mt-0.5">
+            Publish technical playbooks, AEO schemas, and student career articles.
           </p>
         </div>
         <button
-          onClick={() => {
-            setEditingBlog(null)
-            setIsModalOpen(true)
-          }}
-          className="px-4 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-cyan-neon text-navy-950 hover:bg-cyan-neon/90 shadow-cyan-glow-sm transition-all"
+          onClick={() => { setEditingBlog(null); setModalOpen(true) }}
+          className="px-5 py-2.5 rounded-full text-xs font-semibold bg-white text-black hover:bg-[#f5f5f7] transition-all self-start sm:self-auto"
         >
-          + Write New Article
+          + Draft New Article
         </button>
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-16">
-          <div className="w-8 h-8 border-2 border-cyan-neon/30 border-t-cyan-neon rounded-full animate-spin" />
-        </div>
-      ) : blogs.length === 0 ? (
-        <div className="glass-card p-12 text-center">
-          <span className="text-4xl block mb-3">📝</span>
-          <h3 className="font-display text-lg font-bold text-white mb-2">No Articles Yet</h3>
-          <p className="text-gray-400 text-sm mb-6">
-            Write your first article to start attracting organic searches and AI bot recommendations.
-          </p>
-          <button
-            onClick={() => {
-              setEditingBlog(null)
-              setIsModalOpen(true)
-            }}
-            className="px-4 py-2 rounded-lg text-xs font-bold bg-cyan-neon text-navy-950"
-          >
-            Create Article Now
-          </button>
+        <div className="flex justify-center py-20">
+          <div className="w-8 h-8 border-2 border-[#2997ff]/30 border-t-[#2997ff] rounded-full animate-spin" />
         </div>
       ) : (
-        <div className="glass-card overflow-hidden">
+        <div className="rounded-2xl bg-[#161618] border border-white/8 overflow-hidden">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-white/5 bg-white/5 text-gray-400 text-xs uppercase tracking-wider">
-                <th className="py-3 px-4">Title &amp; Category</th>
-                <th className="py-3 px-4">Audience</th>
-                <th className="py-3 px-4">Views</th>
-                <th className="py-3 px-4">Status</th>
+              <tr className="border-b border-white/8 bg-white/[0.02] text-[#86868b] text-xs uppercase tracking-wider">
+                <th className="py-3 px-4">Article</th>
+                <th className="py-3 px-4">Category</th>
+                <th className="py-3 px-4">Date</th>
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-white/8">
               {blogs.map((b) => (
-                <tr key={b.slug} className="hover:bg-white/5 transition-colors">
+                <tr key={b.slug} className="hover:bg-white/[0.02] transition-colors">
                   <td className="py-3.5 px-4">
-                    <p className="font-medium text-white line-clamp-1">{b.title}</p>
-                    <span className="text-xs text-cyan-neon">{b.category}</span>
-                  </td>
-                  <td className="py-3.5 px-4 text-xs text-gray-400">
-                    {b.target_audience || 'General'}
-                  </td>
-                  <td className="py-3.5 px-4 text-xs text-gray-300 font-mono">
-                    {b.views_count || 0}
+                    <p className="font-medium text-white">{b.title}</p>
+                    <p className="text-xs text-[#86868b] font-mono">/blog/{b.slug}</p>
                   </td>
                   <td className="py-3.5 px-4">
-                    <span
-                      className={`inline-block px-2 py-0.5 rounded text-[11px] font-semibold border ${
-                        b.is_published
-                          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-                          : 'bg-gray-500/10 text-gray-400 border-gray-500/30'
-                      }`}
-                    >
-                      {b.is_published ? 'Published' : 'Draft'}
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/5 text-[#d2d2d7] border border-white/10">
+                      {b.category}
                     </span>
+                  </td>
+                  <td className="py-3.5 px-4 font-mono text-xs text-[#86868b] tabular-nums">
+                    {formatDate(b.created_at)}
                   </td>
                   <td className="py-3.5 px-4 text-right space-x-2">
                     <button
-                      onClick={() => {
-                        setEditingBlog(b)
-                        setIsModalOpen(true)
-                      }}
-                      className="text-xs text-cyan-neon hover:underline"
+                      onClick={() => { setEditingBlog(b); setModalOpen(true) }}
+                      className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 hover:bg-white/10 text-white transition-colors"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(b.slug)}
-                      className="text-xs text-red-400 hover:underline"
+                      className="px-3 py-1 rounded-full text-xs font-medium bg-red-500/10 hover:bg-red-500/20 text-red-400 transition-colors"
                     >
                       Delete
                     </button>
@@ -512,13 +400,15 @@ export default function BlogsAdmin() {
         </div>
       )}
 
-      {isModalOpen && (
-        <BlogModal
-          blog={editingBlog}
-          onClose={() => setIsModalOpen(false)}
-          onSaved={loadBlogs}
-        />
-      )}
+      <AnimatePresence>
+        {modalOpen && (
+          <BlogModal
+            blog={editingBlog}
+            onClose={() => setModalOpen(false)}
+            onSaved={loadBlogs}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

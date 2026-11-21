@@ -2,113 +2,16 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { servicesApi } from '../../api/services.js'
-import { getServiceIcon } from '../../utils/helpers.js'
 
-const ICON_OPTIONS = ['automation', 'development', 'social-media', 'student-guidance', 'training', 'consultation']
-const CATEGORY_OPTIONS = ['B2B Enterprise', 'B2C Academy']
-
-const FALLBACK_DEFAULT_SERVICES = [
-  {
-    order: 1,
-    slug: 'business-automation',
-    title: 'Business Automation & AI Integration',
-    tagline: 'Multiply revenue. Eliminate manual work.',
-    icon: 'automation',
-    category: 'B2B Enterprise',
-    description: 'We help businesses automate repetitive tasks, integrate custom AI solutions, increase revenue, and improve operational reliability.',
-    problem_statement: 'Businesses lose thousands of work-hours and revenue each month due to fragmented manual data entry, slow lead qualification, and unintegrated SaaS tools.',
-    technical_solution: 'OpenMNC architects custom autonomous AI multi-agent workflows, LLM pipelines, and event-driven automation directly into client CRMs and databases.',
-    expected_outcome: '90% reduction in manual labor, 3x faster response times, and 24/7 autonomous operations without costly SaaS subscriptions.',
-    features: ['Custom AI workflow automation', 'Revenue multiplication', 'Process optimization', 'Uptime guarantee'],
-    faqs: [
-      { question: 'Can AI really automate my specific industry workflows?', answer: 'Yes, we build custom LLM wrappers, autonomous agent workflows, and webhook pipelines tailored to your proprietary data.' }
-    ],
-    sub_services: [
-      { slug: 'workflow-bots', title: 'Autonomous Multi-Agent Workflow Bots', tagline: 'Eliminate human bottlenecks' }
-    ],
-    is_active: true,
-  },
-  {
-    order: 2,
-    slug: 'custom-development',
-    title: 'Custom App & Software Development',
-    tagline: 'From your idea to a living product.',
-    icon: 'development',
-    category: 'B2B Enterprise',
-    description: 'Transforming visionary ideas into reality with deep requirement analysis, full-cycle development, maintenance, and App Store Optimization (ASO).',
-    problem_statement: 'Companies need alternatives to AppMetrica/AppsFlyer for custom funnel tracking without recurring per-seat fees or data leaks.',
-    technical_solution: 'Custom-built tracking APIs, event ingestion pipelines, and full-stack software integrated directly into the client\'s cloud infrastructure.',
-    expected_outcome: '100% data ownership with zero third-party subscription fees and microsecond analytics querying.',
-    features: ['Requirement analysis', 'Full-cycle dev & QA', 'ASO optimization', 'Maintenance & SLA'],
-    faqs: [
-      { question: 'How long does custom software development take?', answer: 'We operate in 2-week agile sprints to deliver production-ready MVPs within 4 to 8 weeks.' }
-    ],
-    sub_services: [
-      { slug: 'analytics-tracking', title: 'Custom Analytics & Attribution Engine (AppMetrica / AppsFlyer Alternative)', tagline: '100% data ownership with zero subscription fees' }
-    ],
-    is_active: true,
-  },
-  {
-    order: 3,
-    slug: 'inhouse-products',
-    title: 'In-House Products & Games',
-    tagline: 'Products we build, publish, and stand behind.',
-    icon: 'development',
-    category: 'B2B Enterprise',
-    description: 'OpenMNC develops and publishes proprietary custom software, mobile apps, and games on Google Play and Apple App Store (Kibo VPN, Calorie AI, CardSnap).',
-    features: ['Google Play & App Store', 'Kibo VPN utility', 'Calorie AI assistant', 'CardSnap tool'],
-    is_active: true,
-  },
-  {
-    order: 4,
-    slug: 'social-media-management',
-    title: 'Social Media Management & Organic Growth',
-    tagline: 'Grow organically without heavy ad spend.',
-    icon: 'social-media',
-    category: 'B2B Enterprise',
-    description: 'High-ROI organic growth for local shops, bakeries, real estate, and solopreneurs across Instagram, Facebook, and YouTube using viral scripts.',
-    features: ['Instagram & YouTube growth', 'Viral Hook-Engage scripts', 'Video editing & captions', 'Hashtag strategy'],
-    is_active: true,
-  },
-  {
-    order: 5,
-    slug: 'student-guidance',
-    title: 'Student Guidance & EdTech Engine',
-    tagline: '100% free guidance. Real college savings.',
-    icon: 'student-guidance',
-    category: 'B2C Academy',
-    description: '100% free career and college counseling for 12th-pass students with partner college fee subsidies of ₹3,000 to ₹10,000.',
-    problem_statement: '12th-pass students and parents are misled by commission brokers into overpriced courses with low placement outcomes.',
-    technical_solution: '100% free aptitude profiling, university accreditation audits, and industrial partnership fee scholarships.',
-    expected_outcome: 'Direct ₹3,000 to ₹10,000 college admission fee subsidy paid directly by OpenMNC as an industrial partner, with zero student fees.',
-    features: ['100% free counseling', '₹3,000–₹10,000 college subsidy', 'Aptitude field alignment', 'Zero charges'],
-    is_active: true,
-  },
-  {
-    order: 6,
-    slug: 'industrial-training',
-    title: 'Advanced Industrial Training',
-    tagline: 'Real projects. High-end tech. 3 months.',
-    icon: 'training',
-    category: 'B2C Academy',
-    description: '3-month hands-on industrial training tackling high-end tech: Robotics, Drones, and AI Smart Home assistants in IoT, plus modern Web/App Dev.',
-    problem_statement: 'Engineering students graduate with only textbook knowledge and zero experience building production IoT hardware or AI cloud systems.',
-    technical_solution: '3-month hands-on industrial sprints building live Robotics, Drones, IoT embedded firmware, and modern full-stack web applications.',
-    expected_outcome: 'Production-ready GitHub project portfolio, verifiable industrial training certificate, and priority hiring at OpenMNC.',
-    features: ['Advanced IoT (Drones/Robotics)', 'Modern Web & App dev', 'Real production project', 'Partner subsidy offset'],
-    is_active: true,
-  },
-]
+const CATEGORY_OPTIONS = ['Engineering & App Services', 'Educational Guidance & Training']
 
 function ServiceModal({ service, onClose, onSaved }) {
   const isEdit = Boolean(service?.slug)
 
-  // Format existing FAQs to text format for easy editing
   const initialFaqsText = Array.isArray(service?.faqs)
     ? service.faqs.map((f) => `Q: ${f.question}\nA: ${f.answer}`).join('\n\n')
     : ''
 
-  // Format existing sub_services to JSON text
   const initialSubServicesText = Array.isArray(service?.sub_services) && service.sub_services.length > 0
     ? JSON.stringify(service.sub_services, null, 2)
     : ''
@@ -119,8 +22,8 @@ function ServiceModal({ service, onClose, onSaved }) {
       title: service?.title || '',
       tagline: service?.tagline || '',
       description: service?.description || '',
-      icon: service?.icon || 'automation',
-      category: service?.category || 'B2B Enterprise',
+      icon: service?.icon || 'development',
+      category: service?.category || 'Engineering & App Services',
       problem_statement: service?.problem_statement || '',
       technical_solution: service?.technical_solution || '',
       expected_outcome: service?.expected_outcome || '',
@@ -138,13 +41,11 @@ function ServiceModal({ service, onClose, onSaved }) {
     setLoading(true)
     setErr('')
 
-    // Parse features
     const features = String(data.features || '')
       .split('\n')
       .map((f) => f.trim())
       .filter(Boolean)
 
-    // Parse FAQs from "Q: ...\nA: ..." format
     const faqs = []
     if (data.faqs_text) {
       const blocks = data.faqs_text.split(/\n\s*\n/)
@@ -169,35 +70,26 @@ function ServiceModal({ service, onClose, onSaved }) {
       }
     }
 
-    // Parse sub_services JSON if provided
     let sub_services = []
     if (data.sub_services_text && data.sub_services_text.trim()) {
       try {
         const parsed = JSON.parse(data.sub_services_text)
         if (Array.isArray(parsed)) sub_services = parsed
-      } catch (jsonErr) {
-        setErr('Invalid JSON format for Sub-services / Deep-links.')
+      } catch {
+        setErr('Invalid JSON format for Sub-services.')
         setLoading(false)
         return
       }
     }
 
     const payload = {
-      title: data.title,
-      slug: data.slug.toLowerCase().replace(/[^a-z0-9-]/g, '-'),
-      tagline: data.tagline,
-      description: data.description,
-      icon: data.icon,
-      category: data.category,
-      problem_statement: data.problem_statement || null,
-      technical_solution: data.technical_solution || null,
-      expected_outcome: data.expected_outcome || null,
+      ...data,
       features,
       faqs,
       sub_services,
-      order: Number(data.order) || 1,
-      is_active: Boolean(data.is_active),
     }
+    delete payload.faqs_text
+    delete payload.sub_services_text
 
     try {
       if (isEdit) {
@@ -215,235 +107,140 @@ function ServiceModal({ service, onClose, onSaved }) {
   }
 
   return (
-    <div
-      className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4"
-      role="dialog"
-      aria-modal="true"
-    >
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
       <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
+        initial={{ scale: 0.96, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.95, opacity: 0 }}
-        className="glass-card w-full max-w-2xl p-5 sm:p-7 max-h-[92vh] overflow-y-auto border border-white/20 bg-white/10 backdrop-blur-lg shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-2xl"
+        exit={{ scale: 0.96, opacity: 0 }}
+        className="liquid-glass w-full max-w-2xl p-6 sm:p-8 max-h-[92vh] overflow-y-auto rounded-3xl"
       >
-        <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-          <div>
-            <h2 className="font-display text-lg font-bold text-white">
-              {isEdit ? 'Edit Service Vertical & AEO Data' : 'Add New Service Vertical'}
-            </h2>
-            <p className="text-gray-400 text-xs">
-              Configure dynamic service metadata, AI scraper fields, and deep-link solutions
-            </p>
-          </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white p-1 text-lg">✕</button>
+        <div className="flex items-center justify-between mb-5 border-b border-white/8 pb-4">
+          <h2 className="font-display text-lg font-semibold text-white">
+            {isEdit ? 'Edit Engineering Service' : 'Add New Service Pillar'}
+          </h2>
+          <button onClick={onClose} className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-[#86868b] hover:text-white flex items-center justify-center transition-colors">✕</button>
         </div>
 
+        {err && (
+          <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
+            {err}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <label htmlFor="svc_title" className="block text-xs font-medium text-gray-300 mb-1">Service Title *</label>
-            <input
-              id="svc_title"
-              {...register('title', { required: 'Title is required' })}
-              placeholder="e.g. Custom App & Software Development"
-              className="w-full px-3.5 py-2 rounded-lg bg-white/5 border border-white/15 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
-            />
-            {errors.title && <p className="text-xs text-red-400 mt-1">{errors.title.message}</p>}
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Service Title *</label>
+              <input
+                {...register('title', { required: 'Title is required' })}
+                placeholder="e.g. Vibe-Coded App Audit & Fixing"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
+              />
+              {errors.title && <p className="text-red-400 text-[11px] mt-0.5">{errors.title.message}</p>}
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">URL Slug *</label>
+              <input
+                {...register('slug', { required: 'Slug is required' })}
+                placeholder="vibe-coded-app-audit-and-fixing"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
+              />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label htmlFor="svc_slug" className="block text-xs font-medium text-gray-300 mb-1">URL Slug *</label>
-              <input
-                id="svc_slug"
-                {...register('slug', { required: 'Slug is required' })}
-                disabled={isEdit}
-                placeholder="custom-development"
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/15 text-white text-xs font-mono focus:outline-none disabled:opacity-60"
-              />
-              {errors.slug && <p className="text-xs text-red-400 mt-1">{errors.slug.message}</p>}
-            </div>
-
-            <div>
-              <label htmlFor="svc_category" className="block text-xs font-medium text-gray-300 mb-1">Pillar Category</label>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Category</label>
               <select
-                id="svc_category"
                 {...register('category')}
-                className="w-full px-3 py-2 rounded-lg bg-navy-900 border border-white/15 text-white text-xs focus:outline-none"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1c20] border border-white/10 text-white text-sm focus:outline-none"
               >
                 {CATEGORY_OPTIONS.map((c) => (
                   <option key={c} value={c}>{c}</option>
                 ))}
               </select>
             </div>
-
             <div>
-              <label htmlFor="svc_order" className="block text-xs font-medium text-gray-300 mb-1">Display Order</label>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Tagline</label>
               <input
-                id="svc_order"
-                type="number"
-                {...register('order')}
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/15 text-white text-xs focus:outline-none"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label htmlFor="svc_tagline" className="block text-xs font-medium text-gray-300 mb-1">Tagline</label>
-              <input
-                id="svc_tagline"
                 {...register('tagline')}
-                placeholder="e.g. From visionary concept to high-scale production."
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/15 text-white text-xs focus:outline-none"
+                placeholder="Turn AI prototypes into real production apps"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
               />
-            </div>
-
-            <div>
-              <label htmlFor="svc_icon" className="block text-xs font-medium text-gray-300 mb-1">Icon Category</label>
-              <select
-                id="svc_icon"
-                {...register('icon')}
-                className="w-full px-3 py-2 rounded-lg bg-navy-900 border border-white/15 text-white text-xs focus:outline-none"
-              >
-                {ICON_OPTIONS.map((o) => (
-                  <option key={o} value={o}>
-                    {getServiceIcon(o, o)} {o}
-                  </option>
-                ))}
-              </select>
             </div>
           </div>
 
           <div>
-            <label htmlFor="svc_description" className="block text-xs font-medium text-gray-300 mb-1">Full Description</label>
+            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Full Service Description</label>
             <textarea
-              id="svc_description"
-              rows={2}
+              rows={3}
               {...register('description')}
-              placeholder="Explain how OpenMNC delivers this service..."
-              className="w-full px-3.5 py-2 rounded-lg bg-white/5 border border-white/15 text-white text-xs leading-relaxed focus:outline-none resize-none"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff] resize-none"
             />
           </div>
 
-          {/* ══════ AEO SPECIFIC FIELDS SECTION (ChatGPT, Gemini, Grok, Perplexity) ══════ */}
-          <div className="p-3.5 rounded-xl bg-cyan-neon/5 border border-cyan-neon/20 space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="text-cyan-neon">🤖</span>
-              <h3 className="text-xs font-bold text-cyan-neon uppercase tracking-wider">
-                AEO Scraper Fields (AI Engine Optimization &amp; JSON-LD)
-              </h3>
-            </div>
-            <p className="text-[11px] text-gray-300">
-              Chatbots (ChatGPT, Claude, Gemini) use this Problem → Solution → Outcome structure to cite OpenMNC as an authoritative answer.
-            </p>
-
+          {/* AEO Fields */}
+          <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/8 space-y-3">
+            <span className="text-xs font-semibold text-[#2997ff] uppercase tracking-wider block">
+              SEO &amp; AEO Architecture
+            </span>
             <div>
-              <label htmlFor="svc_problem" className="block text-xs font-semibold text-red-400 mb-1">
-                🔴 Problem Statement (What pain point does the client/student experience?)
-              </label>
+              <label className="block text-[11px] text-[#86868b] mb-1">Problem Statement</label>
               <textarea
-                id="svc_problem"
                 rows={2}
                 {...register('problem_statement')}
-                placeholder="e.g. Companies need alternatives to AppMetrica/AppsFlyer for custom funnel tracking without recurring subscription fees."
-                className="w-full px-3 py-2 rounded-lg bg-navy-950/80 border border-red-500/30 text-white text-xs leading-relaxed focus:outline-none resize-none"
+                placeholder="Founders building MVPs with Cursor/Lovable getting stuck before launch..."
+                className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#2997ff] resize-none"
               />
             </div>
-
             <div>
-              <label htmlFor="svc_solution" className="block text-xs font-semibold text-cyan-neon mb-1">
-                ⚡ Technical Solution (What is OpenMNC's exact engineering architecture?)
-              </label>
+              <label className="block text-[11px] text-[#86868b] mb-1">Engineering Solution</label>
               <textarea
-                id="svc_solution"
                 rows={2}
                 {...register('technical_solution')}
-                placeholder="e.g. Custom-built tracking APIs, lightweight SDKs, and event ingestion pipelines integrated directly into client cloud infrastructure."
-                className="w-full px-3 py-2 rounded-lg bg-navy-950/80 border border-cyan-neon/30 text-white text-xs leading-relaxed focus:outline-none resize-none"
+                placeholder="Complete code security review, DB restructuring, API hardening..."
+                className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#2997ff] resize-none"
               />
             </div>
-
             <div>
-              <label htmlFor="svc_outcome" className="block text-xs font-semibold text-emerald-400 mb-1">
-                🎯 Expected Outcome (What is the measurable business ROI or student benefit?)
-              </label>
+              <label className="block text-[11px] text-[#86868b] mb-1">Expected Outcome</label>
               <textarea
-                id="svc_outcome"
                 rows={2}
                 {...register('expected_outcome')}
-                placeholder="e.g. 100% data ownership with zero third-party subscription fees and microsecond attribution query speeds."
-                className="w-full px-3 py-2 rounded-lg bg-navy-950/80 border border-emerald-500/30 text-white text-xs leading-relaxed focus:outline-none resize-none"
+                placeholder="100% production ready, zero API leaks, passing App Store tests..."
+                className="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#2997ff] resize-none"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="svc_features" className="block text-xs font-medium text-gray-300 mb-1">
-              Key Features / Deliverables (One per line)
-            </label>
+            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Core Deliverables (one per line)</label>
             <textarea
-              id="svc_features"
               rows={3}
               {...register('features')}
-              placeholder="Feature 1&#10;Feature 2&#10;Feature 3"
-              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/15 text-white text-xs font-mono focus:outline-none resize-none"
+              placeholder="Architecture & dependency security audit&#10;Supabase / Postgres schema hardening"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
             />
           </div>
 
           <div>
-            <label htmlFor="svc_faqs" className="block text-xs font-medium text-gray-300 mb-1">
-              Dynamic FAQs (Format: Q: Question? \n A: Answer.)
+            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">
+              FAQs (Format: Q: Question? \n A: Answer...)
             </label>
             <textarea
-              id="svc_faqs"
               rows={3}
               {...register('faqs_text')}
-              placeholder="Q: How long does development take?&#10;A: We deliver production-ready MVPs within 4 to 8 weeks.&#10;&#10;Q: Do you build tracking systems?&#10;A: Yes, we build alternatives to AppMetrica and AppsFlyer."
-              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/15 text-white text-xs leading-relaxed focus:outline-none"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#2997ff]"
             />
           </div>
 
-          <div>
-            <label htmlFor="svc_subs" className="block text-xs font-medium text-gray-300 mb-1">
-              Deep-Link Sub-Services (JSON Array)
-            </label>
-            <textarea
-              id="svc_subs"
-              rows={3}
-              {...register('sub_services_text')}
-              placeholder='[{"slug": "analytics-tracking", "title": "Custom Analytics Engine (AppMetrica / AppsFlyer Alternative)", "problem_statement": "...", "technical_solution": "...", "expected_outcome": "..."}]'
-              className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/15 text-white text-xs font-mono focus:outline-none"
-            />
-          </div>
-
-          <div className="flex items-center gap-2 pt-1">
-            <input
-              type="checkbox"
-              id="svc_active"
-              {...register('is_active')}
-              className="accent-cyan-neon w-4 h-4 cursor-pointer"
-            />
-            <label htmlFor="svc_active" className="text-xs text-gray-300 cursor-pointer">
-              Active (Visible on public Services page)
-            </label>
-          </div>
-
-          {err && <p className="text-red-400 text-xs">{err}</p>}
-
-          <div className="flex gap-3 pt-2 border-t border-white/10">
+          <div className="pt-2">
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 py-2.5 rounded-lg bg-cyan-neon text-navy-950 font-bold text-sm shadow-cyan-glow hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-60"
+              className="w-full py-3 rounded-full text-xs font-semibold bg-[#2997ff] text-white hover:bg-[#0071e3] transition-all disabled:opacity-50"
             >
-              {loading ? 'Saving Service & AEO...' : 'Save Service'}
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2.5 rounded-lg border border-white/15 text-gray-300 text-sm hover:bg-white/5"
-            >
-              Cancel
+              {loading ? 'Saving Service...' : 'Publish Service Pillar →'}
             </button>
           </div>
         </form>
@@ -455,39 +252,22 @@ function ServiceModal({ service, onClose, onSaved }) {
 export default function ServicesAdmin() {
   const [services, setServices] = useState([])
   const [loading, setLoading] = useState(true)
-  const [seeding, setSeeding] = useState(false)
-  const [modal, setModal] = useState(null)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [editingService, setEditingService] = useState(null)
 
-  function load() {
+  useEffect(() => {
+    loadServices()
+  }, [])
+
+  async function loadServices() {
     setLoading(true)
-    servicesApi.getAll(true)
-      .then((r) => {
-        if (Array.isArray(r.data) && r.data.length > 0) {
-          setServices(r.data)
-        } else {
-          setServices(FALLBACK_DEFAULT_SERVICES)
-        }
-      })
-      .catch(() => {
-        setServices(FALLBACK_DEFAULT_SERVICES)
-      })
-      .finally(() => setLoading(false))
-  }
-
-  useEffect(() => { load() }, [])
-
-  async function handleSeedDefaults() {
-    setSeeding(true)
     try {
-      const res = await servicesApi.seedDefaults()
-      if (Array.isArray(res.data) && res.data.length > 0) {
-        setServices(res.data)
-        alert('All 6 default OpenMNC services with AEO fields synchronized with the database!')
-      }
+      const res = await servicesApi.getAll()
+      setServices(res.data || [])
     } catch {
-      alert('Could not synchronize with database. Displaying local defaults.')
+      setServices([])
     } finally {
-      setSeeding(false)
+      setLoading(false)
     }
   }
 
@@ -495,121 +275,74 @@ export default function ServicesAdmin() {
     if (!window.confirm(`Delete service "${slug}"?`)) return
     try {
       await servicesApi.delete(slug)
-      load()
+      loadServices()
     } catch {
-      alert('Could not delete service.')
-    }
-  }
-
-  async function handleToggleStatus(svc) {
-    const updated = svc.is_active === false ? true : false
-    try {
-      await servicesApi.update(svc.slug, { is_active: updated })
-      setServices((prev) =>
-        prev.map((s) => (s.slug === svc.slug ? { ...s, is_active: updated } : s))
-      )
-    } catch {
-      alert('Failed to update service status.')
+      alert('Failed to delete service.')
     }
   }
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8">
-      {/* Top Header */}
+    <div className="p-6 lg:p-8 max-w-7xl">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className="font-display text-xl sm:text-2xl font-bold text-white">Services CMS &amp; AEO Architecture</h1>
-          <p className="text-gray-400 text-xs mt-0.5">
-            {services.length} active and draft vertical(s) configured with Problem/Solution scraper data
+          <h1 className="font-display text-2xl font-semibold text-[#f5f5f7] tracking-tight">
+            Services &amp; SEO Landing Pages
+          </h1>
+          <p className="text-[#86868b] text-xs mt-0.5">
+            Manage the 5 core engineering pillars, problem routers, and deliverables.
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
-          <button
-            onClick={handleSeedDefaults}
-            disabled={seeding}
-            className="px-3 py-2 bg-white/5 hover:bg-white/10 text-cyan-neon border border-cyan-neon/30 rounded-lg font-semibold text-xs transition-all"
-            title="Ensures all 6 default OpenMNC services exist in MongoDB with AEO fields"
-          >
-            {seeding ? 'Syncing...' : '🌱 Sync 6 Default Services with AEO'}
-          </button>
-          <button
-            onClick={() => setModal('add')}
-            className="px-4 py-2 bg-cyan-neon text-navy-950 rounded-lg font-bold text-xs shadow-cyan-glow hover:scale-105 active:scale-95 transition-all"
-            aria-label="Add new service"
-          >
-            + Add Service
-          </button>
-        </div>
+        <button
+          onClick={() => { setEditingService(null); setModalOpen(true) }}
+          className="px-5 py-2.5 rounded-full text-xs font-semibold bg-white text-black hover:bg-[#f5f5f7] transition-all self-start sm:self-auto"
+        >
+          + Add Service Pillar
+        </button>
       </div>
 
       {loading ? (
-        <div className="text-center py-16 text-gray-400 text-sm">
-          <div className="w-8 h-8 border-2 border-cyan-neon/30 border-t-cyan-neon rounded-full animate-spin mx-auto mb-2" />
-          Loading services...
+        <div className="flex justify-center py-20">
+          <div className="w-8 h-8 border-2 border-[#2997ff]/30 border-t-[#2997ff] rounded-full animate-spin" />
         </div>
       ) : (
-        <div className="glass-card overflow-x-auto border border-white/15 bg-white/10 backdrop-blur-lg shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-2xl">
-          <table className="w-full text-sm min-w-[700px]" aria-label="Services table">
-            <thead className="border-b border-white/10 bg-white/5">
-              <tr>
-                {['#', 'Vertical Title & Pillar', 'AEO Problem/Solution', 'Slug (URL)', 'Status', 'Actions'].map((h) => (
-                  <th key={h} className="text-left px-4 py-3 text-gray-300 font-semibold text-xs uppercase tracking-wide">
-                    {h}
-                  </th>
-                ))}
+        <div className="rounded-2xl bg-[#161618] border border-white/8 overflow-hidden">
+          <table className="w-full text-left text-sm">
+            <thead>
+              <tr className="border-b border-white/8 bg-white/[0.02] text-[#86868b] text-xs uppercase tracking-wider">
+                <th className="py-3 px-4">Service</th>
+                <th className="py-3 px-4">Category</th>
+                <th className="py-3 px-4">Order</th>
+                <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-white/8">
               {services.map((svc) => (
-                <tr key={svc.slug} className="hover:bg-white/5 transition-colors">
-                  <td className="px-4 py-3 text-gray-400 font-mono text-xs">{svc.order || 1}</td>
-                  <td className="px-4 py-3">
-                    <div className="font-semibold text-white flex items-center gap-2">
-                      <span>{getServiceIcon(svc.icon, svc.slug)}</span>
-                      <span>{svc.title}</span>
-                    </div>
-                    <div className="text-xs text-gray-400 max-w-xs truncate">{svc.tagline}</div>
-                    {svc.category && (
-                      <span className="text-[10px] text-cyan-neon font-semibold uppercase">{svc.category}</span>
-                    )}
+                <tr key={svc.slug} className="hover:bg-white/[0.02] transition-colors">
+                  <td className="py-3.5 px-4">
+                    <p className="font-medium text-white">{svc.title}</p>
+                    <p className="text-xs text-[#86868b] font-mono">/services/{svc.slug}</p>
                   </td>
-                  <td className="px-4 py-3 max-w-xs">
-                    {svc.problem_statement ? (
-                      <div className="text-[11px] text-gray-300 line-clamp-2">
-                        <span className="text-red-400 font-semibold">P:</span> {svc.problem_statement}
-                      </div>
-                    ) : (
-                      <span className="text-[10px] text-gray-500 italic">No AEO problem defined</span>
-                    )}
+                  <td className="py-3.5 px-4">
+                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/5 text-[#d2d2d7] border border-white/10">
+                      {svc.category}
+                    </span>
                   </td>
-                  <td className="px-4 py-3 text-cyan-neon font-mono text-xs">/services/{svc.slug}</td>
-                  <td className="px-4 py-3">
+                  <td className="py-3.5 px-4 font-mono text-xs text-[#86868b] tabular-nums">
+                    #{svc.order || 1}
+                  </td>
+                  <td className="py-3.5 px-4 text-right space-x-2">
                     <button
-                      onClick={() => handleToggleStatus(svc)}
-                      className={`px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-all ${
-                        svc.is_active !== false
-                          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-                          : 'bg-gray-500/10 text-gray-400 border-gray-500/30'
-                      }`}
+                      onClick={() => { setEditingService(svc); setModalOpen(true) }}
+                      className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 hover:bg-white/10 text-white transition-colors"
                     >
-                      {svc.is_active !== false ? '● Active' : '○ Draft'}
+                      Edit
                     </button>
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => setModal(svc)}
-                        className="px-2.5 py-1 rounded bg-white/5 hover:bg-white/10 text-cyan-neon text-xs font-semibold transition-colors"
-                      >
-                        Edit AEO
-                      </button>
-                      <button
-                        onClick={() => handleDelete(svc.slug)}
-                        className="px-2 py-1 rounded hover:bg-red-500/10 text-red-400 text-xs transition-colors"
-                      >
-                        Delete
-                      </button>
-                    </div>
+                    <button
+                      onClick={() => handleDelete(svc.slug)}
+                      className="px-3 py-1 rounded-full text-xs font-medium bg-red-500/10 hover:bg-red-500/20 text-red-400 transition-colors"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -618,13 +351,12 @@ export default function ServicesAdmin() {
         </div>
       )}
 
-      {/* Service Modal */}
       <AnimatePresence>
-        {modal && (
+        {modalOpen && (
           <ServiceModal
-            service={modal === 'add' ? null : modal}
-            onClose={() => setModal(null)}
-            onSaved={load}
+            service={editingService}
+            onClose={() => setModalOpen(false)}
+            onSaved={loadServices}
           />
         )}
       </AnimatePresence>

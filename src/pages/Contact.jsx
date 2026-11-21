@@ -4,7 +4,9 @@ import { useForm } from 'react-hook-form'
 import { motion, AnimatePresence } from 'framer-motion'
 import ScrollReveal from '../components/ScrollReveal.jsx'
 import SEO from '../components/SEO.jsx'
+import GoogleReviewModal from '../components/GoogleReviewModal.jsx'
 import apiClient from '../api/client.js'
+import { settingsApi } from '../api/settings.js'
 import { whatsappUrl } from '../utils/helpers.js'
 import { localBusinessSchema } from '../utils/jsonld.js'
 
@@ -17,6 +19,16 @@ export default function Contact() {
   const [activeTab, setActiveTab] = useState(initialIntent)
   const [submitState, setSubmitState] = useState('idle') // idle | submitting | success | error
   const [errorMsg, setErrorMsg] = useState('')
+  const [reviewModalOpen, setReviewModalOpen] = useState(false)
+  const [reviewUrl, setReviewUrl] = useState('')
+
+  useEffect(() => {
+    settingsApi.getAll().then((res) => {
+      if (res.data?.google_review_url) {
+        setReviewUrl(res.data.google_review_url)
+      }
+    }).catch(() => {})
+  }, [])
 
   const {
     register,
@@ -28,6 +40,7 @@ export default function Contact() {
     defaultValues: {
       lead_type: initialIntent,
       service_interest: initialService,
+      wants_nda: true,
     },
   })
 
@@ -149,12 +162,27 @@ export default function Contact() {
               Chat Directly on WhatsApp
             </a>
 
+            {/* Google Review Trust Card */}
+            <div className="glass-card p-5 border border-amber-400/20 text-center mb-6">
+              <span className="text-amber-400 text-base block mb-1">★★★★★</span>
+              <p className="text-white text-xs font-bold mb-1">Google Business Profile</p>
+              <p className="text-gray-400 text-[11px] mb-3">Rate OPEN MNC or read verified client reviews on Google.</p>
+              <button
+                type="button"
+                onClick={() => setReviewModalOpen(true)}
+                className="w-full py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/20 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
+              >
+                <span>⭐</span> Review Us on Google
+              </button>
+            </div>
+
             {/* Trust box */}
             <div className="glass-card p-5 text-xs text-gray-400 space-y-2">
               <p className="text-white font-semibold">🔒 Our Guarantee:</p>
               <p>• Zero spam — we only contact you regarding your explicit inquiry.</p>
+              <p>• Strict mutual NDA before sharing repository or business details.</p>
               <p>• 100% Free Consultation for all 12th-pass students.</p>
-              <p>• Direct conversation with founder Amit Barai for B2B ventures.</p>
+              <p>• Direct conversation with senior engineering leadership.</p>
             </div>
           </aside>
 
@@ -297,8 +325,12 @@ export default function Contact() {
                                 {...register('service_interest')}
                                 className="w-full px-4 py-2.5 rounded-lg bg-navy-900 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
                               >
-                                <option value="custom-development">Custom App &amp; Software Development</option>
-                                <option value="business-automation">Business Automation &amp; AI Integration</option>
+                                <option value="vibe-coded-app-audit-and-fixing">Pillar 1: Vibe-Coded App Audit &amp; Fixing (Cursor/Bolt/Lovable)</option>
+                                <option value="app-store-play-store-publishing-and-approval">Pillar 2: Play Store &amp; App Store Publishing / Policy Fix</option>
+                                <option value="app-transfer-and-database-migration">Pillar 3: App Transfer &amp; Database Migration (Acquisitions)</option>
+                                <option value="custom-software-and-scalable-app-development">Pillar 4: Custom Software, SaaS &amp; Scalable Mobile Apps</option>
+                                <option value="app-maintenance-and-support">Pillar 5: App Maintenance, DevOps &amp; Support (AMC)</option>
+                                <option value="business-automation">Enterprise AI Automation &amp; Multi-Agent Workflows</option>
                                 <option value="social-media-management">Organic Social Media &amp; Video Growth</option>
                                 <option value="inhouse-products">In-House Products Partnership</option>
                               </select>
@@ -314,9 +346,9 @@ export default function Contact() {
                                 {...register('budget_range')}
                                 className="w-full px-4 py-2.5 rounded-lg bg-navy-900 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
                               >
-                                <option value="₹25k - ₹75k">₹25,000 – ₹75,000 (MVP / Scripting)</option>
-                                <option value="₹75k - ₹2.5L">₹75,000 – ₹2,50,000 (Full Build)</option>
-                                <option value="₹2.5L - ₹10L">₹2,50,000 – ₹10,00,000 (Scale)</option>
+                                <option value="₹25k - ₹75k">₹25,000 – ₹75,000 (MVP / Audit / ASO)</option>
+                                <option value="₹75k - ₹2.5L">₹75,000 – ₹2,50,000 (Full Build / Migration)</option>
+                                <option value="₹2.5L - ₹10L">₹2,50,000 – ₹10,00,000 (Scaling / SaaS)</option>
                                 <option value="₹10L+">₹10,00,000+ (Enterprise)</option>
                               </select>
                             </div>
@@ -333,6 +365,21 @@ export default function Contact() {
                                 <option value="Exploratory / Planning">Exploratory / Planning</option>
                               </select>
                             </div>
+                          </div>
+
+                          {/* NDA Request Checkbox (Blueprint Part 4) */}
+                          <div className="pt-2">
+                            <label className="flex items-center gap-2 cursor-pointer text-xs text-white">
+                              <input
+                                type="checkbox"
+                                defaultChecked
+                                {...register('wants_nda')}
+                                className="rounded text-cyan-neon focus:ring-0"
+                              />
+                              <span>
+                                I want an NDA before sharing repository or business details.
+                              </span>
+                            </label>
                           </div>
                         </div>
                       )}
@@ -448,6 +495,12 @@ export default function Contact() {
           </section>
         </div>
       </main>
+
+      <GoogleReviewModal
+        isOpen={reviewModalOpen}
+        onClose={() => setReviewModalOpen(false)}
+        reviewUrl={reviewUrl}
+      />
     </>
   )
 }

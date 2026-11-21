@@ -13,185 +13,202 @@ const VALUES = [
     desc: 'We spend the first meeting listening, not selling. Understanding your problem deeply means we build exactly what you need.',
   },
   {
-    icon: '🤖',
-    title: 'AI-Augmented Everything',
-    desc: 'From our internal workflows to the products we ship, we apply AI where it creates genuine value.',
+    icon: '⚡',
+    title: 'Engineering Rigor',
+    desc: 'From architectural reviews to automated CI/CD and zero-vulnerability audits, we build production software engineered to last.',
   },
   {
     icon: '🤝',
     title: 'Long-Term Partnership',
-    desc: 'We are not project vendors. We are technology partners who celebrate your growth as our own.',
+    desc: 'We are not ticket vendors. We are long-term engineering partners who scale your products and celebrate your revenue growth.',
   },
   {
-    icon: '📚',
+    icon: '🎓',
     title: 'Community Investment',
-    desc: 'Giving back through free student guidance and college partnerships is core to who we are.',
+    desc: 'Giving back through 100% free student career guidance, college fee subsidies, and open tech mentorship is core to our company mission.',
   },
 ]
 
 const MILESTONES = [
-  { year: '2024', event: 'OpenMNC LLP founded by Amit Barai' },
-  { year: '2024', event: 'First industrial training cohort launched' },
-  { year: '2024', event: '12+ college partnerships established' },
-  { year: '2024', event: 'Free student guidance program expanded nationwide' },
+  { year: '2024', event: 'M/S. OPEN MNC LLP founded by Amit Barai with an engineering-first vision' },
+  { year: '2024', event: 'Launched App Store Rescue & Vibe-Coded Prototype Audit division' },
+  { year: '2025', event: 'Expanded international software partnerships across UK, US, UAE & India' },
+  { year: '2026', event: '100% Free Career Guidance & ₹3k–₹10k College Subsidy Initiative expanded nationwide' },
 ]
 
 export default function About() {
   return (
     <>
       <SEO
-        title="About OpenMNC LLP — Global AI Innovators & Custom Software Engineering"
-        description="Learn about OpenMNC LLP, founded by Amit Barai. Operating internationally and across India from our headquarters in West Bengal, we deliver enterprise AI automation, software engineering, and student career empowerment."
+        title="About OpenMNC — Global Engineering Firm & Production Software Partner"
+        description="Learn about OpenMNC (M/S. OPEN MNC LLP), founded by Amit Barai. Operating internationally and across India, we audit, rescue, build, and scale production-grade software and empower students through career guidance."
         canonical="/about"
         schema={organizationSchema}
-        keywords="About OpenMNC, Amit Barai, global AI automation company, custom software development, tech innovators India, student career mentorship"
+        keywords="About OpenMNC, M/S OPEN MNC LLP, Amit Barai, production software development, vibe coded app audit, app store approval, student career mentorship"
       />
 
       {/* Page Hero */}
       <section
-        className="relative pt-32 pb-20 px-4 bg-navy-950 overflow-hidden"
-        aria-label="About OpenMNC LLP"
+        className="relative pt-36 pb-20 px-4 bg-black overflow-hidden"
+        aria-label="About OpenMNC"
       >
-        <ThreeBackground section="about" className="opacity-30" />
-        <div className="relative z-10 container-max text-center">
-          <span className="text-xs text-amber-glow font-semibold tracking-widest uppercase mb-4 block">
-            Our Story &amp; Global Vision
+        <ThreeBackground section="about" className="opacity-20" />
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-[#2997ff] mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2997ff]" />
+            Corporate Identity &amp; Global Mission
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
-            About <span className="amber-gradient-text">OpenMNC LLP</span>
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#f5f5f7] tracking-tight mb-6">
+            Engineering Rigor for Founders.{' '}
+            <span className="text-[#2997ff] block mt-1">Opportunity for Students.</span>
           </h1>
-          <p className="text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            Operating internationally and across India from our headquarters in West Bengal, we started with a simple belief: 
-            technology should be a multiplier for human potential, not a barrier.
+          <p className="text-[#a1a1a6] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
+            Operating internationally and across India, OpenMNC is a serious, engineering-first technology firm.
+            We solve the high-stakes software challenges founders face and provide 100% free educational guidance for the next generation.
           </p>
         </div>
       </section>
 
-      <main className="bg-navy-950">
-        {/* Mission */}
-        <section className="section-padding" aria-label="Our mission">
-          <div className="container-max grid lg:grid-cols-2 gap-14 items-center">
+      <main className="bg-black">
+        {/* Mission & Founder */}
+        <section className="section-padding pt-0" aria-label="Our mission and leadership">
+          <div className="container-max grid lg:grid-cols-2 gap-10 items-stretch">
+            {/* Mission Statement Surface */}
             <ScrollReveal>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-6">
-                We understand your idea first,{' '}
-                <span className="gradient-text">then build it.</span>
-              </h2>
-              <p className="text-gray-400 leading-relaxed mb-5">
-                OpenMNC LLP is a future-focused technology company headquartered in West Bengal, India. We specialize in
-                enterprise AI automation, custom software and SaaS development, digital growth marketing, and comprehensive
-                student career support programs across global and domestic markets.
-              </p>
-              <p className="text-gray-400 leading-relaxed mb-8">
-                What sets us apart is our discovery-first approach. Before any code is written,
-                we immerse ourselves in your business context, map your workflows, and design solutions
-                that solve the root problem — not just the symptoms.
-              </p>
-              <GlowButton to="/contact" variant="primary">
-                Start a Conversation →
-              </GlowButton>
+              <div className="h-full rounded-2xl bg-[#161618] border border-white/8 p-8 sm:p-10 flex flex-col justify-between">
+                <div>
+                  <span className="text-xs font-semibold text-[#2997ff] uppercase tracking-wider block mb-3">
+                    Our Philosophy
+                  </span>
+                  <h2 className="font-display text-2xl sm:text-3xl font-semibold text-[#f5f5f7] tracking-tight mb-6">
+                    We understand your business first, then architect the engineering.
+                  </h2>
+                  <p className="text-[#a1a1a6] leading-relaxed mb-5 text-sm sm:text-base">
+                    Too many dev agencies write lines of code without understanding the business stakes. At OpenMNC,
+                    we immerse ourselves in your architecture, your risk profile, and your unit economics before writing a single commit.
+                  </p>
+                  <p className="text-[#a1a1a6] leading-relaxed mb-6 text-sm sm:text-base">
+                    Whether you are an indie founder whose vibe-coded MVP is failing security tests, a company blocked by Apple App Store guidelines, or a business that needs scalable cloud architecture, we deliver certainty.
+                  </p>
+                </div>
+                <div>
+                  <GlowButton to="/contact" variant="primary">
+                    Start an Engineering Review →
+                  </GlowButton>
+                </div>
+              </div>
             </ScrollReveal>
 
-            {/* Founder card */}
+            {/* Founder Card - Concentric Apple Geometry */}
             <ScrollReveal delay={0.2} direction="left">
               <article
-                className="glass-card p-8 relative overflow-hidden"
+                className="h-full rounded-2xl bg-[#161618] border border-white/8 p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden"
                 aria-label="Founder Amit Barai"
               >
-                <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-radial from-amber-glow/10 to-transparent rounded-full -translate-y-10 translate-x-10 pointer-events-none" aria-hidden="true" />
-                <div className="relative">
-                  <div
-                    className="w-20 h-20 rounded-3xl bg-gradient-to-br from-amber-glow/30 to-amber-glow/5 border border-amber-glow/30 flex items-center justify-center text-3xl mb-5"
-                    aria-hidden="true"
-                  >
-                    👤
+                <div>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div
+                      className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl"
+                      aria-hidden="true"
+                    >
+                      👨‍💻
+                    </div>
+                    <div>
+                      <h3 className="font-display text-2xl font-semibold text-[#f5f5f7] tracking-tight">Amit Barai</h3>
+                      <p className="text-[#2997ff] text-xs font-semibold tracking-wide">
+                        Founder &amp; Managing Director
+                      </p>
+                      <p className="text-[#86868b] text-[11px] font-mono mt-0.5">
+                        M/S. OPEN MNC LLP
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="font-display text-2xl font-bold text-white mb-1">Amit Barai</h3>
-                  <p className="text-amber-glow text-sm font-semibold mb-5">Founder &amp; Director, OpenMNC LLP</p>
-                  <blockquote className="text-gray-300 text-sm leading-relaxed border-l-2 border-amber-glow/50 pl-4 mb-6 italic">
-                    "Technology should work for humans — not the other way around.
-                    My mission is to make intelligent automation accessible and impactful
-                    for every business, and to create pathways for the next generation of
-                    tech talent in India."
+
+                  <blockquote className="text-[#d2d2d7] text-sm leading-relaxed border-l-2 border-[#2997ff]/40 pl-4 mb-6 italic">
+                    "Software should be a multiplier for human vision—not an endless source of stress, broken dependencies, or rejected submissions.
+                    Our mission is to give founders absolute peace of mind while opening life-changing career doors for young students across India."
                   </blockquote>
-                  <div className="flex flex-col gap-2 text-sm text-gray-400">
+                </div>
+
+                <div className="pt-6 border-t border-white/8 flex flex-wrap items-center justify-between gap-4 text-xs">
+                  <div className="flex flex-col gap-1.5">
                     <a
                       href="mailto:amit@openmnc.com"
-                      className="flex items-center gap-2 hover:text-amber-glow transition-colors"
-                      aria-label="Email Amit Barai"
+                      className="text-[#a1a1a6] hover:text-[#2997ff] transition-colors flex items-center gap-2"
                     >
                       <span aria-hidden="true">✉</span> amit@openmnc.com
                     </a>
                     <a
-                      href={whatsappUrl('918509684056', 'Hi Amit! I found OpenMNC and would love to connect.')}
-                      className="flex items-center gap-2 hover:text-amber-glow transition-colors"
+                      href={whatsappUrl('918509684056', 'Hi Amit! I found OpenMNC and would like to connect.')}
+                      className="text-[#a1a1a6] hover:text-[#2997ff] transition-colors flex items-center gap-2"
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="WhatsApp Amit Barai"
                     >
-                      <span aria-hidden="true">💬</span> WhatsApp
+                      <span aria-hidden="true">💬</span> Direct WhatsApp
                     </a>
                   </div>
+
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Available for Consultations
+                  </span>
                 </div>
               </article>
             </ScrollReveal>
           </div>
         </section>
 
-        {/* Values */}
-        <section className="section-padding bg-navy-900" aria-label="Our values">
+        {/* Values - Single Unified Surface with Hairline Dividers */}
+        <section className="section-padding pt-0" aria-label="Our values">
           <div className="container-max">
             <SectionHeader
-              eyebrow="Core Values"
-              title="Principles We Build By"
-              accentColor="amber"
+              eyebrow="Operating Principles"
+              title="Built on Rigor, Not Fluff"
+              accentColor="cyan"
             />
-            <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {VALUES.map((v, i) => (
-                <ScrollReveal key={v.title} delay={i * 0.1}>
-                  <div className="glass-card p-6 flex gap-5 items-start group hover:border-amber-glow/30 transition-all duration-300">
-                    <div
-                      className="text-2xl w-12 h-12 flex-shrink-0 rounded-xl bg-amber-glow/10 border border-amber-glow/20 flex items-center justify-center group-hover:bg-amber-glow/20 transition-colors"
-                      aria-hidden="true"
-                    >
-                      {v.icon}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-white mb-2 group-hover:text-amber-glow transition-colors">{v.title}</h3>
-                      <p className="text-gray-400 text-sm leading-relaxed">{v.desc}</p>
-                    </div>
+            <div className="mt-12 rounded-2xl bg-[#161618] border border-white/8 divide-y divide-white/8 overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/8">
+                {VALUES.slice(0, 2).map((v) => (
+                  <div key={v.title} className="p-8 hover:bg-white/[0.02] transition-colors">
+                    <div className="text-2xl mb-3">{v.icon}</div>
+                    <h3 className="font-semibold text-lg text-[#f5f5f7] mb-2">{v.title}</h3>
+                    <p className="text-[#a1a1a6] text-sm leading-relaxed">{v.desc}</p>
                   </div>
-                </ScrollReveal>
-              ))}
+                ))}
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/8">
+                {VALUES.slice(2, 4).map((v) => (
+                  <div key={v.title} className="p-8 hover:bg-white/[0.02] transition-colors">
+                    <div className="text-2xl mb-3">{v.icon}</div>
+                    <h3 className="font-semibold text-lg text-[#f5f5f7] mb-2">{v.title}</h3>
+                    <p className="text-[#a1a1a6] text-sm leading-relaxed">{v.desc}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Timeline */}
-        <section className="section-padding" aria-label="Company milestones">
-          <div className="container-max max-w-2xl mx-auto">
+        {/* Timeline - Apple Precision Milestone List */}
+        <section className="section-padding pt-0" aria-label="Company milestones">
+          <div className="container-max max-w-3xl mx-auto">
             <SectionHeader
-              eyebrow="Timeline"
-              title="Our Journey So Far"
-              accentColor="amber"
+              eyebrow="Company Timeline"
+              title="Our Progression"
+              accentColor="cyan"
             />
-            <ol className="mt-12 relative border-l border-amber-glow/20 pl-8 space-y-10">
+            <div className="mt-12 rounded-2xl bg-[#161618] border border-white/8 divide-y divide-white/8 overflow-hidden">
               {MILESTONES.map((m, i) => (
-                <ScrollReveal key={i} delay={i * 0.1}>
-                  <li className="relative">
-                    <div
-                      className="absolute -left-11 w-6 h-6 rounded-full bg-amber-glow/20 border-2 border-amber-glow flex items-center justify-center"
-                      aria-hidden="true"
-                    >
-                      <div className="w-2 h-2 rounded-full bg-amber-glow" />
-                    </div>
-                    <time className="text-xs text-amber-glow font-semibold tracking-widest uppercase mb-1 block">
-                      {m.year}
-                    </time>
-                    <p className="text-white font-medium">{m.event}</p>
-                  </li>
-                </ScrollReveal>
+                <div key={i} className="p-6 flex items-start gap-6 hover:bg-white/[0.02] transition-colors">
+                  <span className="font-mono text-sm font-semibold text-[#2997ff] pt-0.5 tabular-nums">
+                    {m.year}
+                  </span>
+                  <div className="flex-1">
+                    <p className="text-[#f5f5f7] text-sm sm:text-base font-medium">{m.event}</p>
+                  </div>
+                </div>
               ))}
-            </ol>
+            </div>
           </div>
         </section>
       </main>

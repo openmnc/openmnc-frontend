@@ -16,17 +16,18 @@ export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": "https://openmnc.com/#organization",
-  name: "OpenMNC LLP",
-  alternateName: "OpenMNC",
+  name: "OpenMNC",
+  legalName: "M/S. OPEN MNC LLP",
+  alternateName: ["OpenMNC", "Open MNC", "M/S. OPEN MNC LLP"],
   url: "https://openmnc.com",
   logo: {
     "@type": "ImageObject",
-    url: "https://openmnc.com/logo.svg",
+    url: "https://openmnc.com/logo.webp",
     width: 200,
     height: 60,
   },
   description:
-    "OpenMNC LLP is a technology and business consulting company specializing in business automation, AI integration, custom software development, social media management, student guidance, and industrial training.",
+    "OpenMNC is a production-grade software engineering and educational consultancy partner. We audit vibe-coded AI apps, publish to App Store and Google Play, migrate databases, build scalable custom software, and empower students with 100% free career guidance.",
   foundingDate: "2023",
   founder: {
     "@type": "Person",
@@ -73,13 +74,6 @@ export const organizationSchema = {
     "Industrial IoT & Robotics Engineering",
     "Organic Social Media Growth & Viral Scripting"
   ],
-  sameAs: [
-    "https://www.linkedin.com/company/openmnc",
-    "https://www.instagram.com/openmnc",
-    "https://twitter.com/openmnc",
-    "https://www.facebook.com/openmnc",
-    "https://www.youtube.com/@openmnc",
-  ],
 };
 
 // ---------------------------------------------------------------------------
@@ -90,13 +84,14 @@ export const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "@id": "https://openmnc.com/#localbusiness",
-  name: "OpenMNC LLP",
-  alternateName: ["OpenMNC", "Open MNC", "OpenMNC Global", "OpenMNC Tech"],
+  name: "OpenMNC",
+  legalName: "M/S. OPEN MNC LLP",
+  alternateName: ["OpenMNC", "Open MNC", "M/S. OPEN MNC LLP", "OpenMNC Tech"],
   url: "https://openmnc.com",
-  logo: "https://openmnc.com/logo.png",
-  image: "https://openmnc.com/logo.png",
+  logo: "https://openmnc.com/logo.webp",
+  image: "https://openmnc.com/logo.webp",
   description:
-    "OpenMNC LLP is a global technology and AI automation company headquartered in West Bengal, India. We deliver enterprise AI workflows, full-cycle custom software, and free student career guidance serving clients worldwide and across India.",
+    "OpenMNC (M/S. OPEN MNC LLP) is a production-grade software engineering, mobile app publishing, and AI audit consultancy headquartered in West Bengal, India. Delivering full-cycle custom apps, app store approval, and 100% free student career guidance worldwide and across India.",
   telephone: "+91-8509684056",
   email: "hello@openmnc.com",
   priceRange: "$$",
@@ -132,13 +127,6 @@ export const localBusinessSchema = {
     "@type": "Person",
     name: "Amit Barai",
   },
-  sameAs: [
-    "https://www.linkedin.com/company/openmnc",
-    "https://www.instagram.com/openmnc",
-    "https://twitter.com/openmnc",
-    "https://www.facebook.com/openmnc",
-    "https://www.youtube.com/@openmnc",
-  ],
 };
 
 // ---------------------------------------------------------------------------

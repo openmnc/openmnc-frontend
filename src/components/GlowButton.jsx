@@ -12,39 +12,40 @@ export default function GlowButton({
 }) {
   const baseClasses = `
     inline-flex items-center justify-center gap-2
-    px-6 py-3 rounded-xl font-semibold text-sm
+    px-6 py-3 rounded-full font-medium text-sm
     transition-all duration-200 cursor-pointer
-    relative select-none
+    relative select-none text-center
   `
 
   const variants = {
     primary: `
-      bg-gradient-to-r from-sky-500 to-cyan-400 text-slate-950
-      hover:from-sky-400 hover:to-cyan-300
-      shadow-sm hover:shadow-md
+      bg-[#2997ff] hover:bg-[#0071e3] text-white
+      shadow-[0_2px_12px_rgba(41,151,255,0.35)]
+      border border-[#2997ff]/40
     `,
     outline: `
-      border border-slate-700/80 bg-slate-900/50 text-slate-200
-      hover:text-white hover:border-slate-500 hover:bg-slate-800/60
-      shadow-sm
+      bg-white/8 hover:bg-white/12 text-[#f5f5f7] hover:text-white
+      border border-white/16 hover:border-white/28
+      backdrop-blur-md shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2)]
     `,
     amber: `
-      bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950
-      hover:from-amber-400 hover:to-amber-300
-      shadow-sm
+      bg-[#ff9500] hover:bg-[#e08500] text-[#000000] font-semibold
+      shadow-[0_2px_12px_rgba(255,149,0,0.3)]
+      border border-[#ff9500]/40
     `,
     ghost: `
-      text-slate-300 hover:text-white
-      hover:bg-white/5
+      text-[#a1a1a6] hover:text-white
+      hover:bg-white/6
     `,
   }
 
   const motionProps = {
-    whileHover: { y: -1 },
-    whileTap: { y: 0 },
+    whileHover: { scale: 1.02 },
+    whileTap: { scale: 0.98 },
+    transition: { type: 'spring', stiffness: 260, damping: 20 },
   }
 
-  const classes = `${baseClasses} ${variants[variant]} ${className}`
+  const classes = `${baseClasses} ${variants[variant] || variants.primary} ${className}`
 
   if (to) {
     return (

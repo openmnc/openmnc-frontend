@@ -8,96 +8,139 @@ import ScrollReveal from '../components/ScrollReveal.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
 import GlowButton from '../components/GlowButton.jsx'
 import SEO from '../components/SEO.jsx'
+import GoogleReviewModal from '../components/GoogleReviewModal.jsx'
 import { servicesApi } from '../api/services.js'
 import { settingsApi } from '../api/settings.js'
 import { whatsappUrl } from '../utils/helpers.js'
 import { localBusinessSchema, b2bFaqSchema } from '../utils/jsonld.js'
 
-// Static fallback data matching OpenMNC LLP's core verticals
+// Quick Problem Router Cards (Part 4 of Master Blueprint)
+const QUICK_PROBLEM_ROUTER = [
+  {
+    icon: '⚡',
+    badge: 'Pillar 1',
+    headline: 'AI-Built Code Fix',
+    question: 'I built an app with AI (Cursor / Bolt / Lovable) and need it fixed & secured.',
+    link: '/services/vibe-coded-app-audit-and-fixing',
+    btnText: 'Audit & Fix My App →',
+    color: 'border-cyan-neon/30 hover:border-cyan-neon',
+  },
+  {
+    icon: '🚀',
+    badge: 'Pillar 2',
+    headline: 'App Store Approval',
+    question: 'My app is ready (or rejected) and I need it live on Google Play & App Store.',
+    link: '/services/app-store-play-store-publishing-and-approval',
+    btnText: 'Get My App Approved →',
+    color: 'border-sky-400/30 hover:border-sky-400',
+  },
+  {
+    icon: '🔄',
+    badge: 'Pillar 3',
+    headline: 'App & DB Migration',
+    question: 'I am buying, selling, or moving an app, database & cloud assets safely.',
+    link: '/services/app-transfer-and-database-migration',
+    btnText: 'Plan Safe Transfer →',
+    color: 'border-purple-500/30 hover:border-purple-500',
+  },
+  {
+    icon: '🛠️',
+    badge: 'Pillar 4',
+    headline: 'Custom Software & SaaS',
+    question: 'I want to build a serious, scalable custom SaaS, web or mobile app from scratch.',
+    link: '/services/custom-software-and-scalable-app-development',
+    btnText: 'Discuss Architecture →',
+    color: 'border-emerald-400/30 hover:border-emerald-400',
+  },
+  {
+    icon: '🛡️',
+    badge: 'Pillar 5',
+    headline: 'Maintenance & AMC',
+    question: 'I have a live app and need reliable ongoing maintenance, OS updates & bug fixing.',
+    link: '/services/app-maintenance-and-support',
+    btnText: 'Explore AMC Plans →',
+    color: 'border-amber-400/30 hover:border-amber-400',
+  },
+]
+
+// Default Services matching the 5 Pillars + Core Verticals
 const DEFAULT_SERVICES = [
   {
-    slug: 'business-automation',
-    title: 'Business Automation & AI Integration',
-    tagline: 'Multiply revenue. Eliminate repetitive manual work.',
-    icon: 'automation',
-    features: ['Custom AI workflow automation', 'Revenue multiplication strategies', 'Reliability & zero time-waste operations'],
+    slug: 'vibe-coded-app-audit-and-fixing',
+    title: 'Vibe-Coded App Audit & Fixing',
+    tagline: 'Turn AI prototypes from Cursor & Bolt into production apps.',
+    icon: 'audit',
+    features: ['Line-by-line security audit', 'Supabase/Firebase RLS hardening', 'Stripe & webhook stabilization'],
   },
   {
-    slug: 'custom-development',
-    title: 'Custom App & Software Development',
-    tagline: 'From your visionary idea to reality.',
-    icon: 'code',
-    features: ['Deep requirement understanding', 'Full-cycle engineering & QA', 'App Store Optimization (ASO) & marketing'],
-  },
-  {
-    slug: 'inhouse-products',
-    title: 'In-House Products & Games',
-    tagline: 'Products we build, publish, and stand behind.',
+    slug: 'app-store-play-store-publishing-and-approval',
+    title: 'Play Store & App Store Publishing',
+    tagline: 'Pass Apple/Google review & fix repeat policy violations.',
     icon: 'apps',
-    features: ['Kibo VPN, Calorie AI & CardSnap', 'Published on Google Play & App Store', 'Custom software & game development'],
+    features: ['Guideline 4.2 & 2.1 compliance', '12 testers closed testing management', 'Direct reviewer resolution appeal'],
   },
   {
-    slug: 'social-media-management',
-    title: 'Social Media Management & Organic Growth',
-    tagline: 'High-ROI organic growth without heavy ad spend.',
-    icon: 'social',
-    features: ['High-retention scripting (Hook → Engage → Reveal)', 'Video editing, hashtags & algorithm boost', 'Instagram, Facebook & YouTube management'],
+    slug: 'app-transfer-and-database-migration',
+    title: 'App Transfer & Database Migration',
+    tagline: 'Zero-downtime acquisition transfer & cloud handover.',
+    icon: 'transfer',
+    features: ['Retain 100% store reviews & users', 'Dry-run database verification', 'Stripe & RevenueCat continuity'],
   },
   {
-    slug: 'student-guidance',
-    title: 'Student Guidance & EdTech Engine',
-    tagline: '100% free career guidance. Real college savings.',
-    icon: 'education',
-    features: ['100% free consultation for 12th-pass students', '₹3,000–₹10,000 partner college subsidies', 'Career alignment & zero student charges'],
+    slug: 'custom-software-and-scalable-app-development',
+    title: 'Custom Software & Scalable Apps',
+    tagline: 'Engineered for high-scale businesses from day one.',
+    icon: 'code',
+    features: ['React 18, FastAPI & PostgreSQL', 'Cross-platform iOS/Android apps', '100% source code ownership'],
   },
   {
-    slug: 'industrial-training',
-    title: 'Advanced Industrial Training',
-    tagline: 'Real-world projects. High-end tech. 3 months.',
-    icon: 'training',
-    features: ['Advanced IoT (Robotics, Drones, AI Smart Home)', 'Web & Application development tracks', '₹3,000–₹7,000 pricing with subsidy offset'],
+    slug: 'app-maintenance-and-support',
+    title: 'App Maintenance & Support (AMC)',
+    tagline: '24/7 uptime monitoring, security patches & bug fixes.',
+    icon: 'maintenance',
+    features: ['Annual OS/SDK compliance checks', 'Priority SLA bug response', 'Dedicated monthly feature hours'],
+  },
+  {
+    slug: 'business-automation',
+    title: 'Enterprise AI Workflow Automation',
+    tagline: 'Multiply revenue and eliminate repetitive manual tasks.',
+    icon: 'automation',
+    features: ['Autonomous AI multi-agent pipelines', 'CRM & WhatsApp lead qualification', 'Zero time-waste operations'],
   },
 ]
 
 const STATS = [
-  { value: '6+', label: 'Services Offered' },
+  { value: '5+', label: 'Specialized Pillars' },
   { value: '100%', label: 'Free Student Guidance' },
-  { value: '3', label: 'Month Training Program', suffix: ' mo' },
+  { value: '50k+', label: 'In-House App Downloads' },
   { value: '12+', label: 'Partner Colleges' },
 ]
 
 const WHY_US = [
   {
-    icon: '🤖',
-    title: 'AI-First Thinking',
-    desc: 'Every solution we design starts with the question: how can AI make this 10x better? We embed intelligence into your workflows from day one.',
+    icon: '🏛️',
+    title: 'Architecture-First Engineering',
+    desc: 'No fragile shortcuts or endless AI loops. We model clean database schemas, define modular API contracts, and secure credentials before writing code.',
+  },
+  {
+    icon: '🔐',
+    title: '100% IP & NDA Ownership',
+    desc: 'Every repository commit, database table, and cloud account belongs exclusively to you under strict mutual non-disclosure agreements.',
   },
   {
     icon: '🎓',
-    title: 'Zero Cost for Students',
-    desc: 'We believe talent should not be limited by finances. Career guidance, resume reviews, and mentorship are completely free for students.',
+    title: 'Zero-Broker Educational Support',
+    desc: 'We support students across India with 100% free career counseling and direct ₹3,000–₹10,000 institutional partner college fee subsidies.',
   },
-  {
-    icon: '🔄',
-    title: 'Full-Cycle Support',
-    desc: 'From ideation and design to development, launch, and beyond — we stay with you at every stage of your product journey.',
-  },
-]
-
-const PROCESS = [
-  { step: '01', title: 'Understand', desc: 'We deep-dive into your idea, goals, and challenges before writing a single line of code.' },
-  { step: '02', title: 'Design', desc: 'Architecture, UX wireframes, and AI integration strategy are planned for maximum impact.' },
-  { step: '03', title: 'Build', desc: 'Agile development sprints with regular demos. You always know what is happening.' },
-  { step: '04', title: 'Launch', desc: 'Deployment, SEO, app store submission, and ongoing monitoring — handled end to end.' },
 ]
 
 export default function Home() {
   const [services, setServices] = useState(DEFAULT_SERVICES)
   const [settings, setSettings] = useState({})
   const [loading, setLoading] = useState(true)
+  const [reviewModalOpen, setReviewModalOpen] = useState(false)
 
   useEffect(() => {
-    // Fetch services and settings in parallel, fall back gracefully
     Promise.allSettled([
       servicesApi.getAll(),
       settingsApi.getAll(),
@@ -112,41 +155,38 @@ export default function Home() {
     }).finally(() => setLoading(false))
   }, [])
 
-  const heroHeadline = settings?.hero_headline || 'Transform Your Business with AI-Powered Solutions'
-  const heroSubline = settings?.hero_subline || 'OpenMNC LLP builds intelligent automation, custom software, and future-ready digital products — plus free career guidance for students across India.'
+  const heroHeadline = settings?.hero_headline || 'Transform Your Business with Production-Grade Engineering'
+  const heroSubline = settings?.hero_subline || 'OpenMNC audits, builds, publishes, transfers, and maintains scalable software for founders globally — alongside 100% free career guidance for students.'
 
   return (
     <>
       <SEO
         title="OpenMNC | Tech & Career"
-        description="OpenMNC LLP is an enterprise technology partner engineering autonomous AI workflows, custom full-stack software, and IoT systems, serving businesses worldwide and across India."
+        description="OpenMNC is a production-grade custom software, web, and mobile app engineering partner. We audit vibe-coded apps, publish to App Store/Play Store, migrate databases, and provide free student career guidance."
         canonical="/"
-        keywords="AI automation company Kolkata, Custom software development India, IoT embedded engineering services, B2B AI integration, App development agency, enterprise AI workflows, software company India"
+        keywords="vibe coded app audit, publish app on play store, fix app store rejection, app transfer service, custom software development india, free career guidance 12th pass, openmnc"
         schema={[localBusinessSchema, b2bFaqSchema]}
       />
 
       {/* ══════ HERO SECTION ══════ */}
       <section
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-hero-gradient"
-        aria-label="Hero — Welcome to OpenMNC LLP"
+        className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-hero-gradient"
+        aria-label="Hero — Welcome to OpenMNC"
       >
-        {/* 3D Background */}
         <ThreeBackground section="hero" />
 
-        {/* Gradient overlays for depth */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy-950/20 to-navy-950 pointer-events-none" aria-hidden="true" />
         <div className="absolute inset-0 bg-gradient-radial from-cyan-neon/5 via-transparent to-transparent pointer-events-none" aria-hidden="true" />
 
-        {/* Hero content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-16">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-semibold tracking-wider uppercase mb-8"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-neon/30 bg-cyan-neon/10 text-cyan-neon text-xs font-semibold tracking-wider uppercase mb-8 shadow-sm"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" aria-hidden="true" />
-            Global AI &amp; Enterprise Software · Worldwide &amp; Domestic · HQ West Bengal, India
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-neon animate-pulse" aria-hidden="true" />
+            Serious Engineering Partner · Serving Founders Worldwide &amp; Across India
           </motion.div>
 
           <motion.h1
@@ -155,9 +195,8 @@ export default function Home() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.12] tracking-tight mb-6"
           >
-            <span className="text-white">{heroHeadline.split(' ').slice(0, 3).join(' ')}</span>
-            {' '}
-            <span className="gradient-text">{heroHeadline.split(' ').slice(3).join(' ')}</span>
+            <span className="text-white">You Focus on Your Customers.</span><br />
+            <span className="gradient-text">We Handle the Engineering.</span>
           </motion.h1>
 
           <motion.p
@@ -166,7 +205,8 @@ export default function Home() {
             transition={{ duration: 0.7, delay: 0.25 }}
             className="text-slate-300 text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto mb-10 font-normal"
           >
-            {heroSubline}
+            We don&apos;t just write code—we audit vibe-coded AI prototypes, conquer App Store approvals,
+            manage risk-free database migrations, and maintain production-grade software for startups globally.
           </motion.p>
 
           <motion.div
@@ -176,41 +216,116 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <GlowButton to="/services" variant="primary" className="text-base px-8 py-4">
-              Explore Services →
+              Explore 5 Engineering Pillars →
             </GlowButton>
             <GlowButton
-              href={whatsappUrl('918509684056', 'Hi OpenMNC! I would like a free consultation.')}
+              href={whatsappUrl('918509684056', 'Hi OpenMNC! I want to consult regarding my app/software project.')}
               variant="outline"
               className="text-base px-8 py-4"
             >
-              💬 Get Free Consultation
+              💬 WhatsApp Senior Engineer
             </GlowButton>
           </motion.div>
 
-          {/* Scroll indicator */}
+          {/* Google Review Trust Pill */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="mt-16 flex flex-col items-center gap-2 text-gray-500"
-            aria-hidden="true"
+            transition={{ delay: 0.7 }}
+            className="mt-8 flex items-center justify-center gap-2 text-xs text-gray-400"
           >
-            <span className="text-xs tracking-widest uppercase">Scroll to explore</span>
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-5 h-5 border-b-2 border-r-2 border-gray-500 rotate-45"
-            />
+            <button
+              type="button"
+              onClick={() => setReviewModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 hover:border-amber-400/40 text-gray-300 hover:text-white transition-all"
+            >
+              <span className="text-amber-400 font-bold">★ 5.0 Rating</span>
+              <span>on Google Business Profile</span>
+              <span className="text-cyan-neon font-semibold underline ml-1">Rate Us →</span>
+            </button>
           </motion.div>
+        </div>
+      </section>
+
+      {/* ══════ BANK-STYLE SEPARATION SWITCHER BANNER ══════ */}
+      <section className="bg-navy-900 border-y border-amber-glow/20 py-4 px-4" aria-label="Audience Switcher">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🎓</span>
+            <div>
+              <strong className="text-white text-xs sm:text-sm block">
+                Are you a Student or Parent seeking 12th Pass Career Guidance &amp; College Subsidies?
+              </strong>
+              <p className="text-gray-400 text-[11px] sm:text-xs">
+                We have a dedicated, 100% free portal with ₹3,000 to ₹10,000 institutional partner fee grants.
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/career-guidance"
+            className="px-4 py-2 rounded-lg bg-amber-glow text-navy-950 font-bold text-xs uppercase tracking-wider hover:bg-amber-glow/90 shadow-amber-glow whitespace-nowrap"
+          >
+            Visit Career Guidance Portal →
+          </Link>
+        </div>
+      </section>
+
+      {/* ══════ PART 4: INTERACTIVE 5-CARD QUICK PROBLEM ROUTER ══════ */}
+      <section
+        className="py-16 px-4 bg-navy-950 border-b border-white/5"
+        aria-label="Quick Problem Selector"
+      >
+        <div className="container-max">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold text-cyan-neon uppercase tracking-wider block mb-2">
+              Instant Solution Finder
+            </span>
+            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-2">
+              Where Are You Right Now?
+            </h2>
+            <p className="text-gray-400 text-xs sm:text-sm">
+              Click your current technical bottleneck to land directly on the specialized solution you need:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {QUICK_PROBLEM_ROUTER.map((card, i) => (
+              <ScrollReveal key={card.headline} delay={i * 0.08}>
+                <Link
+                  to={card.link}
+                  className={`glass-card p-5 h-full flex flex-col justify-between rounded-2xl border ${card.color} transition-all duration-300 hover:scale-[1.03] group`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-2xl" aria-hidden="true">{card.icon}</span>
+                      <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/5 text-cyan-neon border border-white/10">
+                        {card.badge}
+                      </span>
+                    </div>
+                    <h3 className="font-display text-sm font-bold text-white mb-2 group-hover:text-cyan-neon transition-colors">
+                      {card.headline}
+                    </h3>
+                    <p className="text-gray-300 text-xs leading-relaxed mb-4">
+                      {card.question}
+                    </p>
+                  </div>
+
+                  <span className="text-xs font-bold text-cyan-neon flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    {card.btnText}
+                  </span>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ══════ STATS BAR ══════ */}
       <section
-        className="py-16 px-4 bg-navy-900 border-y border-white/5"
+        className="py-14 px-4 bg-navy-900 border-b border-white/5"
         aria-label="OpenMNC by the numbers"
       >
-        <div className="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8">
           {STATS.map((stat, i) => (
             <ScrollReveal key={stat.label} delay={i * 0.1}>
               <StatCounter value={stat.value} label={stat.label} />
@@ -227,9 +342,9 @@ export default function Home() {
       >
         <div className="container-max">
           <SectionHeader
-            eyebrow="Enterprise Technology Partner (B2B)"
-            title="High-Impact AI Automation & Custom Software"
-            subtitle="We engineer autonomous AI multi-agent workflows, custom SaaS applications, and full-stack software that multiply revenue and eliminate operational waste."
+            eyebrow="The 5 Engineering Pillars"
+            title="Laser-Focused Digital Product Engineering"
+            subtitle="Generic software agencies try to do everything poorly. We focus on 5 mission-critical challenges founders face when shipping real apps."
           />
           <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.slice(0, 6).map((service, i) => (
@@ -238,81 +353,87 @@ export default function Home() {
           </div>
           <div className="mt-10 text-center">
             <GlowButton to="/services" variant="outline">
-              View All Services →
+              View All 5 Specialized Pillars &amp; Deliverables →
             </GlowButton>
           </div>
         </div>
       </section>
 
-      {/* ══════ ABOUT STRIP ══════ */}
+      {/* ══════ GOOGLE BUSINESS PROFILE & REVIEW SHOWCASE SECTION ══════ */}
       <section
-        className="section-padding bg-navy-900"
-        aria-label="About OpenMNC LLP"
-        id="about"
+        className="py-16 px-4 bg-navy-900 border-y border-white/5 relative overflow-hidden"
+        aria-label="Google Business Profile Reviews"
       >
-        <div className="container-max grid lg:grid-cols-2 gap-14 items-center">
-          <div>
-            <ScrollReveal>
-              <span className="text-xs text-cyan-neon font-semibold tracking-widest uppercase mb-3 block">
-                About Us
-              </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-6 leading-tight">
-                We understand your idea first,
-                <span className="gradient-text"> then build it.</span>
-              </h2>
-            </ScrollReveal>
-            <ScrollReveal delay={0.1}>
-              <p className="text-gray-400 leading-relaxed mb-6">
-                OpenMNC LLP is an India-based technology company founded by{' '}
-                <strong className="text-white">Amit Barai</strong>. We work with startups,
-                SMEs, and enterprises to build AI-driven automation, full-stack applications,
-                and digital marketing strategies that multiply revenue and eliminate inefficiency.
-              </p>
-              <p className="text-gray-400 leading-relaxed mb-8">
-                Beyond business, we passionately support students through completely free career
-                guidance, resume preparation, and 3-month industrial training programs in
-                partnership with 12+ colleges across India.
-              </p>
-              <GlowButton to="/about" variant="outline">
-                Our Full Story →
-              </GlowButton>
-            </ScrollReveal>
-          </div>
-
-          {/* Founder card */}
-          <ScrollReveal delay={0.2} direction="left">
-            <article
-              className="glass-card p-8 relative overflow-hidden"
-              aria-label="Founder — Amit Barai"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-radial from-cyan-neon/10 to-transparent rounded-full -translate-y-8 translate-x-8" aria-hidden="true" />
-              <div className="relative">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-neon/30 to-cyan-neon/5 border border-cyan-neon/30 flex items-center justify-center text-2xl mb-4" aria-hidden="true">
-                  👤
+        <div className="container-max">
+          <div className="glass-card p-6 sm:p-10 border border-white/10 rounded-3xl relative overflow-hidden">
+            <div className="grid lg:grid-cols-12 gap-8 items-center">
+              
+              {/* Left text */}
+              <div className="lg:col-span-8">
+                <div className="flex items-center gap-2 mb-3">
+                  <svg className="w-5 h-5" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                  </svg>
+                  <span className="text-xs font-bold text-white uppercase tracking-wider">
+                    Google Business Profile · OPEN MNC
+                  </span>
                 </div>
-                <h3 className="font-display text-xl font-bold text-white mb-1">Amit Barai</h3>
-                <p className="text-cyan-neon text-sm font-semibold mb-4">Founder &amp; Director, OpenMNC LLP</p>
-                <blockquote className="text-gray-400 text-sm italic leading-relaxed border-l-2 border-cyan-neon/40 pl-4">
-                  "Technology should work for humans — not the other way around. 
-                  Our goal is to make AI accessible and impactful for every business, 
-                  regardless of size."
-                </blockquote>
-                <div className="mt-6 flex items-center gap-3">
-                  <a
-                    href="mailto:amit@openmnc.com"
-                    className="text-xs text-gray-400 hover:text-cyan-neon transition-colors duration-200"
-                    aria-label="Email Amit Barai"
+
+                <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white mb-3">
+                  Loved Working with OPEN MNC? <span className="text-amber-400">Rate Us on Google</span>
+                </h2>
+
+                <p className="text-gray-300 text-sm leading-relaxed mb-6 max-w-2xl">
+                  Client and student trust is our highest currency. Whether we audited your vibe-coded app,
+                  guided your college admission subsidy, or published your mobile app, your 5-star review helps
+                  thousands of others discover transparent engineering.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setReviewModalOpen(true)}
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-neon to-sky-400 text-navy-950 font-bold text-xs uppercase tracking-wider shadow-cyan-glow hover:opacity-95 transition-all"
                   >
-                    ✉ amit@openmnc.com
-                  </a>
+                    ⭐ Write a Google Review
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setReviewModalOpen(true)}
+                    className="text-xs text-gray-300 hover:text-white flex items-center gap-1.5"
+                  >
+                    📱 Scan QR Code with Phone →
+                  </button>
                 </div>
               </div>
-            </article>
-          </ScrollReveal>
+
+              {/* Right QR card preview */}
+              <div className="lg:col-span-4 text-center">
+                <div
+                  onClick={() => setReviewModalOpen(true)}
+                  className="mx-auto w-40 sm:w-44 p-3 rounded-2xl bg-white shadow-xl cursor-pointer hover:scale-105 transition-transform border border-cyan-neon/30"
+                  title="Click to expand Google QR"
+                >
+                  <img
+                    src="/google-qr-code.png"
+                    alt="OPEN MNC Google QR code"
+                    className="w-full h-auto object-contain"
+                  />
+                  <span className="text-[10px] text-navy-950 font-bold uppercase tracking-wider block mt-1">
+                    Scan or Tap to Rate
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ══════ WHY OPENMNC ══════ */}
+      {/* ══════ WHY US ══════ */}
       <section
         className="section-padding bg-navy-950"
         aria-label="Why choose OpenMNC"
@@ -321,7 +442,7 @@ export default function Home() {
         <div className="container-max">
           <SectionHeader
             eyebrow="Why OpenMNC"
-            title="Built Different. Built Better."
+            title="Engineering First. No Agency Noise."
           />
           <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8">
             {WHY_US.map((item, i) => (
@@ -344,165 +465,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════ PROCESS ══════ */}
+      {/* ══════ BOTTOM CTA ══════ */}
       <section
-        className="section-padding bg-navy-900"
-        aria-label="Our process"
-        id="process"
-      >
-        <div className="container-max">
-          <SectionHeader
-            eyebrow="How We Work"
-            title="From Idea to Launch"
-            subtitle="A transparent, iterative process that keeps you in control at every step."
-          />
-          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-            {/* Connecting line on desktop */}
-            <div
-              className="hidden lg:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-cyan-neon/30 to-transparent"
-              aria-hidden="true"
-            />
-            {PROCESS.map((item, i) => (
-              <ScrollReveal key={item.step} delay={i * 0.12}>
-                <div className="relative text-center">
-                  <div
-                    className="w-16 h-16 mx-auto mb-5 rounded-full border-2 border-cyan-neon/40 bg-navy-950 flex items-center justify-center font-display text-cyan-neon text-lg font-bold"
-                    aria-hidden="true"
-                  >
-                    {item.step}
-                  </div>
-                  <h3 className="font-display text-base font-bold text-white mb-2">{item.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed px-2">{item.desc}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════ STUDENT GUIDANCE & COLLEGE SUBSIDY SPOTLIGHT ══════ */}
-      <section
-        className="py-20 px-4 bg-navy-950 border-t border-cyan-neon/15 relative overflow-hidden"
-        aria-label="Student guidance and college admission subsidies"
-      >
-        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-neon/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="container-max">
-          <div className="glass-card p-8 sm:p-12 border border-cyan-neon/20 bg-gradient-to-br from-cyan-neon/10 via-navy-900 to-navy-950 relative overflow-hidden">
-            <div className="grid lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-8">
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-neon/15 text-cyan-neon border border-cyan-neon/30 mb-4 uppercase tracking-wider">
-                  <span>🎓</span> 100% Free Guidance · ₹3,000–₹10,000 College Subsidies
-                </span>
-                <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-4 leading-tight">
-                  Choosing the Best College After 12th?{' '}
-                  <span className="gradient-text">Claim Your Institutional Fee Subsidy.</span>
-                </h2>
-                <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
-                  Don&apos;t pay hefty agent commissions or risk enrolling in low-placement colleges. As an industrial technology partner, 
-                  OpenMNC helps 12th-pass students choose the right B.Tech, BCA, BBA, or Diploma course — and offsets 
-                  <strong> ₹3,000 to ₹10,000 directly from your admission fees</strong>.
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-gray-200">
-                    <span className="text-cyan-neon font-bold block mb-0.5">✓ ₹0 Cost</span>
-                    100% Free counseling, zero broker fees
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-gray-200">
-                    <span className="text-cyan-neon font-bold block mb-0.5">✓ ₹3k - ₹10k</span>
-                    Official college fee discount grant
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-gray-200">
-                    <span className="text-cyan-neon font-bold block mb-0.5">✓ Real Internships</span>
-                    Live IoT, AI &amp; Web project training
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-4">
-                  <GlowButton to="/contact?intent=student&service=student-guidance" variant="primary">
-                    Claim College Subsidy &amp; Guidance →
-                  </GlowButton>
-                  <GlowButton to="/services/student-guidance#student-faq" variant="outline">
-                    Read College FAQs
-                  </GlowButton>
-                </div>
-              </div>
-              <div className="lg:col-span-4 text-center hidden lg:block">
-                <div className="w-48 h-48 mx-auto rounded-3xl bg-cyan-neon/10 border border-cyan-neon/30 flex flex-col items-center justify-center p-6 shadow-cyan-glow">
-                  <span className="text-5xl mb-2">🏛️</span>
-                  <p className="font-display font-bold text-white text-base">Accredited Colleges</p>
-                  <p className="text-cyan-neon text-xs font-semibold mt-1">₹3,000–₹10,000 Off</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════ CTA SECTION ══════ */}
-      <section
-        className="relative py-28 px-4 overflow-hidden"
-        aria-label="Call to action — Get started with OpenMNC"
+        className="relative py-24 px-4 overflow-hidden"
+        aria-label="Call to action"
         style={{ background: 'linear-gradient(135deg, #0a0e1a 0%, #0d1226 40%, #001a1a 100%)' }}
       >
-        <div className="absolute inset-0 bg-gradient-radial from-cyan-neon/8 via-transparent to-transparent pointer-events-none" aria-hidden="true" />
         <div className="relative container-max text-center">
           <ScrollReveal>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5">
-              Ready to transform your idea?
+            <h2 className="font-display text-3xl sm:text-5xl font-bold text-white mb-4">
+              Stop Fighting Broken Code. Ship With Senior Engineers.
             </h2>
-            <p className="text-gray-400 text-lg mb-10 max-w-xl mx-auto">
-              Let&apos;s build something extraordinary together.
-              Book a free consultation — no commitment required.
+            <p className="text-gray-400 text-base sm:text-lg mb-8 max-w-xl mx-auto">
+              Book a discovery call with founder Amit Barai. We sign an NDA, audit your requirements, and ship with speed.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <GlowButton
-                href={whatsappUrl('918509684056', 'Hi! I want to transform my business with OpenMNC.')}
+                to="/contact"
                 variant="primary"
                 className="text-base px-8 py-4"
               >
-                💬 WhatsApp Us
+                Book a Free Discovery Call →
               </GlowButton>
               <GlowButton
-                href="mailto:hello@openmnc.com"
+                href={whatsappUrl('918509684056', 'Hi Amit! I want to discuss my app project.')}
                 variant="outline"
                 className="text-base px-8 py-4"
               >
-                ✉ Email Us
+                💬 WhatsApp Chat
               </GlowButton>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* ══════ CONTACT TEASER ══════ */}
-      <section
-        className="py-10 px-4 bg-navy-950 border-t border-white/5"
-        aria-label="Contact information"
-      >
-        <div className="container-max">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-gray-400">
-            <a
-              href="mailto:hello@openmnc.com"
-              className="flex items-center gap-2 hover:text-cyan-neon transition-colors duration-200"
-            >
-              <span className="text-cyan-neon" aria-hidden="true">✉</span>
-              hello@openmnc.com
-            </a>
-            <span className="hidden sm:block w-px h-4 bg-gray-700" aria-hidden="true" />
-            <a
-              href="tel:+918509684056"
-              className="flex items-center gap-2 hover:text-cyan-neon transition-colors duration-200"
-            >
-              <span className="text-cyan-neon" aria-hidden="true">📞</span>
-              +91 8509684056
-            </a>
-            <span className="hidden sm:block w-px h-4 bg-gray-700" aria-hidden="true" />
-            <span className="flex items-center gap-2">
-              <span className="text-cyan-neon" aria-hidden="true">📍</span>
-              India
-            </span>
-          </div>
-        </div>
-      </section>
+      <GoogleReviewModal
+        isOpen={reviewModalOpen}
+        onClose={() => setReviewModalOpen(false)}
+        reviewUrl={settings?.google_review_url}
+      />
     </>
   )
 }

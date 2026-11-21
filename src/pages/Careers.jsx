@@ -10,11 +10,11 @@ import { careersApi } from '../api/careers.js'
 import { jobPostingSchema } from '../utils/jsonld.js'
 
 const TYPE_COLORS = {
-  'full-time': 'bg-cyan-neon/15 text-cyan-neon border-cyan-neon/30',
-  'part-time': 'bg-amber-glow/15 text-amber-glow border-amber-glow/30',
-  internship: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
-  contract: 'bg-green-500/15 text-green-400 border-green-500/30',
-  remote: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
+  'full-time': 'bg-[#2997ff]/10 text-[#2997ff] border-[#2997ff]/20',
+  'part-time': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+  internship: 'bg-purple-500/10 text-purple-300 border-purple-500/20',
+  contract: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+  remote: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
 }
 
 const DEFAULT_CAREERS = [
@@ -27,8 +27,8 @@ const DEFAULT_CAREERS = [
     experience_level: 'Fresher / Student',
     internship_duration: '3 Months (Standard)',
     stipend_range: '₹5,000 - ₹10,000 / month',
-    working_days: '5 Days / Week (Mon - Fri) [Default]',
-    description: 'Hands-on live project training on building autonomous AI agents, LLM tool pipelines, and FastAPI integrations with senior guidance.',
+    working_days: '5 Days / Week (Mon - Fri)',
+    description: 'Hands-on live project training on building autonomous AI agents, LLM tool pipelines, and FastAPI integrations with senior engineering mentorship.',
     responsibilities: [
       'Build API workflows using Python, FastAPI, and MongoDB',
       'Integrate OpenAI, Claude, and Gemini model tool functions',
@@ -37,45 +37,44 @@ const DEFAULT_CAREERS = [
     requirements: [
       'Basic knowledge of Python or JavaScript',
       'Curiosity for AI prompting and automation workflows',
-      'Eager to work on production software (no boring textbook tasks)',
+      'Eager to work on production software with real users',
     ],
     benefits: [
       'Certificate of Internship & Completion',
       'Letter of Recommendation (LOR)',
       'Pre-Placement Offer (PPO) Opportunity',
-      'High-Growth Performance Bonus',
       '100% Remote Flexibility',
     ],
   },
   {
     id: 'full-stack-ai-engineer',
-    title: 'Full-Stack AI Developer',
+    title: 'Full-Stack Software Engineer',
     department: 'Engineering',
     location: 'Remote, India',
     type: 'full-time',
     experience_level: 'Mid-Level',
     salary_range: '₹6,00,000 - ₹12,00,000 / year',
     working_days: '5 Days / Week',
-    description: 'We are seeking an ambitious engineer to lead client AI workflow integrations and help build our in-house products.',
+    description: 'Architect client web applications, database migrations, and production-grade software for international clients.',
     responsibilities: [
       'Architect and build client web applications using React, Vite, and FastAPI',
       'Integrate OpenAI, Claude, and Gemini APIs into production pipelines',
-      'Maintain MongoDB database models and optimize query speeds',
+      'Maintain MongoDB & PostgreSQL database models and optimize query speeds',
     ],
     requirements: [
-      '2+ years experience with React and Python (FastAPI/Django/Flask)',
+      '2+ years experience with React and Python (FastAPI/Django)',
       'Hands-on experience with RESTful APIs, Git, and Docker',
       'Understanding of AI prompting, embeddings, and vector stores',
     ],
     benefits: [
       '100% remote flexibility',
-      'Generous learning allowance for AI certifications',
-      'Direct mentorship with founder Amit Barai',
+      'Annual learning allowance for engineering certifications',
+      'Direct collaboration with founder Amit Barai',
     ],
   },
   {
     id: 'iot-robotics-trainer',
-    title: 'IoT & Robotics Trainer (Advanced)',
+    title: 'IoT & Robotics Trainer (EdTech)',
     department: 'EdTech & Training',
     location: 'Hybrid / Remote, India',
     type: 'full-time',
@@ -90,7 +89,7 @@ const DEFAULT_CAREERS = [
     ],
     requirements: [
       'Demonstrated experience in embedded systems, Arduino/ESP32/Raspberry Pi, and robotics',
-      'Passion for practical, project-based teaching (no basic boring slides)',
+      'Passion for practical, project-based teaching',
       'Strong communication skills in Hindi and English',
     ],
     benefits: [
@@ -102,7 +101,6 @@ const DEFAULT_CAREERS = [
 ]
 
 function ApplicationModal({ job, onClose, onSuccess }) {
-  // Pre-load candidate data from browser storage if they applied previously!
   const savedEmail = localStorage.getItem('openmnc_candidate_email') || ''
   const savedName = localStorage.getItem('openmnc_candidate_name') || ''
   const savedPhone = localStorage.getItem('openmnc_candidate_phone') || ''
@@ -121,13 +119,9 @@ function ApplicationModal({ job, onClose, onSuccess }) {
     },
   })
 
-  // Resume Upload Mode: 'file' | 'drive'
-  const [resumeMode, setResumeMode] = useState('file')
   const [uploadedResumeUrl, setUploadedResumeUrl] = useState('')
   const [uploadedFileName, setUploadedFileName] = useState('')
   const [uploadingFile, setUploadingFile] = useState(false)
-  const fileInputRef = useRef(null)
-
   const [submitting, setSubmitting] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
 
@@ -135,7 +129,6 @@ function ApplicationModal({ job, onClose, onSuccess }) {
     const file = e.target.files?.[0]
     if (!file) return
 
-    // 10 MB limit
     if (file.size > 10 * 1024 * 1024) {
       setErrorMsg('Selected file exceeds 10MB. Please choose a smaller file or paste a Google Drive link.')
       return
@@ -162,7 +155,6 @@ function ApplicationModal({ job, onClose, onSuccess }) {
     setSubmitting(true)
     setErrorMsg('')
 
-    // Must have either an uploaded file or a Google Drive URL
     const finalFileUrl = uploadedResumeUrl || ''
     const finalDriveUrl = data.resume_google_drive_url?.trim() || ''
 
@@ -190,7 +182,6 @@ function ApplicationModal({ job, onClose, onSuccess }) {
 
       await careersApi.apply(payload)
 
-      // Save candidate session to browser storage for seamless persistence
       localStorage.setItem('openmnc_candidate_email', data.candidate_email)
       localStorage.setItem('openmnc_candidate_name', data.candidate_name)
       if (data.candidate_phone) {
@@ -206,245 +197,163 @@ function ApplicationModal({ job, onClose, onSuccess }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        className="glass-card max-w-xl w-full p-6 sm:p-8 max-h-[92vh] overflow-y-auto border border-cyan-neon/30 rounded-2xl shadow-2xl"
+        exit={{ opacity: 0, scale: 0.96 }}
+        className="liquid-glass max-w-xl w-full p-6 sm:p-8 max-h-[92vh] overflow-y-auto rounded-3xl"
       >
         {/* Modal Header */}
-        <div className="flex items-start justify-between mb-4 border-b border-white/5 pb-3">
+        <div className="flex items-start justify-between mb-5 border-b border-white/8 pb-4">
           <div>
-            <span className="text-[10px] text-cyan-neon font-bold uppercase tracking-wider block">
+            <span className="text-[11px] text-[#2997ff] font-semibold uppercase tracking-wider block">
               Direct Candidate Application
             </span>
-            <h3 className="font-display text-xl font-bold text-white mt-0.5">{job.title}</h3>
-            <p className="text-xs text-gray-400 mt-0.5">
-              {job.department} • {job.location} • {job.stipend_range || job.salary_range || 'Competitive'}
+            <h3 className="font-display text-xl font-semibold text-[#f5f5f7] mt-0.5">{job.title}</h3>
+            <p className="text-xs text-[#86868b] mt-0.5">
+              {job.department} • {job.location} • <span className="tabular-nums">{job.stipend_range || job.salary_range || 'Competitive'}</span>
             </p>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white text-lg p-1 rounded-lg"
+            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-[#a1a1a6] hover:text-white flex items-center justify-center transition-colors"
           >
             ✕
           </button>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Candidate Name */}
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1">Full Name *</label>
+            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Full Name *</label>
             <input
               {...register('candidate_name', { required: 'Full name is required' })}
               placeholder="e.g. Rahul Sharma"
-              className="w-full px-3.5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff] transition-colors"
             />
             {errors.candidate_name && <p className="text-red-400 text-[11px] mt-0.5">{errors.candidate_name.message}</p>}
           </div>
 
-          {/* Email & Phone */}
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">Email Address *</label>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Email Address *</label>
               <input
                 type="email"
-                {...register('candidate_email', { required: 'Valid email is required' })}
-                placeholder="your.email@gmail.com"
-                className="w-full px-3.5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+                {...register('candidate_email', { required: 'Email is required' })}
+                placeholder="you@gmail.com"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff] transition-colors"
               />
               {errors.candidate_email && <p className="text-red-400 text-[11px] mt-0.5">{errors.candidate_email.message}</p>}
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">Mobile / WhatsApp Number</label>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">WhatsApp / Phone *</label>
               <input
-                type="tel"
-                {...register('candidate_phone')}
+                {...register('candidate_phone', { required: 'Phone is required' })}
                 placeholder="+91 98765 43210"
-                className="w-full px-3.5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff] transition-colors"
               />
+              {errors.candidate_phone && <p className="text-red-400 text-[11px] mt-0.5">{errors.candidate_phone.message}</p>}
             </div>
           </div>
 
-          {/* Streamlined Education & Experience (Quick, not deep/tedious) */}
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">Highest Qualification</label>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Education Level</label>
               <select
                 {...register('education_level')}
-                className="w-full px-3.5 py-2.5 rounded-lg bg-navy-900 border border-white/10 text-white text-xs focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1c20] border border-white/10 text-white text-sm focus:outline-none"
               >
-                <option value="Bachelor's / Undergraduate">Bachelor&apos;s / Undergrad (B.Tech / BCA / B.Sc / etc.)</option>
-                <option value="12th Pass / Intermediate">12th Pass / High School</option>
-                <option value="Master's / Postgraduate">Master&apos;s / Postgraduate (M.Tech / MCA / MBA)</option>
-                <option value="Diploma / Polytechnic">Diploma / Polytechnic</option>
-                <option value="Self-Taught / Other">Self-Taught / Developer</option>
+                <option value="12th Pass">12th Pass (Higher Secondary)</option>
+                <option value="Bachelor's / Undergraduate">Bachelor's / Undergraduate (B.Tech, BCA, BSc)</option>
+                <option value="Master's / Postgraduate">Master's / Postgraduate (M.Tech, MCA)</option>
+                <option value="Diploma">Diploma / Polytechnic</option>
               </select>
             </div>
-
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">Current Experience Status</label>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Experience Status</label>
               <select
                 {...register('experience_status')}
-                className="w-full px-3.5 py-2.5 rounded-lg bg-navy-900 border border-white/10 text-white text-xs focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1c20] border border-white/10 text-white text-sm focus:outline-none"
               >
                 <option value="Fresher / College Student">Fresher / College Student</option>
-                <option value="0 - 1 Years Experience">0 - 1 Years Experience</option>
-                <option value="1 - 3 Years Experience">1 - 3 Years Experience</option>
-                <option value="3+ Years Professional">3+ Years Professional</option>
+                <option value="1-2 Years Experience">1–2 Years Experience</option>
+                <option value="3+ Years Experience">3+ Years Experience</option>
               </select>
             </div>
           </div>
 
-          {/* CV / Resume Section: Direct Upload OR Google Drive Link */}
-          <div className="p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/20 space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-white flex items-center gap-1.5">
-                <span>📄</span> Resume / CV Upload *
-              </span>
-              <div className="flex bg-navy-900 p-0.5 rounded-lg border border-white/10 text-[11px]">
-                <button
-                  type="button"
-                  onClick={() => setResumeMode('file')}
-                  className={`px-2.5 py-1 rounded font-semibold transition-all ${
-                    resumeMode === 'file' ? 'bg-cyan-neon text-navy-950 shadow-sm' : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  Upload File
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setResumeMode('drive')}
-                  className={`px-2.5 py-1 rounded font-semibold transition-all ${
-                    resumeMode === 'drive' ? 'bg-cyan-neon text-navy-950 shadow-sm' : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  Google Drive Link
-                </button>
-              </div>
+          {/* Resume Upload Box */}
+          <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/8 space-y-3">
+            <span className="text-xs font-semibold text-[#f5f5f7] block">
+              Upload Resume / CV (PDF or Word)
+            </span>
+            <div className="flex items-center gap-3">
+              <input
+                type="file"
+                accept=".pdf,.doc,.docx"
+                onChange={handleFileSelect}
+                className="text-xs text-[#a1a1a6] file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-white/10 file:text-white hover:file:bg-white/20 cursor-pointer"
+              />
+              {uploadingFile && <span className="text-xs text-[#2997ff] animate-pulse">Uploading...</span>}
             </div>
-
-            {resumeMode === 'file' ? (
-              <div>
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  accept=".pdf,.doc,.docx"
-                  onChange={handleFileSelect}
-                  className="hidden"
-                />
-
-                {uploadedResumeUrl ? (
-                  <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-xs text-emerald-300 font-semibold truncate">
-                      <span>✓</span>
-                      <span className="truncate">{uploadedFileName || 'Resume uploaded'}</span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setUploadedResumeUrl('')
-                        setUploadedFileName('')
-                      }}
-                      className="text-xs text-red-400 hover:underline ml-2"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    type="button"
-                    disabled={uploadingFile}
-                    onClick={() => fileInputRef.current?.click()}
-                    className="w-full py-4 border-2 border-dashed border-cyan-neon/30 hover:border-cyan-neon/60 rounded-xl bg-white/2 hover:bg-white/5 transition-all text-center cursor-pointer"
-                  >
-                    {uploadingFile ? (
-                      <span className="text-xs text-cyan-neon flex items-center justify-center gap-2">
-                        <span className="w-4 h-4 border-2 border-cyan-neon border-t-transparent rounded-full animate-spin" />
-                        Uploading document to Cloud CDN...
-                      </span>
-                    ) : (
-                      <div>
-                        <span className="text-sm font-semibold text-white block mb-0.5">
-                          Click to upload CV (PDF / DOCX)
-                        </span>
-                        <span className="text-[11px] text-gray-400">
-                          Max 10MB &bull; Stored directly on high-speed CDN
-                        </span>
-                      </div>
-                    )}
-                  </button>
-                )}
-              </div>
-            ) : (
-              <div>
-                <input
-                  type="url"
-                  {...register('resume_google_drive_url')}
-                  placeholder="https://drive.google.com/file/d/.../view"
-                  className="w-full px-3.5 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
-                />
-                <p className="text-[11px] text-gray-400 mt-1">
-                  💡 Ensure sharing is set to &ldquo;Anyone with the link can view&rdquo;.
-                </p>
-              </div>
+            {uploadedFileName && (
+              <p className="text-xs text-emerald-400 font-mono">
+                ✓ Attached: {uploadedFileName}
+              </p>
             )}
+
+            <div className="pt-2 border-t border-white/5">
+              <label className="block text-[11px] text-[#86868b] mb-1">
+                Or share Google Drive / Dropbox link:
+              </label>
+              <input
+                {...register('resume_google_drive_url')}
+                placeholder="https://drive.google.com/file/d/..."
+                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#2997ff]"
+              />
+            </div>
           </div>
 
-          {/* Links: GitHub & LinkedIn */}
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">GitHub / Portfolio URL</label>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">GitHub or Portfolio</label>
               <input
-                type="url"
                 {...register('portfolio_or_github_url')}
-                placeholder="https://github.com/your-username"
-                className="w-full px-3.5 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+                placeholder="https://github.com/..."
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-300 mb-1">LinkedIn Profile</label>
+              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">LinkedIn Profile</label>
               <input
-                type="url"
                 {...register('linkedin_url')}
-                placeholder="https://linkedin.com/in/your-profile"
-                className="w-full px-3.5 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:ring-2 focus:ring-cyan-neon/40"
+                placeholder="https://linkedin.com/in/..."
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
               />
             </div>
           </div>
 
-          {/* Brief Note */}
           <div>
-            <label className="block text-xs font-medium text-gray-300 mb-1">
-              Short Pitch / Why OpenMNC? (Optional)
-            </label>
+            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Brief Introduction (Optional)</label>
             <textarea
               rows={2}
               {...register('cover_note')}
-              placeholder="What interests you most about this opportunity?"
-              className="w-full px-3.5 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:ring-2 focus:ring-cyan-neon/40 resize-none"
+              placeholder="Tell us what you're excited to work on..."
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff] resize-none"
             />
           </div>
 
           {errorMsg && (
-            <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
+            <p className="text-xs text-red-400 p-2.5 rounded-lg bg-red-500/10 border border-red-500/20">
               {errorMsg}
-            </div>
+            </p>
           )}
 
-          <div className="flex gap-3 pt-2">
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 py-2.5 rounded-lg text-xs font-semibold bg-white/5 hover:bg-white/10 text-gray-300 transition-all"
-            >
-              Cancel
-            </button>
+          <div className="pt-2">
             <button
               type="submit"
-              disabled={submitting || uploadingFile}
-              className="flex-1 py-2.5 rounded-lg text-xs font-bold bg-cyan-neon text-navy-950 hover:shadow-cyan-glow disabled:opacity-50 transition-all"
+              disabled={submitting}
+              className="w-full py-3 rounded-full text-xs font-semibold tracking-wide bg-[#2997ff] hover:bg-[#0071e3] text-white transition-all disabled:opacity-50"
             >
               {submitting ? 'Submitting Application...' : 'Submit Application →'}
             </button>
@@ -456,199 +365,152 @@ function ApplicationModal({ job, onClose, onSuccess }) {
 }
 
 export default function Careers() {
-  const [jobs, setJobs] = useState(DEFAULT_CAREERS)
-  const [selectedDept, setSelectedDept] = useState('All')
-  const [selectedJobForApply, setSelectedJobForApply] = useState(null)
-  const [appliedSuccessEmail, setAppliedSuccessEmail] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [careers, setCareers] = useState(DEFAULT_CAREERS)
+  const [selectedJob, setSelectedJob] = useState(null)
+  const [filterType, setFilterType] = useState('All')
+  const [successEmail, setSuccessEmail] = useState('')
 
   useEffect(() => {
     careersApi.getAll()
       .then((res) => {
         if (Array.isArray(res.data) && res.data.length > 0) {
-          setJobs(res.data)
+          setCareers(res.data)
         }
       })
       .catch(() => {})
-      .finally(() => setLoading(false))
   }, [])
 
-  const departments = ['All', ...new Set(jobs.map((j) => j.department))]
-  const filteredJobs = selectedDept === 'All' ? jobs : jobs.filter((j) => j.department === selectedDept)
-
-  // Dynamic SEO based on whether a specific job modal is opened or general listing
-  const activeJob = selectedJobForApply
-  const seoTitle = activeJob
-    ? `Apply for ${activeJob.title} — OpenMNC Careers`
-    : 'Careers & Tech Internships at OpenMNC LLP — Work Worldwide & India'
-  const seoDesc = activeJob
-    ? `Submit your application for ${activeJob.title} (${activeJob.department}) at OpenMNC LLP. ${activeJob.description.slice(0, 140)}...`
-    : 'Join OpenMNC LLP engineering & AI team. Explore remote and hybrid roles in AI workflow engineering, full-stack software, IoT robotics, and paid internships with certificates.'
-  const seoKeywords = activeJob
-    ? `${activeJob.title}, ${activeJob.department} hiring, ${activeJob.requirements ? activeJob.requirements.join(', ') : ''}, OpenMNC careers, apply online`
-    : `OpenMNC careers, tech jobs remote, AI workflow engineer, full stack developer hiring, paid tech internship with certificate, ${jobs.map((j) => j.title).join(', ')}`
+  const filteredJobs = filterType === 'All'
+    ? careers
+    : careers.filter((j) => j.type === filterType || (filterType === 'internship' && j.type === 'internship'))
 
   return (
     <>
       <SEO
-        title={seoTitle}
-        description={seoDesc}
+        title="Careers & Engineering Internships — OpenMNC"
+        description="Join OpenMNC as a software engineer, AI workflow developer, or IoT robotics mentor. Competitive stipends, remote flexibility, and production-grade engineering."
         canonical="/careers"
-        keywords={seoKeywords}
       />
 
-      {/* Google Jobs Schema */}
-      {jobs.map((job) => {
-        const schema = jobPostingSchema(job)
-        return (
-          <script
-            key={job.id || job._id}
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-          />
-        )
-      })}
-
-      {/* Hero */}
-      <section className="pt-32 pb-16 px-4 bg-navy-950 text-center" aria-label="OpenMNC Careers Hero">
-        <div className="container-max max-w-3xl">
-          <span className="text-xs text-cyan-neon font-semibold tracking-widest uppercase mb-4 block">
-            Join Our Mission
+      {/* Page Hero */}
+      <section className="pt-36 pb-16 px-4 bg-black text-center" aria-label="OpenMNC Careers">
+        <div className="max-w-4xl mx-auto">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-[#2997ff] mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2997ff]" />
+            Join Our Engineering Team
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5">
-            Build the Future at <span className="gradient-text">OpenMNC</span>
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#f5f5f7] tracking-tight mb-6">
+            Build Real Software.{' '}
+            <span className="text-[#2997ff] block mt-1">No Textbook Tasks.</span>
           </h1>
-          <p className="text-gray-400 text-lg leading-relaxed mb-8">
-            Solving real business challenges through AI automation, custom software, and robotics.
-            Apply for full-time roles or industrial internships with stipends &amp; certificates.
+          <p className="text-[#a1a1a6] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+            Whether you are a senior developer or an ambitious student seeking hands-on production experience,
+            OpenMNC offers high-autonomy roles with transparent compensation and mentorship.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="#openings"
-              className="px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-cyan-neon text-navy-950 hover:shadow-cyan-glow transition-all"
-            >
-              View Open Roles &amp; Internships ↓
-            </a>
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/careers/track"
-              className="px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-white/5 hover:bg-white/10 text-cyan-neon border border-cyan-neon/30 transition-all flex items-center gap-2"
+              className="px-5 py-2.5 rounded-full text-xs font-semibold bg-white/5 hover:bg-white/10 text-[#f5f5f7] border border-white/10 transition-colors"
             >
-              <span>🔍</span> Track Application Status
+              Track Existing Application →
+            </Link>
+            <Link
+              to="/career-guidance"
+              className="px-5 py-2.5 rounded-full text-xs font-semibold bg-[#2997ff]/10 hover:bg-[#2997ff]/20 text-[#2997ff] border border-[#2997ff]/20 transition-colors"
+            >
+              12th-Pass Free Career Portal →
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Openings Grid */}
-      <main id="openings" className="bg-navy-950 section-padding pt-6">
-        <div className="container-max">
-          {/* Department Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-            {departments.map((dept) => (
-              <button
-                key={dept}
-                onClick={() => setSelectedDept(dept)}
-                className={`
-                  px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200
-                  ${selectedDept === dept
-                    ? 'bg-cyan-neon text-navy-950 shadow-cyan-glow-sm'
-                    : 'bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/5'
-                  }
-                `}
-              >
-                {dept}
-              </button>
-            ))}
+      <main className="bg-black pb-24 px-4">
+        <div className="container-max max-w-5xl">
+          {/* Segmented Filter Pills */}
+          <div className="flex justify-center mb-10">
+            <div className="inline-flex p-1 rounded-full bg-white/5 border border-white/8">
+              {['All', 'internship', 'full-time'].map((type) => (
+                <button
+                  key={type}
+                  onClick={() => setFilterType(type)}
+                  className={`px-5 py-2 rounded-full text-xs font-medium transition-all ${
+                    filterType === type
+                      ? 'bg-white/15 text-white shadow-sm'
+                      : 'text-[#86868b] hover:text-white'
+                  }`}
+                >
+                  {type === 'All' ? 'All Roles' : type === 'internship' ? '🎓 Internships' : '💼 Full-Time'}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Job List */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {filteredJobs.map((job, idx) => {
-              const isIntern = job.type?.toLowerCase() === 'internship'
-              const typeClass = TYPE_COLORS[job.type?.toLowerCase()] || 'bg-gray-500/10 text-gray-400 border-gray-500/30'
-              const pay = job.stipend_range || job.salary_range
+          {/* Success Notification */}
+          {successEmail && (
+            <div className="mb-8 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center">
+              <span className="text-xl block mb-1">🎉</span>
+              <h3 className="text-sm font-semibold text-white">Application Received!</h3>
+              <p className="text-xs text-[#a1a1a6] mt-1">
+                We have registered your application for <strong className="text-white">{successEmail}</strong>.
+                You can track your real-time review status anytime in our candidate tracker.
+              </p>
+              <Link
+                to="/careers/track"
+                className="mt-3 inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-emerald-500 text-black"
+              >
+                Open Candidate Tracker →
+              </Link>
+            </div>
+          )}
+
+          {/* Jobs List - Unified Surface */}
+          <div className="space-y-4">
+            {filteredJobs.map((job) => {
+              const badgeClass = TYPE_COLORS[job.type] || 'bg-white/5 text-[#a1a1a6] border-white/10'
 
               return (
-                <ScrollReveal key={job.id || job._id || idx} delay={idx * 0.1}>
-                  <article className="glass-card p-7 hover:border-cyan-neon/40 hover:shadow-cyan-glow-sm transition-all duration-300 flex flex-col justify-between h-full border border-white/5 rounded-2xl">
-                    <div>
-                      {/* Top Badges */}
-                      <div className="flex items-start justify-between gap-4 mb-3">
-                        <div>
-                          <h2 className="font-display text-xl font-bold text-white group-hover:text-cyan-neon transition-colors">
-                            {job.title}
-                          </h2>
-                          <p className="text-gray-400 text-xs mt-0.5">{job.department} • 📍 {job.location}</p>
-                        </div>
-                        <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full border uppercase tracking-wider flex-shrink-0 ${typeClass}`}>
-                          {job.type}
-                        </span>
-                      </div>
-
-                      {/* Pay & Schedule Row */}
-                      <div className="flex flex-wrap items-center gap-3 mb-4 text-xs font-semibold">
-                        {pay && (
-                          <span className="text-amber-glow bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-md">
-                            💰 {pay}
-                          </span>
-                        )}
-                        {job.internship_duration && (
-                          <span className="text-purple-300 bg-purple-500/10 border border-purple-500/20 px-2.5 py-1 rounded-md">
-                            ⏱ Duration: {job.internship_duration}
-                          </span>
-                        )}
-                        {job.working_days && (
-                          <span className="text-gray-300 bg-white/5 border border-white/10 px-2.5 py-1 rounded-md">
-                            🗓 {job.working_days}
-                          </span>
-                        )}
-                      </div>
-
-                      <p className="text-gray-300 text-sm leading-relaxed mb-4">
-                        {job.description}
-                      </p>
-
-                      {/* Requirements */}
-                      {job.requirements && job.requirements.length > 0 && (
-                        <div className="mb-4 space-y-1.5">
-                          <p className="text-xs font-semibold text-gray-300">Key Requirements:</p>
-                          {job.requirements.slice(0, 3).map((req, i) => (
-                            <p key={i} className="text-xs text-gray-400 flex items-start gap-2">
-                              <span className="text-cyan-neon mt-0.5">▸</span>
-                              <span>{req}</span>
-                            </p>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Perks & Benefits Pills */}
-                      {job.benefits && job.benefits.length > 0 && (
-                        <div className="mb-5 flex flex-wrap gap-1.5">
-                          {job.benefits.slice(0, 4).map((b, i) => (
-                            <span key={i} className="text-[10px] bg-white/5 border border-white/5 text-gray-400 px-2 py-0.5 rounded-full">
-                              ✓ {b}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Apply Footer */}
-                    <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                      <span className="text-[11px] text-gray-500">
-                        {isIntern ? '🎓 Includes Certificate & LOR' : '⚡ Fast 48h HR Review'}
+                <article
+                  key={job.id || job._id}
+                  className="rounded-2xl bg-[#161618] border border-white/8 p-6 sm:p-8 hover:border-white/16 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6"
+                >
+                  <div className="space-y-2 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${badgeClass}`}>
+                        {job.type}
                       </span>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedJobForApply(job)}
-                        className="px-5 py-2 rounded-lg text-xs font-bold bg-cyan-neon text-navy-950 hover:bg-cyan-neon/90 shadow-cyan-glow-sm hover:scale-105 active:scale-95 transition-all"
-                      >
-                        Apply Now →
-                      </button>
+                      <span className="text-xs text-[#86868b]">
+                        {job.department} • {job.location}
+                      </span>
                     </div>
-                  </article>
-                </ScrollReveal>
+
+                    <h2 className="font-display text-xl sm:text-2xl font-semibold text-[#f5f5f7] tracking-tight">
+                      {job.title}
+                    </h2>
+
+                    <p className="text-[#a1a1a6] text-xs sm:text-sm line-clamp-2 leading-relaxed">
+                      {job.description}
+                    </p>
+
+                    <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#2997ff] pt-1">
+                      <span className="tabular-nums font-semibold">
+                        {job.stipend_range || job.salary_range || 'Competitive'}
+                      </span>
+                      {job.working_days && (
+                        <span className="text-[#86868b]">• {job.working_days}</span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex-shrink-0">
+                    <button
+                      onClick={() => setSelectedJob(job)}
+                      className="px-6 py-2.5 rounded-full text-xs font-semibold bg-white text-black hover:bg-[#f5f5f7] transition-all"
+                    >
+                      Apply Now →
+                    </button>
+                  </div>
+                </article>
               )
             })}
           </div>
@@ -656,43 +518,18 @@ export default function Careers() {
       </main>
 
       {/* Application Modal */}
-      {selectedJobForApply && (
-        <ApplicationModal
-          job={selectedJobForApply}
-          onClose={() => setSelectedJobForApply(null)}
-          onSuccess={(email) => {
-            setSelectedJobForApply(null)
-            setAppliedSuccessEmail(email)
-          }}
-        />
-      )}
-
-      {/* Application Success Modal */}
-      {appliedSuccessEmail && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="glass-card max-w-md w-full p-8 text-center border border-cyan-neon/40 rounded-2xl shadow-2xl">
-            <div className="text-5xl mb-4">🎉</div>
-            <h3 className="font-display text-2xl font-bold text-white mb-2">Application Submitted!</h3>
-            <p className="text-gray-400 text-xs leading-relaxed mb-6">
-              Your application has been received and stored in the HR system. Your session is now saved in your browser so you can track your status anytime!
-            </p>
-            <div className="space-y-3">
-              <Link
-                to="/careers/track"
-                className="block w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-cyan-neon text-navy-950 shadow-cyan-glow hover:scale-[1.02] transition-all"
-              >
-                Open My Application Tracker →
-              </Link>
-              <button
-                onClick={() => setAppliedSuccessEmail(null)}
-                className="text-xs text-gray-400 hover:text-white"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {selectedJob && (
+          <ApplicationModal
+            job={selectedJob}
+            onClose={() => setSelectedJob(null)}
+            onSuccess={(email) => {
+              setSelectedJob(null)
+              setSuccessEmail(email)
+            }}
+          />
+        )}
+      </AnimatePresence>
     </>
   )
 }
