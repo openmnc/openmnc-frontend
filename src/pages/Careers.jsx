@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useForm } from 'react-hook-form'
+import { CheckCircle2 } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
 import GlowButton from '../components/GlowButton.jsx'
@@ -440,7 +441,7 @@ export default function Careers() {
                       : 'text-[#86868b] hover:text-white'
                   }`}
                 >
-                  {type === 'All' ? 'All Roles' : type === 'internship' ? '🎓 Internships' : '💼 Full-Time'}
+                  {type === 'All' ? 'All Roles' : type === 'internship' ? 'Internships' : 'Full-Time'}
                 </button>
               ))}
             </div>
@@ -449,7 +450,9 @@ export default function Careers() {
           {/* Success Notification */}
           {successEmail && (
             <div className="mb-8 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center">
-              <span className="text-xl block mb-1">🎉</span>
+              <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+                <CheckCircle2 className="w-5 h-5" aria-hidden="true" />
+              </div>
               <h3 className="text-sm font-semibold text-white">Application Received!</h3>
               <p className="text-xs text-[#a1a1a6] mt-1">
                 We have registered your application for <strong className="text-white">{successEmail}</strong>.

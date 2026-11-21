@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { Lock, FileText } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
 import { careersApi } from '../api/careers.js'
 import { formatDate } from '../utils/helpers.js'
@@ -107,8 +108,8 @@ export default function ApplicationTracker() {
         <div className="container-max max-w-3xl mx-auto">
           {!isAuthenticated ? (
             <div className="liquid-glass p-8 sm:p-10 rounded-3xl max-w-md mx-auto text-center">
-              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl mx-auto mb-5">
-                🔐
+              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#2997ff] mx-auto mb-5">
+                <Lock className="w-6 h-6" aria-hidden="true" />
               </div>
               <h2 className="font-display text-xl font-semibold text-[#f5f5f7] mb-2">
                 Candidate Status Portal
@@ -194,7 +195,9 @@ export default function ApplicationTracker() {
                 </div>
               ) : applications.length === 0 ? (
                 <div className="rounded-2xl bg-[#161618] border border-white/8 p-12 text-center">
-                  <span className="text-4xl block mb-3">📄</span>
+                  <div className="w-12 h-12 mx-auto mb-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400">
+                    <FileText className="w-6 h-6" aria-hidden="true" />
+                  </div>
                   <h3 className="font-display text-lg font-semibold text-[#f5f5f7] mb-2">
                     No Applications Found for {candidateEmail}
                   </h3>

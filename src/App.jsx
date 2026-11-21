@@ -46,11 +46,11 @@ function PageLoader() {
 
 function PublicLayout({ children }) {
   return (
-    <>
+    <div className="min-h-screen flex flex-col w-full overflow-x-hidden">
       <Navbar />
-      <main className="min-h-[70vh]">{children}</main>
+      <main className="min-h-[70vh] flex-1 w-full overflow-x-hidden">{children}</main>
       <Footer />
-    </>
+    </div>
   )
 }
 
@@ -93,14 +93,18 @@ export default function App() {
               <Route path="/services/:slug" element={<PublicLayout><Services /></PublicLayout>} />
               <Route path="/services/:slug/:subSlug" element={<PublicLayout><Services /></PublicLayout>} />
 
-              {/* Direct B2B Enterprise Route Aliases */}
+              {/* Permanent 301/SPA Client Route Redirects for Deprecated / Old URLs */}
+              <Route
+                path="/services/business-automation"
+                element={<Navigate to="/services" replace />}
+              />
               <Route
                 path="/business-automation"
-                element={<PublicLayout><Services initialSlug="business-automation" /></PublicLayout>}
+                element={<Navigate to="/services" replace />}
               />
               <Route
                 path="/custom-development"
-                element={<PublicLayout><Services initialSlug="custom-software-and-scalable-app-development" /></PublicLayout>}
+                element={<Navigate to="/services/custom-software-and-scalable-app-development" replace />}
               />
               <Route
                 path="/inhouse-products"
@@ -117,12 +121,16 @@ export default function App() {
                 element={<PublicLayout><CareerGuidance /></PublicLayout>}
               />
               <Route
+                path="/services/student-guidance"
+                element={<Navigate to="/career-guidance" replace />}
+              />
+              <Route
                 path="/student-guidance"
-                element={<PublicLayout><CareerGuidance /></PublicLayout>}
+                element={<Navigate to="/career-guidance" replace />}
               />
               <Route
                 path="/academy"
-                element={<PublicLayout><CareerGuidance /></PublicLayout>}
+                element={<Navigate to="/career-guidance" replace />}
               />
               <Route
                 path="/industrial-training"

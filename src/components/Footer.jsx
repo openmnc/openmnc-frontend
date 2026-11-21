@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Mail, Phone, MapPin, Star } from 'lucide-react'
 import GoogleReviewModal from './GoogleReviewModal.jsx'
 import { settingsApi } from '../api/settings.js'
 
@@ -28,7 +29,6 @@ const FOOTER_SECTIONS = [
   {
     title: 'Company',
     links: [
-      { label: 'Home', to: '/' },
       { label: 'About OpenMNC', to: '/about' },
       { label: 'Blog & Insights', to: '/blog' },
       { label: 'Contact & Booking', to: '/contact' },
@@ -91,7 +91,11 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="flex items-center gap-1 text-amber-400 text-xs">
-                    <span>★★★★★</span>
+                    <Star className="w-3.5 h-3.5 fill-amber-400" />
+                    <Star className="w-3.5 h-3.5 fill-amber-400" />
+                    <Star className="w-3.5 h-3.5 fill-amber-400" />
+                    <Star className="w-3.5 h-3.5 fill-amber-400" />
+                    <Star className="w-3.5 h-3.5 fill-amber-400" />
                     <span className="text-white font-bold ml-1">5.0 on Google</span>
                   </div>
                   <button
@@ -104,23 +108,23 @@ export default function Footer() {
                 </div>
               </div>
 
-              {/* Contact info */}
+              {/* Contact info with crisp monochrome Lucide icons */}
               <address className="not-italic space-y-2 text-sm text-gray-400">
-                <p>
-                  <span className="text-cyan-neon">✉</span>{' '}
+                <p className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-cyan-neon shrink-0" aria-hidden="true" />
                   <a href="mailto:hello@openmnc.com" className="hover:text-white transition-colors">
                     hello@openmnc.com
                   </a>
                 </p>
-                <p>
-                  <span className="text-cyan-neon">📞</span>{' '}
+                <p className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-cyan-neon shrink-0" aria-hidden="true" />
                   <a href="tel:+918509684056" className="hover:text-white transition-colors">
                     +91 8509684056
                   </a>
                 </p>
-                <p>
-                  <span className="text-cyan-neon">📍</span>{' '}
-                  HQ: West Bengal, India · Serving Worldwide &amp; Domestic
+                <p className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-cyan-neon shrink-0" aria-hidden="true" />
+                  <span>HQ: West Bengal, India · Serving Worldwide &amp; Domestic</span>
                 </p>
               </address>
             </div>
@@ -147,9 +151,10 @@ export default function Footer() {
                       <button
                         type="button"
                         onClick={() => setReviewModalOpen(true)}
-                        className="text-xs sm:text-sm text-amber-400 hover:underline flex items-center gap-1"
+                        className="text-xs sm:text-sm text-amber-400 hover:underline flex items-center gap-1.5"
                       >
-                        <span>⭐</span> Review Us on Google
+                        <Star className="w-3.5 h-3.5 fill-amber-400" />
+                        <span>Review Us on Google</span>
                       </button>
                     </li>
                   )}
@@ -158,7 +163,7 @@ export default function Footer() {
             ))}
           </div>
 
-          {/* Bottom bar with Legal Registration Entity Notice */}
+          {/* Bottom bar with Legal Registration Entity Notice (Admin completely removed from public footer) */}
           <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-gray-500 text-xs">
               &copy; {year} <strong className="text-gray-400 font-normal">M/S. OPEN MNC LLP</strong>. All rights reserved. Founded by{' '}
@@ -181,13 +186,6 @@ export default function Footer() {
               >
                 Email Us
               </a>
-              <span className="text-gray-700" aria-hidden="true">|</span>
-              <Link
-                to="/admin/login"
-                className="text-xs text-gray-600 hover:text-gray-400 transition-colors duration-200"
-              >
-                Admin
-              </Link>
             </div>
           </div>
         </div>

@@ -2,6 +2,14 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { motion, AnimatePresence } from 'framer-motion'
+import {
+  GraduationCap,
+  BadgePercent,
+  Cpu,
+  Briefcase,
+  MessageSquare,
+  CheckCircle2,
+} from 'lucide-react'
 import SEO from '../components/SEO.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
 import ScrollReveal from '../components/ScrollReveal.jsx'
@@ -14,25 +22,25 @@ import { studentGuidanceFaqSchema, courseSchema } from '../utils/jsonld.js'
 
 const BENEFITS = [
   {
-    icon: '🎓',
+    icon: <GraduationCap className="w-8 h-8 text-amber-glow" aria-hidden="true" />,
     title: '100% Free Career Guidance',
     desc: 'Unbiased aptitude counseling for 12th Science, Commerce & Arts students. Zero consultation fees, zero agent commissions.',
     badge: '₹0 Student Cost',
   },
   {
-    icon: '💰',
+    icon: <BadgePercent className="w-8 h-8 text-amber-glow" aria-hidden="true" />,
     title: '₹3,000 to ₹10,000 Fee Subsidy',
     desc: 'Official industrial partnership subsidy discounted directly from your partner college admission fees.',
     badge: 'Direct Discount',
   },
   {
-    icon: '🤖',
+    icon: <Cpu className="w-8 h-8 text-amber-glow" aria-hidden="true" />,
     title: '3-Month Industrial Training',
     desc: 'Live hands-on training in Robotics, Drones, IoT microcontrollers, and modern AI/Web engineering.',
     badge: 'Live Projects',
   },
   {
-    icon: '💼',
+    icon: <Briefcase className="w-8 h-8 text-amber-glow" aria-hidden="true" />,
     title: 'Internship & PPO Opportunities',
     desc: 'Work on live OpenMNC production systems, earn performance stipends, and build a verified portfolio.',
     badge: 'Career Launch',
@@ -129,7 +137,7 @@ export default function CareerGuidance() {
 
         <div className="relative z-10 max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-glow/10 border border-amber-glow/30 text-amber-glow text-xs font-semibold tracking-wider uppercase mb-6 shadow-sm">
-            <span>🎓</span>
+            <GraduationCap className="w-4 h-4 text-amber-glow shrink-0" aria-hidden="true" />
             <span>OpenMNC Academy &amp; Higher Education Portal · 100% Free For Students</span>
           </div>
 
@@ -160,7 +168,8 @@ export default function CareerGuidance() {
               rel="noopener noreferrer"
               className="px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-semibold text-base transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
             >
-              <span>💬</span> Chat With Academic Counselor
+              <MessageSquare className="w-4 h-4 text-emerald-400" aria-hidden="true" />
+              <span>Chat With Academic Counselor</span>
             </a>
           </div>
 
@@ -313,7 +322,9 @@ export default function CareerGuidance() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="text-center py-10"
                 >
-                  <div className="text-5xl mb-4">🎉</div>
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-amber-glow/15 border border-amber-glow/30 flex items-center justify-center text-amber-glow">
+                    <CheckCircle2 className="w-8 h-8" aria-hidden="true" />
+                  </div>
                   <h3 className="font-display text-2xl font-bold text-white mb-2">
                     Application Received!
                   </h3>

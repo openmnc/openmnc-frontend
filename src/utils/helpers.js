@@ -1,3 +1,18 @@
+import React from 'react'
+import {
+  Bot,
+  Code2,
+  Smartphone,
+  TrendingUp,
+  GraduationCap,
+  Zap,
+  Lightbulb,
+  ShieldCheck,
+  RefreshCw,
+  Wrench,
+  Database,
+} from 'lucide-react'
+
 /**
  * Format a date string to a readable format.
  */
@@ -19,29 +34,45 @@ export function truncate(text, maxLen = 120) {
 }
 
 /**
- * Map service slug to an emoji icon.
+ * Map service slug or icon identifier to a crisp monochrome Lucide icon.
  */
 export function getServiceIcon(icon, slug) {
   const iconMap = {
-    automation: '🤖',
-    code: '💻',
-    development: '💻',
-    apps: '📱',
-    social: '📈',
-    'social-media': '📈',
-    education: '🎓',
-    'student-guidance': '🎓',
-    training: '⚡',
-    consultation: '💡',
-    default: '⚡',
+    audit: ShieldCheck,
+    'vibe-coded': ShieldCheck,
+    apps: Smartphone,
+    publishing: Smartphone,
+    transfer: RefreshCw,
+    migration: Database,
+    code: Code2,
+    development: Code2,
+    custom: Code2,
+    maintenance: Wrench,
+    amc: Wrench,
+    support: Wrench,
+    automation: Bot,
+    social: TrendingUp,
+    'social-media': TrendingUp,
+    education: GraduationCap,
+    'student-guidance': GraduationCap,
+    training: Zap,
+    consultation: Lightbulb,
+    default: Zap,
   }
-  if (icon && iconMap[icon]) return iconMap[icon]
-  if (slug) {
+
+  let IconComponent = iconMap.default
+  if (icon && iconMap[icon]) {
+    IconComponent = iconMap[icon]
+  } else if (slug) {
     for (const key of Object.keys(iconMap)) {
-      if (slug.includes(key)) return iconMap[key]
+      if (slug.includes(key)) {
+        IconComponent = iconMap[key]
+        break
+      }
     }
   }
-  return iconMap.default
+
+  return React.createElement(IconComponent, { className: 'w-6 h-6 text-current' })
 }
 
 /**

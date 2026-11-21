@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Copy, Check } from 'lucide-react'
 
 export const GOOGLE_PLACE_ID = 'ChIJu2lM2mMLAjoRMqerceA25dY'
 export const DEFAULT_GOOGLE_REVIEW_URL = `https://search.google.com/local/writereview?placeid=${GOOGLE_PLACE_ID}`
@@ -181,9 +182,19 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
               <button
                 type="button"
                 onClick={handleCopy}
-                className="apple-btn-secondary text-xs py-2 text-center"
+                className="apple-btn-secondary text-xs py-2 text-center flex items-center justify-center gap-1.5"
               >
-                {copied ? '✓ Copied!' : '🔗 Copy Link'}
+                {copied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" aria-hidden="true" />
+                    <span>Copy Link</span>
+                  </>
+                )}
               </button>
             </div>
           </div>

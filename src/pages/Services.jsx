@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { AlertTriangle, Lightbulb, MessageSquare, GraduationCap } from 'lucide-react'
 import ServiceCard from '../components/ServiceCard.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
 import ScrollReveal from '../components/ScrollReveal.jsx'
@@ -882,8 +883,9 @@ export default function Services({ initialSlug }) {
                               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 {service.problems_grid.map((prob, pi) => (
                                   <div key={pi} className="p-3.5 rounded-xl bg-red-950/20 border border-red-500/20">
-                                    <h4 className="text-xs font-bold text-white mb-1">
-                                      ⚠ {prob.title}
+                                    <h4 className="text-xs font-bold text-white mb-1 flex items-center gap-1.5">
+                                        <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0" aria-hidden="true" />
+                                        <span>{prob.title}</span>
                                     </h4>
                                     <p className="text-[11px] text-gray-300 leading-relaxed">
                                       {prob.desc}
@@ -942,7 +944,7 @@ export default function Services({ initialSlug }) {
                           {service.cross_link && (
                             <div className="mb-6 p-3.5 rounded-xl bg-cyan-neon/5 border border-cyan-neon/20 flex items-center justify-between gap-3">
                               <span className="text-xs text-gray-300">
-                                💡 {service.cross_link.text}
+                                <Lightbulb className="w-4 h-4 text-cyan-neon shrink-0 inline-block mr-1.5" aria-hidden="true" />{service.cross_link.text}
                               </span>
                               <Link
                                 to={service.cross_link.to}
@@ -1021,7 +1023,7 @@ export default function Services({ initialSlug }) {
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              💬 Instant WhatsApp Consultation
+                              <MessageSquare className="w-4 h-4 text-emerald-400 inline-block mr-1.5" aria-hidden="true" />Instant WhatsApp Consultation
                             </a>
 
                             <div className="pt-3 text-[11px] text-gray-400 space-y-1.5 border-t border-white/5">
@@ -1051,7 +1053,7 @@ export default function Services({ initialSlug }) {
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
                 <span className="text-xs font-bold text-amber-glow uppercase tracking-wider block mb-1">
-                  🎓 Looking for Higher Education &amp; Student Mentorship?
+                  <GraduationCap className="w-4 h-4 text-amber-glow inline-block mr-1.5" aria-hidden="true" />Looking for Higher Education &amp; Student Mentorship?
                 </span>
                 <h3 className="font-display text-2xl font-bold text-white mb-2">
                   Visit the OpenMNC 100% Free Career Guidance Portal

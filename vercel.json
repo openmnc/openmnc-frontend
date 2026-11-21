@@ -1,4 +1,36 @@
 {
+  "redirects": [
+    {
+      "source": "/services/business-automation",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/business-automation",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/services/student-guidance",
+      "destination": "/career-guidance",
+      "permanent": true
+    },
+    {
+      "source": "/student-guidance",
+      "destination": "/career-guidance",
+      "permanent": true
+    },
+    {
+      "source": "/academy",
+      "destination": "/career-guidance",
+      "permanent": true
+    },
+    {
+      "source": "/custom-development",
+      "destination": "/services/custom-software-and-scalable-app-development",
+      "permanent": true
+    }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
   "headers": [
     {

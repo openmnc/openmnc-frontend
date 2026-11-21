@@ -1,3 +1,4 @@
+import { Target, Zap, Handshake, GraduationCap, Code2, Mail, MessageSquare } from 'lucide-react'
 import ThreeBackground from '../components/ThreeBackground.jsx'
 import ScrollReveal from '../components/ScrollReveal.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
@@ -8,32 +9,32 @@ import { organizationSchema } from '../utils/jsonld.js'
 
 const VALUES = [
   {
-    icon: '🎯',
+    icon: <Target className="w-6 h-6 text-[#2997ff]" />,
     title: 'Clarity First',
     desc: 'We spend the first meeting listening, not selling. Understanding your problem deeply means we build exactly what you need.',
   },
   {
-    icon: '⚡',
+    icon: <Zap className="w-6 h-6 text-[#2997ff]" />,
     title: 'Engineering Rigor',
     desc: 'From architectural reviews to automated CI/CD and zero-vulnerability audits, we build production software engineered to last.',
   },
   {
-    icon: '🤝',
+    icon: <Handshake className="w-6 h-6 text-[#2997ff]" />,
     title: 'Long-Term Partnership',
     desc: 'We are not ticket vendors. We are long-term engineering partners who scale your products and celebrate your revenue growth.',
   },
   {
-    icon: '🎓',
+    icon: <GraduationCap className="w-6 h-6 text-[#2997ff]" />,
     title: 'Community Investment',
     desc: 'Giving back through 100% free student career guidance, college fee subsidies, and open tech mentorship is core to our company mission.',
   },
 ]
 
 const MILESTONES = [
-  { year: '2024', event: 'M/S. OPEN MNC LLP founded by Amit Barai with an engineering-first vision' },
-  { year: '2024', event: 'Launched App Store Rescue & Vibe-Coded Prototype Audit division' },
-  { year: '2025', event: 'Expanded international software partnerships across UK, US, UAE & India' },
-  { year: '2026', event: '100% Free Career Guidance & ₹3k–₹10k College Subsidy Initiative expanded nationwide' },
+  { year: '2023', event: 'Initial engineering lab established by Amit Barai, architecting scalable cloud backends and embedded IoT systems' },
+  { year: '2024', event: 'Launched App Store Rescue & Vibe-Coded Prototype Audit division for global founders' },
+  { year: '2025', event: 'Expanded international software partnerships across UK, US, UAE & established partner college subsidies' },
+  { year: '2026', event: 'Formal incorporation of M/S. OPEN MNC LLP and nationwide rollout of 100% Free Career Guidance Portal' },
 ]
 
 export default function About() {
@@ -108,10 +109,10 @@ export default function About() {
                 <div>
                   <div className="flex items-center gap-4 mb-6">
                     <div
-                      className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-3xl"
+                      className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white"
                       aria-hidden="true"
                     >
-                      👨‍💻
+                      <Code2 className="w-8 h-8 text-[#2997ff]" />
                     </div>
                     <div>
                       <h3 className="font-display text-2xl font-semibold text-[#f5f5f7] tracking-tight">Amit Barai</h3>
@@ -125,8 +126,8 @@ export default function About() {
                   </div>
 
                   <blockquote className="text-[#d2d2d7] text-sm leading-relaxed border-l-2 border-[#2997ff]/40 pl-4 mb-6 italic">
-                    "Software should be a multiplier for human vision—not an endless source of stress, broken dependencies, or rejected submissions.
-                    Our mission is to give founders absolute peace of mind while opening life-changing career doors for young students across India."
+                    &ldquo;Software should be a multiplier for human vision—not an endless source of stress, broken dependencies, or rejected submissions.
+                    Our mission is to give founders absolute peace of mind while opening life-changing career doors for young students across India.&rdquo;
                   </blockquote>
                 </div>
 
@@ -136,7 +137,8 @@ export default function About() {
                       href="mailto:amit@openmnc.com"
                       className="text-[#a1a1a6] hover:text-[#2997ff] transition-colors flex items-center gap-2"
                     >
-                      <span aria-hidden="true">✉</span> amit@openmnc.com
+                      <Mail className="w-3.5 h-3.5 text-[#2997ff]" aria-hidden="true" />
+                      <span>amit@openmnc.com</span>
                     </a>
                     <a
                       href={whatsappUrl('918509684056', 'Hi Amit! I found OpenMNC and would like to connect.')}
@@ -144,7 +146,8 @@ export default function About() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span aria-hidden="true">💬</span> Direct WhatsApp
+                      <MessageSquare className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" />
+                      <span>Direct WhatsApp</span>
                     </a>
                   </div>
 
@@ -170,7 +173,7 @@ export default function About() {
               <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/8">
                 {VALUES.slice(0, 2).map((v) => (
                   <div key={v.title} className="p-8 hover:bg-white/[0.02] transition-colors">
-                    <div className="text-2xl mb-3">{v.icon}</div>
+                    <div className="mb-3">{v.icon}</div>
                     <h3 className="font-semibold text-lg text-[#f5f5f7] mb-2">{v.title}</h3>
                     <p className="text-[#a1a1a6] text-sm leading-relaxed">{v.desc}</p>
                   </div>
@@ -179,7 +182,7 @@ export default function About() {
               <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/8">
                 {VALUES.slice(2, 4).map((v) => (
                   <div key={v.title} className="p-8 hover:bg-white/[0.02] transition-colors">
-                    <div className="text-2xl mb-3">{v.icon}</div>
+                    <div className="mb-3">{v.icon}</div>
                     <h3 className="font-semibold text-lg text-[#f5f5f7] mb-2">{v.title}</h3>
                     <p className="text-[#a1a1a6] text-sm leading-relaxed">{v.desc}</p>
                   </div>

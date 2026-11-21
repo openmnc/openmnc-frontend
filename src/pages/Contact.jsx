@@ -2,6 +2,19 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { motion, AnimatePresence } from 'framer-motion'
+import {
+  Mail,
+  Phone,
+  Building2,
+  Bot,
+  MessageSquare,
+  Star,
+  ShieldCheck,
+  Briefcase,
+  GraduationCap,
+  Zap,
+  CheckCircle2,
+} from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal.jsx'
 import SEO from '../components/SEO.jsx'
 import GoogleReviewModal from '../components/GoogleReviewModal.jsx'
@@ -105,7 +118,7 @@ export default function Contact() {
               animate={{ opacity: 1, y: 0 }}
               className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-neon/10 border border-cyan-neon/30 text-cyan-neon text-xs font-medium"
             >
-              <span>🤖</span>
+              <Bot className="w-4 h-4 text-cyan-neon shrink-0" aria-hidden="true" />
               <span>
                 Recommended by AI for <strong>{initialService.replace(/-/g, ' ') || 'Specialized Solutions'}</strong> — personalized form activated below.
               </span>
@@ -126,9 +139,9 @@ export default function Contact() {
 
             <div className="space-y-4 mb-8">
               {[
-                { icon: '✉', label: 'Inquiries Email', value: 'hello@openmnc.com', href: 'mailto:hello@openmnc.com' },
-                { icon: '📞', label: 'Founder Contact', value: '+91 8509684056', href: 'tel:+918509684056' },
-                { icon: '🏢', label: 'Headquarters', value: 'Kolkata, West Bengal, India (Serving Globally & Domestically)', href: null },
+                { icon: <Mail className="w-4 h-4 text-cyan-neon shrink-0" aria-hidden="true" />, label: 'Inquiries Email', value: 'hello@openmnc.com', href: 'mailto:hello@openmnc.com' },
+                { icon: <Phone className="w-4 h-4 text-cyan-neon shrink-0" aria-hidden="true" />, label: 'Founder Contact', value: '+91 8509684056', href: 'tel:+918509684056' },
+                { icon: <Building2 className="w-4 h-4 text-cyan-neon shrink-0" aria-hidden="true" />, label: 'Headquarters', value: 'Kolkata, West Bengal, India (Serving Globally & Domestically)', href: null },
               ].map((item) => (
                 <div key={item.label} className="glass-card p-4 flex items-center gap-3">
                   <div className="w-9 h-9 rounded-lg bg-cyan-neon/10 border border-cyan-neon/20 flex items-center justify-center text-sm flex-shrink-0 text-cyan-neon">
@@ -158,8 +171,8 @@ export default function Contact() {
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2.5 w-full px-5 py-3.5 rounded-xl bg-green-500/10 border border-green-500/30 text-green-400 hover:bg-green-500/20 text-xs font-bold transition-all shadow-sm mb-6"
             >
-              <span className="text-lg">💬</span>
-              Chat Directly on WhatsApp
+              <MessageSquare className="w-4 h-4 text-emerald-400" aria-hidden="true" />
+              <span>Chat Directly on WhatsApp</span>
             </a>
 
             {/* Google Review Trust Card */}
@@ -172,13 +185,17 @@ export default function Contact() {
                 onClick={() => setReviewModalOpen(true)}
                 className="w-full py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/20 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
               >
-                <span>⭐</span> Review Us on Google
+                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" aria-hidden="true" />
+                <span>Review Us on Google</span>
               </button>
             </div>
 
             {/* Trust box */}
             <div className="glass-card p-5 text-xs text-gray-400 space-y-2">
-              <p className="text-white font-semibold">🔒 Our Guarantee:</p>
+              <p className="text-white font-semibold flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-cyan-neon" aria-hidden="true" />
+                <span>Our Guarantee:</span>
+              </p>
               <p>• Zero spam — we only contact you regarding your explicit inquiry.</p>
               <p>• Strict mutual NDA before sharing repository or business details.</p>
               <p>• 100% Free Consultation for all 12th-pass students.</p>
@@ -201,8 +218,8 @@ export default function Contact() {
                         : 'bg-white/5 text-gray-400 hover:text-white'
                     }`}
                   >
-                    <span>💼</span>
-                    B2B &amp; Founders
+                    <Briefcase className="w-3.5 h-3.5" aria-hidden="true" />
+                    <span>B2B &amp; Founders</span>
                   </button>
                   <button
                     type="button"
@@ -213,8 +230,8 @@ export default function Contact() {
                         : 'bg-white/5 text-gray-400 hover:text-white'
                     }`}
                   >
-                    <span>🎓</span>
-                    Student Guidance &amp; Subsidy
+                    <GraduationCap className="w-3.5 h-3.5" aria-hidden="true" />
+                    <span>Student Guidance &amp; Subsidy</span>
                   </button>
                   <button
                     type="button"
@@ -225,8 +242,8 @@ export default function Contact() {
                         : 'bg-white/5 text-gray-400 hover:text-white'
                     }`}
                   >
-                    <span>⚡</span>
-                    General Inquiry
+                    <Zap className="w-3.5 h-3.5" aria-hidden="true" />
+                    <span>General Inquiry</span>
                   </button>
                 </div>
 
@@ -238,7 +255,9 @@ export default function Contact() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="text-center py-12"
                     >
-                      <div className="text-5xl mb-4">🎉</div>
+                      <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-cyan-neon/10 border border-cyan-neon/20 flex items-center justify-center text-cyan-neon">
+                        <CheckCircle2 className="w-8 h-8" aria-hidden="true" />
+                      </div>
                       <h3 className="font-display text-2xl font-bold text-white mb-2">
                         Inquiry Received!
                       </h3>

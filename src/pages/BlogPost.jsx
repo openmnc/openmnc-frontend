@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { Search } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
 import { blogsApi } from '../api/blogs.js'
 import { blogPostSchema, aeoTechArticleSchema, dynamicFaqSchema } from '../utils/jsonld.js'
@@ -40,7 +41,9 @@ export default function BlogPost() {
     return (
       <main className="min-h-screen bg-black pt-40 px-4 text-center">
         <div className="max-w-md mx-auto rounded-3xl bg-[#161618] border border-white/8 p-8 sm:p-10">
-          <span className="text-4xl block mb-3">🔍</span>
+          <div className="w-12 h-12 mx-auto mb-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400">
+            <Search className="w-6 h-6" aria-hidden="true" />
+          </div>
           <h1 className="font-display text-2xl font-semibold text-[#f5f5f7] mb-3">Article Not Found</h1>
           <p className="text-[#a1a1a6] text-sm mb-6">
             The requested article could not be loaded. It may have been relocated or updated.
