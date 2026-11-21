@@ -110,6 +110,11 @@ export default function App() {
                 path="/inhouse-products"
                 element={<PublicLayout><Services initialSlug="inhouse-products" /></PublicLayout>}
               />
+              {/* Dedicated Pillar & Core Service Routes */}
+              <Route
+                path="/services/social-media-management"
+                element={<PublicLayout><Services initialSlug="social-media-management" /></PublicLayout>}
+              />
               <Route
                 path="/social-media-management"
                 element={<PublicLayout><Services initialSlug="social-media-management" /></PublicLayout>}

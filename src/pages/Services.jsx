@@ -1,6 +1,22 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { AlertTriangle, Lightbulb, MessageSquare, GraduationCap } from 'lucide-react'
+import {
+  AlertTriangle,
+  Lightbulb,
+  MessageSquare,
+  GraduationCap,
+  ShieldCheck,
+  CheckCircle2,
+  TrendingUp,
+  Sparkles,
+  Zap,
+  Clock,
+  Store,
+  Utensils,
+  ShoppingBag,
+  ArrowRight,
+  HelpCircle,
+} from 'lucide-react'
 import ServiceCard from '../components/ServiceCard.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
 import ScrollReveal from '../components/ScrollReveal.jsx'
@@ -51,6 +67,13 @@ const SLUG_ALIASES = {
   'app-maintenance': 'app-maintenance-and-support',
   'amc': 'app-maintenance-and-support',
   'support': 'app-maintenance-and-support',
+
+  // Social Media Management & Organic Growth
+  'social-media-management': 'social-media-management',
+  'social-media': 'social-media-management',
+  'organic-growth': 'social-media-management',
+  'reels-marketing': 'social-media-management',
+  'smm': 'social-media-management',
 
   // B2B Automation & AI
   'business-automation': 'business-automation',
@@ -557,34 +580,295 @@ const STATIC_SERVICES = [
   },
 
   // ══════════════════════════════════════════════════════════════════════════
-  // EXISTING CORE SERVICE: SOCIAL MEDIA MANAGEMENT
+  // CORE SERVICE: SOCIAL MEDIA MANAGEMENT & ORGANIC GROWTH
   // ══════════════════════════════════════════════════════════════════════════
   {
     slug: 'social-media-management',
-    title: 'Social Media Management & Organic Growth',
-    tagline: 'Grow organically without heavy ad spend.',
+    pillar: 'Organic Engine',
+    meta_title: 'Organic Social Media Management & Reels Growth for Local Businesses | OpenMNC',
+    meta_description: 'Turn Instagram & Facebook into a 24/7 digital showroom for cafes, bakeries, saree shops & retail. Hook-Retention-CTA scripts, pro editing & 25% growth guarantee.',
+    meta_keywords: 'social media management Kolkata, organic social media marketing India, Instagram Reels marketing for cafes, local boutique social media management, Reels video editing agency, Hook Retention CTA scriptwriting, Instagram DM to WhatsApp automation, Google Business Profile map pack optimization, Meta Business Suite partner agency, 25% growth guarantee social media',
+    h1_heading: 'Stop Burning Cash on Ads. Turn Instagram & Facebook into a 24/7 Local Footfall Engine.',
+    title: 'Organic Social Media Management & Reels Growth Engine',
+    tagline: 'Zero ad spend burn. 100% privacy-first Meta access. High-retention Reels & direct WhatsApp walk-ins.',
     icon: 'social-media',
-    category: 'B2B Enterprise',
+    category: 'B2C & Local Retail Growth',
+    supported_tools: ['Instagram Reels', 'Facebook Pages', 'Meta Business Suite', 'WhatsApp Business', 'Google Business Profile', 'CapCut Pro', 'Premiere Pro', 'Audio Denoising AI'],
     description:
-      'High-ROI organic growth for local shops, bakeries, real estate, factories, and solopreneurs across Instagram, Facebook, and YouTube. We research your niche, algorithm-match keywords and hashtags, write viral scripts using our Hook → Engagement → Relativity → Reveal structure, and edit your raw video into polished content.',
+      'High-ROI organic social media management tailored for cafes, bakeries, saree shops, boutique retail, and local business owners across Instagram and Facebook. We eliminate wasteful ad spend by crafting sensory Hook → Retention → CTA video scripts, denoising raw audio, optimizing captions for social search engines, and routing high-intent buyers directly into your WhatsApp inbox—backed by an accountable 25% growth guarantee.',
     problem_statement:
-      'Local businesses burn capital on expensive pay-per-click ads with zero long-term organic retention or audience trust.',
+      'Local shop owners waste capital on expensive hoardings and low-intent ads, struggle with 0-view reels due to poor audio and weak hooks, and lose interested buyers because no one responds to comments or DMs in real time.',
     technical_solution:
-      'Algorithmic keyword optimization, high-retention video scripting (Hook → Engage → Reveal), and professional editing.',
+      '100% privacy-first Meta Business Suite partner access, high-sensory Hook-Retention-CTA scripting, studio audio denoising & color grading, social SEO search indexing, automated DM-to-WhatsApp keyword funnels, and weekly Google Business Profile map pack synchronization.',
     expected_outcome:
-      'Up to 10x organic reach and authentic audience trust at a fraction of paid advertisement spend.',
+      '3x to 5x verified organic reach growth within 90 days, daily inbound WhatsApp product inquiries, and consistent local walk-ins at a fraction of agency retainers or ad spend.',
+    target_industries: [
+      {
+        title: 'Food, Cafes & Cloud Kitchens',
+        tag: 'F&B Sector',
+        pain: 'Food looks delicious in real life, but mobile clips have loud kitchen background noise and get stuck at 50 views.',
+        solution: 'High-sensory food reels (sizzle, steam, cheese pull, plating aesthetics) with crisp audio denoising, trending audio, and geo-targeted local pin code reach.',
+        example: 'Cafes, bakeries, momo stalls, cloud kitchens & family restaurants.',
+      },
+      {
+        title: 'Retail, Sarees & Fashion Boutiques',
+        tag: 'Retail & Fashion',
+        pain: 'Heavy reliance on expensive physical street hoardings. Competitors selling daily via Instagram Live and viral Reels.',
+        solution: 'Fabric drape showcases, styling tips, festive outfit reveals, and direct DM-to-WhatsApp catalog routing converting viewers into all-India delivery orders.',
+        example: 'Saree showrooms, ethnic wear boutiques, jewelry & clothing brands.',
+      },
+      {
+        title: 'New Businesses & Local Solopreneurs',
+        tag: 'New Store Launch',
+        pain: 'Zero initial footfall, no customer reviews, and no idea how to reach nearby buyers without wasting ₹20,000 on print banners.',
+        solution: 'Pre-launch hype reels, behind-the-scenes founder story hooks, Google Map Pack location pinning, and fast local viral resonance.',
+        example: 'Newly opened salons, fitness studios, specialty retail & clinics.',
+      },
+    ],
+    problems_grid: [
+      {
+        title: 'Zero Views & Algorithmic Stagnation',
+        desc: 'Posting random phone videos without hook structures or keyword captions leaves your account invisible to the local algorithm.',
+      },
+      {
+        title: 'Wasted Flex Banners & Ad Spend Burn',
+        desc: 'Local print banners only reach one street corner, while paid Meta ads cost a fortune without building authentic long-term brand equity.',
+      },
+      {
+        title: 'Noisy Audio & Poor Visual Retention',
+        desc: 'Unedited mobile videos with loud kitchen, road, or shop floor background noise cause 85% of viewers to swipe away within 2 seconds.',
+      },
+      {
+        title: 'Lost Inbound Leads & No Follow-Up',
+        desc: 'Comments and DMs sit unanswered for hours because staff is busy, causing high-intent buyers to purchase from competitors.',
+      },
+    ],
+    deliverables: [
+      {
+        title: '100% Privacy-First Meta Access (Zero Password Sharing)',
+        desc: 'We never ask for your personal Instagram or Facebook password. Access is granted securely via partner permissions in Meta Business Suite. Your account stays 100% safe and under your complete ownership.',
+      },
+      {
+        title: 'Brand Story & High-Retention Scripting (Hook → Retention → CTA)',
+        desc: 'Every video is pre-scripted with a 3-second scroll-stopping Hook, engaging high-watch-time narrative pacing, and a single, direct Call-to-Action routing customers to your store or WhatsApp.',
+      },
+      {
+        title: 'Studio Video Editing, Denoising & Animated Subtitles',
+        desc: 'We clean up background kitchen and street noise, color-grade for vibrant mobile screens, add custom kinetic subtitles, sound effects, and select licensed trending audio matching your brand.',
+      },
+      {
+        title: 'Social SEO Keyword Captions & Peak Timing Scheduling',
+        desc: 'Instagram and Facebook operate as search engines. We research high-intent local keywords for captions and hashtags, scheduling posts at peak engagement hours for maximum organic velocity.',
+      },
+      {
+        title: 'Direct DM-to-WhatsApp Funnel & Google Maps Sync',
+        desc: 'Turn views into real store walk-ins. Automated keyword DM triggers link directly to WhatsApp Business, while weekly Google Business Profile (Map Pack) sync drives local search traffic.',
+      },
+    ],
+    process_steps: [
+      {
+        step: 'Step 01',
+        title: 'Audit & Partner Access',
+        desc: 'Zero-password Meta Business Suite setup, bio overhaul, and local competitor keyword gap analysis.',
+      },
+      {
+        step: 'Step 02',
+        title: 'Scripting & Shot List',
+        desc: 'Weekly Hook-Retention-CTA scripts and foolproof phone recording guides sent to you (or on-site shoot).',
+      },
+      {
+        step: 'Step 03',
+        title: 'Studio Edit & Denoise',
+        desc: 'Pro color correction, audio noise cleanup, animated typography captions, and trending sound curation.',
+      },
+      {
+        step: 'Step 04',
+        title: 'Social SEO & Lead Route',
+        desc: 'Optimized keyword scheduling, automated DM keyword responses, and direct WhatsApp buyer routing.',
+      },
+    ],
+    pricing_packages: [
+      {
+        name: 'Starter Presence',
+        badge: 'Essential Growth',
+        monthly_price: '₹6,999',
+        billing_period: '/ month',
+        quarterly_total: '₹20,997 quarterly commitment',
+        best_for: 'Solopreneurs, cloud kitchens & new shops testing organic reach.',
+        reels_count: '6 High-Retention Reels / mo',
+        posts_count: '6 Graphic / Carousel Posts / mo',
+        stories_count: '8 Interactive Stories / mo',
+        shooting_mode: 'Remote shoot with our custom shot-lists & guides',
+        features: [
+          'Instagram + Facebook Cross-Posting',
+          '6 High-Retention Reels / month',
+          '6 Static / Carousel Posts / month',
+          '8 Interactive Stories / month',
+          'Custom Hook → Retention → CTA Scripting',
+          'Studio Video Editing & Audio Denoising',
+          'Dynamic Animated Captions & SFX',
+          'Social SEO Keywords & Peak Scheduling',
+          'WhatsApp Business Bio Link Funnel',
+          'Monthly Reach & Growth Analytics Report',
+        ],
+        highlight: false,
+        cta_text: 'Choose Starter Presence',
+        plan_param: 'starter-presence',
+      },
+      {
+        name: 'Growth Accelerator',
+        badge: 'Best Seller • 3x Weekly',
+        monthly_price: '₹14,999',
+        billing_period: '/ month',
+        quarterly_total: '₹44,997 quarterly commitment',
+        best_for: 'Established cafes, saree boutiques & local retail ready to dominate.',
+        reels_count: '12 High-Retention Reels / mo (3/wk)',
+        posts_count: '8 Graphic / Carousel Posts / mo',
+        stories_count: '15 Interactive Stories / mo',
+        shooting_mode: 'Remote shoot with our custom shot-lists & guides',
+        features: [
+          'Instagram + Facebook Cross-Posting',
+          '12 High-Retention Reels / month (3x / week)',
+          '8 High-Resolution Graphic / Carousel Posts',
+          '15 Interactive Stories (Polls & Countdowns)',
+          'Custom Hook → Retention → CTA Scripting',
+          'Studio Video Editing & Audio Denoising',
+          'Dynamic Animated Captions & Sound Design',
+          'Social SEO Keywords & Hashtag Strategy',
+          'Google Business Profile (Map Pack) Weekly Sync',
+          'Dedicated Content Strategist & WhatsApp VIP Group',
+          'Bi-Weekly Strategy & Trend Review Calls',
+        ],
+        highlight: true,
+        cta_text: 'Choose Growth Accelerator',
+        plan_param: 'growth-accelerator',
+      },
+      {
+        name: 'Automated Lead Engine',
+        badge: 'With Automation & Mini-Web',
+        monthly_price: '₹19,999',
+        billing_period: '/ month',
+        quarterly_total: '₹59,997 quarterly commitment',
+        best_for: 'Fast-growing brands needing automated inquiry routing & catalog.',
+        reels_count: '12 High-Retention Reels / mo (3/wk)',
+        posts_count: '10 Graphic / Carousel Posts / mo',
+        stories_count: '15 Interactive Stories / mo',
+        shooting_mode: 'Remote shoot with our custom shot-lists & guides',
+        features: [
+          'Everything in Growth Accelerator Plan',
+          '12 High-Retention Reels / month (3x / week)',
+          '10 Static / Carousel Posts / month',
+          '15 Interactive Stories / month',
+          'Automated DM-to-WhatsApp Bot Integration',
+          'Keyword Trigger Auto-Replies (MENU, PRICE, BUY)',
+          'Central Google Sheets Lead Tracker & Email Alerts',
+          '1-Page Digital Product Catalog / Mini-Website',
+          'Google Map Pack Geo-Tagging Optimization',
+          'Dedicated Social Account Manager',
+        ],
+        highlight: false,
+        cta_text: 'Choose Automated Lead Engine',
+        plan_param: 'automated-lead-engine',
+      },
+      {
+        name: 'Done-For-You VIP',
+        badge: 'On-Site Filming Team',
+        monthly_price: '₹29,999',
+        billing_period: '/ month',
+        quarterly_total: '₹89,997 quarterly commitment',
+        best_for: 'Premium cafes, luxury saree boutiques & multi-outlet brands.',
+        reels_count: '15 High-Retention Reels / mo',
+        posts_count: '12 Graphic / Carousel Posts / mo',
+        stories_count: '20 Interactive Stories / mo',
+        shooting_mode: 'Our video crew visits your store (2 visits/mo, 1.5–2 hrs)',
+        features: [
+          'Everything in Automated Lead Engine Plan',
+          '15 Cinematic Reels & 12 Carousel Posts / month',
+          '2 On-Site Film Crew Visits / mo (1.5–2 hrs each)',
+          'Pro 4K Cameras, Gimbal Stabilization & Wireless Mics',
+          'On-Camera Coaching & In-Store Product Staging',
+          'Automated DM-to-WhatsApp & Lead Tracker',
+          '1-Page Digital Product Catalog / Mini-Website',
+          'Priority Same-Day Revision Turnaround',
+          'Dedicated Senior Growth Director',
+        ],
+        highlight: false,
+        cta_text: 'Choose Done-For-You VIP',
+        plan_param: 'done-for-you-vip',
+      },
+    ],
+    timeline_phases: [
+      {
+        phase: 'Month 01 (Days 1–30)',
+        title: 'Foundation & Profile Calibration',
+        desc: 'Zero-password Meta setup, bio overhaul, highlight organization, competitor keyword gap analysis, and publishing the first 12–14 content pieces.',
+        expectation: 'Account reach stabilizes, profile visits climb +30% to +50%, and the algorithm begins correctly classifying your niche.',
+        metric: '+30% to +50% Profile Visits',
+      },
+      {
+        phase: 'Month 02 (Days 31–60)',
+        title: 'Algorithm Alignment & Engagement Velocity',
+        desc: 'A/B testing hook formats (founder story vs behind-the-scenes vs product close-up), consistent 3x/week publishing, and social SEO search indexing.',
+        expectation: 'Reels start appearing on explore pages and local search feeds. Organic shares and saves surge, with direct WhatsApp inquiries beginning to flow daily.',
+        metric: '2x–3x Baseline Reach Surge',
+      },
+      {
+        phase: 'Month 03 (Days 61–90)',
+        title: 'Compounding Resonance & Footfall Breakout',
+        desc: 'Breakout reels gain momentum across local city pin codes, Google Map Pack reviews compound, and automated DM flows convert viewers into paying walk-in customers.',
+        expectation: 'Consistent daily customer walk-ins, repeat orders, recognizable local market presence, and 3x–5x verified organic reach growth.',
+        metric: '3x–5x Total Organic Reach Growth',
+      },
+    ],
+    growth_guarantee: {
+      title: 'Risk-Free 25% Growth Guarantee',
+      checkpoint: '90-Day Account Checkpoint',
+      summary:
+        'If your verified organic reach and engagement do not increase by at least 25% over your pre-onboarding baseline at the 90-day mark, we refund 25% of our management fee—no questions asked.',
+      why_reach:
+        'Why Reach & Engagement, Not In-Store Sales? We guarantee what we control: getting thousands of local, high-intent eyes onto your products and routing them directly to your WhatsApp inbox. We cannot control food taste, boutique pricing, fabric availability, or physical customer service.',
+      condition:
+        'Partnership Condition: To qualify for the guarantee, the client must provide raw video footage according to the agreed schedule within 48 hours of script delivery.',
+    },
     features: [
-      'Instagram, Facebook & YouTube management',
-      'Viral scripting (Hook → Engage → Reveal)',
-      'Professional video editing & captions',
-      'Relatable hashtag & keyword strategy',
-      'Algorithm optimization for organic reach',
-      'Fraction of ad spend with maximum trust',
+      '100% Privacy-First Meta Business Suite Access (Zero Password Sharing)',
+      'Custom Hook → Retention → CTA Viral Video Scripting',
+      'Studio Video Editing, Audio Denoising & Animated Subtitles',
+      'Social SEO Caption Keywords & Optimal Scheduling',
+      'Automated DM-to-WhatsApp Customer Conversion Funnel',
+      'Google Business Profile (Map Pack) Weekly Sync',
+      'Backed by 90-Day Accountable 25% Growth Guarantee',
     ],
     faqs: [
       {
-        question: 'How soon do we see organic reach results?',
-        answer: 'Clients typically experience noticeable engagement upticks within 3 to 4 weeks as the platform algorithm indexes relatable video hooks.',
+        question: 'Do I have to share my personal Instagram or Facebook password with OpenMNC?',
+        answer:
+          'Never. We adhere to strict zero-password sharing protocols. You simply grant partner or manager access through Meta Business Suite. Your login credentials and two-factor authentication remain 100% private and protected in your hands at all times.',
+      },
+      {
+        question: 'How does the 25% Growth Guarantee work?',
+        answer:
+          'At the 90-day checkpoint, we measure your organic impressions, reach, and engagement against the baseline recorded on Day 1. If reach and engagement have not grown by at least 25%—and you have submitted raw clips on schedule—we instantly refund 25% of our management fees. It is our promise of complete accountability.',
+      },
+      {
+        question: 'Why is the guarantee tied to reach and engagement rather than direct store sales?',
+        answer:
+          'We drive thousands of qualified local shoppers and direct WhatsApp inquiries straight to your store. However, whether a customer completes a purchase depends on factors in your store: food flavor, fabric pricing, physical inventory, and in-person salesmanship. By tying the guarantee to verified reach and engagement, you get guaranteed marketing performance without vague promises.',
+      },
+      {
+        question: 'How much time do I need to spend shooting videos if I choose a remote plan?',
+        answer:
+          'Under 45 to 60 minutes per week. We provide detailed, foolproof shot-lists (e.g., "Hold phone horizontally, pan across saree border for 5 seconds; film steam rising from momo basket for 4 seconds"). Any staff member can film the clips using an everyday smartphone and upload them to our shared Drive folder.',
+      },
+      {
+        question: 'How does the automated DM-to-WhatsApp funnel work in the Lead Engine plan?',
+        answer:
+          'When an interested viewer comments on a Reel with a trigger keyword (such as "MENU", "PRICE", or "ORDER"), our automated system immediately sends them a private Instagram DM with the details and a one-tap link to continue the conversation with your sales team on WhatsApp Business. Every lead is simultaneously recorded in a central Google Sheet with instant email notifications.',
+      },
+      {
+        question: 'Can you handle multi-outlet restaurant chains or custom commercial video shoots?',
+        answer:
+          'Yes. For multi-branch cafes, restaurant franchises, jewelry houses, or regional retail brands requiring weekly on-site film crews, drone videography, and multi-location Google Business Profile management, we provide custom enterprise packages. Contact our team for a tailored proposal.',
       },
     ],
     order: 8,
@@ -726,7 +1010,7 @@ export default function Services({ initialSlug }) {
     seoTitle = currentService.meta_title || `${currentService.title} | OpenMNC`
     seoDesc = currentService.meta_description || currentService.description?.slice(0, 160) || ''
     seoCanonical = `/services/${currentService.slug}`
-    seoKeywords = `${currentService.title}, OpenMNC, ${currentService.slug}, app engineering, software solutions`
+    seoKeywords = currentService.meta_keywords || `${currentService.title}, OpenMNC, ${currentService.slug}, app engineering, software solutions`
   }
 
   const dynamicSchemas = []
@@ -845,7 +1129,16 @@ export default function Services({ initialSlug }) {
                           </div>
 
                           <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2 leading-tight">
-                            {service.title}
+                            {service.h1_heading && resolvedSlug === service.slug ? (
+                              <>
+                                <span className="block text-xs uppercase tracking-wider text-cyan-neon font-bold mb-1.5">
+                                  {service.title}
+                                </span>
+                                <span>{service.h1_heading}</span>
+                              </>
+                            ) : (
+                              service.title
+                            )}
                           </h2>
                           {service.tagline && (
                             <p className="text-cyan-neon text-xs sm:text-sm font-semibold italic mb-4">
@@ -862,13 +1155,51 @@ export default function Services({ initialSlug }) {
                           {service.supported_tools && (
                             <div className="mb-6 p-4 rounded-xl bg-white/5 border border-white/10">
                               <span className="text-[11px] uppercase tracking-wider font-bold text-gray-400 block mb-2">
-                                Supported Stacks &amp; AI Tools:
+                                Supported Stacks &amp; Platforms:
                               </span>
                               <div className="flex flex-wrap gap-1.5">
                                 {service.supported_tools.map((tool) => (
                                   <span key={tool} className="px-2.5 py-1 rounded-lg text-xs font-medium bg-cyan-neon/10 text-cyan-neon border border-cyan-neon/20">
                                     {tool}
                                   </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Target Local Industries (Who We Target) */}
+                          {service.target_industries && service.target_industries.length > 0 && (
+                            <div className="mb-8">
+                              <h3 className="text-xs font-bold uppercase tracking-wider text-cyan-neon mb-3 flex items-center gap-2">
+                                <Store className="w-3.5 h-3.5" aria-hidden="true" />
+                                <span>Ideal Client Profiles We Transform:</span>
+                              </h3>
+                              <div className="space-y-3">
+                                {service.target_industries.map((ind, ii) => (
+                                  <div key={ii} className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-neon/30 transition-all">
+                                    <div className="flex items-center justify-between gap-2 mb-2">
+                                      <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                                        {ii === 0 && <Utensils className="w-3.5 h-3.5 text-amber-400 shrink-0" aria-hidden="true" />}
+                                        {ii === 1 && <ShoppingBag className="w-3.5 h-3.5 text-pink-400 shrink-0" aria-hidden="true" />}
+                                        {ii === 2 && <Store className="w-3.5 h-3.5 text-cyan-neon shrink-0" aria-hidden="true" />}
+                                        <span>{ind.title}</span>
+                                      </h4>
+                                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/10 text-cyan-neon border border-cyan-neon/20">
+                                        {ind.tag}
+                                      </span>
+                                    </div>
+                                    <div className="space-y-1 text-[11px] leading-relaxed">
+                                      <p className="text-red-300/90">
+                                        <strong className="text-red-400 font-semibold">The Core Problem: </strong>{ind.pain}
+                                      </p>
+                                      <p className="text-emerald-300/90">
+                                        <strong className="text-emerald-400 font-semibold">Our Organic Fix: </strong>{ind.solution}
+                                      </p>
+                                    </div>
+                                    <div className="mt-2 pt-2 border-t border-white/5 text-[10px] text-gray-400 italic">
+                                      Example: {ind.example}
+                                    </div>
+                                  </div>
                                 ))}
                               </div>
                             </div>
@@ -1003,7 +1334,9 @@ export default function Services({ initialSlug }) {
                             {service.title}
                           </h3>
                           <p className="text-center text-gray-400 text-xs mb-6">
-                            Fixed scope milestone or dedicated senior engineers
+                            {service.slug === 'social-media-management'
+                              ? 'Zero ad spend burn • Organic reach & footfall engine'
+                              : 'Fixed scope milestone or dedicated senior engineers'}
                           </p>
 
                           <div className="space-y-3 pt-4 border-t border-white/10">
@@ -1011,7 +1344,9 @@ export default function Services({ initialSlug }) {
                               to={`/contact?intent=b2b&service=${service.slug}`}
                               className="w-full block py-3 rounded-xl bg-cyan-neon text-navy-950 font-bold text-xs sm:text-sm text-center shadow-cyan-glow hover:scale-[1.02] active:scale-[0.98] transition-all"
                             >
-                              Request Project Proposal →
+                              {service.slug === 'social-media-management'
+                                ? 'Schedule Free Social Growth Call →'
+                                : 'Request Project Proposal →'}
                             </Link>
 
                             <a
@@ -1027,15 +1362,31 @@ export default function Services({ initialSlug }) {
                             </a>
 
                             <div className="pt-3 text-[11px] text-gray-400 space-y-1.5 border-t border-white/5">
-                              <p className="flex items-center gap-1.5">
-                                <span className="text-cyan-neon">✓</span> 100% IP &amp; Code Ownership Stays With You
-                              </p>
-                              <p className="flex items-center gap-1.5">
-                                <span className="text-cyan-neon">✓</span> Strict Mutual NDA Before Code Sharing
-                              </p>
-                              <p className="flex items-center gap-1.5">
-                                <span className="text-cyan-neon">✓</span> Direct Senior Engineering Communication
-                              </p>
+                              {service.slug === 'social-media-management' ? (
+                                <>
+                                  <p className="flex items-center gap-1.5">
+                                    <span className="text-cyan-neon">✓</span> 100% Privacy-First Meta Business Suite Access
+                                  </p>
+                                  <p className="flex items-center gap-1.5">
+                                    <span className="text-cyan-neon">✓</span> Zero Password Sharing — Account Stays 100% Safe
+                                  </p>
+                                  <p className="flex items-center gap-1.5">
+                                    <span className="text-cyan-neon">✓</span> Backed by Accountable 25% Growth Guarantee
+                                  </p>
+                                </>
+                              ) : (
+                                <>
+                                  <p className="flex items-center gap-1.5">
+                                    <span className="text-cyan-neon">✓</span> 100% IP &amp; Code Ownership Stays With You
+                                  </p>
+                                  <p className="flex items-center gap-1.5">
+                                    <span className="text-cyan-neon">✓</span> Strict Mutual NDA Before Code Sharing
+                                  </p>
+                                  <p className="flex items-center gap-1.5">
+                                    <span className="text-cyan-neon">✓</span> Direct Senior Engineering Communication
+                                  </p>
+                                </>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -1043,6 +1394,215 @@ export default function Services({ initialSlug }) {
                     </div>
 
                   </div>
+
+                  {/* ══════ FULL-WIDTH 4-TIER PRICING PACKAGE MATRIX ══════ */}
+                  {service.pricing_packages && service.pricing_packages.length > 0 && (
+                    <div className="mt-12 pt-10 border-t border-white/10">
+                      <div className="text-center max-w-3xl mx-auto mb-10">
+                        <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-neon/10 text-cyan-neon border border-cyan-neon/20 inline-flex items-center gap-1.5 mb-3">
+                          <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+                          <span>Transparent Package &amp; Deliverables Structure</span>
+                        </span>
+                        <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-2">
+                          Select Your Organic Growth Engine
+                        </h3>
+                        <p className="text-xs sm:text-sm text-gray-400">
+                          Zero hidden agency markups. 100% privacy-first Meta Business Suite delegation. Backed by our accountable 90-day 25% Growth Guarantee.
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+                        {service.pricing_packages.map((pkg, pi) => (
+                          <div
+                            key={pi}
+                            className={`rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 relative ${
+                              pkg.highlight
+                                ? 'bg-gradient-to-b from-cyan-neon/15 via-white/5 to-white/5 border-2 border-cyan-neon shadow-cyan-glow scale-[1.02]'
+                                : 'bg-white/5 border border-white/10 hover:border-white/20'
+                            }`}
+                          >
+                            {pkg.highlight && (
+                              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-cyan-neon text-navy-950 text-[10px] font-black uppercase tracking-wider shadow-md whitespace-nowrap">
+                                {pkg.badge}
+                              </div>
+                            )}
+
+                            <div>
+                              {!pkg.highlight && (
+                                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-gray-300 mb-3 inline-block">
+                                  {pkg.badge}
+                                </span>
+                              )}
+                              <h4 className="font-display text-lg font-bold text-white mb-1">
+                                {pkg.name}
+                              </h4>
+                              <p className="text-[11px] text-gray-400 mb-4 min-h-[32px]">
+                                {pkg.best_for}
+                              </p>
+
+                              <div className="mb-4 pb-4 border-b border-white/10">
+                                <div className="flex items-baseline gap-1">
+                                  <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                                    {pkg.monthly_price}
+                                  </span>
+                                  <span className="text-xs text-gray-400 font-medium">
+                                    {pkg.billing_period}
+                                  </span>
+                                </div>
+                                <span className="text-[10px] text-gray-400 block mt-0.5">
+                                  {pkg.quarterly_total}
+                                </span>
+                              </div>
+
+                              <div className="space-y-2 mb-4 p-3 rounded-xl bg-navy-950/50 border border-white/5 text-[11px]">
+                                <div className="flex items-center gap-1.5 text-cyan-neon font-semibold">
+                                  <TrendingUp className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                                  <span>{pkg.reels_count}</span>
+                                </div>
+                                <div className="text-gray-300 flex items-center gap-1.5">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-neon/70 shrink-0" />
+                                  <span>{pkg.posts_count}</span>
+                                </div>
+                                <div className="text-gray-300 flex items-center gap-1.5">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-neon/70 shrink-0" />
+                                  <span>{pkg.stories_count}</span>
+                                </div>
+                                <div className="text-amber-300/90 font-medium pt-1 border-t border-white/5">
+                                  {pkg.shooting_mode}
+                                </div>
+                              </div>
+
+                              <ul className="space-y-2 text-[11px] text-gray-300 mb-6">
+                                {pkg.features.map((feat, fi) => (
+                                  <li key={fi} className="flex items-start gap-2">
+                                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-neon shrink-0 mt-0.5" aria-hidden="true" />
+                                    <span className="leading-tight">{feat}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            <div className="space-y-2 pt-4 border-t border-white/10">
+                              <Link
+                                to={`/contact?intent=b2b&service=social-media-management&plan=${pkg.plan_param}`}
+                                className={`w-full block py-2.5 rounded-xl font-bold text-xs text-center transition-all ${
+                                  pkg.highlight
+                                    ? 'bg-cyan-neon text-navy-950 hover:bg-cyan-neon/90 shadow-cyan-glow'
+                                    : 'bg-white/10 text-white hover:bg-white/20'
+                                }`}
+                              >
+                                {pkg.cta_text} →
+                              </Link>
+                              <a
+                                href={whatsappUrl(
+                                  '918509684056',
+                                  `Hi Amit! I want to start with the ${pkg.name} plan (${pkg.monthly_price}/mo) for my business social media.`
+                                )}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full block py-2 rounded-xl text-center text-[11px] font-medium text-emerald-400 hover:text-emerald-300 hover:bg-emerald-950/30 transition-all border border-emerald-500/20"
+                              >
+                                Inquire on WhatsApp
+                              </a>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ══════ FULL-WIDTH 90-DAY REALISTIC GROWTH TIMELINE ══════ */}
+                  {service.timeline_phases && service.timeline_phases.length > 0 && (
+                    <div className="mt-12 pt-10 border-t border-white/10">
+                      <div className="text-center max-w-2xl mx-auto mb-8">
+                        <span className="text-xs font-bold uppercase tracking-wider text-amber-glow flex items-center justify-center gap-1.5 mb-2">
+                          <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+                          <span>Transparent Algorithm Timeline</span>
+                        </span>
+                        <h3 className="font-display text-2xl font-bold text-white mb-2">
+                          What To Expect in 90 Days (No Fake Hype)
+                        </h3>
+                        <p className="text-xs sm:text-sm text-gray-400">
+                          Organic growth is compounding, not an overnight lottery ticket. Here is the realistic trajectory as Meta's algorithm indexes your brand.
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        {service.timeline_phases.map((ph, phi) => (
+                          <div
+                            key={phi}
+                            className="p-5 rounded-2xl bg-white/5 border border-white/10 relative overflow-hidden"
+                          >
+                            <div className="flex items-center justify-between gap-2 mb-2">
+                              <span className="text-xs font-bold text-amber-glow uppercase tracking-wider">
+                                {ph.phase}
+                              </span>
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-neon/10 text-cyan-neon border border-cyan-neon/20">
+                                {ph.metric}
+                              </span>
+                            </div>
+                            <h4 className="text-sm font-bold text-white mb-2">
+                              {ph.title}
+                            </h4>
+                            <p className="text-[11px] text-gray-300 leading-relaxed mb-3">
+                              {ph.desc}
+                            </p>
+                            <div className="pt-3 border-t border-white/5 text-[11px] text-emerald-300/90 leading-tight">
+                              <strong className="text-emerald-400 font-semibold">Expected Reality: </strong>
+                              {ph.expectation}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ══════ FULL-WIDTH 25% GROWTH GUARANTEE CARD ══════ */}
+                  {service.growth_guarantee && (
+                    <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 backdrop-blur-xl relative overflow-hidden">
+                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-6 border-b border-emerald-500/20">
+                        <div className="flex items-center gap-3">
+                          <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                            <ShieldCheck className="w-7 h-7" aria-hidden="true" />
+                          </div>
+                          <div>
+                            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 inline-block mb-1">
+                              {service.growth_guarantee.checkpoint}
+                            </span>
+                            <h3 className="font-display text-xl sm:text-2xl font-bold text-white">
+                              {service.growth_guarantee.title}
+                            </h3>
+                          </div>
+                        </div>
+                        <span className="text-xs text-emerald-300 font-medium bg-emerald-950/60 px-3.5 py-1.5 rounded-xl border border-emerald-500/30">
+                          100% Accountable • Zero Fluff
+                        </span>
+                      </div>
+
+                      <p className="text-xs sm:text-sm text-gray-200 leading-relaxed mb-6">
+                        {service.growth_guarantee.summary}
+                      </p>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <div className="p-4 rounded-xl bg-black/30 border border-emerald-500/20">
+                          <h4 className="text-xs font-bold text-emerald-400 mb-1">
+                            Why Reach &amp; Engagement Instead of Direct Sales?
+                          </h4>
+                          <p className="text-[11px] text-gray-300 leading-relaxed">
+                            {service.growth_guarantee.why_reach}
+                          </p>
+                        </div>
+                        <div className="p-4 rounded-xl bg-black/30 border border-emerald-500/20">
+                          <h4 className="text-xs font-bold text-amber-300 mb-1">
+                            The Mutual Partnership Condition
+                          </h4>
+                          <p className="text-[11px] text-gray-300 leading-relaxed">
+                            {service.growth_guarantee.condition}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </article>
               )
             })}

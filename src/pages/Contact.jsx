@@ -27,6 +27,7 @@ export default function Contact() {
   const [searchParams] = useSearchParams()
   const initialIntent = searchParams.get('intent') === 'student' ? 'student' : 'b2b'
   const initialService = searchParams.get('service') || ''
+  const initialPlan = searchParams.get('plan') || ''
   const aiReferral = searchParams.get('ref') || searchParams.get('source') || ''
 
   const [activeTab, setActiveTab] = useState(initialIntent)
@@ -67,6 +68,13 @@ export default function Contact() {
       setValue('service_interest', initialService)
     }
   }, [initialService, setValue])
+
+  useEffect(() => {
+    if (initialPlan) {
+      const formattedPlan = initialPlan.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+      setValue('message', `Inquiring about ${formattedPlan} plan for Social Media Management & Organic Growth.`)
+    }
+  }, [initialPlan, setValue])
 
   async function onSubmit(data) {
     setSubmitState('submitting')

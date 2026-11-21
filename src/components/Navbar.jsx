@@ -241,6 +241,24 @@ export default function Navbar() {
                         </Link>
                       ))}
                     </div>
+                    <div className="pt-1.5 mt-1 border-t border-white/6">
+                      <Link
+                        to="/services/social-media-management"
+                        className="block p-2 rounded-xl hover:bg-white/6 transition-colors group"
+                      >
+                        <div className="flex items-center justify-between mb-0.5">
+                          <span className="text-xs font-medium text-[#f5f5f7] group-hover:text-emerald-400 transition-colors">
+                            Social Media &amp; Reels Growth
+                          </span>
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold uppercase">
+                            Organic
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-[#86868b] leading-tight line-clamp-1">
+                          Hook-Retention-CTA reels, audio denoising &amp; WhatsApp walk-ins
+                        </p>
+                      </Link>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -395,6 +413,12 @@ export default function Navbar() {
                           {s.label}
                         </Link>
                       ))}
+                      <Link
+                        to="/services/social-media-management"
+                        className="block text-xs text-emerald-400 hover:text-emerald-300 font-medium py-1 transition-colors"
+                      >
+                        Social Media &amp; Reels Growth →
+                      </Link>
                     </div>
                   )}
                 </div>

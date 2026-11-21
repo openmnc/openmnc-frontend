@@ -13,6 +13,7 @@ const FOOTER_SECTIONS = [
       { label: 'App Transfer & Database Migration', to: '/services/app-transfer-and-database-migration' },
       { label: 'Scalable Custom Software Dev', to: '/services/custom-software-and-scalable-app-development' },
       { label: 'App Maintenance & Support (AMC)', to: '/services/app-maintenance-and-support' },
+      { label: 'Social Media & Reels Growth', to: '/services/social-media-management' },
       { label: 'All Services Overview Hub', to: '/services' },
     ],
   },
