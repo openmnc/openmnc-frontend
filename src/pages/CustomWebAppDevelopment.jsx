@@ -1,4 +1,4 @@
-import { useState, useId } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
@@ -17,16 +17,11 @@ import {
   QrCode,
   CheckCircle2,
   DollarSign,
-  Layers,
-  ArrowUpRight,
   Lock,
   Cpu,
   ShoppingBag,
-  Flame,
 } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
-import ThreeBackground from '../components/ThreeBackground.jsx'
-import GlowButton from '../components/GlowButton.jsx'
 import { whatsappUrl } from '../utils/helpers.js'
 
 // FAQ Data from Blueprint
@@ -49,7 +44,6 @@ const AEO_FAQS = [
   },
 ]
 
-// Structured Data for Google & AI Engine Optimization (AEO)
 const customWebAppServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -117,10 +111,10 @@ export default function CustomWebAppDevelopment() {
   
   // Interactive Monthly Math Simulator
   const [monthlySales, setMonthlySales] = useState(400000)
-  const [repeatRatio, setRepeatRatio] = useState(50) // percentage shifting to direct
+  const [repeatRatio, setRepeatRatio] = useState(50)
+  const [aggregatorRate, setAggregatorRate] = useState(28)
 
-  // Dynamic calculations based on formula
-  const aggregatorCutPct = 0.28
+  const aggregatorCutPct = aggregatorRate / 100
   const directDiscountPct = 0.10
 
   const pureAggregatorCommission = Math.round(monthlySales * aggregatorCutPct)
@@ -148,16 +142,13 @@ export default function CustomWebAppDevelopment() {
       />
 
       {/* ══════════════════════════════════════════════════════════════════ */}
-      {/* SECTION A: HERO SECTION (ABOVE THE FOLD)                           */}
+      {/* SECTION A: HERO SECTION (LIGHT-FIRST EDITORIAL)                     */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section
-        className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-hero-gradient pt-28 pb-20"
+        className="relative min-h-[85vh] flex items-center justify-center overflow-x-clip bg-canvas pt-32 pb-20"
         aria-label="Custom Web & App Solutions Hero"
       >
-        <ThreeBackground section="hero" />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#000000]/60 to-[#000000] pointer-events-none" aria-hidden="true" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-gradient-radial from-[#2997ff]/12 via-[#ff9500]/6 to-transparent blur-3xl pointer-events-none" aria-hidden="true" />
+        <div className="absolute inset-0 bg-ambient-mesh pointer-events-none" />
 
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Eyebrow Pill */}
@@ -165,9 +156,9 @@ export default function CustomWebAppDevelopment() {
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#2997ff]/30 bg-[#2997ff]/10 text-[#2997ff] text-xs font-semibold tracking-wider uppercase mb-7 shadow-sm"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-brand-primary/20 bg-brand-primary/10 text-brand-primary text-xs font-bold tracking-wider uppercase mb-7 shadow-sm font-mono"
           >
-            <Percent className="w-3.5 h-3.5 text-[#2997ff]" aria-hidden="true" />
+            <Percent className="w-3.5 h-3.5 text-brand-primary" aria-hidden="true" />
             <span>Zero Commission Leaks · 100% Customer Data Ownership</span>
           </motion.div>
 
@@ -176,9 +167,9 @@ export default function CustomWebAppDevelopment() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.1 }}
-            className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.12] tracking-tight text-white mb-6"
+            className="type-h1 text-ink-primary max-w-4xl mx-auto mb-6"
           >
-            Stop Paying <span className="text-[#ff9500]">30% Rent</span> on Your Own Customers.
+            Stop Paying <span className="text-amber-600">30% Rent</span> on Your Own Customers.
           </motion.h1>
 
           {/* Subheadline */}
@@ -186,7 +177,7 @@ export default function CustomWebAppDevelopment() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.22 }}
-            className="text-[#d2d2d7] text-base sm:text-xl leading-relaxed max-w-3xl mx-auto mb-10 font-normal"
+            className="type-body text-ink-secondary text-base sm:text-xl leading-relaxed max-w-3xl mx-auto mb-10"
           >
             Marketplaces like Swiggy, Zomato, Amazon, and Flipkart are great for finding new buyers—but
             terrible for keeping them. We engineer custom ordering websites and mobile apps that turn
@@ -200,19 +191,18 @@ export default function CustomWebAppDevelopment() {
             transition={{ duration: 0.6, delay: 0.35 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <GlowButton
+            <Link
               to="/contact?intent=b2b&service=custom-web-app-development"
-              variant="primary"
-              className="text-xs sm:text-sm px-7 py-4 font-semibold tracking-wide"
+              className="px-7 py-4 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white text-xs sm:text-sm font-bold uppercase tracking-wider shadow-md transition-all text-center"
             >
               Calculate Your Commission Savings (Book a Free Strategy Call) →
-            </GlowButton>
+            </Link>
             <a
               href="#cloud-kitchen-math"
-              className="px-6 py-3.5 rounded-xl text-xs sm:text-sm font-medium text-white/90 hover:text-white bg-white/6 hover:bg-white/10 border border-white/12 transition-all flex items-center gap-2"
+              className="px-6 py-3.5 rounded-xl text-xs sm:text-sm font-semibold text-ink-primary bg-surface hover:bg-subtle border border-hairline shadow-sm transition-all flex items-center gap-2"
             >
               <span>See the Cloud Kitchen Math</span>
-              <span className="text-[#2997ff]">↓</span>
+              <span className="text-brand-primary">↓</span>
             </a>
           </motion.div>
 
@@ -221,23 +211,23 @@ export default function CustomWebAppDevelopment() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.55 }}
-            className="mt-12 pt-8 border-t border-white/8 grid grid-cols-2 md:grid-cols-4 gap-4 text-left max-w-4xl mx-auto"
+            className="mt-12 pt-8 border-t border-hairline grid grid-cols-2 md:grid-cols-4 gap-4 text-left max-w-4xl mx-auto"
           >
             <div className="flex items-center gap-2.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span className="text-xs text-gray-300">Save 20%–30% Commissions</span>
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span className="type-caption text-ink-secondary font-medium">Save 20%–30% Commissions</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <Database className="w-4 h-4 text-[#2997ff] shrink-0" />
-              <span className="text-xs text-gray-300">100% Direct Customer Data</span>
+              <Database className="w-4 h-4 text-brand-primary shrink-0" />
+              <span className="type-caption text-ink-secondary font-medium">100% Direct Customer Data</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span className="text-xs text-gray-300">Zero-Cost WhatsApp Retargeting</span>
+              <MessageSquare className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span className="type-caption text-ink-secondary font-medium">Zero-Cost WhatsApp Retargeting</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <Lock className="w-4 h-4 text-[#ff9500] shrink-0" />
-              <span className="text-xs text-gray-300">Full Code &amp; IP Ownership</span>
+              <Lock className="w-4 h-4 text-amber-600 shrink-0" />
+              <span className="type-caption text-ink-secondary font-medium">Full Code &amp; IP Ownership</span>
             </div>
           </motion.div>
         </div>
@@ -247,20 +237,20 @@ export default function CustomWebAppDevelopment() {
       {/* SECTION B: THE PROFIT LEAK (WHY AGGREGATORS KEEP YOU STUCK)        */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section
-        className="py-20 px-4 bg-[#0a0a0c] border-y border-white/6"
+        className="py-20 px-4 bg-subtle border-y border-hairline"
         aria-label="The Profit Leak"
       >
-        <div className="max-w-5xl mx-auto">
+        <div className="section-container max-w-5xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs font-bold text-[#ff9500] uppercase tracking-wider block mb-2">
+            <span className="type-meta text-amber-700 font-bold uppercase tracking-wider block mb-2 font-mono">
               The Aggregator Middleman Tax
             </span>
-            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-4">
+            <h2 className="type-h2 text-ink-primary mb-4">
               Great Food &amp; Great Products Deserve Better Margins
             </h2>
-            <p className="text-[#a1a1a6] text-sm sm:text-base leading-relaxed">
+            <p className="type-body text-ink-secondary text-sm sm:text-base leading-relaxed">
               If your cloud kitchen, restaurant, D2C brand, or pharma business is generating{' '}
-              <span className="text-white font-semibold">₹2 Lakh to ₹10 Lakh+</span> in monthly sales on
+              <span className="text-ink-primary font-bold">₹2 Lakh to ₹10 Lakh+</span> in monthly sales on
               third-party platforms, you already have a winning product. The problem isn&apos;t demand—it&apos;s
               the middleman tax:
             </p>
@@ -268,59 +258,59 @@ export default function CustomWebAppDevelopment() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Card 1 */}
-            <div className="p-7 rounded-2xl bg-[#161618] border border-white/10 hover:border-red-500/40 transition-all group flex flex-col justify-between">
+            <div className="p-7 rounded-3xl bg-surface border border-hairline hover:border-red-500/40 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mb-5 text-red-400 font-bold text-lg">
+                <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-200 flex items-center justify-center mb-5 text-red-600 font-bold text-lg font-mono">
                   30%
                 </div>
-                <h3 className="font-display text-lg font-bold text-white mb-2 group-hover:text-red-400 transition-colors">
+                <h3 className="type-h3 text-ink-primary mb-2 group-hover:text-red-600 transition-colors">
                   20% to 30% Commission Cut
                 </h3>
-                <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+                <p className="type-caption text-ink-secondary leading-relaxed">
                   Every time a loyal customer reorders your food or product, you still pay the platform as if
                   they were a brand-new buyer. Why pay rent repeatedly for customers who already love you?
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-white/6 text-[11px] text-red-400/90 font-medium flex items-center gap-1.5">
+              <div className="mt-6 pt-4 border-t border-hairline type-caption text-red-700 font-semibold flex items-center gap-1.5">
                 <span>Leaking ₹30k–₹1L+ monthly profit</span>
               </div>
             </div>
 
             {/* Card 2 */}
-            <div className="p-7 rounded-2xl bg-[#161618] border border-white/10 hover:border-amber-400/40 transition-all group flex flex-col justify-between">
+            <div className="p-7 rounded-3xl bg-surface border border-hairline hover:border-amber-500/40 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-5 text-amber-400">
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center mb-5 text-amber-700">
                   <Database className="w-6 h-6" />
                 </div>
-                <h3 className="font-display text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+                <h3 className="type-h3 text-ink-primary mb-2 group-hover:text-amber-700 transition-colors">
                   Zero Customer Data
                 </h3>
-                <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+                <p className="type-caption text-ink-secondary leading-relaxed">
                   Aggregators hide phone numbers, order habits, and preferences behind virtual masked numbers.
                   You cannot message, retarget, or reward your own buyers—they remain the platform&apos;s asset,
                   not yours.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-white/6 text-[11px] text-amber-400/90 font-medium flex items-center gap-1.5">
+              <div className="mt-6 pt-4 border-t border-hairline type-caption text-amber-800 font-semibold flex items-center gap-1.5">
                 <span>No direct retargeting possible</span>
               </div>
             </div>
 
             {/* Card 3 */}
-            <div className="p-7 rounded-2xl bg-[#161618] border border-white/10 hover:border-[#2997ff]/40 transition-all group flex flex-col justify-between">
+            <div className="p-7 rounded-3xl bg-surface border border-hairline hover:border-brand-primary/40 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between">
               <div>
-                <div className="w-12 h-12 rounded-xl bg-[#2997ff]/10 border border-[#2997ff]/20 flex items-center justify-center mb-5 text-[#2997ff]">
+                <div className="w-12 h-12 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center mb-5 text-brand-primary">
                   <BarChart3 className="w-6 h-6" />
                 </div>
-                <h3 className="font-display text-lg font-bold text-white mb-2 group-hover:text-[#2997ff] transition-colors">
+                <h3 className="type-h3 text-ink-primary mb-2 group-hover:text-brand-primary transition-colors">
                   Algorithm Dependency
                 </h3>
-                <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+                <p className="type-caption text-ink-secondary leading-relaxed">
                   One change in platform rankings, ad bidding, or delivery radius adjustments, and your daily
                   order count drops overnight. You are building your business on rented digital land.
                 </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-white/6 text-[11px] text-[#2997ff]/90 font-medium flex items-center gap-1.5">
+              <div className="mt-6 pt-4 border-t border-hairline type-caption text-brand-primary font-semibold flex items-center gap-1.5">
                 <span>Vulnerable to platform policy changes</span>
               </div>
             </div>
@@ -333,19 +323,19 @@ export default function CustomWebAppDevelopment() {
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section
         id="cloud-kitchen-math"
-        className="py-24 px-4 bg-[#000000] relative overflow-hidden"
+        className="py-24 px-4 bg-canvas relative overflow-hidden"
         aria-label="Cloud Kitchen Growth Hack"
       >
-        <div className="max-w-5xl mx-auto">
+        <div className="section-container max-w-5xl mx-auto">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider block mb-2">
+            <span className="type-meta text-emerald-700 font-bold uppercase tracking-wider block mb-2 font-mono">
               The &ldquo;Aha!&rdquo; Case Study
             </span>
-            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-4">
+            <h2 className="type-h2 text-ink-primary mb-4">
               Keep Swiggy &amp; Zomato for Discovery. Use Your Own Website for Profit.
             </h2>
-            <p className="text-[#a1a1a6] text-sm sm:text-base leading-relaxed">
+            <p className="type-body text-ink-secondary text-sm sm:text-base leading-relaxed">
               You don&apos;t need to quit aggregators, and you don&apos;t need to burn money on ads. Here is
               the exact system we build for local food businesses and cloud kitchens:
             </p>
@@ -353,182 +343,146 @@ export default function CustomWebAppDevelopment() {
 
           {/* 3 Growth Hack Pillars */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            <div className="p-6 rounded-2xl bg-[#161618] border border-white/10 relative">
-              <span className="text-3xl font-extrabold text-white/20 absolute top-5 right-5 font-mono">01</span>
-              <div className="w-10 h-10 rounded-xl bg-white/6 border border-white/10 flex items-center justify-center mb-4 text-[#2997ff]">
+            <div className="p-6 rounded-3xl bg-surface border border-hairline shadow-sm relative">
+              <span className="text-3xl font-extrabold text-ink-muted/30 absolute top-5 right-5 font-mono">01</span>
+              <div className="w-10 h-10 rounded-xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center mb-4 text-brand-primary">
                 <ShoppingBag className="w-5 h-5" />
               </div>
-              <h3 className="font-display text-base font-bold text-white mb-2">Acquire on Aggregators</h3>
-              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+              <h3 className="type-h3 text-ink-primary mb-2">Acquire on Aggregators</h3>
+              <p className="type-caption text-ink-secondary leading-relaxed">
                 Let Swiggy, Zomato, or Blinkit bring you first-time local customers. Treat third-party
                 platforms strictly as discovery channels.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#161618] border border-[#2997ff]/40 shadow-[0_0_25px_rgba(41,151,255,0.12)] relative">
-              <span className="text-3xl font-extrabold text-[#2997ff]/40 absolute top-5 right-5 font-mono">02</span>
-              <div className="w-10 h-10 rounded-xl bg-[#2997ff]/20 border border-[#2997ff]/40 flex items-center justify-center mb-4 text-[#2997ff]">
+            <div className="p-6 rounded-3xl bg-surface border-2 border-brand-primary shadow-md relative">
+              <span className="text-3xl font-extrabold text-brand-primary/30 absolute top-5 right-5 font-mono">02</span>
+              <div className="w-10 h-10 rounded-xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center mb-4 text-brand-primary">
                 <QrCode className="w-5 h-5" />
               </div>
-              <h3 className="font-display text-base font-bold text-white mb-2">The ₹1 Packaging Card Hack</h3>
-              <p className="text-xs sm:text-sm text-[#d2d2d7] leading-relaxed">
+              <h3 className="type-h3 text-ink-primary mb-2">The ₹1 Packaging Card Hack</h3>
+              <p className="type-caption text-ink-secondary leading-relaxed">
                 Print a simple, sharp insert card and drop it into every delivery bag:{' '}
-                <span className="text-emerald-400 font-medium">
+                <span className="text-emerald-700 font-semibold">
                   &ldquo;Loved our food? Scan this QR to order directly from our website and get a FLAT 10% OFF
                   on every order.&rdquo;
                 </span>
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#161618] border border-white/10 relative">
-              <span className="text-3xl font-extrabold text-white/20 absolute top-5 right-5 font-mono">03</span>
-              <div className="w-10 h-10 rounded-xl bg-white/6 border border-white/10 flex items-center justify-center mb-4 text-emerald-400">
+            <div className="p-6 rounded-3xl bg-surface border border-hairline shadow-sm relative">
+              <span className="text-3xl font-extrabold text-ink-muted/30 absolute top-5 right-5 font-mono">03</span>
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mb-4 text-emerald-600">
                 <TrendingUp className="w-5 h-5" />
               </div>
-              <h3 className="font-display text-base font-bold text-white mb-2">Convert &amp; Keep Forever</h3>
-              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
-                Customers love saving 10% (plus avoiding inflated menu prices and platform fees). You save the
-                25%–30% commission. Both sides win.
+              <h3 className="type-h3 text-ink-primary mb-2">Compounding Direct Loyalty</h3>
+              <p className="type-caption text-ink-secondary leading-relaxed">
+                Customers save 10% and get direct WhatsApp updates. You eliminate the 25% aggregator commission,
+                pocketing an extra 15% net profit margin on every repeat meal.
               </p>
             </div>
           </div>
 
-          {/* ══════ THE EXACT MONTHLY MATH TABLE ══════ */}
-          <div className="rounded-3xl bg-[#161618] border border-white/12 p-6 sm:p-8 shadow-2xl">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
+          {/* Real Unit Economics Calculator Card */}
+          <div className="p-6 sm:p-10 rounded-3xl bg-surface border border-hairline shadow-md">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-hairline">
               <div>
-                <span className="text-xs font-bold text-[#2997ff] uppercase tracking-wider block">
-                  The Blueprint Verification
+                <span className="type-meta text-brand-primary font-bold uppercase tracking-wider block font-mono">
+                  Interactive Unit Economics
                 </span>
-                <h3 className="font-display text-xl sm:text-2xl font-bold text-white mt-1">
-                  The Monthly Math (Example: Cloud Kitchen doing ₹4,00,000/month)
+                <h3 className="type-h2 text-ink-primary">
+                  The Cloud Kitchen Math: Live Commission Calculator
                 </h3>
               </div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 whitespace-nowrap self-start sm:self-auto">
-                <Flame className="w-3.5 h-3.5" /> +₹4,32,000 / year Extra Profit
-              </span>
+              <div className="flex items-center gap-2 type-meta font-bold px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 self-start sm:self-auto">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                <span>Simulate Your Monthly Savings</span>
+              </div>
             </div>
 
-            {/* Responsive Table Container */}
-            <div className="overflow-x-auto mt-6">
-              <table className="w-full text-left text-xs sm:text-sm">
-                <thead>
-                  <tr className="border-b border-white/10 text-[#86868b] font-medium text-xs uppercase tracking-wider">
-                    <th className="py-3 px-3">Metric</th>
-                    <th className="py-3 px-3 text-red-300">100% on Aggregators</th>
-                    <th className="py-3 px-3 text-emerald-300 bg-emerald-500/5 rounded-t-xl">
-                      Hybrid Model (50% Repeat Orders on Your Website)
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/6 text-gray-200">
-                  <tr className="hover:bg-white/2 transition-colors">
-                    <td className="py-3.5 px-3 font-medium text-white">Monthly Gross Orders</td>
-                    <td className="py-3.5 px-3 font-mono">₹4,00,000</td>
-                    <td className="py-3.5 px-3 font-mono text-emerald-400 bg-emerald-500/5">
-                      ₹4,00,000 <span className="text-[#86868b] text-xs font-sans">(₹2L Aggregator + ₹2L Direct)</span>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-white/2 transition-colors">
-                    <td className="py-3.5 px-3 font-medium text-white">Aggregator Commission (~28%)</td>
-                    <td className="py-3.5 px-3 font-mono text-red-400">-₹1,12,000</td>
-                    <td className="py-3.5 px-3 font-mono text-emerald-400 bg-emerald-500/5">
-                      -₹56,000 <span className="text-[#86868b] text-xs font-sans">(only on new/aggregator orders)</span>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-white/2 transition-colors">
-                    <td className="py-3.5 px-3 font-medium text-white">Direct Customer 10% Discount</td>
-                    <td className="py-3.5 px-3 font-mono">₹0</td>
-                    <td className="py-3.5 px-3 font-mono text-amber-400 bg-emerald-500/5">
-                      -₹20,000 <span className="text-[#86868b] text-xs font-sans">(your customer&apos;s incentive to switch)</span>
-                    </td>
-                  </tr>
-                  <tr className="hover:bg-white/2 transition-colors">
-                    <td className="py-3.5 px-3 font-medium text-white">Monthly Platform Running Cost</td>
-                    <td className="py-3.5 px-3 font-mono">₹0</td>
-                    <td className="py-3.5 px-3 font-mono text-gray-300 bg-emerald-500/5">
-                      Near-Zero <span className="text-[#86868b] text-xs font-sans">(lightweight, optimized cloud hosting)</span>
-                    </td>
-                  </tr>
-                  <tr className="border-t-2 border-white/20 font-bold bg-white/2">
-                    <td className="py-4 px-3 text-white">Net Revenue Retained</td>
-                    <td className="py-4 px-3 font-mono text-white">₹2,88,000</td>
-                    <td className="py-4 px-3 font-mono text-white text-base bg-emerald-500/10">
-                      ₹3,24,000
-                    </td>
-                  </tr>
-                  <tr className="bg-emerald-500/10 font-extrabold text-emerald-400 border-t border-emerald-500/30">
-                    <td className="py-4 px-3 text-white">Extra Profit Saved</td>
-                    <td className="py-4 px-3 text-gray-400">—</td>
-                    <td className="py-4 px-3 font-mono text-base sm:text-lg">
-                      +₹36,000 / month <span className="text-xs text-emerald-300 font-sans block sm:inline sm:ml-2">(+₹4,32,000 / year)</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            {/* Sliders */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div>
+                <label className="type-caption font-semibold text-ink-primary block mb-2">
+                  Monthly Total Sales (₹): <span className="text-brand-primary font-bold font-mono">{formatINR(monthlySales)}</span>
+                </label>
+                <input
+                  type="range"
+                  min={100000}
+                  max={2000000}
+                  step={25000}
+                  value={monthlySales}
+                  onChange={(e) => setMonthlySales(Number(e.target.value))}
+                  className="w-full accent-brand-primary cursor-pointer"
+                />
+              </div>
+
+              <div>
+                <label className="type-caption font-semibold text-ink-primary block mb-2">
+                  Aggregator Commission Cut (%): <span className="text-red-600 font-bold font-mono">{aggregatorRate}%</span>
+                </label>
+                <input
+                  type="range"
+                  min={18}
+                  max={35}
+                  step={1}
+                  value={aggregatorRate}
+                  onChange={(e) => setAggregatorRate(Number(e.target.value))}
+                  className="w-full accent-red-500 cursor-pointer"
+                />
+              </div>
+
+              <div>
+                <label className="type-caption font-semibold text-ink-primary block mb-2">
+                  Repeat Orders Migrated to Direct (%): <span className="text-emerald-700 font-bold font-mono">{repeatRatio}%</span>
+                </label>
+                <input
+                  type="range"
+                  min={10}
+                  max={60}
+                  step={5}
+                  value={repeatRatio}
+                  onChange={(e) => setRepeatRatio(Number(e.target.value))}
+                  className="w-full accent-emerald-600 cursor-pointer"
+                />
+              </div>
             </div>
 
-            {/* Interactive Slider Extension */}
-            <div className="mt-8 pt-6 border-t border-white/10 bg-white/2 p-5 rounded-2xl">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-semibold text-white uppercase tracking-wider">
-                  Test With Your Own Monthly Revenue:
-                </span>
-                <span className="text-sm font-bold text-[#2997ff] font-mono">
-                  {formatINR(monthlySales)} / mo
+            {/* Calculated Metrics Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-hairline">
+              <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-center sm:text-left">
+                <span className="type-meta text-red-700 font-bold block mb-1">Total Leaked to Aggregator</span>
+                <span className="text-2xl font-extrabold text-red-700 font-mono">
+                  {formatINR(pureAggregatorCommission)}/mo
                 </span>
               </div>
-              <input
-                type="range"
-                min="100000"
-                max="2000000"
-                step="50000"
-                value={monthlySales}
-                onChange={(e) => setMonthlySales(Number(e.target.value))}
-                className="w-full accent-[#2997ff] h-2 bg-white/10 rounded-lg cursor-pointer"
-                aria-label="Monthly Sales Slider"
-              />
-              <div className="flex items-center justify-between text-[11px] text-[#86868b] mt-1.5 font-mono">
-                <span>₹1,00,000</span>
-                <span>₹10,00,000</span>
-                <span>₹20,00,000</span>
+              <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center sm:text-left">
+                <span className="type-meta text-emerald-800 font-bold block mb-1">Extra Monthly Profit Saved</span>
+                <span className="text-2xl font-extrabold text-emerald-800 font-mono">
+                  +{formatINR(extraMonthlyProfit)}/mo
+                </span>
               </div>
-
-              <div className="mt-4 pt-4 border-t border-white/6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
-                <div className="p-3 rounded-xl bg-white/4">
-                  <span className="text-[11px] text-[#86868b] block">Current 28% Commission Leak</span>
-                  <span className="text-sm font-bold text-red-400 font-mono">
-                    {formatINR(pureAggregatorCommission)}/mo
-                  </span>
-                </div>
-                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
-                  <span className="text-[11px] text-emerald-400 font-medium block">Extra Monthly Profit Saved</span>
-                  <span className="text-base font-extrabold text-emerald-400 font-mono">
-                    +{formatINR(extraMonthlyProfit)}/mo
-                  </span>
-                </div>
-                <div className="p-3 rounded-xl bg-[#2997ff]/10 border border-[#2997ff]/20">
-                  <span className="text-[11px] text-[#2997ff] font-medium block">Yearly Added Bottom-Line</span>
-                  <span className="text-base font-extrabold text-[#2997ff] font-mono">
-                    +{formatINR(extraYearlyProfit)}/yr
-                  </span>
-                </div>
+              <div className="p-4 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 text-center sm:text-left">
+                <span className="type-meta text-brand-primary font-bold block mb-1">Yearly Added Bottom-Line</span>
+                <span className="text-2xl font-extrabold text-brand-primary font-mono">
+                  +{formatINR(extraYearlyProfit)}/yr
+                </span>
               </div>
             </div>
 
             {/* The Result Box */}
-            <div className="mt-8 p-5 rounded-2xl bg-gradient-to-r from-emerald-500/15 via-[#2997ff]/15 to-emerald-500/15 border border-emerald-500/30 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="mt-8 p-5 rounded-2xl bg-subtle border border-hairline flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
-                <p className="text-sm sm:text-base font-bold text-white">
+                <p className="type-h3 text-ink-primary">
                   The Result: Your custom website pays for itself within the first 2 to 3 months.
                 </p>
-                <p className="text-xs sm:text-sm text-emerald-300/90 mt-0.5">
+                <p className="type-caption text-ink-secondary mt-0.5">
                   And keeps adding ₹3L–₹5L+ in pure profit to your pocket every year after that.
                 </p>
               </div>
               <Link
                 to="/contact?intent=b2b&service=custom-web-app-development"
-                className="px-5 py-2.5 rounded-xl bg-white text-black font-bold text-xs uppercase tracking-wider hover:bg-gray-200 transition-colors shrink-0 shadow-lg"
+                className="px-6 py-3 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-bold text-xs uppercase tracking-wider transition-all shrink-0 shadow-md"
               >
                 Start Saving Now →
               </Link>
@@ -541,36 +495,36 @@ export default function CustomWebAppDevelopment() {
       {/* SECTION D: BUILT FOR D2C BRANDS, E-COMMERCE & PHARMA ENTERPRISES   */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section
-        className="py-24 px-4 bg-[#0a0a0c] border-y border-white/6"
+        className="py-24 px-4 bg-subtle border-y border-hairline"
         aria-label="Built for D2C Brands & Enterprises"
       >
-        <div className="max-w-5xl mx-auto">
+        <div className="section-container max-w-5xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs font-bold text-[#2997ff] uppercase tracking-wider block mb-2">
+            <span className="type-meta text-brand-primary font-bold uppercase tracking-wider block mb-2 font-mono">
               Beyond Food &amp; Restaurants
             </span>
-            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-4">
+            <h2 className="type-h2 text-ink-primary mb-4">
               Own Your Customers, Your Data, and Your Retargeting
             </h2>
-            <p className="text-[#a1a1a6] text-sm sm:text-base leading-relaxed">
+            <p className="type-body text-ink-secondary text-sm sm:text-base leading-relaxed">
               Selling physical products on Amazon, Flipkart, Zepto, or Blinkit—or running a
               pharmaceutical/distribution network? A custom mobile app and web platform gives you what
               marketplaces never will:{' '}
-              <span className="text-white font-semibold">total business intelligence.</span>
+              <span className="text-ink-primary font-bold">total business intelligence.</span>
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {/* 1. Complete Customer Database */}
-            <div className="p-7 rounded-2xl bg-[#161618] border border-white/10 hover:border-white/20 transition-all flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#2997ff]/10 border border-[#2997ff]/20 flex items-center justify-center text-[#2997ff] shrink-0 mt-1">
+            <div className="p-7 rounded-3xl bg-surface border border-hairline hover:border-brand-primary/30 shadow-sm transition-all flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary shrink-0 mt-1">
                 <Database className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-display text-base font-bold text-white mb-2">
+                <h3 className="type-h3 text-ink-primary mb-2">
                   Complete Customer Database
                 </h3>
-                <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+                <p className="type-caption text-ink-secondary leading-relaxed">
                   Capture verified names, phone numbers, addresses, and full order histories. No masked
                   buyer details or restricted communication walls.
                 </p>
@@ -578,15 +532,15 @@ export default function CustomWebAppDevelopment() {
             </div>
 
             {/* 2. Deep Behavioral Analytics */}
-            <div className="p-7 rounded-2xl bg-[#161618] border border-white/10 hover:border-white/20 transition-all flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0 mt-1">
+            <div className="p-7 rounded-3xl bg-surface border border-hairline hover:border-purple-500/30 shadow-sm transition-all flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700 shrink-0 mt-1">
                 <BarChart3 className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-display text-base font-bold text-white mb-2">
+                <h3 className="type-h3 text-ink-primary mb-2">
                   Deep Behavioral Analytics
                 </h3>
-                <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+                <p className="type-caption text-ink-secondary leading-relaxed">
                   Know who buys every 30 days, what products they pair together, and who only buys when a
                   discount coupon is active. Make inventory choices backed by your actual data.
                 </p>
@@ -594,15 +548,15 @@ export default function CustomWebAppDevelopment() {
             </div>
 
             {/* 3. Near-Zero Cost Retargeting */}
-            <div className="p-7 rounded-2xl bg-[#161618] border border-white/10 hover:border-white/20 transition-all flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 mt-1">
+            <div className="p-7 rounded-3xl bg-surface border border-hairline hover:border-emerald-500/30 shadow-sm transition-all flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 shrink-0 mt-1">
                 <MessageSquare className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-display text-base font-bold text-white mb-2">
+                <h3 className="type-h3 text-ink-primary mb-2">
                   Near-Zero Cost Retargeting
                 </h3>
-                <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+                <p className="type-caption text-ink-secondary leading-relaxed">
                   Stop paying marketplaces to reach your own buyers. Send targeted WhatsApp reminders, push
                   notifications, or refill alerts directly to the right customer segment at a fraction of ad
                   costs.
@@ -611,15 +565,15 @@ export default function CustomWebAppDevelopment() {
             </div>
 
             {/* 4. Direct Dispatch & Reliability */}
-            <div className="p-7 rounded-2xl bg-[#161618] border border-white/10 hover:border-white/20 transition-all flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 mt-1">
+            <div className="p-7 rounded-3xl bg-surface border border-hairline hover:border-amber-500/30 shadow-sm transition-all flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 shrink-0 mt-1">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-display text-base font-bold text-white mb-2">
+                <h3 className="type-h3 text-ink-primary mb-2">
                   Direct Dispatch &amp; Reliability
                 </h3>
-                <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+                <p className="type-caption text-ink-secondary leading-relaxed">
                   Control your packaging, delivery experience, and brand trust from checkout to doorstep. No
                   damage claims or arbitrary seller suspensions.
                 </p>
@@ -630,21 +584,21 @@ export default function CustomWebAppDevelopment() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════ */}
-      {/* SECTION E: PREMIUM ENGINEERING WITHOUT INFLATED AGENCY FEES        */}
+      {/* SECTION E: SMARTER SOFTWARE ECONOMICS (LIGHT-FIRST)                 */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section
-        className="py-24 px-4 bg-[#000000]"
+        className="py-24 px-4 bg-canvas"
         aria-label="Engineering Standards & Pricing"
       >
-        <div className="max-w-5xl mx-auto">
+        <div className="section-container max-w-5xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider block mb-2">
+            <span className="type-meta text-emerald-700 font-bold uppercase tracking-wider block mb-2 font-mono">
               Smarter Software Economics
             </span>
-            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-4">
+            <h2 className="type-h2 text-ink-primary mb-4">
               Enterprise-Grade Tech. Smart, Competitive Pricing.
             </h2>
-            <p className="text-[#a1a1a6] text-sm sm:text-base leading-relaxed">
+            <p className="type-body text-ink-secondary text-sm sm:text-base leading-relaxed">
               Most traditional software agencies charge ₹80,000 to ₹1,00,000+ for a standard business
               website—and even more for mobile apps—while handing you a slow, generic template with zero growth
               strategy.
@@ -653,42 +607,42 @@ export default function CustomWebAppDevelopment() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Pillar 1 */}
-            <div className="p-7 rounded-2xl bg-[#161618] border border-white/10 hover:border-white/20 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-[#2997ff]/10 border border-[#2997ff]/20 flex items-center justify-center text-[#2997ff] mb-4">
+            <div className="p-7 rounded-3xl bg-surface border border-hairline shadow-sm hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary mb-4">
                 <Cpu className="w-5 h-5" />
               </div>
-              <h3 className="font-display text-base font-bold text-white mb-2">
+              <h3 className="type-h3 text-ink-primary mb-2">
                 Same (or Better) Specs, Smarter Investment
               </h3>
-              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+              <p className="type-caption text-ink-secondary leading-relaxed">
                 High-speed modern architecture, custom UI/UX, secure payment gateways, and near-zero monthly
                 server overhead—priced competitively for growing Indian businesses.
               </p>
             </div>
 
             {/* Pillar 2 */}
-            <div className="p-7 rounded-2xl bg-[#161618] border border-white/10 hover:border-white/20 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-4">
+            <div className="p-7 rounded-3xl bg-surface border border-hairline shadow-sm hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700 mb-4">
                 <Sparkles className="w-5 h-5" />
               </div>
-              <h3 className="font-display text-base font-bold text-white mb-2">
+              <h3 className="type-h3 text-ink-primary mb-2">
                 Built-In SEO &amp; AI-Era Readiness
               </h3>
-              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+              <p className="type-caption text-ink-secondary leading-relaxed">
                 Every platform we ship is structured with clean code, fast load times, and semantic SEO so Google
                 and AI assistants actively discover and recommend your brand locally.
               </p>
             </div>
 
             {/* Pillar 3 */}
-            <div className="p-7 rounded-2xl bg-[#161618] border border-white/10 hover:border-white/20 transition-all">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4">
+            <div className="p-7 rounded-3xl bg-surface border border-hairline shadow-sm hover:shadow-md transition-all">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 mb-4">
                 <TrendingUp className="w-5 h-5" />
               </div>
-              <h3 className="font-display text-base font-bold text-white mb-2">
+              <h3 className="type-h3 text-ink-primary mb-2">
                 Business-First Execution
               </h3>
-              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+              <p className="type-caption text-ink-secondary leading-relaxed">
                 We don&apos;t just write code and disappear. We help you structure your discount hooks, QR
                 packaging cards, analytics dashboards, and retention loops so the software actually makes you
                 money.
@@ -699,66 +653,66 @@ export default function CustomWebAppDevelopment() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════ */}
-      {/* SECTION F: HOW WE BUILD YOUR GROWTH ENGINE                        */}
+      {/* SECTION F: DARK CONTRAST BAND 1: HOW WE BUILD (MAX 2 RULE)         */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section
-        className="py-24 px-4 bg-[#0a0a0c] border-y border-white/6"
+        className="py-24 px-4 bg-dark-band text-ink-on-dark border-y border-dark-surface shadow-2xl relative overflow-hidden"
         aria-label="3-Step Build Process"
       >
-        <div className="max-w-5xl mx-auto">
+        <div className="section-container max-w-5xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs font-bold text-[#ff9500] uppercase tracking-wider block mb-2">
+            <span className="type-meta text-amber-400 font-bold uppercase tracking-wider block mb-2 font-mono">
               Structured Roadmap
             </span>
-            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-4">
+            <h2 className="type-h2 text-ink-on-dark mb-4">
               How We Build Your Growth Engine
             </h2>
-            <p className="text-[#a1a1a6] text-sm sm:text-base">
+            <p className="type-body text-ink-on-dark-muted text-sm sm:text-base">
               A transparent, battle-tested 3-stage process from your first order audit to full customer migration:
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             {/* Step 1 */}
-            <div className="p-8 rounded-2xl bg-[#161618] border border-white/10 relative">
+            <div className="p-8 rounded-3xl bg-dark-surface border border-white/10 relative">
               <span className="text-4xl font-extrabold text-white/10 absolute top-6 right-6 font-mono">01</span>
-              <div className="w-12 h-12 rounded-xl bg-[#2997ff]/10 border border-[#2997ff]/20 flex items-center justify-center text-[#2997ff] mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-brand-primary/20 border border-brand-primary/40 flex items-center justify-center text-brand-primary mb-6">
                 <BarChart3 className="w-6 h-6" />
               </div>
-              <h3 className="font-display text-lg font-bold text-white mb-3">
+              <h3 className="type-h3 text-ink-on-dark mb-3">
                 Business &amp; Margin Audit
               </h3>
-              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+              <p className="type-caption text-ink-on-dark-muted leading-relaxed">
                 We analyze your current order volume, platform commissions, and repeat-buyer potential to map
                 out the exact ROI before a single line of code is written.
               </p>
             </div>
 
             {/* Step 2 */}
-            <div className="p-8 rounded-2xl bg-[#161618] border border-white/10 relative">
+            <div className="p-8 rounded-3xl bg-dark-surface border border-white/10 relative">
               <span className="text-4xl font-extrabold text-white/10 absolute top-6 right-6 font-mono">02</span>
-              <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400 mb-6">
                 <Smartphone className="w-6 h-6" />
               </div>
-              <h3 className="font-display text-lg font-bold text-white mb-3">
+              <h3 className="type-h3 text-ink-on-dark mb-3">
                 Custom Engineering &amp; Analytics Setup
               </h3>
-              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+              <p className="type-caption text-ink-on-dark-muted leading-relaxed">
                 We design and develop your branded website or mobile app (iOS/Android) with integrated customer
                 databases, coupon engines, and local SEO baked in from day one.
               </p>
             </div>
 
             {/* Step 3 */}
-            <div className="p-8 rounded-2xl bg-[#161618] border border-white/10 relative">
+            <div className="p-8 rounded-3xl bg-dark-surface border border-white/10 relative">
               <span className="text-4xl font-extrabold text-white/10 absolute top-6 right-6 font-mono">03</span>
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mb-6">
                 <TrendingUp className="w-6 h-6" />
               </div>
-              <h3 className="font-display text-lg font-bold text-white mb-3">
+              <h3 className="type-h3 text-ink-on-dark mb-3">
                 Launch &amp; Customer Migration
               </h3>
-              <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed">
+              <p className="type-caption text-ink-on-dark-muted leading-relaxed">
                 We help you roll out your QR insert strategy, Google Business integration, and retargeting
                 workflows so repeat orders start shifting to your platform immediately.
               </p>
@@ -766,13 +720,12 @@ export default function CustomWebAppDevelopment() {
           </div>
 
           <div className="mt-12 text-center">
-            <GlowButton
+            <Link
               to="/contact?intent=b2b&service=custom-web-app-development"
-              variant="primary"
-              className="text-xs sm:text-sm px-8 py-4 font-semibold"
+              className="inline-block px-8 py-4 rounded-xl bg-white text-ink-primary hover:bg-subtle font-bold text-xs uppercase tracking-wider shadow-lg transition-all"
             >
               Book Your Free Commission &amp; Margin Audit →
-            </GlowButton>
+            </Link>
           </div>
         </div>
       </section>
@@ -781,18 +734,18 @@ export default function CustomWebAppDevelopment() {
       {/* SECTION G: MAKING GOOGLE & AI ENGINES RECOMMEND YOU (AEO FAQ)     */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section
-        className="py-24 px-4 bg-[#000000]"
+        className="py-24 px-4 bg-canvas"
         aria-label="Frequently Asked Questions & AI Search Answers"
       >
-        <div className="max-w-4xl mx-auto">
+        <div className="section-container max-w-4xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-xs font-bold text-[#2997ff] uppercase tracking-wider block mb-2">
+            <span className="type-meta text-brand-primary font-bold uppercase tracking-wider block mb-2 font-mono">
               AEO Knowledge Base
             </span>
-            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-3">
+            <h2 className="type-h2 text-ink-primary mb-3">
               Frequently Asked Questions
             </h2>
-            <p className="text-[#a1a1a6] text-xs sm:text-sm">
+            <p className="type-body text-ink-secondary text-xs sm:text-sm">
               Authoritative answers curated for founders, Googlebot, and AI assistants (ChatGPT, Gemini,
               Perplexity):
             </p>
@@ -804,20 +757,20 @@ export default function CustomWebAppDevelopment() {
               return (
                 <div
                   key={idx}
-                  className="rounded-2xl border border-white/10 bg-[#161618] overflow-hidden transition-all duration-200"
+                  className="rounded-3xl border border-hairline bg-surface shadow-sm overflow-hidden transition-all duration-200"
                 >
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 hover:bg-white/2 transition-colors"
+                    className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 hover:bg-subtle transition-colors cursor-pointer"
                     aria-expanded={isOpen}
                   >
-                    <span className="font-display text-sm sm:text-base font-semibold text-white">
+                    <span className="type-h3 text-ink-primary">
                       {faq.q}
                     </span>
                     <ChevronDown
-                      className={`w-5 h-5 text-[#86868b] transition-transform duration-200 shrink-0 ${
-                        isOpen ? 'rotate-180 text-[#2997ff]' : ''
+                      className={`w-5 h-5 text-ink-muted transition-transform duration-200 shrink-0 ${
+                        isOpen ? 'rotate-180 text-brand-primary' : ''
                       }`}
                       aria-hidden="true"
                     />
@@ -830,7 +783,7 @@ export default function CustomWebAppDevelopment() {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="px-5 pb-6 sm:px-6 text-xs sm:text-sm text-[#a1a1a6] leading-relaxed border-t border-white/6 pt-4"
+                        className="px-5 pb-6 sm:px-6 type-body text-ink-secondary text-xs sm:text-sm leading-relaxed border-t border-hairline pt-4"
                       >
                         {faq.a}
                       </motion.div>
@@ -844,29 +797,29 @@ export default function CustomWebAppDevelopment() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════ */}
-      {/* CROSS-DISCOVERY BANNER: NEED TRAFFIC FOR YOUR NEW PLATFORM?        */}
+      {/* SECTION H: DARK CONTRAST BAND 2: CROSS-DISCOVERY BANNER            */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section
-        className="py-12 px-4 bg-[#0a0a0c] border-t border-white/8"
+        className="py-12 px-4 bg-dark-band border-t border-dark-surface text-ink-on-dark"
         aria-label="Cross-Discovery Service Link"
       >
-        <div className="max-w-4xl mx-auto">
-          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#161618] via-[#1c1c1e] to-[#161618] border border-white/12 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+        <div className="section-container max-w-4xl mx-auto">
+          <div className="p-6 sm:p-8 rounded-3xl bg-dark-surface border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
             <div className="text-center sm:text-left">
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 inline-block mb-2">
+              <span className="type-meta text-emerald-400 font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 inline-block mb-2 font-mono">
                 Cross-Vertical Growth
               </span>
-              <h3 className="font-display text-lg sm:text-xl font-bold text-white mb-1">
+              <h3 className="type-h3 text-ink-on-dark mb-1">
                 Need Traffic for Your New Platform?
               </h3>
-              <p className="text-xs sm:text-sm text-[#86868b] max-w-lg">
+              <p className="type-body text-ink-on-dark-muted text-xs sm:text-sm max-w-lg">
                 Pair your custom ordering platform with organic Hook-Retention-CTA Reels and local footfall
                 systems that drive repeat orders on autopilot.
               </p>
             </div>
             <Link
               to="/services/social-media-management"
-              className="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all whitespace-nowrap shadow-lg flex items-center gap-2 group"
+              className="px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all whitespace-nowrap shadow-lg flex items-center gap-2 group shrink-0"
             >
               <span>Explore Social Media Growth</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

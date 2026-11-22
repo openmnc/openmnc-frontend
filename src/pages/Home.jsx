@@ -15,17 +15,12 @@ import {
   TrendingUp,
   Percent,
   CheckCircle2,
-  Smartphone,
-  ChevronRight,
   Star,
-  Users,
 } from 'lucide-react'
-import ThreeBackground from '../components/ThreeBackground.jsx'
 import ServiceCard from '../components/ServiceCard.jsx'
 import StatCounter from '../components/StatCounter.jsx'
 import ScrollReveal from '../components/ScrollReveal.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
-import GlowButton from '../components/GlowButton.jsx'
 import SEO from '../components/SEO.jsx'
 import GoogleReviewModal from '../components/GoogleReviewModal.jsx'
 import { servicesApi } from '../api/services.js'
@@ -37,41 +32,40 @@ import { localBusinessSchema, b2bFaqSchema } from '../utils/jsonld.js'
 
 function CommissionLeakDiagram() {
   return (
-    <div className="w-full bg-[#0a0f1d] p-4 sm:p-5 rounded-2xl border border-blue-500/20 my-4 select-none">
-      <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-2.5 flex items-center justify-between">
+    <div className="w-full bg-subtle p-4 sm:p-5 rounded-2xl border border-hairline my-4 select-none">
+      <div className="text-[11px] font-mono text-ink-muted uppercase tracking-wider mb-2.5 flex items-center justify-between">
         <span>Commission Math Comparison</span>
-        <span className="text-red-400 font-semibold">-30% vs 0%</span>
+        <span className="text-red-500 font-semibold">-30% vs 0%</span>
       </div>
       <div className="grid grid-cols-2 gap-3 text-left">
         {/* Aggregator Route */}
-        <div className="p-3 rounded-xl bg-red-950/30 border border-red-500/20">
-          <div className="text-[11px] font-semibold text-red-400 mb-1 flex items-center gap-1">
-            <span>Aggregators</span>
+        <div className="p-3 rounded-xl bg-red-50/80 border border-red-200">
+          <div className="text-[11px] font-semibold text-red-600 mb-1">
+            Aggregators
           </div>
-          <div className="text-xs text-slate-300 font-body">₹10 Lakh GMV</div>
-          <div className="text-sm font-bold text-red-400 font-mono mt-0.5">-₹3,00,000</div>
-          <div className="text-[10px] text-slate-400 mt-1">Swiggy/Zomato cut + no customer data</div>
+          <div className="text-xs text-ink-secondary font-sans">₹10 Lakh GMV</div>
+          <div className="text-sm font-bold text-red-600 font-mono mt-0.5">-₹3,00,000</div>
+          <div className="text-[10px] text-red-500/80 mt-1">Swiggy/Zomato cut + no customer data</div>
         </div>
 
         {/* Direct Platform Route */}
-        <div className="p-3 rounded-xl bg-blue-950/40 border border-blue-500/40 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-8 h-8 bg-blue-500/10 rounded-bl-xl flex items-center justify-center">
-            <CheckCircle2 className="w-4 h-4 text-blue-400" strokeWidth={2} />
+        <div className="p-3 rounded-xl bg-blue-50/90 border border-blue-200 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-7 h-7 bg-blue-600/10 rounded-bl-xl flex items-center justify-center">
+            <CheckCircle2 className="w-3.5 h-3.5 text-brand-primary" strokeWidth={2.5} />
           </div>
-          <div className="text-[11px] font-semibold text-blue-400 mb-1">Your Direct App</div>
-          <div className="text-xs text-slate-300 font-body">₹10 Lakh GMV</div>
-          <div className="text-sm font-bold text-emerald-400 font-mono mt-0.5">₹10,00,000 Kept</div>
-          <div className="text-[10px] text-blue-300 mt-1">100% Direct Margins + WhatsApp CRM</div>
+          <div className="text-[11px] font-semibold text-brand-primary mb-1">Your Direct App</div>
+          <div className="text-xs text-ink-secondary font-sans">₹10 Lakh GMV</div>
+          <div className="text-sm font-bold text-status-success font-mono mt-0.5">₹10,00,000 Kept</div>
+          <div className="text-[10px] text-brand-primary mt-1">100% Direct Margins + WhatsApp CRM</div>
         </div>
       </div>
-      
-      {/* Animated Flow Arrow */}
-      <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-body">
-        <span className="flex items-center gap-1.5 text-blue-400 font-medium">
-          <Percent className="w-3.5 h-3.5 text-blue-400" />
+
+      <div className="mt-3 pt-2.5 border-t border-hairline flex items-center justify-between text-[11px] text-ink-muted font-sans">
+        <span className="flex items-center gap-1.5 text-brand-primary font-medium">
+          <Percent className="w-3.5 h-3.5" />
           Annual Profit Plugged: ₹12L–₹36L
         </span>
-        <span className="text-slate-500 font-mono">Zero Middleman</span>
+        <span className="font-mono text-ink-muted">Zero Middleman</span>
       </div>
     </div>
   )
@@ -79,38 +73,38 @@ function CommissionLeakDiagram() {
 
 function SocialGrowthDiagram() {
   return (
-    <div className="w-full bg-[#0a1512] p-4 sm:p-5 rounded-2xl border border-emerald-500/20 my-4 select-none">
-      <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-2.5 flex items-center justify-between">
+    <div className="w-full bg-subtle p-4 sm:p-5 rounded-2xl border border-hairline my-4 select-none">
+      <div className="text-[11px] font-mono text-ink-muted uppercase tracking-wider mb-2.5 flex items-center justify-between">
         <span>Organic Funnel Flow</span>
-        <span className="text-emerald-400 font-semibold">24/7 Engine</span>
+        <span className="text-status-success font-semibold">24/7 Engine</span>
       </div>
 
       <div className="flex items-center justify-between gap-1 sm:gap-2">
-        <div className="flex-1 p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-center">
-          <div className="text-[10px] uppercase font-mono text-slate-400">Step 1</div>
-          <div className="text-xs font-bold text-emerald-300 font-display">0-3s Hook</div>
-          <div className="text-[9px] text-slate-400 mt-0.5">High-retention reel</div>
+        <div className="flex-1 p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200 text-center">
+          <div className="text-[10px] uppercase font-mono text-ink-muted">Step 1</div>
+          <div className="text-xs font-bold text-status-success font-heading">0-3s Hook</div>
+          <div className="text-[9px] text-ink-secondary mt-0.5">High retention</div>
         </div>
-        <div className="text-emerald-500/70 text-xs font-bold">→</div>
-        <div className="flex-1 p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-center">
-          <div className="text-[10px] uppercase font-mono text-slate-400">Step 2</div>
-          <div className="text-xs font-bold text-emerald-300 font-display">Audio Denoise</div>
-          <div className="text-[9px] text-slate-400 mt-0.5">Studio quality 4K</div>
+        <div className="text-emerald-500 text-xs font-bold">→</div>
+        <div className="flex-1 p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200 text-center">
+          <div className="text-[10px] uppercase font-mono text-ink-muted">Step 2</div>
+          <div className="text-xs font-bold text-status-success font-heading">Pro Denoise</div>
+          <div className="text-[9px] text-ink-secondary mt-0.5">Studio 4K audio</div>
         </div>
-        <div className="text-emerald-500/70 text-xs font-bold">→</div>
-        <div className="flex-1 p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-center">
-          <div className="text-[10px] uppercase font-mono text-slate-400">Step 3</div>
-          <div className="text-xs font-bold text-emerald-300 font-display">Store Footfall</div>
-          <div className="text-[9px] text-slate-400 mt-0.5">WhatsApp walk-in</div>
+        <div className="text-emerald-500 text-xs font-bold">→</div>
+        <div className="flex-1 p-2.5 rounded-xl bg-emerald-50/80 border border-emerald-200 text-center">
+          <div className="text-[10px] uppercase font-mono text-ink-muted">Step 3</div>
+          <div className="text-xs font-bold text-status-success font-heading">Footfall</div>
+          <div className="text-[9px] text-ink-secondary mt-0.5">WhatsApp walk-in</div>
         </div>
       </div>
 
-      <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-body">
-        <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
-          <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
+      <div className="mt-3 pt-2.5 border-t border-hairline flex items-center justify-between text-[11px] text-ink-muted font-sans">
+        <span className="flex items-center gap-1.5 text-status-success font-medium">
+          <TrendingUp className="w-3.5 h-3.5" />
           Organic Viral Growth
         </span>
-        <span className="text-slate-500 font-mono">Zero Ad Spend Burn</span>
+        <span className="font-mono text-ink-muted">Zero Ad Spend Burn</span>
       </div>
     </div>
   )
@@ -118,35 +112,35 @@ function SocialGrowthDiagram() {
 
 function CareerGrantDiagram() {
   return (
-    <div className="w-full bg-[#181105] p-4 sm:p-5 rounded-2xl border border-amber-500/20 my-4 select-none">
-      <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-2.5 flex items-center justify-between">
+    <div className="w-full bg-subtle p-4 sm:p-5 rounded-2xl border border-hairline my-4 select-none">
+      <div className="text-[11px] font-mono text-ink-muted uppercase tracking-wider mb-2.5 flex items-center justify-between">
         <span>Direct Admission Grant</span>
-        <span className="text-amber-400 font-semibold">100% Free ₹0</span>
+        <span className="text-amber-600 font-semibold">100% Free ₹0</span>
       </div>
 
-      <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-500/30 flex items-center justify-between gap-3">
+      <div className="p-3 rounded-xl bg-amber-50/90 border border-amber-200 flex items-center justify-between gap-3">
         <div className="text-left">
-          <span className="text-[10px] uppercase font-mono text-amber-400 font-semibold block">Official Industrial Subsidy</span>
-          <span className="text-sm sm:text-base font-extrabold text-white font-display">₹3,000 – ₹10,000 Off</span>
-          <span className="text-[10px] text-slate-300 block">Direct deduction on partner college admission fees</span>
+          <span className="text-[10px] uppercase font-mono text-amber-700 font-semibold block">Official Industrial Subsidy</span>
+          <span className="text-sm sm:text-base font-extrabold text-ink-primary font-heading">₹3,000 – ₹10,000 Off</span>
+          <span className="text-[10px] text-ink-secondary block">Direct deduction on partner college admission fees</span>
         </div>
-        <div className="shrink-0 px-3 py-1.5 rounded-full bg-amber-500 text-slate-950 font-bold text-xs uppercase font-body">
+        <div className="shrink-0 px-3 py-1.5 rounded-full bg-amber-500 text-slate-950 font-bold text-xs uppercase font-sans">
           Apply ₹0
         </div>
       </div>
 
-      <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-body">
-        <span className="flex items-center gap-1.5 text-amber-400 font-medium">
-          <GraduationCap className="w-3.5 h-3.5 text-amber-400" />
+      <div className="mt-3 pt-2.5 border-t border-hairline flex items-center justify-between text-[11px] text-ink-muted font-sans">
+        <span className="flex items-center gap-1.5 text-amber-700 font-medium">
+          <GraduationCap className="w-3.5 h-3.5" />
           Zero Agent Brokerage
         </span>
-        <span className="text-slate-500 font-mono">12+ Partner Colleges</span>
+        <span className="font-mono text-ink-muted">12+ Partner Colleges</span>
       </div>
     </div>
   )
 }
 
-// ─── VISUAL MOTION LIFECYCLE DIAGRAM ─────────────────────────────────────────
+// ─── VISUAL MOTION LIFECYCLE DIAGRAM (DARK SHOWCASE BAND) ─────────────────────
 
 function EngineeringLifecycleFlow() {
   const steps = [
@@ -154,28 +148,28 @@ function EngineeringLifecycleFlow() {
       num: '01',
       title: 'Vibe Code & Security Audit',
       desc: 'Line-by-line review of AI-generated code (Cursor/Bolt). We eliminate exposed keys, secure Supabase/Firebase RLS, and fix auth crashes.',
-      color: 'border-blue-500/40 text-blue-400 bg-blue-500/10',
+      color: 'border-brand-primary/40 text-brand-accent-bright bg-brand-primary/20',
       badge: 'Security',
     },
     {
       num: '02',
       title: 'Production Architecture',
       desc: 'Scalable FastAPI, Node.js, and PostgreSQL schemas with caching and rate limiting. Built to sustain tens of thousands of simultaneous users.',
-      color: 'border-sky-500/40 text-sky-400 bg-sky-500/10',
+      color: 'border-sky-500/40 text-sky-400 bg-sky-500/20',
       badge: 'Speed & Scale',
     },
     {
       num: '03',
       title: 'App Store Review & Release',
       desc: 'Compliance with Apple Guideline 4.2 / 2.1 and Google 12-tester closed tracks. We manage reviewer responses until your app is live.',
-      color: 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10',
+      color: 'border-emerald-500/40 text-emerald-400 bg-emerald-500/20',
       badge: '100% Approval',
     },
     {
       num: '04',
       title: '24/7 SLA & AMC Support',
       desc: 'Annual OS SDK updates, third-party webhook monitoring, and immediate bug-fix response so your platform never stays down.',
-      color: 'border-amber-500/40 text-amber-400 bg-amber-500/10',
+      color: 'border-amber-500/40 text-amber-400 bg-amber-500/20',
       badge: 'Peace of Mind',
     },
   ]
@@ -185,26 +179,26 @@ function EngineeringLifecycleFlow() {
       {steps.map((st) => (
         <div
           key={st.num}
-          className="p-6 rounded-2xl bg-[#0f172a] border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
+          className="p-6 rounded-2xl bg-dark-surface border border-slate-700/80 hover:border-slate-600 transition-all flex flex-col justify-between group"
         >
           <div>
             <div className="flex items-center justify-between mb-4">
-              <span className="font-mono text-2xl font-extrabold text-slate-500 group-hover:text-blue-400 transition-colors">
+              <span className="font-mono text-2xl font-extrabold text-slate-500 group-hover:text-brand-accent-bright transition-colors">
                 {st.num}
               </span>
               <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${st.color}`}>
                 {st.badge}
               </span>
             </div>
-            <h3 className="font-display text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+            <h3 className="font-heading text-lg font-bold text-ink-on-dark mb-2 group-hover:text-brand-accent-bright transition-colors">
               {st.title}
             </h3>
-            <p className="text-slate-300 font-body text-sm leading-relaxed">
+            <p className="text-ink-on-dark-muted font-sans text-sm leading-relaxed">
               {st.desc}
             </p>
           </div>
-          <div className="pt-4 mt-4 border-t border-slate-800/80 flex items-center gap-1.5 text-xs text-slate-400 font-medium font-body">
-            <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
+          <div className="pt-4 mt-4 border-t border-slate-700/60 flex items-center gap-1.5 text-xs text-ink-on-dark-muted font-medium font-sans">
+            <CheckCircle2 className="w-3.5 h-3.5 text-brand-accent-bright" />
             <span>Standard SLA Delivery</span>
           </div>
         </div>
@@ -217,49 +211,49 @@ function EngineeringLifecycleFlow() {
 
 const QUICK_PROBLEM_ROUTER = [
   {
-    icon: <Zap className="w-6 h-6 text-blue-400" strokeWidth={1.5} aria-hidden="true" />,
+    icon: <Zap className="w-6 h-6 text-brand-primary" strokeWidth={1.5} aria-hidden="true" />,
     badge: 'Pillar 1',
     headline: 'AI-Built Code Fix',
     question: 'I built an app with AI (Cursor / Bolt / Lovable) and need it fixed & secured.',
     link: '/services/vibe-coded-app-audit-and-fixing',
     btnText: 'Audit & Fix My App →',
-    color: 'border-blue-500/30 hover:border-blue-400',
+    color: 'hover:border-brand-primary',
   },
   {
-    icon: <Rocket className="w-6 h-6 text-sky-400" strokeWidth={1.5} aria-hidden="true" />,
+    icon: <Rocket className="w-6 h-6 text-brand-accent" strokeWidth={1.5} aria-hidden="true" />,
     badge: 'Pillar 2',
     headline: 'App Store Approval',
     question: 'My app is ready (or rejected) and I need it live on Google Play & App Store.',
     link: '/services/app-store-play-store-publishing-and-approval',
     btnText: 'Get My App Approved →',
-    color: 'border-sky-400/30 hover:border-sky-400',
+    color: 'hover:border-brand-accent',
   },
   {
-    icon: <RefreshCw className="w-6 h-6 text-purple-400" strokeWidth={1.5} aria-hidden="true" />,
+    icon: <RefreshCw className="w-6 h-6 text-indigo-500" strokeWidth={1.5} aria-hidden="true" />,
     badge: 'Pillar 3',
     headline: 'App & DB Migration',
     question: 'I am buying, selling, or moving an app, database & cloud assets safely.',
     link: '/services/app-transfer-and-database-migration',
     btnText: 'Plan Safe Transfer →',
-    color: 'border-purple-500/30 hover:border-purple-500',
+    color: 'hover:border-indigo-400',
   },
   {
-    icon: <Wrench className="w-6 h-6 text-emerald-400" strokeWidth={1.5} aria-hidden="true" />,
+    icon: <Wrench className="w-6 h-6 text-status-success" strokeWidth={1.5} aria-hidden="true" />,
     badge: 'Pillar 4',
     headline: 'Custom Software & SaaS',
     question: 'I want to build a serious, scalable custom SaaS, web or mobile app from scratch.',
     link: '/services/custom-software-and-scalable-app-development',
     btnText: 'Discuss Architecture →',
-    color: 'border-emerald-400/30 hover:border-emerald-400',
+    color: 'hover:border-status-success',
   },
   {
-    icon: <ShieldCheck className="w-6 h-6 text-amber-400" strokeWidth={1.5} aria-hidden="true" />,
+    icon: <ShieldCheck className="w-6 h-6 text-amber-500" strokeWidth={1.5} aria-hidden="true" />,
     badge: 'Pillar 5',
     headline: 'Maintenance & AMC',
     question: 'I have a live app and need reliable ongoing maintenance, OS updates & bug fixing.',
     link: '/services/app-maintenance-and-support',
     btnText: 'Explore AMC Plans →',
-    color: 'border-amber-400/30 hover:border-amber-400',
+    color: 'hover:border-amber-500',
   },
 ]
 
@@ -317,17 +311,17 @@ const STATS = [
 
 const WHY_US = [
   {
-    icon: <Building2 className="w-8 h-8 text-blue-400" strokeWidth={1.5} aria-hidden="true" />,
+    icon: <Building2 className="w-8 h-8 text-brand-primary" strokeWidth={1.5} aria-hidden="true" />,
     title: 'Architecture-First Engineering',
     desc: 'No fragile shortcuts or endless AI hallucination loops. We model clean database schemas, define modular API contracts, and secure credentials before writing code.',
   },
   {
-    icon: <Lock className="w-8 h-8 text-blue-400" strokeWidth={1.5} aria-hidden="true" />,
+    icon: <Lock className="w-8 h-8 text-brand-primary" strokeWidth={1.5} aria-hidden="true" />,
     title: '100% IP & NDA Ownership',
     desc: 'Every repository commit, database table, and cloud account belongs exclusively to you under strict mutual non-disclosure agreements.',
   },
   {
-    icon: <GraduationCap className="w-8 h-8 text-amber-400" strokeWidth={1.5} aria-hidden="true" />,
+    icon: <GraduationCap className="w-8 h-8 text-amber-500" strokeWidth={1.5} aria-hidden="true" />,
     title: 'Zero-Broker Educational Support',
     desc: 'We support 12th-pass students with 100% free career counseling and direct ₹3,000–₹10,000 institutional partner college fee subsidies.',
   },
@@ -364,55 +358,53 @@ export default function Home() {
         schema={[localBusinessSchema, b2bFaqSchema]}
       />
 
-      {/* ══════ HERO SECTION (ASYNCHRONOUS HIGH-CONTRAST HEADER) ══════ */}
+      {/* ══════ SECTION 1: HERO (LIGHT-FIRST CANVAS WITH AMBIENT MESH) ══════ */}
       <section
-        className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#0B0F19] pt-28 pb-16"
+        className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-canvas bg-ambient-mesh pt-32 pb-20"
         aria-label="Hero — Welcome to OpenMNC"
       >
-        <ThreeBackground section="hero" />
-
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="section-container relative z-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-semibold tracking-wider uppercase mb-6 shadow-sm font-body"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-200 bg-blue-50/80 text-brand-primary type-eyebrow mb-6 shadow-sm"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" aria-hidden="true" />
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse" aria-hidden="true" />
             Serious Engineering Partner · Serving Founders Worldwide &amp; Across India
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-display text-4xl sm:text-6xl lg:text-[68px] font-extrabold leading-[1.12] tracking-tight mb-6 text-white"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="type-h1 mb-6 text-ink-primary max-w-4xl mx-auto"
           >
             <span>You Focus on Your Customers.</span><br />
-            <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-brand-primary via-blue-700 to-indigo-600 bg-clip-text text-transparent">
               We Handle the Engineering.
             </span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
-            className="text-slate-300 text-base sm:text-xl leading-relaxed max-w-3xl mx-auto mb-10 font-body font-normal"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="type-lead mx-auto mb-10 text-ink-secondary"
           >
             We don&apos;t just write code—we audit vibe-coded AI prototypes, conquer App Store approvals,
             manage risk-free database migrations, and maintain production-grade software for startups globally.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link
               to="/services"
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-body font-semibold text-base transition-all duration-200 shadow-[0_4px_20px_rgba(37,99,235,0.4)] hover:shadow-[0_6px_28px_rgba(37,99,235,0.5)] hover:-translate-y-0.5 active:translate-y-0 text-center"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-btn bg-brand-primary hover:bg-brand-primary-hover text-white font-sans font-semibold text-base transition-all duration-200 shadow-[0_4px_16px_rgba(37,99,235,0.35)] hover:-translate-y-0.5 active:translate-y-0 text-center"
             >
               Explore 5 Engineering Pillars →
             </Link>
@@ -420,9 +412,9 @@ export default function Home() {
               href={whatsappUrl('918509684056', 'Hi OpenMNC! I want to consult regarding my app/software project.')}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-slate-800/80 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white font-body font-medium text-base transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-btn bg-surface hover:bg-subtle border border-hairline text-ink-primary font-sans font-medium text-base transition-all flex items-center justify-center gap-2 shadow-sm"
             >
-              <MessageSquare className="w-4 h-4 text-emerald-400" strokeWidth={1.5} aria-hidden="true" />
+              <MessageSquare className="w-4 h-4 text-status-success" strokeWidth={1.5} aria-hidden="true" />
               <span>WhatsApp Senior Engineer</span>
             </a>
           </motion.div>
@@ -431,36 +423,50 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            className="mt-8 flex items-center justify-center gap-2 text-xs text-slate-400 font-body"
+            transition={{ delay: 0.5 }}
+            className="mt-8 flex items-center justify-center gap-2 text-xs text-ink-muted font-sans"
           >
             <button
               type="button"
               onClick={() => setReviewModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-800/60 border border-slate-700 hover:border-amber-400/40 text-slate-300 hover:text-white transition-all"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface border border-hairline hover:border-amber-400 text-ink-secondary hover:text-ink-primary transition-all shadow-sm"
             >
-              <span className="text-amber-400 font-bold">★ 5.0 Rating</span>
+              <span className="text-amber-500 font-bold">★ 5.0 Rating</span>
               <span>on Google Business Profile</span>
-              <span className="text-blue-400 font-semibold underline ml-1">Rate Us →</span>
+              <span className="text-brand-primary font-semibold underline ml-1">Rate Us →</span>
             </button>
           </motion.div>
         </div>
       </section>
 
-      {/* ══════ MASTER VERTICAL SILO ROUTER (WITH MOTION GRAPHICS) ══════ */}
+      {/* ══════ SECTION 2: STATS STRIP (SUBTLE BG) ══════ */}
       <section
-        className="py-20 px-4 bg-[#0a0e1a] border-y border-slate-800/80 relative"
+        className="py-12 px-4 bg-subtle border-y border-hairline"
+        aria-label="OpenMNC by the numbers"
+      >
+        <div className="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6">
+          {STATS.map((stat, i) => (
+            <ScrollReveal key={stat.label} delay={i * 0.1}>
+              <StatCounter value={stat.value} label={stat.label} />
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════ SECTION 3: BUSINESS VERTICAL SILOS (CANVAS WITH SURFACE CARDS) ══════ */}
+      <section
+        className="section-spacing bg-canvas relative"
         aria-label="Core Business Verticals"
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="section-container">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-[11px] font-bold text-blue-400 uppercase tracking-widest block mb-2 font-body">
+            <span className="type-eyebrow block mb-2">
               Clean Vertical Architecture
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-3 tracking-tight">
+            <h2 className="type-h2 mb-3">
               Explore Our Dedicated Business Verticals
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base font-body leading-relaxed">
+            <p className="type-lead mx-auto">
               We segregate our services into focused, high-authority silos so you get deep expertise with zero distraction:
             </p>
           </div>
@@ -468,33 +474,32 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Silo 1: Custom Web & App Solutions */}
             <ScrollReveal delay={0.05}>
-              <div className="p-7 rounded-3xl bg-[#0f172a] border border-blue-500/30 hover:border-blue-500 transition-all duration-300 flex flex-col justify-between h-full group shadow-lg">
+              <div className="p-7 rounded-card bg-surface border border-hairline hover:border-brand-primary/40 transition-all duration-300 flex flex-col justify-between h-full group shadow-sm hover:shadow-md">
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/30 font-body">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-50 text-brand-primary border border-blue-200 font-mono">
                       B2B Software &amp; Apps
                     </span>
-                    <span className="text-xs text-slate-500 font-mono">Silo 1</span>
+                    <span className="text-xs text-ink-muted font-mono">Silo 1</span>
                   </div>
-                  <h3 className="font-display text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+                  <h3 className="type-h3 mb-2 group-hover:text-brand-primary transition-colors">
                     Custom Web &amp; App Solutions
                   </h3>
-                  <p className="text-xs text-blue-400/90 font-medium mb-3 font-body">
+                  <p className="text-xs text-brand-primary font-medium mb-3 font-sans">
                     Target: Cloud kitchens, D2C brands, pharma, retail, SMEs
                   </p>
-                  <p className="text-slate-300 text-sm leading-relaxed font-body mb-2">
+                  <p className="type-body mb-2 text-ink-secondary">
                     Stop paying 20%–30% aggregator commissions. We engineer custom direct ordering websites, D2C mobile apps, and customer databases with 100% data ownership.
                   </p>
 
-                  {/* Motion Graphic Diagram: Commission Math */}
                   <CommissionLeakDiagram />
                 </div>
 
-                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-                  <span className="text-xs text-slate-400 font-mono">Plug 30% Margin Leaks</span>
+                <div className="pt-4 border-t border-hairline flex items-center justify-between">
+                  <span className="text-xs text-ink-muted font-mono">Plug 30% Margin Leaks</span>
                   <Link
                     to="/solutions/custom-web-app-development"
-                    className="text-xs font-bold text-blue-400 group-hover:translate-x-1 transition-transform flex items-center gap-1 font-body"
+                    className="text-xs font-bold text-brand-primary group-hover:translate-x-1 transition-transform flex items-center gap-1 font-sans"
                   >
                     Explore Solutions →
                   </Link>
@@ -504,33 +509,32 @@ export default function Home() {
 
             {/* Silo 2: Social Media Management */}
             <ScrollReveal delay={0.12}>
-              <div className="p-7 rounded-3xl bg-[#0f172a] border border-emerald-500/30 hover:border-emerald-400 transition-all duration-300 flex flex-col justify-between h-full group shadow-lg">
+              <div className="p-7 rounded-card bg-surface border border-hairline hover:border-emerald-400 transition-all duration-300 flex flex-col justify-between h-full group shadow-sm hover:shadow-md">
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-body">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-50 text-status-success border border-emerald-200 font-mono">
                       Organic Growth Engine
                     </span>
-                    <span className="text-xs text-slate-500 font-mono">Silo 2</span>
+                    <span className="text-xs text-ink-muted font-mono">Silo 2</span>
                   </div>
-                  <h3 className="font-display text-2xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+                  <h3 className="type-h3 mb-2 group-hover:text-status-success transition-colors">
                     Social Media Management
                   </h3>
-                  <p className="text-xs text-emerald-400/90 font-medium mb-3 font-body">
+                  <p className="text-xs text-status-success font-medium mb-3 font-sans">
                     Target: Cafes, bakeries, local brands, real estate
                   </p>
-                  <p className="text-slate-300 text-sm leading-relaxed font-body mb-2">
+                  <p className="type-body mb-2 text-ink-secondary">
                     Turn Instagram &amp; Facebook into a 24/7 footfall engine with Hook-Retention-CTA Reels, professional audio denoising, and direct WhatsApp walk-in workflows.
                   </p>
 
-                  {/* Motion Graphic Diagram: Social Growth Funnel */}
                   <SocialGrowthDiagram />
                 </div>
 
-                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-                  <span className="text-xs text-slate-400 font-mono">Zero Ad Spend Burn</span>
+                <div className="pt-4 border-t border-hairline flex items-center justify-between">
+                  <span className="text-xs text-ink-muted font-mono">Zero Ad Spend Burn</span>
                   <Link
                     to="/services/social-media-management"
-                    className="text-xs font-bold text-emerald-400 group-hover:translate-x-1 transition-transform flex items-center gap-1 font-body"
+                    className="text-xs font-bold text-status-success group-hover:translate-x-1 transition-transform flex items-center gap-1 font-sans"
                   >
                     Explore Social Growth →
                   </Link>
@@ -540,33 +544,32 @@ export default function Home() {
 
             {/* Silo 3: Career & Student Guidance */}
             <ScrollReveal delay={0.2}>
-              <div className="p-7 rounded-3xl bg-[#0f172a] border border-amber-500/30 hover:border-amber-400 transition-all duration-300 flex flex-col justify-between h-full group shadow-lg">
+              <div className="p-7 rounded-card bg-surface border border-hairline hover:border-amber-400 transition-all duration-300 flex flex-col justify-between h-full group shadow-sm hover:shadow-md">
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 font-body">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-mono">
                       100% Free ₹0 Guidance
                     </span>
-                    <span className="text-xs text-slate-500 font-mono">Silo 3</span>
+                    <span className="text-xs text-ink-muted font-mono">Silo 3</span>
                   </div>
-                  <h3 className="font-display text-2xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+                  <h3 className="type-h3 mb-2 group-hover:text-amber-600 transition-colors">
                     Career &amp; Student Guidance
                   </h3>
-                  <p className="text-xs text-amber-400/90 font-medium mb-3 font-body">
+                  <p className="text-xs text-amber-700 font-medium mb-3 font-sans">
                     Target: 12th-pass students &amp; parents
                   </p>
-                  <p className="text-slate-300 text-sm leading-relaxed font-body mb-2">
+                  <p className="type-body mb-2 text-ink-secondary">
                     Completely free career counseling, aptitude matching, and direct ₹3,000–₹10,000 institutional partner college fee subsidies across accredited universities.
                   </p>
 
-                  {/* Motion Graphic Diagram: Grant & Subsidy */}
                   <CareerGrantDiagram />
                 </div>
 
-                <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
-                  <span className="text-xs text-slate-400 font-mono">Partner College Grants</span>
+                <div className="pt-4 border-t border-hairline flex items-center justify-between">
+                  <span className="text-xs text-ink-muted font-mono">Partner College Grants</span>
                   <Link
                     to="/career-guidance"
-                    className="text-xs font-bold text-amber-400 group-hover:translate-x-1 transition-transform flex items-center gap-1 font-body"
+                    className="text-xs font-bold text-amber-600 group-hover:translate-x-1 transition-transform flex items-center gap-1 font-sans"
                   >
                     Visit Free Portal →
                   </Link>
@@ -577,39 +580,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════ VISUAL PROCESS LIFECYCLE SECTION (MOTION GRAPHICS) ══════ */}
-      <section className="py-20 px-4 bg-[#0B0F19]" aria-label="How OpenMNC Delivers">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-[11px] font-bold text-blue-400 uppercase tracking-widest block mb-2 font-body">
-              How We Engineer Software
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-3 tracking-tight">
-              Battle-Tested Engineering Lifecycle
-            </h2>
-            <p className="text-slate-400 text-sm sm:text-base font-body leading-relaxed">
-              Every system follows our structured 4-phase production roadmap to guarantee zero downtime and 100% code ownership:
-            </p>
-          </div>
-
-          <EngineeringLifecycleFlow />
-        </div>
-      </section>
-
-      {/* ══════ PART 4: INTERACTIVE 5-CARD QUICK PROBLEM ROUTER ══════ */}
+      {/* ══════ SECTION 4: 5-PILLAR PROBLEM SELECTOR (SUBTLE BG) ══════ */}
       <section
-        className="py-20 px-4 bg-[#0a0e1a] border-t border-slate-800/80"
+        className="section-spacing bg-subtle border-y border-hairline"
         aria-label="Quick Problem Selector"
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="section-container">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-[11px] font-bold text-blue-400 uppercase tracking-widest block mb-2 font-body">
+            <span className="type-eyebrow block mb-2">
               Instant Solution Finder
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white mb-3 tracking-tight">
+            <h2 className="type-h2 mb-3">
               Where Are You Right Now?
             </h2>
-            <p className="text-slate-400 text-sm font-body">
+            <p className="type-body text-ink-secondary mx-auto">
               Click your current technical bottleneck to land directly on the specialized solution you need:
             </p>
           </div>
@@ -619,26 +603,26 @@ export default function Home() {
               <ScrollReveal key={card.headline} delay={i * 0.08}>
                 <Link
                   to={card.link}
-                  className={`p-6 h-full flex flex-col justify-between rounded-2xl bg-[#0f172a] border ${card.color} transition-all duration-300 hover:-translate-y-1 group shadow-sm`}
+                  className={`p-6 h-full flex flex-col justify-between rounded-card bg-surface border border-hairline ${card.color} transition-all duration-300 hover:-translate-y-1 group shadow-sm`}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center shadow-sm" aria-hidden="true">
+                      <span className="w-10 h-10 rounded-xl bg-subtle border border-hairline flex items-center justify-center shadow-sm" aria-hidden="true">
                         {card.icon}
                       </span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-slate-800 text-blue-400 border border-slate-700 font-mono">
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-subtle text-brand-primary border border-hairline font-mono">
                         {card.badge}
                       </span>
                     </div>
-                    <h3 className="font-display text-base font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+                    <h3 className="type-h3 text-base mb-2 group-hover:text-brand-primary transition-colors">
                       {card.headline}
                     </h3>
-                    <p className="text-slate-300 text-xs sm:text-[13px] leading-relaxed mb-4 font-body">
+                    <p className="type-body text-xs sm:text-[13px] leading-relaxed mb-4 text-ink-secondary">
                       {card.question}
                     </p>
                   </div>
 
-                  <span className="text-xs font-bold text-blue-400 flex items-center gap-1 group-hover:translate-x-1 transition-transform font-body">
+                  <span className="text-xs font-bold text-brand-primary flex items-center gap-1 group-hover:translate-x-1 transition-transform font-sans">
                     {card.btnText}
                   </span>
                 </Link>
@@ -648,104 +632,81 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════ STATS BAR (Initial Final Values Indexed by Googlebot) ══════ */}
-      <section
-        className="py-14 px-4 bg-[#0B0F19] border-b border-slate-800/80"
-        aria-label="OpenMNC by the numbers"
-      >
-        <div className="max-w-5xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {STATS.map((stat, i) => (
-            <ScrollReveal key={stat.label} delay={i * 0.1}>
-              <StatCounter value={stat.value} label={stat.label} />
-            </ScrollReveal>
-          ))}
+      {/* ══════ CONTRAST BAND 1: VISUAL ENGINEERING LIFECYCLE (DARK BAND) ══════ */}
+      <section className="py-24 px-4 bg-dark-band" aria-label="How OpenMNC Delivers">
+        <div className="section-container">
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <span className="text-xs font-bold text-brand-accent-bright uppercase tracking-widest block mb-2 font-mono">
+              How We Engineer Software
+            </span>
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-on-dark mb-3 tracking-tight">
+              Battle-Tested Engineering Lifecycle
+            </h2>
+            <p className="text-ink-on-dark-muted text-base font-sans leading-relaxed">
+              Every system follows our structured 4-phase production roadmap to guarantee zero downtime and 100% code ownership:
+            </p>
+          </div>
+
+          <EngineeringLifecycleFlow />
         </div>
       </section>
 
-      {/* ══════ SERVICES GRID ══════ */}
+      {/* ══════ SECTION 5: GOOGLE REVIEWS SHOWCASE (SUBTLE BG) ══════ */}
       <section
-        className="section-padding bg-[#0a0e1a]"
-        aria-label="Our services"
-        id="services"
-      >
-        <div className="max-w-7xl mx-auto">
-          <SectionHeader
-            eyebrow="The 5 Engineering Pillars"
-            title="Laser-Focused Digital Product Engineering"
-            subtitle="Generic software agencies try to do everything poorly. We focus on 5 mission-critical challenges founders face when shipping real apps."
-          />
-          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.slice(0, 6).map((service, i) => (
-              <ServiceCard key={service.slug || i} service={service} index={i} />
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <Link
-              to="/services"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-slate-700 bg-slate-800/80 hover:bg-slate-800 text-white font-body font-semibold text-sm transition-all hover:border-blue-500"
-            >
-              Explore Complete Services Hub &amp; Architecture →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════ GOOGLE REVIEWS SHOWCASE ══════ */}
-      <section
-        className="section-padding bg-[#0B0F19] border-y border-slate-800/80"
+        className="section-spacing bg-subtle border-b border-hairline"
         aria-label="Client feedback"
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="section-container">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold mb-4 font-body">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-semibold mb-4 font-sans">
               <span>★ 5.0 Rated on Google Business Profile</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-3 tracking-tight">
+            <h2 className="type-h2 mb-3">
               Trusted by Founders Worldwide
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base font-body">
+            <p className="type-lead mx-auto">
               Read real client impressions or scan our Google QR code to leave a review directly:
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
             {/* Review Card 1 */}
-            <div className="p-7 rounded-3xl bg-[#0f172a] border border-slate-800 flex flex-col justify-between shadow-sm">
+            <div className="p-7 rounded-card bg-surface border border-hairline flex flex-col justify-between shadow-sm">
               <div>
-                <div className="text-amber-400 text-base mb-3">★★★★★</div>
-                <blockquote className="text-slate-200 text-sm sm:text-[15px] leading-relaxed mb-4 italic font-body">
+                <div className="text-amber-500 text-base mb-3">★★★★★</div>
+                <blockquote className="type-body text-ink-secondary italic mb-4">
                   &ldquo;Our vibe-coded app had open Supabase keys and failing Stripe webhooks. OpenMNC audited every file, locked down our RLS, and got us live on the App Store in 10 days flat.&rdquo;
                 </blockquote>
               </div>
-              <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
+              <div className="pt-4 border-t border-hairline flex items-center justify-between text-xs">
                 <div>
-                  <p className="text-white font-semibold font-display">Verified Founder</p>
-                  <p className="text-slate-400 font-body">SaaS Startup (US)</p>
+                  <p className="font-heading font-semibold text-ink-primary">Verified Founder</p>
+                  <p className="text-ink-muted font-sans">SaaS Startup (US)</p>
                 </div>
-                <span className="text-blue-400 font-mono text-[11px]">Google Review</span>
+                <span className="text-brand-primary font-mono text-[11px]">Google Review</span>
               </div>
             </div>
 
             {/* Review Card 2 */}
-            <div className="p-7 rounded-3xl bg-[#0f172a] border border-slate-800 flex flex-col justify-between shadow-sm">
+            <div className="p-7 rounded-card bg-surface border border-hairline flex flex-col justify-between shadow-sm">
               <div>
-                <div className="text-amber-400 text-base mb-3">★★★★★</div>
-                <blockquote className="text-slate-200 text-sm sm:text-[15px] leading-relaxed mb-4 italic font-body">
+                <div className="text-amber-500 text-base mb-3">★★★★★</div>
+                <blockquote className="type-body text-ink-secondary italic mb-4">
                   &ldquo;Apple rejected our app twice under Guideline 4.2. Amit and his team refactored our native wrappers, handled closed testing, and secured approval without stress.&rdquo;
                 </blockquote>
               </div>
-              <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
+              <div className="pt-4 border-t border-hairline flex items-center justify-between text-xs">
                 <div>
-                  <p className="text-white font-semibold font-display">Mobile App Creator</p>
-                  <p className="text-slate-400 font-body">FinTech Utility (UK)</p>
+                  <p className="font-heading font-semibold text-ink-primary">Mobile App Creator</p>
+                  <p className="text-ink-muted font-sans">FinTech Utility (UK)</p>
                 </div>
-                <span className="text-blue-400 font-mono text-[11px]">Google Review</span>
+                <span className="text-brand-primary font-mono text-[11px]">Google Review</span>
               </div>
             </div>
 
             {/* Google QR Card */}
-            <div className="p-7 rounded-3xl bg-[#0f172a] border border-amber-500/20 flex flex-col items-center justify-center text-center shadow-sm">
-              <div className="w-36 h-36 p-2 rounded-2xl bg-white shadow-xl mb-3 flex items-center justify-center">
+            <div className="p-7 rounded-card bg-surface border border-amber-200 flex flex-col items-center justify-center text-center shadow-sm">
+              <div className="w-36 h-36 p-2 rounded-2xl bg-white border border-hairline shadow-sm mb-3 flex items-center justify-center">
                 <img
                   src="/google-qr-framed.png"
                   alt="OPEN MNC Google QR code"
@@ -753,13 +714,13 @@ export default function Home() {
                   onError={(e) => { e.target.src = '/google-qr-code.png' }}
                 />
               </div>
-              <span className="text-xs text-slate-300 font-medium mb-3 font-body">
+              <span className="text-xs text-ink-secondary font-medium mb-3 font-sans">
                 Scan with phone camera to review us
               </span>
               <button
                 type="button"
                 onClick={() => setReviewModalOpen(true)}
-                className="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-sm font-body"
+                className="w-full py-2.5 rounded-btn bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-sm font-sans"
               >
                 Rate OPEN MNC on Google →
               </button>
@@ -768,13 +729,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════ WHY US ══════ */}
+      {/* ══════ SECTION 6: WHY US (CANVAS) ══════ */}
       <section
-        className="section-padding bg-[#0a0e1a]"
+        className="section-spacing bg-canvas"
         aria-label="Why choose OpenMNC"
         id="why-openmnc"
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="section-container">
           <SectionHeader
             eyebrow="Why OpenMNC"
             title="Engineering First. No Agency Noise."
@@ -782,17 +743,17 @@ export default function Home() {
           <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8">
             {WHY_US.map((item, i) => (
               <ScrollReveal key={item.title} delay={i * 0.15}>
-                <div className="p-8 rounded-3xl bg-[#0f172a] border border-slate-800 text-center group hover:border-blue-500/40 transition-all duration-300 shadow-sm">
+                <div className="p-8 rounded-card bg-surface border border-hairline text-center group hover:border-brand-primary/40 transition-all duration-300 shadow-sm">
                   <div
-                    className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300"
+                    className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center group-hover:bg-blue-100 transition-colors duration-300"
                     aria-hidden="true"
                   >
                     {item.icon}
                   </div>
-                  <h3 className="font-display text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                  <h3 className="type-h3 mb-3 group-hover:text-brand-primary transition-colors duration-300">
                     {item.title}
                   </h3>
-                  <p className="text-slate-300 font-body text-sm leading-relaxed">{item.desc}</p>
+                  <p className="type-body text-ink-secondary text-sm">{item.desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -800,23 +761,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════ BOTTOM CTA ══════ */}
+      {/* ══════ CONTRAST BAND 2: BOTTOM CTA (DARK BAND) ══════ */}
       <section
-        className="relative py-24 px-4 overflow-hidden bg-[#0B0F19] border-t border-slate-800"
+        className="relative py-24 px-4 overflow-hidden bg-dark-band border-t border-slate-800"
         aria-label="Call to action"
       >
         <div className="relative max-w-4xl mx-auto text-center">
           <ScrollReveal>
-            <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight leading-tight">
+            <h2 className="font-heading text-3xl sm:text-5xl font-extrabold text-ink-on-dark mb-4 tracking-tight leading-tight">
               Stop Fighting Broken Code. Ship With Senior Engineers.
             </h2>
-            <p className="text-slate-300 font-body text-base sm:text-lg mb-8 max-w-xl mx-auto leading-relaxed">
+            <p className="text-ink-on-dark-muted font-sans text-base sm:text-lg mb-8 max-w-xl mx-auto leading-relaxed">
               Book a discovery call with founder Amit Barai. We sign an NDA, audit your requirements, and ship with speed.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 to="/contact"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-body font-semibold text-base transition-all duration-200 shadow-[0_4px_20px_rgba(37,99,235,0.4)] text-center"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-btn bg-brand-primary hover:bg-brand-primary-hover text-white font-sans font-semibold text-base transition-all duration-200 shadow-[0_4px_20px_rgba(37,99,235,0.4)] text-center"
               >
                 Book a Free Discovery Call →
               </Link>
@@ -824,9 +785,9 @@ export default function Home() {
                 href={whatsappUrl('918509684056', 'Hi Amit! I want to discuss my app project.')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-8 py-4 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 hover:text-white font-body font-medium text-base transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-btn bg-dark-surface hover:bg-slate-700 border border-slate-700 text-ink-on-dark font-sans font-medium text-base transition-all flex items-center justify-center gap-2"
               >
-                <MessageSquare className="w-4 h-4 text-emerald-400" strokeWidth={1.5} aria-hidden="true" />
+                <MessageSquare className="w-4 h-4 text-status-success" strokeWidth={1.5} aria-hidden="true" />
                 <span>WhatsApp Chat</span>
               </a>
             </div>

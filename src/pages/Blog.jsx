@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Search, Newspaper } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal.jsx'
-import ThreeBackground from '../components/ThreeBackground.jsx'
 import SEO from '../components/SEO.jsx'
 import { blogsApi } from '../api/blogs.js'
 import { formatDate } from '../utils/helpers.js'
@@ -107,23 +106,23 @@ export default function Blog() {
         canonical="/blog"
       />
 
-      {/* Hero Header */}
-      <section className="relative pt-36 pb-16 px-4 bg-black overflow-hidden" aria-label="OpenMNC Newsroom">
-        <ThreeBackground section="hero" className="opacity-20" />
+      {/* Hero Header (Light-First Editorial) */}
+      <section className="relative pt-32 sm:pt-40 pb-16 sm:pb-20 px-4 bg-canvas overflow-x-clip" aria-label="OpenMNC Newsroom">
+        <div className="absolute inset-0 bg-ambient-mesh pointer-events-none" />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-[#2997ff] mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#2997ff]" />
+          <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-primary/10 border border-brand-primary/20 text-brand-primary mb-5">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse" />
             Editorial Newsroom &amp; Architecture Guides
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#f5f5f7] tracking-tight mb-6">
+          <h1 className="type-h1 text-ink-primary mb-5">
             Engineering Playbooks &amp; Insights
           </h1>
-          <p className="text-[#a1a1a6] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+          <p className="type-body text-ink-secondary text-base sm:text-lg max-w-2xl mx-auto leading-relaxed mb-8">
             Technical breakdowns on fixing vibe-coded apps, passing App Store review guidelines,
             and navigating 100% free career choices.
           </p>
 
-          {/* Search bar - Liquid Glass Styling */}
+          {/* Search bar */}
           <div className="max-w-md mx-auto">
             <div className="relative">
               <input
@@ -131,9 +130,9 @@ export default function Blog() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search articles, topics, or guides..."
-                className="w-full px-5 py-3 pl-11 rounded-full bg-[#161618] border border-white/10 text-white placeholder-[#86868b] focus:outline-none focus:border-[#2997ff] text-sm"
+                className="w-full px-5 py-3.5 pl-11 rounded-full bg-surface border border-hairline text-ink-primary placeholder-ink-muted focus:outline-none focus:border-brand-primary text-sm shadow-sm transition-all"
               />
-              <span className="absolute left-4 top-3.5 text-[#86868b]" aria-hidden="true">
+              <span className="absolute left-4 top-4 text-ink-muted" aria-hidden="true">
                 <Search className="w-4 h-4" />
               </span>
             </div>
@@ -141,19 +140,19 @@ export default function Blog() {
         </div>
       </section>
 
-      <main className="bg-black pb-24 px-4">
-        <div className="container-max max-w-6xl">
+      <main className="bg-subtle pb-24 px-4 overflow-x-clip">
+        <div className="section-container max-w-6xl mx-auto">
           {/* Segmented Filter Pills */}
           <div className="flex justify-center mb-12">
-            <div className="inline-flex p-1 rounded-full bg-white/5 border border-white/8 overflow-x-auto max-w-full">
+            <div className="inline-flex p-1.5 rounded-full bg-surface border border-hairline shadow-sm overflow-x-auto max-w-full gap-1">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-5 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
+                  className={`px-5 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                     selectedCategory === cat
-                      ? 'bg-white/15 text-white shadow-sm'
-                      : 'text-[#86868b] hover:text-white'
+                      ? 'bg-brand-primary text-white shadow-sm'
+                      : 'text-ink-secondary hover:text-ink-primary hover:bg-subtle'
                   }`}
                 >
                   {cat}
@@ -165,15 +164,15 @@ export default function Blog() {
           {/* Blogs Grid */}
           {loading ? (
             <div className="flex justify-center py-20">
-              <div className="w-8 h-8 border-2 border-[#2997ff]/30 border-t-[#2997ff] rounded-full animate-spin" />
+              <div className="w-8 h-8 border-2 border-brand-primary/30 border-t-brand-primary rounded-full animate-spin" />
             </div>
           ) : filteredBlogs.length === 0 ? (
-            <div className="text-center py-16 rounded-2xl bg-[#161618] border border-white/8 p-10 max-w-md mx-auto">
-              <div className="w-12 h-12 mx-auto mb-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400">
+            <div className="text-center py-16 rounded-3xl bg-surface border border-hairline p-10 max-w-md mx-auto shadow-sm">
+              <div className="w-12 h-12 mx-auto mb-3 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary">
                 <Newspaper className="w-6 h-6" aria-hidden="true" />
               </div>
-              <h3 className="font-display text-lg font-semibold text-[#f5f5f7] mb-2">No Articles Found</h3>
-              <p className="text-[#86868b] text-xs">
+              <h3 className="type-h3 text-ink-primary mb-2">No Articles Found</h3>
+              <p className="type-caption text-ink-secondary">
                 Try searching for a different keyword or selecting &quot;All&quot; categories.
               </p>
             </div>
@@ -181,49 +180,49 @@ export default function Blog() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredBlogs.map((post, idx) => (
                 <ScrollReveal key={post.slug || idx} delay={idx * 0.08}>
-                  <article className="h-full rounded-2xl bg-[#161618] border border-white/8 hover:border-white/20 transition-all overflow-hidden flex flex-col justify-between group">
+                  <article className="h-full rounded-3xl bg-surface border border-hairline hover:border-brand-primary/40 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col justify-between group">
                     <div>
                       {/* Cover image with fixed aspect ratio */}
-                      <Link to={`/blog/${post.slug}`} className="block relative aspect-video overflow-hidden bg-black/40">
+                      <Link to={`/blog/${post.slug}`} className="block relative aspect-video overflow-hidden bg-subtle">
                         <img
                           src={post.cover_image || 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80'}
                           alt={post.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
                         />
-                        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-black/70 backdrop-blur-md text-[#2997ff] border border-white/10">
+                        <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white/90 backdrop-blur-md text-brand-primary border border-hairline shadow-sm">
                           {post.category}
                         </span>
                       </Link>
 
                       {/* Content */}
                       <div className="p-6">
-                        <div className="flex items-center gap-2 text-xs text-[#86868b] mb-2 font-mono">
+                        <div className="flex items-center gap-2 type-meta text-ink-muted mb-2 font-mono">
                           <time>{formatDate(post.created_at)}</time>
                           <span>•</span>
                           <span>{post.target_audience || 'Engineering'}</span>
                         </div>
-                        <h2 className="font-display text-lg font-semibold text-[#f5f5f7] group-hover:text-[#2997ff] transition-colors mb-2.5 line-clamp-2">
+                        <h2 className="type-h3 text-ink-primary group-hover:text-brand-primary transition-colors mb-2.5 line-clamp-2">
                           <Link to={`/blog/${post.slug}`}>
                             {post.title}
                           </Link>
                         </h2>
-                        <p className="text-[#a1a1a6] text-xs sm:text-sm leading-relaxed line-clamp-3">
+                        <p className="type-body text-ink-secondary text-xs sm:text-sm leading-relaxed line-clamp-3">
                           {post.excerpt}
                         </p>
                       </div>
                     </div>
 
-                    <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between">
+                    <div className="p-6 pt-0 border-t border-hairline flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-white/10 text-white text-xs flex items-center justify-center font-bold">
+                        <div className="w-7 h-7 rounded-full bg-brand-primary/10 text-brand-primary border border-brand-primary/20 text-xs flex items-center justify-center font-bold">
                           {post.author_name ? post.author_name[0] : 'A'}
                         </div>
-                        <span className="text-xs text-[#86868b]">{post.author_name || 'Amit Barai'}</span>
+                        <span className="type-caption text-ink-secondary font-medium">{post.author_name || 'Amit Barai'}</span>
                       </div>
                       <Link
                         to={`/blog/${post.slug}`}
-                        className="text-xs text-[#2997ff] font-semibold hover:underline"
+                        className="text-xs text-brand-primary font-bold hover:underline"
                       >
                         Read Article →
                       </Link>
@@ -234,27 +233,27 @@ export default function Blog() {
             </div>
           )}
 
-          {/* Bottom Callout Surface */}
-          <div className="mt-16 rounded-3xl bg-[#161618] border border-white/8 p-8 sm:p-12 text-center max-w-3xl mx-auto">
-            <span className="text-xs text-[#2997ff] uppercase tracking-wider font-semibold block mb-2">
+          {/* Bottom Callout Band (Dark contrast band rule) */}
+          <div className="mt-16 rounded-3xl bg-dark-band border border-dark-surface p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-xl text-ink-on-dark">
+            <span className="type-meta text-brand-accent-bright uppercase tracking-wider font-bold block mb-2 font-mono">
               Have a Technical Question?
             </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-semibold text-[#f5f5f7] mb-3">
+            <h2 className="type-h2 text-ink-on-dark mb-3">
               Consult with Senior Engineers Directly
             </h2>
-            <p className="text-[#a1a1a6] text-sm mb-6 max-w-lg mx-auto">
-              Discuss your codebase audit, cloud database migration, or free student mentorship session with no sales pitch.
+            <p className="type-body text-ink-on-dark-muted text-sm mb-6 max-w-lg mx-auto">
+              Discuss your codebase audit, cloud database migration, or free student mentorship session with zero sales pitch.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Link
                 to="/contact"
-                className="px-6 py-2.5 rounded-full text-xs font-semibold bg-white text-black hover:bg-[#f5f5f7] transition-all"
+                className="px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-white text-ink-primary hover:bg-subtle transition-all shadow-md"
               >
                 Schedule Engineering Review →
               </Link>
               <Link
                 to="/career-guidance"
-                className="px-6 py-2.5 rounded-full text-xs font-semibold bg-white/5 text-[#d2d2d7] border border-white/10 hover:bg-white/10 transition-all"
+                className="px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-dark-surface text-ink-on-dark border border-white/10 hover:bg-white/10 transition-all"
               >
                 Student Counseling Portal →
               </Link>

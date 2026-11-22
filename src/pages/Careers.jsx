@@ -11,11 +11,11 @@ import { careersApi } from '../api/careers.js'
 import { jobPostingSchema } from '../utils/jsonld.js'
 
 const TYPE_COLORS = {
-  'full-time': 'bg-[#2997ff]/10 text-[#2997ff] border-[#2997ff]/20',
-  'part-time': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-  internship: 'bg-purple-500/10 text-purple-300 border-purple-500/20',
-  contract: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-  remote: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  'full-time': 'bg-brand-primary/10 text-brand-primary border-brand-primary/20',
+  'part-time': 'bg-amber-50 text-amber-800 border-amber-200',
+  internship: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+  contract: 'bg-purple-50 text-purple-800 border-purple-200',
+  remote: 'bg-blue-50 text-blue-800 border-blue-200',
 }
 
 const DEFAULT_CAREERS = [
@@ -198,27 +198,27 @@ function ApplicationModal({ job, onClose, onSuccess }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-dark-band/70 backdrop-blur-sm flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.96 }}
-        className="liquid-glass max-w-xl w-full p-6 sm:p-8 max-h-[92vh] overflow-y-auto rounded-3xl"
+        className="max-w-xl w-full p-6 sm:p-8 max-h-[92vh] overflow-y-auto rounded-3xl bg-surface border border-hairline shadow-2xl"
       >
         {/* Modal Header */}
-        <div className="flex items-start justify-between mb-5 border-b border-white/8 pb-4">
+        <div className="flex items-start justify-between mb-5 border-b border-hairline pb-4">
           <div>
-            <span className="text-[11px] text-[#2997ff] font-semibold uppercase tracking-wider block">
+            <span className="type-meta text-brand-primary font-bold uppercase tracking-wider block font-mono">
               Direct Candidate Application
             </span>
-            <h3 className="font-display text-xl font-semibold text-[#f5f5f7] mt-0.5">{job.title}</h3>
-            <p className="text-xs text-[#86868b] mt-0.5">
-              {job.department} • {job.location} • <span className="tabular-nums">{job.stipend_range || job.salary_range || 'Competitive'}</span>
+            <h3 className="type-h3 text-ink-primary mt-0.5">{job.title}</h3>
+            <p className="type-caption text-ink-secondary mt-0.5">
+              {job.department} • {job.location} • <span className="tabular-nums font-semibold text-brand-primary">{job.stipend_range || job.salary_range || 'Competitive'}</span>
             </p>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-[#a1a1a6] hover:text-white flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-full bg-subtle hover:bg-white border border-hairline text-ink-secondary hover:text-ink-primary flex items-center justify-center transition-colors cursor-pointer"
           >
             ✕
           </button>
@@ -226,43 +226,43 @@ function ApplicationModal({ job, onClose, onSuccess }) {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Full Name *</label>
+            <label className="block type-caption font-semibold text-ink-primary mb-1">Full Name *</label>
             <input
               {...register('candidate_name', { required: 'Full name is required' })}
               placeholder="e.g. Rahul Sharma"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff] transition-colors"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-hairline text-ink-primary text-sm focus:outline-none focus:border-brand-primary transition-colors shadow-sm"
             />
-            {errors.candidate_name && <p className="text-red-400 text-[11px] mt-0.5">{errors.candidate_name.message}</p>}
+            {errors.candidate_name && <p className="text-red-600 text-[11px] mt-0.5">{errors.candidate_name.message}</p>}
           </div>
 
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Email Address *</label>
+              <label className="block type-caption font-semibold text-ink-primary mb-1">Email Address *</label>
               <input
                 type="email"
                 {...register('candidate_email', { required: 'Email is required' })}
                 placeholder="you@gmail.com"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff] transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-hairline text-ink-primary text-sm focus:outline-none focus:border-brand-primary transition-colors shadow-sm"
               />
-              {errors.candidate_email && <p className="text-red-400 text-[11px] mt-0.5">{errors.candidate_email.message}</p>}
+              {errors.candidate_email && <p className="text-red-600 text-[11px] mt-0.5">{errors.candidate_email.message}</p>}
             </div>
             <div>
-              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">WhatsApp / Phone *</label>
+              <label className="block type-caption font-semibold text-ink-primary mb-1">WhatsApp / Phone *</label>
               <input
                 {...register('candidate_phone', { required: 'Phone is required' })}
                 placeholder="+91 98765 43210"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff] transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-hairline text-ink-primary text-sm focus:outline-none focus:border-brand-primary transition-colors shadow-sm"
               />
-              {errors.candidate_phone && <p className="text-red-400 text-[11px] mt-0.5">{errors.candidate_phone.message}</p>}
+              {errors.candidate_phone && <p className="text-red-600 text-[11px] mt-0.5">{errors.candidate_phone.message}</p>}
             </div>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Education Level</label>
+              <label className="block type-caption font-semibold text-ink-primary mb-1">Education Level</label>
               <select
                 {...register('education_level')}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1c20] border border-white/10 text-white text-sm focus:outline-none"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-hairline text-ink-primary text-sm focus:outline-none shadow-sm"
               >
                 <option value="12th Pass">12th Pass (Higher Secondary)</option>
                 <option value="Bachelor's / Undergraduate">Bachelor's / Undergraduate (B.Tech, BCA, BSc)</option>
@@ -271,10 +271,10 @@ function ApplicationModal({ job, onClose, onSuccess }) {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Experience Status</label>
+              <label className="block type-caption font-semibold text-ink-primary mb-1">Experience Status</label>
               <select
                 {...register('experience_status')}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1c20] border border-white/10 text-white text-sm focus:outline-none"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-hairline text-ink-primary text-sm focus:outline-none shadow-sm"
               >
                 <option value="Fresher / College Student">Fresher / College Student</option>
                 <option value="1-2 Years Experience">1–2 Years Experience</option>
@@ -284,8 +284,8 @@ function ApplicationModal({ job, onClose, onSuccess }) {
           </div>
 
           {/* Resume Upload Box */}
-          <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/8 space-y-3">
-            <span className="text-xs font-semibold text-[#f5f5f7] block">
+          <div className="p-4 rounded-2xl bg-subtle border border-hairline space-y-3">
+            <span className="type-caption font-semibold text-ink-primary block">
               Upload Resume / CV (PDF or Word)
             </span>
             <div className="flex items-center gap-3">
@@ -293,59 +293,59 @@ function ApplicationModal({ job, onClose, onSuccess }) {
                 type="file"
                 accept=".pdf,.doc,.docx"
                 onChange={handleFileSelect}
-                className="text-xs text-[#a1a1a6] file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-white/10 file:text-white hover:file:bg-white/20 cursor-pointer"
+                className="text-xs text-ink-secondary file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-surface file:text-ink-primary file:border file:border-hairline hover:file:bg-subtle cursor-pointer shadow-sm"
               />
-              {uploadingFile && <span className="text-xs text-[#2997ff] animate-pulse">Uploading...</span>}
+              {uploadingFile && <span className="text-xs text-brand-primary animate-pulse">Uploading...</span>}
             </div>
             {uploadedFileName && (
-              <p className="text-xs text-emerald-400 font-mono">
+              <p className="text-xs text-emerald-700 font-mono font-medium">
                 ✓ Attached: {uploadedFileName}
               </p>
             )}
 
-            <div className="pt-2 border-t border-white/5">
-              <label className="block text-[11px] text-[#86868b] mb-1">
+            <div className="pt-2 border-t border-hairline">
+              <label className="block type-meta text-ink-muted mb-1">
                 Or share Google Drive / Dropbox link:
               </label>
               <input
                 {...register('resume_google_drive_url')}
                 placeholder="https://drive.google.com/file/d/..."
-                className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white text-xs focus:outline-none focus:border-[#2997ff]"
+                className="w-full px-3 py-2 rounded-lg bg-white border border-hairline text-ink-primary text-xs focus:outline-none focus:border-brand-primary shadow-sm"
               />
             </div>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">GitHub or Portfolio</label>
+              <label className="block type-caption font-semibold text-ink-primary mb-1">GitHub or Portfolio</label>
               <input
                 {...register('portfolio_or_github_url')}
                 placeholder="https://github.com/..."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-hairline text-ink-primary text-sm focus:outline-none focus:border-brand-primary shadow-sm"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-[#d2d2d7] mb-1">LinkedIn Profile</label>
+              <label className="block type-caption font-semibold text-ink-primary mb-1">LinkedIn Profile</label>
               <input
                 {...register('linkedin_url')}
                 placeholder="https://linkedin.com/in/..."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff]"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-hairline text-ink-primary text-sm focus:outline-none focus:border-brand-primary shadow-sm"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[#d2d2d7] mb-1">Brief Introduction (Optional)</label>
+            <label className="block type-caption font-semibold text-ink-primary mb-1">Brief Introduction (Optional)</label>
             <textarea
               rows={2}
               {...register('cover_note')}
               placeholder="Tell us what you're excited to work on..."
-              className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff] resize-none"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-hairline text-ink-primary text-sm focus:outline-none focus:border-brand-primary resize-none shadow-sm"
             />
           </div>
 
           {errorMsg && (
-            <p className="text-xs text-red-400 p-2.5 rounded-lg bg-red-500/10 border border-red-500/20">
+            <p className="text-xs text-red-600 p-2.5 rounded-lg bg-red-50 border border-red-200">
               {errorMsg}
             </p>
           )}
@@ -354,7 +354,7 @@ function ApplicationModal({ job, onClose, onSuccess }) {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 rounded-full text-xs font-semibold tracking-wide bg-[#2997ff] hover:bg-[#0071e3] text-white transition-all disabled:opacity-50"
+              className="w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-brand-primary hover:bg-brand-primary-hover text-white transition-all disabled:opacity-50 shadow-md cursor-pointer"
             >
               {submitting ? 'Submitting Application...' : 'Submit Application →'}
             </button>
@@ -393,18 +393,19 @@ export default function Careers() {
         canonical="/careers"
       />
 
-      {/* Page Hero */}
-      <section className="pt-36 pb-16 px-4 bg-black text-center" aria-label="OpenMNC Careers">
-        <div className="max-w-4xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-[#2997ff] mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#2997ff]" />
+      {/* Page Hero (Light-First Editorial) */}
+      <section className="pt-32 sm:pt-40 pb-16 px-4 bg-canvas text-center overflow-x-clip relative" aria-label="OpenMNC Careers">
+        <div className="absolute inset-0 bg-ambient-mesh pointer-events-none" />
+        <div className="section-container max-w-4xl mx-auto relative z-10">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full type-meta font-bold uppercase tracking-wider bg-brand-primary/10 border border-brand-primary/20 text-brand-primary mb-6 font-mono">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse" />
             Join Our Engineering Team
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#f5f5f7] tracking-tight mb-6">
+          <h1 className="type-h1 text-ink-primary mb-6">
             Build Real Software.{' '}
-            <span className="text-[#2997ff] block mt-1">No Textbook Tasks.</span>
+            <span className="text-brand-primary block mt-1">No Textbook Tasks.</span>
           </h1>
-          <p className="text-[#a1a1a6] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
+          <p className="type-body text-ink-secondary text-base sm:text-xl max-w-2xl mx-auto leading-relaxed mb-8">
             Whether you are a senior developer or an ambitious student seeking hands-on production experience,
             OpenMNC offers high-autonomy roles with transparent compensation and mentorship.
           </p>
@@ -412,13 +413,13 @@ export default function Careers() {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/careers/track"
-              className="px-5 py-2.5 rounded-full text-xs font-semibold bg-white/5 hover:bg-white/10 text-[#f5f5f7] border border-white/10 transition-colors"
+              className="px-6 py-3 rounded-xl type-caption font-semibold bg-surface hover:bg-subtle text-ink-primary border border-hairline transition-all shadow-sm"
             >
               Track Existing Application →
             </Link>
             <Link
               to="/career-guidance"
-              className="px-5 py-2.5 rounded-full text-xs font-semibold bg-[#2997ff]/10 hover:bg-[#2997ff]/20 text-[#2997ff] border border-[#2997ff]/20 transition-colors"
+              className="px-6 py-3 rounded-xl type-caption font-bold uppercase tracking-wider bg-brand-primary/10 hover:bg-brand-primary/15 text-brand-primary border border-brand-primary/20 transition-all shadow-sm"
             >
               12th-Pass Free Career Portal →
             </Link>
@@ -426,19 +427,19 @@ export default function Careers() {
         </div>
       </section>
 
-      <main className="bg-black pb-24 px-4">
-        <div className="container-max max-w-5xl">
+      <main className="bg-subtle pb-24 px-4 overflow-x-clip">
+        <div className="section-container max-w-5xl mx-auto">
           {/* Segmented Filter Pills */}
           <div className="flex justify-center mb-10">
-            <div className="inline-flex p-1 rounded-full bg-white/5 border border-white/8">
+            <div className="inline-flex p-1.5 rounded-full bg-surface border border-hairline shadow-sm gap-1">
               {['All', 'internship', 'full-time'].map((type) => (
                 <button
                   key={type}
                   onClick={() => setFilterType(type)}
-                  className={`px-5 py-2 rounded-full text-xs font-medium transition-all ${
+                  className={`px-5 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                     filterType === type
-                      ? 'bg-white/15 text-white shadow-sm'
-                      : 'text-[#86868b] hover:text-white'
+                      ? 'bg-brand-primary text-white shadow-sm'
+                      : 'text-ink-secondary hover:text-ink-primary hover:bg-subtle'
                   }`}
                 >
                   {type === 'All' ? 'All Roles' : type === 'internship' ? 'Internships' : 'Full-Time'}
@@ -449,66 +450,66 @@ export default function Careers() {
 
           {/* Success Notification */}
           {successEmail && (
-            <div className="mb-8 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center">
-              <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <div className="mb-8 p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center">
+              <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700">
                 <CheckCircle2 className="w-5 h-5" aria-hidden="true" />
               </div>
-              <h3 className="text-sm font-semibold text-white">Application Received!</h3>
-              <p className="text-xs text-[#a1a1a6] mt-1">
-                We have registered your application for <strong className="text-white">{successEmail}</strong>.
+              <h3 className="type-h3 text-emerald-950">Application Received!</h3>
+              <p className="type-body text-ink-secondary text-xs sm:text-sm mt-1">
+                We have registered your application for <strong className="text-ink-primary">{successEmail}</strong>.
                 You can track your real-time review status anytime in our candidate tracker.
               </p>
               <Link
                 to="/careers/track"
-                className="mt-3 inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-emerald-500 text-black"
+                className="mt-3 inline-block px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
               >
                 Open Candidate Tracker →
               </Link>
             </div>
           )}
 
-          {/* Jobs List - Unified Surface */}
+          {/* Jobs List - Light Surface */}
           <div className="space-y-4">
             {filteredJobs.map((job) => {
-              const badgeClass = TYPE_COLORS[job.type] || 'bg-white/5 text-[#a1a1a6] border-white/10'
+              const badgeClass = TYPE_COLORS[job.type] || 'bg-subtle text-ink-secondary border-hairline'
 
               return (
                 <article
                   key={job.id || job._id}
-                  className="rounded-2xl bg-[#161618] border border-white/8 p-6 sm:p-8 hover:border-white/16 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6"
+                  className="rounded-3xl bg-surface border border-hairline p-6 sm:p-8 hover:border-brand-primary/40 shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-6"
                 >
                   <div className="space-y-2 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${badgeClass}`}>
+                      <span className={`px-2.5 py-0.5 rounded-full type-meta font-bold uppercase tracking-wider border ${badgeClass}`}>
                         {job.type}
                       </span>
-                      <span className="text-xs text-[#86868b]">
+                      <span className="type-caption text-ink-muted">
                         {job.department} • {job.location}
                       </span>
                     </div>
 
-                    <h2 className="font-display text-xl sm:text-2xl font-semibold text-[#f5f5f7] tracking-tight">
+                    <h2 className="type-h2 text-ink-primary">
                       {job.title}
                     </h2>
 
-                    <p className="text-[#a1a1a6] text-xs sm:text-sm line-clamp-2 leading-relaxed">
+                    <p className="type-body text-ink-secondary text-xs sm:text-sm line-clamp-2 leading-relaxed">
                       {job.description}
                     </p>
 
-                    <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#2997ff] pt-1">
-                      <span className="tabular-nums font-semibold">
+                    <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-brand-primary pt-1">
+                      <span className="tabular-nums font-bold">
                         {job.stipend_range || job.salary_range || 'Competitive'}
                       </span>
                       {job.working_days && (
-                        <span className="text-[#86868b]">• {job.working_days}</span>
+                        <span className="text-ink-muted font-sans">• {job.working_days}</span>
                       )}
                     </div>
                   </div>
 
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <button
                       onClick={() => setSelectedJob(job)}
-                      className="px-6 py-2.5 rounded-full text-xs font-semibold bg-white text-black hover:bg-[#f5f5f7] transition-all"
+                      className="px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-brand-primary hover:bg-brand-primary-hover text-white transition-all shadow-sm cursor-pointer"
                     >
                       Apply Now →
                     </button>

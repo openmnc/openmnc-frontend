@@ -53,7 +53,7 @@ export default function Footer() {
   return (
     <>
       <footer
-        className="bg-navy-950 border-t border-white/5"
+        className="bg-dark-band text-ink-on-dark border-t border-dark-surface"
         role="contentinfo"
         aria-label="Site footer"
       >
@@ -70,19 +70,19 @@ export default function Footer() {
                   className="w-8 h-8 object-contain transition-transform duration-200 group-hover:scale-105"
                 />
                 <div className="flex items-center">
-                  <span className="font-display text-2xl font-bold text-white">Open</span>
-                  <span className="font-display text-2xl font-bold text-cyan-neon">MNC</span>
-                  <span className="ml-0.5 w-2 h-2 rounded-full bg-cyan-neon" aria-hidden="true" />
+                  <span className="font-heading text-2xl font-bold text-ink-on-dark">Open</span>
+                  <span className="font-heading text-2xl font-bold text-brand-primary">MNC</span>
+                  <span className="ml-0.5 w-2 h-2 rounded-full bg-brand-primary" aria-hidden="true" />
                 </div>
               </Link>
-              <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
+              <p className="text-ink-on-dark-muted text-sm leading-relaxed mb-6 max-w-sm">
                 Engineering-first software development, AI app audits, App Store publishing, and the OpenMNC Academy
                 providing 100% free career guidance and college fee subsidies across India and worldwide.
               </p>
 
               {/* Google Business Profile Rating Badge */}
-              <div className="mb-6 inline-flex items-center gap-3 p-3 rounded-2xl bg-white/5 border border-white/10">
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-1.5 flex-shrink-0">
+              <div className="mb-6 inline-flex items-center gap-3 p-3 rounded-2xl bg-dark-surface border border-white/10">
+                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center p-1.5 shrink-0">
                   <img
                     src="/google-qr-framed.png"
                     alt="Google QR"
@@ -97,12 +97,12 @@ export default function Footer() {
                     <Star className="w-3.5 h-3.5 fill-amber-400" />
                     <Star className="w-3.5 h-3.5 fill-amber-400" />
                     <Star className="w-3.5 h-3.5 fill-amber-400" />
-                    <span className="text-white font-bold ml-1">5.0 on Google</span>
+                    <span className="text-ink-on-dark font-bold ml-1">5.0 on Google</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setReviewModalOpen(true)}
-                    className="text-[11px] text-cyan-neon font-semibold hover:underline block text-left"
+                    className="text-[11px] text-brand-primary font-semibold hover:underline block text-left cursor-pointer"
                   >
                     Rate OPEN MNC on Google →
                   </button>
@@ -110,21 +110,21 @@ export default function Footer() {
               </div>
 
               {/* Contact info with crisp monochrome Lucide icons */}
-              <address className="not-italic space-y-2 text-sm text-gray-400">
+              <address className="not-italic space-y-2 text-sm text-ink-on-dark-muted">
                 <p className="flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-cyan-neon shrink-0" aria-hidden="true" />
-                  <a href="mailto:hello@openmnc.com" className="hover:text-white transition-colors">
+                  <Mail className="w-4 h-4 text-brand-primary shrink-0" aria-hidden="true" />
+                  <a href="mailto:hello@openmnc.com" className="hover:text-ink-on-dark transition-colors">
                     hello@openmnc.com
                   </a>
                 </p>
                 <p className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-cyan-neon shrink-0" aria-hidden="true" />
-                  <a href="tel:+918509684056" className="hover:text-white transition-colors">
+                  <Phone className="w-4 h-4 text-brand-primary shrink-0" aria-hidden="true" />
+                  <a href="tel:+918509684056" className="hover:text-ink-on-dark transition-colors">
                     +91 8509684056
                   </a>
                 </p>
                 <p className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-cyan-neon shrink-0" aria-hidden="true" />
+                  <MapPin className="w-4 h-4 text-brand-primary shrink-0" aria-hidden="true" />
                   <span>HQ: West Bengal, India · Serving Worldwide &amp; Domestic</span>
                 </p>
               </address>
@@ -133,7 +133,7 @@ export default function Footer() {
             {/* Three Link Columns for Clean Silos */}
             {FOOTER_SECTIONS.map((section) => (
               <nav key={section.title} aria-label={`${section.title} links`}>
-                <h3 className="font-semibold text-white mb-4 text-xs font-display tracking-wider uppercase">
+                <h3 className="font-semibold text-ink-on-dark mb-4 text-xs font-mono tracking-wider uppercase">
                   {section.title}
                 </h3>
                 <ul className="space-y-2.5">
@@ -141,7 +141,7 @@ export default function Footer() {
                     <li key={link.to}>
                       <Link
                         to={link.to}
-                        className="text-xs sm:text-sm text-gray-400 hover:text-cyan-neon transition-colors duration-200"
+                        className="text-xs sm:text-sm text-ink-on-dark-muted hover:text-ink-on-dark transition-colors duration-200"
                       >
                         {link.label}
                       </Link>
@@ -152,7 +152,7 @@ export default function Footer() {
                       <button
                         type="button"
                         onClick={() => setReviewModalOpen(true)}
-                        className="text-xs sm:text-sm text-amber-400 hover:underline flex items-center gap-1.5"
+                        className="text-xs sm:text-sm text-amber-400 hover:underline flex items-center gap-1.5 cursor-pointer"
                       >
                         <Star className="w-3.5 h-3.5 fill-amber-400" />
                         <span>Review Us on Google</span>
@@ -164,26 +164,26 @@ export default function Footer() {
             ))}
           </div>
 
-          {/* Bottom bar with Legal Registration Entity Notice (Admin completely removed from public footer) */}
-          <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-gray-500 text-xs">
-              &copy; {year} <strong className="text-gray-400 font-normal">M/S. OPEN MNC LLP</strong>. All rights reserved. Founded by{' '}
-              <span className="text-gray-400">Amit Barai</span>.
+          {/* Bottom bar with Legal Registration Entity Notice */}
+          <div className="border-t border-dark-surface pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-ink-on-dark-muted text-xs">
+              &copy; {year} <strong className="text-ink-on-dark font-normal">M/S. OPEN MNC LLP</strong>. All rights reserved. Founded by{' '}
+              <span className="text-ink-on-dark">Amit Barai</span>.
             </p>
             <div className="flex items-center gap-4">
               <a
                 href="https://wa.me/918509684056"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-gray-500 hover:text-cyan-neon transition-colors duration-200"
+                className="text-xs text-ink-on-dark-muted hover:text-ink-on-dark transition-colors duration-200"
                 aria-label="WhatsApp OpenMNC"
               >
                 WhatsApp
               </a>
-              <span className="text-gray-700" aria-hidden="true">|</span>
+              <span className="text-dark-surface" aria-hidden="true">|</span>
               <a
                 href="mailto:hello@openmnc.com"
-                className="text-xs text-gray-500 hover:text-cyan-neon transition-colors duration-200"
+                className="text-xs text-ink-on-dark-muted hover:text-ink-on-dark transition-colors duration-200"
               >
                 Email Us
               </a>

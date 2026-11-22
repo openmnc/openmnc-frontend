@@ -16,6 +16,7 @@ import {
   ShoppingBag,
   ArrowRight,
   HelpCircle,
+  Eye,
 } from 'lucide-react'
 import ServiceCard from '../components/ServiceCard.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
@@ -24,6 +25,12 @@ import ThreeBackground from '../components/ThreeBackground.jsx'
 import GlowButton from '../components/GlowButton.jsx'
 import SEO from '../components/SEO.jsx'
 import GoogleReviewModal from '../components/GoogleReviewModal.jsx'
+import PackageBreakdownModal from '../components/PackageBreakdownModal.jsx'
+import {
+  WebAppDevWorkflowDiagram,
+  SocialMediaWorkflowDiagram,
+  AutomationWorkflowDiagram,
+} from '../components/ServiceWorkflowDiagrams.jsx'
 import { servicesApi } from '../api/services.js'
 import { getServiceIcon, whatsappUrl } from '../utils/helpers.js'
 import {
@@ -962,6 +969,8 @@ export default function Services({ initialSlug }) {
   const [services, setServices] = useState(STATIC_SERVICES)
   const [activeFaq, setActiveFaq] = useState(null)
   const [reviewModalOpen, setReviewModalOpen] = useState(false)
+  const [selectedModalPackage, setSelectedModalPackage] = useState(null)
+  const [packageModalOpen, setPackageModalOpen] = useState(false)
 
   // Fetch CMS updates from backend if available, merging seamlessly
   useEffect(() => {
@@ -1025,6 +1034,11 @@ export default function Services({ initialSlug }) {
     dynamicSchemas.push(studentGuidanceFaqSchema)
   }
 
+  const handleOpenPackageModal = (pkg) => {
+    setSelectedModalPackage(pkg)
+    setPackageModalOpen(true)
+  }
+
   return (
     <>
       <SEO
@@ -1035,77 +1049,104 @@ export default function Services({ initialSlug }) {
         schema={dynamicSchemas}
       />
 
-      {/* ══════ HERO SECTION ══════ */}
+      {/* ══════ HERO SECTION (LIGHT-FIRST EDITORIAL) ══════ */}
       <section
-        className="relative pt-28 sm:pt-34 pb-16 sm:pb-20 px-4 bg-navy-950 overflow-hidden"
+        className="relative pt-32 sm:pt-40 pb-16 sm:pb-24 px-4 bg-canvas overflow-x-clip"
         aria-label="Services hero"
       >
-        <div className="absolute inset-0 aspect-[16/9] sm:aspect-auto overflow-hidden pointer-events-none">
-          <ThreeBackground section="hero" className="opacity-35" />
-        </div>
+        <div className="absolute inset-0 bg-ambient-mesh pointer-events-none" />
 
         <div className="relative z-10 max-w-5xl mx-auto text-center">
-          {currentService?.pillar && (
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-neon/10 border border-cyan-neon/30 text-cyan-neon text-xs font-semibold tracking-wider uppercase mb-4 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-cyan-neon animate-pulse" />
+          {currentService?.pillar ? (
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-xs font-bold tracking-wider uppercase mb-5">
+              <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
               <span>{currentService.pillar}: {currentService.category}</span>
+            </div>
+          ) : (
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-xs font-bold tracking-wider uppercase mb-5">
+              <span className="w-2 h-2 rounded-full bg-brand-primary" />
+              <span>Production-Grade Engineering &amp; Growth Hub</span>
             </div>
           )}
 
-          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-4 sm:mb-6 tracking-tight leading-tight">
+          <h1 className="type-h1 text-ink-primary max-w-4xl mx-auto mb-5">
             {currentService?.h1_heading ? (
               currentService.h1_heading
             ) : currentService ? (
               currentService.title
             ) : (
               <>
-                Engineered Solutions for <span className="gradient-text">Founders &amp; Enterprises</span>
+                Engineered Solutions for <span className="text-brand-primary">Founders &amp; Enterprises</span>
               </>
             )}
           </h1>
 
-          <p className="text-white/90 text-sm sm:text-lg max-w-3xl mx-auto leading-relaxed mb-6">
+          <p className="type-body text-ink-secondary max-w-3xl mx-auto mb-6">
             {currentService?.tagline || seoDesc}
           </p>
 
+          {/* 40-60 WORD AEO QUICK ANSWER BOX */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-subtle border border-hairline shadow-sm max-w-3xl mx-auto text-left mb-8">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
+              <span className="type-meta text-brand-primary font-bold uppercase tracking-wider font-mono">
+                Direct Engineering Summary (AEO Answer)
+              </span>
+            </div>
+            <p className="type-body text-ink-primary font-medium text-xs sm:text-sm leading-relaxed">
+              OpenMNC delivers enterprise software engineering, AI automation, vibe-coded prototype audits, App Store publishing, and organic social media growth systems. Founded in West Bengal and serving founders worldwide, we eliminate 20%–30% platform margin leaks with 100% code and data ownership under strict mutual NDAs.
+            </p>
+          </div>
+
           {/* Breadcrumb if on specific pillar */}
           {currentService && (
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400">
-              <Link to="/services" className="hover:text-cyan-neon underline">All Services Hub</Link>
+            <div className="flex flex-wrap items-center justify-center gap-2 type-caption text-ink-muted mb-6">
+              <Link to="/services" className="hover:text-brand-primary underline">All Services Hub</Link>
               <span>/</span>
-              <span className="text-cyan-neon font-medium">{currentService.title}</span>
+              <span className="text-brand-primary font-semibold">{currentService.title}</span>
             </div>
           )}
 
           {/* Quick Pillar Filter Buttons on Hub Page */}
           {!currentService && (
-            <div className="mt-8 flex flex-wrap justify-center gap-2 max-w-4xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto">
               {STATIC_SERVICES.slice(0, 5).map((p) => (
                 <Link
                   key={p.slug}
                   to={`/services/${p.slug}`}
-                  className="px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-neon/40 text-xs text-gray-300 hover:text-white transition-all"
+                  className="px-3.5 py-2 rounded-xl bg-surface border border-hairline hover:border-brand-primary/50 text-xs font-semibold text-ink-secondary hover:text-brand-primary shadow-sm transition-all"
                 >
                   {p.pillar}: {p.title.split('&')[0]}
                 </Link>
               ))}
+              <Link
+                to="/services/social-media-management"
+                className="px-3.5 py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 hover:bg-emerald-100 shadow-sm transition-all"
+              >
+                Social Media Growth
+              </Link>
             </div>
           )}
         </div>
       </section>
 
-      {/* ══════ MAIN SERVICES CONTENT ══════ */}
-      <main className="bg-navy-950 section-padding pt-10">
-        <div className="container-max">
+      {/* ══════ MAIN SERVICES CONTENT (LIGHT-FIRST EDITORIAL) ══════ */}
+      <main className="bg-subtle py-16 sm:py-24 px-4 overflow-x-clip">
+        <div className="section-container max-w-7xl mx-auto">
           <div className="space-y-20 sm:space-y-28">
             {services.map((service, i) => {
               const icon = getServiceIcon(service.icon, service.slug)
               const isEven = i % 2 === 0
+              const isSocial = service.slug === 'social-media-management'
+              const isCustomDev = service.slug === 'custom-software-and-scalable-app-development'
+              const isVibeAudit = service.slug === 'vibe-coded-app-audit-and-fixing'
+              const isAutomation = service.slug === 'business-automation'
+
               return (
                 <article
                   key={service.slug}
                   id={service.slug}
-                  className="scroll-mt-24 p-6 sm:p-10 rounded-3xl bg-white/2 border border-white/5 hover:border-cyan-neon/20 transition-all duration-300"
+                  className="scroll-mt-28 p-6 sm:p-10 lg:p-12 rounded-3xl bg-surface border border-hairline shadow-sm hover:shadow-md transition-all duration-300"
                   aria-label={service.title}
                 >
                   <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start ${isEven ? '' : 'lg:grid-flow-col-dense'}`}>
@@ -1114,24 +1155,24 @@ export default function Services({ initialSlug }) {
                     <div className={`lg:col-span-7 ${isEven ? '' : 'lg:col-start-6'}`}>
                       <ScrollReveal direction={isEven ? 'left' : 'right'}>
                         <div>
-                          <div className="flex items-center gap-3 mb-3">
+                          <div className="flex flex-wrap items-center gap-2.5 mb-4">
                             <span className="text-3xl" aria-hidden="true">{icon}</span>
                             {service.pillar && (
-                              <span className="text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-neon/15 text-cyan-neon border border-cyan-neon/30">
+                              <span className="type-meta font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-brand-primary/10 text-brand-primary border border-brand-primary/20">
                                 {service.pillar}
                               </span>
                             )}
                             {service.category && (
-                              <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white/5 text-gray-300 border border-white/10">
+                              <span className="type-meta font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-subtle text-ink-secondary border border-hairline">
                                 {service.category}
                               </span>
                             )}
                           </div>
 
-                          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2 leading-tight">
+                          <h2 className="type-h2 text-ink-primary mb-3 leading-tight">
                             {service.h1_heading && resolvedSlug === service.slug ? (
                               <>
-                                <span className="block text-xs uppercase tracking-wider text-cyan-neon font-bold mb-1.5">
+                                <span className="block text-xs uppercase tracking-wider text-brand-primary font-bold mb-1.5 font-mono">
                                   {service.title}
                                 </span>
                                 <span>{service.h1_heading}</span>
@@ -1140,26 +1181,59 @@ export default function Services({ initialSlug }) {
                               service.title
                             )}
                           </h2>
+
                           {service.tagline && (
-                            <p className="text-cyan-neon text-xs sm:text-sm font-semibold italic mb-4">
+                            <p className="text-brand-primary font-semibold italic text-sm sm:text-base mb-5">
                               {service.tagline}
                             </p>
                           )}
-                          <div className="w-12 h-1 bg-cyan-neon rounded-full mb-6" aria-hidden="true" />
 
-                          <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">
+                          <div className="w-16 h-1 bg-brand-primary rounded-full mb-6" aria-hidden="true" />
+
+                          <p className="type-body text-ink-secondary mb-6 leading-relaxed">
                             {service.description}
                           </p>
 
-                          {/* Supported Tools Badges (if any) */}
+                          {/* Problem / Solution Scannable Callout */}
+                          {(service.problem_statement || service.technical_solution) && (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                              {service.problem_statement && (
+                                <div className="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20">
+                                  <div className="flex items-center gap-2 mb-1.5 text-amber-800 font-bold text-xs uppercase font-mono">
+                                    <AlertTriangle className="w-4 h-4 shrink-0" />
+                                    <span>The Core Bottleneck</span>
+                                  </div>
+                                  <p className="type-caption text-ink-secondary leading-relaxed">
+                                    {service.problem_statement}
+                                  </p>
+                                </div>
+                              )}
+                              {service.technical_solution && (
+                                <div className="p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/20">
+                                  <div className="flex items-center gap-2 mb-1.5 text-emerald-800 font-bold text-xs uppercase font-mono">
+                                    <Lightbulb className="w-4 h-4 shrink-0" />
+                                    <span>The Engineered Fix</span>
+                                  </div>
+                                  <p className="type-caption text-ink-secondary leading-relaxed">
+                                    {service.technical_solution}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {/* Specific Tools / Ecosystem Tags */}
                           {service.supported_tools && (
-                            <div className="mb-6 p-4 rounded-xl bg-white/5 border border-white/10">
-                              <span className="text-[11px] uppercase tracking-wider font-bold text-gray-400 block mb-2">
-                                Supported Stacks &amp; Platforms:
+                            <div className="mb-6">
+                              <span className="type-meta text-ink-muted uppercase font-bold tracking-wider block mb-2 font-mono">
+                                Ecosystems &amp; Stacks Supported:
                               </span>
-                              <div className="flex flex-wrap gap-1.5">
-                                {service.supported_tools.map((tool) => (
-                                  <span key={tool} className="px-2.5 py-1 rounded-lg text-xs font-medium bg-cyan-neon/10 text-cyan-neon border border-cyan-neon/20">
+                              <div className="flex flex-wrap gap-2">
+                                {service.supported_tools.map((tool, ti) => (
+                                  <span
+                                    key={ti}
+                                    className="px-2.5 py-1 rounded-lg bg-subtle border border-hairline text-xs font-medium text-ink-secondary"
+                                  >
                                     {tool}
                                   </span>
                                 ))}
@@ -1167,58 +1241,35 @@ export default function Services({ initialSlug }) {
                             </div>
                           )}
 
-                          {/* Target Local Industries (Who We Target) */}
-                          {service.target_industries && service.target_industries.length > 0 && (
-                            <div className="mb-8">
-                              <h3 className="text-xs font-bold uppercase tracking-wider text-cyan-neon mb-3 flex items-center gap-2">
-                                <Store className="w-3.5 h-3.5" aria-hidden="true" />
-                                <span>Ideal Client Profiles We Transform:</span>
-                              </h3>
-                              <div className="space-y-3">
-                                {service.target_industries.map((ind, ii) => (
-                                  <div key={ii} className="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-neon/30 transition-all">
-                                    <div className="flex items-center justify-between gap-2 mb-2">
-                                      <h4 className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
-                                        {ii === 0 && <Utensils className="w-3.5 h-3.5 text-amber-400 shrink-0" aria-hidden="true" />}
-                                        {ii === 1 && <ShoppingBag className="w-3.5 h-3.5 text-pink-400 shrink-0" aria-hidden="true" />}
-                                        {ii === 2 && <Store className="w-3.5 h-3.5 text-cyan-neon shrink-0" aria-hidden="true" />}
-                                        <span>{ind.title}</span>
-                                      </h4>
-                                      <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/10 text-cyan-neon border border-cyan-neon/20">
-                                        {ind.tag}
-                                      </span>
-                                    </div>
-                                    <div className="space-y-1 text-[11px] leading-relaxed">
-                                      <p className="text-red-300/90">
-                                        <strong className="text-red-400 font-semibold">The Core Problem: </strong>{ind.pain}
-                                      </p>
-                                      <p className="text-emerald-300/90">
-                                        <strong className="text-emerald-400 font-semibold">Our Organic Fix: </strong>{ind.solution}
-                                      </p>
-                                    </div>
-                                    <div className="mt-2 pt-2 border-t border-white/5 text-[10px] text-gray-400 italic">
-                                      Example: {ind.example}
-                                    </div>
-                                  </div>
-                                ))}
+                          {/* Expected Business Outcome */}
+                          {service.expected_outcome && (
+                            <div className="p-4 rounded-2xl bg-brand-primary/5 border border-brand-primary/20 flex items-start gap-3 mb-6">
+                              <CheckCircle2 className="w-5 h-5 text-brand-primary shrink-0 mt-0.5" />
+                              <div className="type-caption">
+                                <strong className="text-brand-primary font-bold block mb-0.5 font-sans">
+                                  Expected Commercial Outcome:
+                                </strong>
+                                <span className="text-ink-secondary">{service.expected_outcome}</span>
                               </div>
                             </div>
                           )}
 
-                          {/* Problem Cards 4-Grid (The Problem founders face) */}
+                          {/* 4 Problems Solved Grid */}
                           {service.problems_grid && service.problems_grid.length > 0 && (
-                            <div className="mb-8">
-                              <h3 className="text-xs font-bold uppercase tracking-wider text-red-400 mb-3">
-                                Real Challenges We Solve:
-                              </h3>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div className="mt-6 pt-6 border-t border-hairline">
+                              <h4 className="type-h3 text-ink-primary mb-4">
+                                Root Engineering Problems We Solve
+                              </h4>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                                 {service.problems_grid.map((prob, pi) => (
-                                  <div key={pi} className="p-3.5 rounded-xl bg-red-950/20 border border-red-500/20">
-                                    <h4 className="text-xs font-bold text-white mb-1 flex items-center gap-1.5">
-                                        <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0" aria-hidden="true" />
-                                        <span>{prob.title}</span>
-                                    </h4>
-                                    <p className="text-[11px] text-gray-300 leading-relaxed">
+                                  <div
+                                    key={pi}
+                                    className="p-3.5 rounded-xl bg-subtle border border-hairline hover:border-brand-primary/30 transition-all"
+                                  >
+                                    <h5 className="font-heading text-xs font-bold text-ink-primary mb-1">
+                                      {prob.title}
+                                    </h5>
+                                    <p className="type-caption text-ink-secondary leading-relaxed">
                                       {prob.desc}
                                     </p>
                                   </div>
@@ -1227,44 +1278,25 @@ export default function Services({ initialSlug }) {
                             </div>
                           )}
 
-                          {/* In-Depth Deliverables */}
-                          {service.deliverables && service.deliverables.length > 0 && (
-                            <div className="mb-8">
-                              <h3 className="text-xs font-bold uppercase tracking-wider text-cyan-neon mb-3">
-                                What Is Included in This Deliverable:
-                              </h3>
-                              <div className="space-y-2.5">
-                                {service.deliverables.map((deliv, di) => (
-                                  <div key={di} className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-start gap-2.5">
-                                    <span className="text-cyan-neon font-bold text-xs mt-0.5">✓</span>
-                                    <div>
-                                      <strong className="text-xs text-white block">{deliv.title}</strong>
-                                      <span className="text-[11px] text-gray-300">{deliv.desc}</span>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-                          )}
+                          {/* Injected Animated SVG Workflow Diagrams */}
+                          {(isCustomDev || isVibeAudit) && <WebAppDevWorkflowDiagram />}
+                          {isSocial && <SocialMediaWorkflowDiagram />}
+                          {isAutomation && <AutomationWorkflowDiagram />}
 
-                          {/* 4-Step Process Timeline */}
-                          {service.process_steps && service.process_steps.length > 0 && (
-                            <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10">
-                              <h3 className="text-xs font-bold uppercase tracking-wider text-amber-glow mb-4">
-                                Our Step-by-Step Process:
-                              </h3>
-                              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-                                {service.process_steps.map((st) => (
-                                  <div key={st.step} className="p-2.5 rounded-xl bg-navy-950/60 border border-white/5">
-                                    <span className="text-xs font-bold text-amber-glow block mb-1">
-                                      {st.step}
-                                    </span>
-                                    <strong className="text-[11px] text-white block mb-1 leading-tight">
-                                      {st.title}
-                                    </strong>
-                                    <p className="text-[10px] text-gray-400 leading-tight">
-                                      {st.desc}
-                                    </p>
+                          {/* Deliverables checklist if present */}
+                          {service.deliverables && service.deliverables.length > 0 && (
+                            <div className="mt-6 pt-6 border-t border-hairline">
+                              <h4 className="type-h3 text-ink-primary mb-3">
+                                Included Engineering Deliverables
+                              </h4>
+                              <div className="space-y-2">
+                                {service.deliverables.map((deliv, di) => (
+                                  <div key={di} className="p-3 rounded-xl bg-subtle border border-hairline flex items-start gap-2.5">
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                                    <div>
+                                      <strong className="text-xs font-bold text-ink-primary block">{deliv.title}</strong>
+                                      <span className="type-caption text-ink-secondary">{deliv.desc}</span>
+                                    </div>
                                   </div>
                                 ))}
                               </div>
@@ -1273,44 +1305,48 @@ export default function Services({ initialSlug }) {
 
                           {/* Cross-Link naturally to complementary services */}
                           {service.cross_link && (
-                            <div className="mb-6 p-3.5 rounded-xl bg-cyan-neon/5 border border-cyan-neon/20 flex items-center justify-between gap-3">
-                              <span className="text-xs text-gray-300">
-                                <Lightbulb className="w-4 h-4 text-cyan-neon shrink-0 inline-block mr-1.5" aria-hidden="true" />{service.cross_link.text}
+                            <div className="mt-6 p-4 rounded-2xl bg-brand-primary/5 border border-brand-primary/20 flex items-center justify-between gap-3">
+                              <span className="type-caption text-ink-secondary">
+                                <Lightbulb className="w-4 h-4 text-brand-primary shrink-0 inline-block mr-1.5" aria-hidden="true" />
+                                {service.cross_link.text}
                               </span>
                               <Link
                                 to={service.cross_link.to}
-                                className="text-xs font-bold text-cyan-neon hover:underline whitespace-nowrap"
+                                className="text-xs font-bold text-brand-primary hover:underline whitespace-nowrap"
                               >
                                 {service.cross_link.title} →
                               </Link>
                             </div>
                           )}
 
-                          {/* Service FAQs */}
+                          {/* Service-Specific FAQs (8 Real Buyer Questions Accordion) */}
                           {service.faqs && service.faqs.length > 0 && (
-                            <div className="mt-6 pt-4 border-t border-white/10">
-                              <span className="text-xs font-bold uppercase tracking-wider text-cyan-neon block mb-3">
-                                Frequently Asked Questions:
-                              </span>
-                              <div className="space-y-2">
+                            <div className="mt-8 pt-6 border-t border-hairline">
+                              <h4 className="type-h3 text-ink-primary mb-4 flex items-center gap-2">
+                                <HelpCircle className="w-5 h-5 text-brand-primary" />
+                                <span>Frequently Asked Questions ({service.faqs.length})</span>
+                              </h4>
+                              <div className="space-y-2.5">
                                 {service.faqs.map((faq, fIdx) => {
-                                  const faqId = `${service.slug}-faq-${fIdx}`
+                                  const faqId = `${service.slug}-${fIdx}`
                                   const isOpen = activeFaq === faqId
                                   return (
                                     <div
                                       key={fIdx}
-                                      className="rounded-xl bg-white/5 backdrop-blur-md border border-white/10 overflow-hidden"
+                                      className="rounded-2xl bg-subtle border border-hairline overflow-hidden transition-all"
                                     >
                                       <button
                                         type="button"
                                         onClick={() => setActiveFaq(isOpen ? null : faqId)}
-                                        className="w-full text-left px-3.5 py-2.5 flex items-center justify-between text-xs sm:text-sm font-semibold text-white/90 hover:text-cyan-neon"
+                                        className="w-full text-left px-4 py-3.5 flex items-center justify-between text-xs sm:text-sm font-semibold text-ink-primary hover:text-brand-primary transition-colors cursor-pointer"
                                       >
-                                        <span>Q: {faq.question}</span>
-                                        <span className="text-cyan-neon text-xs">{isOpen ? '−' : '+'}</span>
+                                        <span className="pr-4">{faq.question}</span>
+                                        <span className="text-brand-primary font-bold text-sm shrink-0">
+                                          {isOpen ? '−' : '+'}
+                                        </span>
                                       </button>
                                       {isOpen && (
-                                        <div className="px-3.5 pb-3 text-xs sm:text-sm text-gray-300 border-t border-white/5 pt-2 leading-relaxed">
+                                        <div className="px-4 pb-4 type-body text-ink-secondary border-t border-hairline pt-3 leading-relaxed text-xs sm:text-sm">
                                           {faq.answer}
                                         </div>
                                       )}
@@ -1324,27 +1360,27 @@ export default function Services({ initialSlug }) {
                       </ScrollReveal>
                     </div>
 
-                    {/* Right Action / Contact Card (5 cols) */}
+                    {/* Right Action / Contact Sticky Card (5 cols) */}
                     <div className={`lg:col-span-5 ${isEven ? '' : 'lg:col-start-1 lg:row-start-1'} sticky top-24`}>
                       <ScrollReveal direction={isEven ? 'right' : 'left'} delay={0.1}>
-                        <div className="glass-card p-6 sm:p-8 relative overflow-hidden group hover:border-cyan-neon/40 transition-all duration-300">
+                        <div className="p-6 sm:p-8 rounded-3xl bg-surface border border-hairline shadow-md relative overflow-hidden group">
                           <div className="text-5xl mb-4 text-center" aria-hidden="true">{icon}</div>
                           
-                          <h3 className="font-display text-center text-lg sm:text-xl font-bold text-white mb-1 group-hover:text-cyan-neon transition-colors">
+                          <h3 className="type-h3 text-center text-ink-primary mb-1 group-hover:text-brand-primary transition-colors">
                             {service.title}
                           </h3>
-                          <p className="text-center text-gray-400 text-xs mb-6">
-                            {service.slug === 'social-media-management'
+                          <p className="text-center type-caption text-ink-secondary mb-6">
+                            {isSocial
                               ? 'Zero ad spend burn • Organic reach & footfall engine'
                               : 'Fixed scope milestone or dedicated senior engineers'}
                           </p>
 
-                          <div className="space-y-3 pt-4 border-t border-white/10">
+                          <div className="space-y-3 pt-4 border-t border-hairline">
                             <Link
                               to={`/contact?intent=b2b&service=${service.slug}`}
-                              className="w-full block py-3 rounded-xl bg-cyan-neon text-navy-950 font-bold text-xs sm:text-sm text-center shadow-cyan-glow hover:scale-[1.02] active:scale-[0.98] transition-all"
+                              className="w-full block py-3.5 rounded-xl bg-brand-primary hover:bg-brand-primary-hover text-white font-bold text-xs sm:text-sm text-center shadow-md transition-all uppercase tracking-wider"
                             >
-                              {service.slug === 'social-media-management'
+                              {isSocial
                                 ? 'Schedule Free Social Growth Call →'
                                 : 'Request Project Proposal →'}
                             </Link>
@@ -1354,36 +1390,37 @@ export default function Services({ initialSlug }) {
                                 '918509684056',
                                 `Hi Amit! I want to consult regarding ${service.title} (${service.slug}).`
                               )}
-                              className="w-full block py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/90 text-xs font-semibold text-center transition-all"
+                              className="w-full block py-3 rounded-xl bg-subtle hover:bg-white border border-hairline text-ink-primary text-xs font-semibold text-center transition-all shadow-sm"
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              <MessageSquare className="w-4 h-4 text-emerald-400 inline-block mr-1.5" aria-hidden="true" />Instant WhatsApp Consultation
+                              <MessageSquare className="w-4 h-4 text-emerald-600 inline-block mr-1.5" aria-hidden="true" />
+                              <span>Instant WhatsApp Consultation</span>
                             </a>
 
-                            <div className="pt-3 text-[11px] text-gray-400 space-y-1.5 border-t border-white/5">
-                              {service.slug === 'social-media-management' ? (
+                            <div className="pt-4 type-caption text-ink-secondary space-y-2 border-t border-hairline">
+                              {isSocial ? (
                                 <>
-                                  <p className="flex items-center gap-1.5">
-                                    <span className="text-cyan-neon">✓</span> 100% Privacy-First Meta Business Suite Access
+                                  <p className="flex items-center gap-2">
+                                    <span className="text-emerald-600 font-bold">✓</span> 100% Privacy-First Meta Business Suite
                                   </p>
-                                  <p className="flex items-center gap-1.5">
-                                    <span className="text-cyan-neon">✓</span> Zero Password Sharing — Account Stays 100% Safe
+                                  <p className="flex items-center gap-2">
+                                    <span className="text-emerald-600 font-bold">✓</span> Zero Password Sharing — Account Stays 100% Safe
                                   </p>
-                                  <p className="flex items-center gap-1.5">
-                                    <span className="text-cyan-neon">✓</span> Backed by Accountable 25% Growth Guarantee
+                                  <p className="flex items-center gap-2">
+                                    <span className="text-emerald-600 font-bold">✓</span> Backed by Accountable 25% Growth Guarantee
                                   </p>
                                 </>
                               ) : (
                                 <>
-                                  <p className="flex items-center gap-1.5">
-                                    <span className="text-cyan-neon">✓</span> 100% IP &amp; Code Ownership Stays With You
+                                  <p className="flex items-center gap-2">
+                                    <span className="text-emerald-600 font-bold">✓</span> 100% IP &amp; Code Ownership Retained by You
                                   </p>
-                                  <p className="flex items-center gap-1.5">
-                                    <span className="text-cyan-neon">✓</span> Strict Mutual NDA Before Code Sharing
+                                  <p className="flex items-center gap-2">
+                                    <span className="text-emerald-600 font-bold">✓</span> Strict Mutual NDA Before Code Sharing
                                   </p>
-                                  <p className="flex items-center gap-1.5">
-                                    <span className="text-cyan-neon">✓</span> Direct Senior Engineering Communication
+                                  <p className="flex items-center gap-2">
+                                    <span className="text-emerald-600 font-bold">✓</span> Direct Senior Engineering Communication
                                   </p>
                                 </>
                               )}
@@ -1395,18 +1432,18 @@ export default function Services({ initialSlug }) {
 
                   </div>
 
-                  {/* ══════ FULL-WIDTH 4-TIER PRICING PACKAGE MATRIX ══════ */}
+                  {/* ══════ 4-TIER PACKAGE CARDS (SOCIAL MEDIA MANAGEMENT) ══════ */}
                   {service.pricing_packages && service.pricing_packages.length > 0 && (
-                    <div className="mt-12 pt-10 border-t border-white/10">
+                    <div className="mt-12 pt-10 border-t border-hairline">
                       <div className="text-center max-w-3xl mx-auto mb-10">
-                        <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-neon/10 text-cyan-neon border border-cyan-neon/20 inline-flex items-center gap-1.5 mb-3">
-                          <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+                        <span className="type-meta font-bold uppercase tracking-wider px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 inline-flex items-center gap-1.5 mb-3">
+                          <Sparkles className="w-3.5 h-3.5 text-emerald-600" aria-hidden="true" />
                           <span>Transparent Package &amp; Deliverables Structure</span>
                         </span>
-                        <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-2">
+                        <h3 className="type-h2 text-ink-primary mb-2">
                           Select Your Organic Growth Engine
                         </h3>
-                        <p className="text-xs sm:text-sm text-gray-400">
+                        <p className="type-body text-ink-secondary text-xs sm:text-sm">
                           Zero hidden agency markups. 100% privacy-first Meta Business Suite delegation. Backed by our accountable 90-day 25% Growth Guarantee.
                         </p>
                       </div>
@@ -1415,95 +1452,97 @@ export default function Services({ initialSlug }) {
                         {service.pricing_packages.map((pkg, pi) => (
                           <div
                             key={pi}
-                            className={`rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 relative ${
+                            className={`rounded-3xl p-6 flex flex-col justify-between transition-all duration-300 relative ${
                               pkg.highlight
-                                ? 'bg-gradient-to-b from-cyan-neon/15 via-white/5 to-white/5 border-2 border-cyan-neon shadow-cyan-glow scale-[1.02]'
-                                : 'bg-white/5 border border-white/10 hover:border-white/20'
+                                ? 'bg-surface border-2 border-brand-primary shadow-xl scale-[1.02]'
+                                : 'bg-surface border border-hairline hover:border-brand-primary/40 shadow-sm'
                             }`}
                           >
                             {pkg.highlight && (
-                              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-cyan-neon text-navy-950 text-[10px] font-black uppercase tracking-wider shadow-md whitespace-nowrap">
+                              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-1 rounded-full bg-brand-primary text-white text-[10px] font-bold uppercase tracking-wider shadow-md whitespace-nowrap">
                                 {pkg.badge}
                               </div>
                             )}
 
                             <div>
                               {!pkg.highlight && (
-                                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-gray-300 mb-3 inline-block">
+                                <span className="type-meta font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-subtle text-ink-secondary border border-hairline mb-3 inline-block">
                                   {pkg.badge}
                                 </span>
                               )}
-                              <h4 className="font-display text-lg font-bold text-white mb-1">
+                              <h4 className="type-h3 text-ink-primary mb-1 mt-1">
                                 {pkg.name}
                               </h4>
-                              <p className="text-[11px] text-gray-400 mb-4 min-h-[32px]">
+                              <p className="type-caption text-ink-secondary mb-4 min-h-[36px]">
                                 {pkg.best_for}
                               </p>
 
-                              <div className="mb-4 pb-4 border-b border-white/10">
+                              <div className="mb-4 pb-4 border-b border-hairline">
                                 <div className="flex items-baseline gap-1">
-                                  <span className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                                  <span className="text-3xl font-extrabold text-ink-primary tracking-tight font-display">
                                     {pkg.monthly_price}
                                   </span>
-                                  <span className="text-xs text-gray-400 font-medium">
+                                  <span className="type-meta text-ink-muted font-medium">
                                     {pkg.billing_period}
                                   </span>
                                 </div>
-                                <span className="text-[10px] text-gray-400 block mt-0.5">
+                                <span className="type-meta text-ink-muted block mt-0.5">
                                   {pkg.quarterly_total}
                                 </span>
                               </div>
 
-                              <div className="space-y-2 mb-4 p-3 rounded-xl bg-navy-950/50 border border-white/5 text-[11px]">
-                                <div className="flex items-center gap-1.5 text-cyan-neon font-semibold">
+                              {/* Deliverables Snapshot */}
+                              <div className="space-y-2 mb-4 p-3.5 rounded-2xl bg-subtle border border-hairline text-xs">
+                                <div className="flex items-center gap-1.5 text-brand-primary font-bold">
                                   <TrendingUp className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                                   <span>{pkg.reels_count}</span>
                                 </div>
-                                <div className="text-gray-300 flex items-center gap-1.5">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-neon/70 shrink-0" />
+                                <div className="text-ink-secondary flex items-center gap-1.5">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-brand-primary shrink-0" />
                                   <span>{pkg.posts_count}</span>
                                 </div>
-                                <div className="text-gray-300 flex items-center gap-1.5">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-neon/70 shrink-0" />
+                                <div className="text-ink-secondary flex items-center gap-1.5">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-brand-primary shrink-0" />
                                   <span>{pkg.stories_count}</span>
                                 </div>
-                                <div className="text-amber-300/90 font-medium pt-1 border-t border-white/5">
+                                <div className="text-ink-primary font-semibold pt-1 border-t border-hairline">
                                   {pkg.shooting_mode}
                                 </div>
                               </div>
 
-                              <ul className="space-y-2 text-[11px] text-gray-300 mb-6">
-                                {pkg.features.map((feat, fi) => (
+                              {/* Top 5 Outcomes Checklist */}
+                              <ul className="space-y-2 text-xs text-ink-secondary mb-6">
+                                {pkg.features.slice(0, 5).map((feat, fi) => (
                                   <li key={fi} className="flex items-start gap-2">
-                                    <CheckCircle2 className="w-3.5 h-3.5 text-cyan-neon shrink-0 mt-0.5" aria-hidden="true" />
+                                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" aria-hidden="true" />
                                     <span className="leading-tight">{feat}</span>
                                   </li>
                                 ))}
                               </ul>
                             </div>
 
-                            <div className="space-y-2 pt-4 border-t border-white/10">
+                            <div className="space-y-2 pt-4 border-t border-hairline">
+                              {/* VIEW FULL BREAKDOWN BUTTON (MODAL TRIGGER) */}
+                              <button
+                                type="button"
+                                onClick={() => handleOpenPackageModal(pkg)}
+                                className="w-full py-2.5 rounded-xl bg-subtle hover:bg-white border border-hairline text-ink-primary font-semibold text-xs text-center transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm"
+                              >
+                                <Eye className="w-3.5 h-3.5 text-brand-primary" />
+                                <span>View Full Breakdown</span>
+                              </button>
+
+                              {/* INQUIRE ABOUT THIS PLAN (ROUTES WITH PLAN PRESELECTED) */}
                               <Link
                                 to={`/contact?intent=b2b&service=social-media-management&plan=${pkg.plan_param}`}
-                                className={`w-full block py-2.5 rounded-xl font-bold text-xs text-center transition-all ${
+                                className={`w-full block py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-center transition-all ${
                                   pkg.highlight
-                                    ? 'bg-cyan-neon text-navy-950 hover:bg-cyan-neon/90 shadow-cyan-glow'
-                                    : 'bg-white/10 text-white hover:bg-white/20'
+                                    ? 'bg-brand-primary hover:bg-brand-primary-hover text-white shadow-md'
+                                    : 'bg-ink-primary hover:bg-ink-primary/90 text-white'
                                 }`}
                               >
-                                {pkg.cta_text} →
+                                {pkg.cta_text || 'Inquire About This Plan'} →
                               </Link>
-                              <a
-                                href={whatsappUrl(
-                                  '918509684056',
-                                  `Hi Amit! I want to start with the ${pkg.name} plan (${pkg.monthly_price}/mo) for my business social media.`
-                                )}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-full block py-2 rounded-xl text-center text-[11px] font-medium text-emerald-400 hover:text-emerald-300 hover:bg-emerald-950/30 transition-all border border-emerald-500/20"
-                              >
-                                Inquire on WhatsApp
-                              </a>
                             </div>
                           </div>
                         ))}
@@ -1511,19 +1550,19 @@ export default function Services({ initialSlug }) {
                     </div>
                   )}
 
-                  {/* ══════ FULL-WIDTH 90-DAY REALISTIC GROWTH TIMELINE ══════ */}
+                  {/* ══════ 90-DAY REALISTIC GROWTH TIMELINE ══════ */}
                   {service.timeline_phases && service.timeline_phases.length > 0 && (
-                    <div className="mt-12 pt-10 border-t border-white/10">
+                    <div className="mt-12 pt-10 border-t border-hairline">
                       <div className="text-center max-w-2xl mx-auto mb-8">
-                        <span className="text-xs font-bold uppercase tracking-wider text-amber-glow flex items-center justify-center gap-1.5 mb-2">
+                        <span className="type-meta font-bold uppercase tracking-wider text-brand-primary flex items-center justify-center gap-1.5 mb-2 font-mono">
                           <Clock className="w-3.5 h-3.5" aria-hidden="true" />
-                          <span>Transparent Algorithm Timeline</span>
+                          <span>Transparent Algorithm Trajectory</span>
                         </span>
-                        <h3 className="font-display text-2xl font-bold text-white mb-2">
+                        <h3 className="type-h2 text-ink-primary mb-2">
                           What To Expect in 90 Days (No Fake Hype)
                         </h3>
-                        <p className="text-xs sm:text-sm text-gray-400">
-                          Organic growth is compounding, not an overnight lottery ticket. Here is the realistic trajectory as Meta's algorithm indexes your brand.
+                        <p className="type-body text-ink-secondary text-xs sm:text-sm">
+                          Organic growth compounds like interest. Here is the realistic trajectory as Meta&apos;s algorithm indexes your brand.
                         </p>
                       </div>
 
@@ -1531,24 +1570,24 @@ export default function Services({ initialSlug }) {
                         {service.timeline_phases.map((ph, phi) => (
                           <div
                             key={phi}
-                            className="p-5 rounded-2xl bg-white/5 border border-white/10 relative overflow-hidden"
+                            className="p-5 rounded-2xl bg-subtle border border-hairline relative"
                           >
                             <div className="flex items-center justify-between gap-2 mb-2">
-                              <span className="text-xs font-bold text-amber-glow uppercase tracking-wider">
+                              <span className="text-xs font-bold text-brand-primary uppercase tracking-wider font-mono">
                                 {ph.phase}
                               </span>
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-neon/10 text-cyan-neon border border-cyan-neon/20">
+                              <span className="type-meta font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                                 {ph.metric}
                               </span>
                             </div>
-                            <h4 className="text-sm font-bold text-white mb-2">
+                            <h4 className="type-h3 text-ink-primary mb-1.5">
                               {ph.title}
                             </h4>
-                            <p className="text-[11px] text-gray-300 leading-relaxed mb-3">
+                            <p className="type-caption text-ink-secondary leading-relaxed mb-3">
                               {ph.desc}
                             </p>
-                            <div className="pt-3 border-t border-white/5 text-[11px] text-emerald-300/90 leading-tight">
-                              <strong className="text-emerald-400 font-semibold">Expected Reality: </strong>
+                            <div className="pt-3 border-t border-hairline type-caption text-ink-primary bg-white p-2.5 rounded-xl border border-hairline">
+                              <strong className="text-brand-primary font-semibold">Expected Reality: </strong>
                               {ph.expectation}
                             </div>
                           </div>
@@ -1557,46 +1596,46 @@ export default function Services({ initialSlug }) {
                     </div>
                   )}
 
-                  {/* ══════ FULL-WIDTH 25% GROWTH GUARANTEE CARD ══════ */}
+                  {/* ══════ 25% GROWTH GUARANTEE CARD ══════ */}
                   {service.growth_guarantee && (
-                    <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-emerald-950/20 border border-emerald-500/30 backdrop-blur-xl relative overflow-hidden">
+                    <div className="mt-10 p-6 sm:p-8 rounded-3xl bg-emerald-500/5 border border-emerald-500/20 relative">
                       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-6 border-b border-emerald-500/20">
                         <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                          <div className="w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-700 shrink-0">
                             <ShieldCheck className="w-7 h-7" aria-hidden="true" />
                           </div>
                           <div>
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 inline-block mb-1">
+                            <span className="type-meta font-bold uppercase tracking-wider text-emerald-800 px-2.5 py-0.5 rounded-full bg-emerald-100 border border-emerald-200 inline-block mb-1">
                               {service.growth_guarantee.checkpoint}
                             </span>
-                            <h3 className="font-display text-xl sm:text-2xl font-bold text-white">
+                            <h3 className="type-h2 text-emerald-950">
                               {service.growth_guarantee.title}
                             </h3>
                           </div>
                         </div>
-                        <span className="text-xs text-emerald-300 font-medium bg-emerald-950/60 px-3.5 py-1.5 rounded-xl border border-emerald-500/30">
+                        <span className="type-meta text-emerald-800 font-semibold bg-emerald-100/80 px-3.5 py-1.5 rounded-xl border border-emerald-200">
                           100% Accountable • Zero Fluff
                         </span>
                       </div>
 
-                      <p className="text-xs sm:text-sm text-gray-200 leading-relaxed mb-6">
+                      <p className="type-body text-ink-secondary text-xs sm:text-sm leading-relaxed mb-6">
                         {service.growth_guarantee.summary}
                       </p>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                        <div className="p-4 rounded-xl bg-black/30 border border-emerald-500/20">
-                          <h4 className="text-xs font-bold text-emerald-400 mb-1">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="p-4 rounded-xl bg-white border border-emerald-500/20 shadow-sm">
+                          <h4 className="text-xs font-bold text-emerald-800 mb-1">
                             Why Reach &amp; Engagement Instead of Direct Sales?
                           </h4>
-                          <p className="text-[11px] text-gray-300 leading-relaxed">
+                          <p className="type-caption text-ink-secondary leading-relaxed">
                             {service.growth_guarantee.why_reach}
                           </p>
                         </div>
-                        <div className="p-4 rounded-xl bg-black/30 border border-emerald-500/20">
-                          <h4 className="text-xs font-bold text-amber-300 mb-1">
+                        <div className="p-4 rounded-xl bg-white border border-emerald-500/20 shadow-sm">
+                          <h4 className="text-xs font-bold text-amber-800 mb-1">
                             The Mutual Partnership Condition
                           </h4>
-                          <p className="text-[11px] text-gray-300 leading-relaxed">
+                          <p className="type-caption text-ink-secondary leading-relaxed">
                             {service.growth_guarantee.condition}
                           </p>
                         </div>
@@ -1608,24 +1647,27 @@ export default function Services({ initialSlug }) {
             })}
           </div>
 
-          {/* ══════ CROSS-DISCOVERY: NEED TRAFFIC FOR YOUR NEW PLATFORM? (B2B SILO) ══════ */}
-          <section className="mt-16 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-950/30 via-navy-900 to-navy-950 border border-emerald-500/30 relative overflow-hidden" aria-label="Cross-Discovery Banner">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div>
-                <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider block mb-1">
+          {/* ══════ DARK CONTRAST BAND: CROSS-DISCOVERY (MAX 2 PER PAGE RULE) ══════ */}
+          <section
+            className="mt-20 p-8 sm:p-12 rounded-3xl bg-dark-band text-ink-on-dark border border-dark-surface shadow-2xl relative overflow-hidden"
+            aria-label="Cross-Discovery Banner"
+          >
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+              <div className="max-w-2xl">
+                <span className="type-meta text-emerald-400 font-bold uppercase tracking-wider block mb-2 font-mono">
                   <Sparkles className="w-4 h-4 text-emerald-400 inline-block mr-1.5" aria-hidden="true" />
                   Organic Footfall &amp; Growth Engine
                 </span>
-                <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-2">
+                <h3 className="type-h2 text-ink-on-dark mb-3">
                   Need Traffic for Your New Platform?
                 </h3>
-                <p className="text-gray-300 text-xs sm:text-sm max-w-xl">
+                <p className="type-body text-ink-on-dark-muted text-sm sm:text-base">
                   Pair your custom ordering software or mobile app with organic Hook-Retention-CTA Reels and local footfall systems that drive repeat buyers with zero ad spend burn.
                 </p>
               </div>
               <Link
                 to="/services/social-media-management"
-                className="px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all shadow-lg whitespace-nowrap flex items-center gap-2 group shrink-0"
+                className="px-7 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all shadow-lg whitespace-nowrap flex items-center gap-2 group shrink-0"
               >
                 <span>Explore Social Media Growth</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -1633,20 +1675,20 @@ export default function Services({ initialSlug }) {
             </div>
           </section>
 
-          {/* ══════ GOOGLE BUSINESS PROFILE RATING BANNER ══════ */}
-          <section className="mt-16 text-center glass-card p-8 border border-white/10">
+          {/* ══════ GOOGLE BUSINESS PROFILE RATING BANNER (LIGHT-FIRST) ══════ */}
+          <section className="mt-16 text-center p-8 rounded-3xl bg-surface border border-hairline shadow-sm">
             <div className="max-w-xl mx-auto">
-              <span className="text-amber-400 text-xl block mb-2">★★★★★</span>
-              <h3 className="font-display text-xl font-bold text-white mb-2">
+              <span className="text-amber-500 text-2xl block mb-2" aria-hidden="true">★★★★★</span>
+              <h3 className="type-h3 text-ink-primary mb-2">
                 Have We Built or Audited Your Software?
               </h3>
-              <p className="text-gray-400 text-xs sm:text-sm mb-4">
+              <p className="type-body text-ink-secondary text-xs sm:text-sm mb-4">
                 Your feedback helps other founders find reliable engineering partners. Leave a verified review on our Google Business Profile.
               </p>
               <button
                 type="button"
                 onClick={() => setReviewModalOpen(true)}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/20 text-white text-xs font-bold transition-all"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-brand-primary/10 hover:bg-brand-primary/15 border border-brand-primary/20 text-brand-primary text-xs font-bold transition-all cursor-pointer shadow-sm"
               >
                 <span>⭐</span> Rate OPEN MNC on Google
               </button>
@@ -1654,6 +1696,15 @@ export default function Services({ initialSlug }) {
           </section>
         </div>
       </main>
+
+      {/* Interactive Package Breakdown Modal */}
+      <PackageBreakdownModal
+        isOpen={packageModalOpen}
+        onClose={() => setPackageModalOpen(false)}
+        selectedPackage={selectedModalPackage}
+        growthGuarantee={STATIC_SERVICES.find((s) => s.slug === 'social-media-management')?.growth_guarantee}
+        timelinePhases={STATIC_SERVICES.find((s) => s.slug === 'social-media-management')?.timeline_phases}
+      />
 
       <GoogleReviewModal
         isOpen={reviewModalOpen}

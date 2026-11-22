@@ -15,12 +15,12 @@ const STATUS_PROGRESSION = [
 ]
 
 const STATUS_COLORS = {
-  applied: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  'under review': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-  shortlisted: 'bg-purple-500/10 text-purple-300 border-purple-500/20',
-  'interview scheduled': 'bg-[#2997ff]/15 text-[#2997ff] border-[#2997ff]/30',
-  offer: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-  rejected: 'bg-red-500/10 text-red-400 border-red-500/20',
+  applied: 'bg-blue-50 text-blue-800 border-blue-200',
+  'under review': 'bg-amber-50 text-amber-800 border-amber-200',
+  shortlisted: 'bg-purple-50 text-purple-800 border-purple-200',
+  'interview scheduled': 'bg-brand-primary/10 text-brand-primary border-brand-primary/20',
+  offer: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+  rejected: 'bg-red-50 text-red-800 border-red-200',
 }
 
 export default function ApplicationTracker() {
@@ -89,44 +89,46 @@ export default function ApplicationTracker() {
         canonical="/careers/track"
       />
 
-      <section className="pt-36 pb-12 px-4 bg-black text-center" aria-label="Candidate Tracker Header">
-        <div className="max-w-3xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-[#2997ff] mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#2997ff]" />
+      {/* Header (Light-First Editorial) */}
+      <section className="pt-32 sm:pt-40 pb-12 px-4 bg-canvas text-center overflow-x-clip relative" aria-label="Candidate Tracker Header">
+        <div className="absolute inset-0 bg-ambient-mesh pointer-events-none" />
+        <div className="section-container max-w-3xl mx-auto relative z-10">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full type-meta font-bold uppercase tracking-wider bg-brand-primary/10 border border-brand-primary/20 text-brand-primary mb-6 font-mono">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse" />
             HR Transparency Portal
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-semibold text-[#f5f5f7] tracking-tight mb-4">
+          <h1 className="type-h1 text-ink-primary mb-4">
             Candidate Application Tracker
           </h1>
-          <p className="text-[#a1a1a6] text-sm sm:text-base leading-relaxed">
+          <p className="type-body text-ink-secondary text-sm sm:text-base leading-relaxed">
             Real-time hiring status, interview stages, and feedback for your submissions at OpenMNC.
           </p>
         </div>
       </section>
 
-      <main className="bg-black pb-24 px-4">
-        <div className="container-max max-w-3xl mx-auto">
+      <main className="bg-subtle pb-24 px-4 overflow-x-clip">
+        <div className="section-container max-w-3xl mx-auto">
           {!isAuthenticated ? (
-            <div className="liquid-glass p-8 sm:p-10 rounded-3xl max-w-md mx-auto text-center">
-              <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#2997ff] mx-auto mb-5">
+            <div className="p-8 sm:p-10 rounded-3xl bg-surface border border-hairline shadow-sm max-w-md mx-auto text-center">
+              <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary mx-auto mb-5">
                 <Lock className="w-6 h-6" aria-hidden="true" />
               </div>
-              <h2 className="font-display text-xl font-semibold text-[#f5f5f7] mb-2">
+              <h2 className="type-h3 text-ink-primary mb-2">
                 Candidate Status Portal
               </h2>
-              <p className="text-[#86868b] text-xs leading-relaxed mb-6">
+              <p className="type-caption text-ink-secondary leading-relaxed mb-6">
                 Enter the email address you used when submitting your job or internship application.
               </p>
 
               {error && (
-                <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
+                <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs">
                   {error}
                 </div>
               )}
 
               <form onSubmit={handleLoginSubmit} className="space-y-4 text-left">
                 <div>
-                  <label htmlFor="candEmail" className="block text-xs font-medium text-[#d2d2d7] mb-1">
+                  <label htmlFor="candEmail" className="block type-caption font-semibold text-ink-primary mb-1">
                     Application Email Address
                   </label>
                   <input
@@ -136,7 +138,7 @@ export default function ApplicationTracker() {
                     placeholder="you@gmail.com"
                     value={candidateEmail}
                     onChange={(e) => setCandidateEmail(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#2997ff] transition-colors"
+                    className="w-full px-4 py-2.5 rounded-xl bg-white border border-hairline text-ink-primary text-sm focus:outline-none focus:border-brand-primary transition-colors shadow-sm"
                   />
                 </div>
 
@@ -146,16 +148,16 @@ export default function ApplicationTracker() {
                     id="rememberMe"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="accent-[#2997ff] w-4 h-4 cursor-pointer"
+                    className="accent-brand-primary w-4 h-4 cursor-pointer"
                   />
-                  <label htmlFor="rememberMe" className="text-xs text-[#86868b] cursor-pointer">
+                  <label htmlFor="rememberMe" className="type-caption text-ink-muted cursor-pointer">
                     Remember me on this browser
                   </label>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-3 rounded-full text-xs font-semibold tracking-wide bg-[#2997ff] hover:bg-[#0071e3] text-white transition-all"
+                  className="w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-brand-primary hover:bg-brand-primary-hover text-white transition-all shadow-md cursor-pointer"
                 >
                   Track My Application Status →
                 </button>
@@ -164,25 +166,25 @@ export default function ApplicationTracker() {
           ) : (
             <div className="space-y-6">
               {/* Authenticated Candidate Header Bar */}
-              <div className="rounded-2xl bg-[#161618] border border-white/8 p-6 flex flex-wrap items-center justify-between gap-4">
+              <div className="rounded-3xl bg-surface border border-hairline shadow-sm p-6 flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <span className="text-[10px] text-emerald-400 font-semibold uppercase tracking-wider block">
+                  <span className="type-meta text-emerald-700 font-bold uppercase tracking-wider block font-mono">
                     ● Active Session
                   </span>
-                  <h2 className="font-display text-lg font-semibold text-[#f5f5f7] mt-0.5">
+                  <h2 className="type-h3 text-ink-primary mt-0.5">
                     {candidateName ? `${candidateName} (${candidateEmail})` : candidateEmail}
                   </h2>
                 </div>
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => fetchStatus(candidateEmail)}
-                    className="px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 hover:bg-white/10 text-[#d2d2d7] border border-white/10 transition-colors"
+                    className="px-4 py-2 rounded-xl type-caption font-semibold bg-subtle hover:bg-white border border-hairline text-ink-primary transition-colors cursor-pointer shadow-sm"
                   >
                     Refresh ↻
                   </button>
                   <button
                     onClick={handleLogout}
-                    className="px-4 py-1.5 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-colors"
+                    className="px-4 py-2 rounded-xl type-caption font-semibold bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition-colors cursor-pointer"
                   >
                     Sign Out
                   </button>
@@ -191,22 +193,22 @@ export default function ApplicationTracker() {
 
               {loading ? (
                 <div className="flex justify-center py-16">
-                  <div className="w-8 h-8 border-2 border-[#2997ff]/30 border-t-[#2997ff] rounded-full animate-spin" />
+                  <div className="w-8 h-8 border-2 border-brand-primary/30 border-t-brand-primary rounded-full animate-spin" />
                 </div>
               ) : applications.length === 0 ? (
-                <div className="rounded-2xl bg-[#161618] border border-white/8 p-12 text-center">
-                  <div className="w-12 h-12 mx-auto mb-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400">
+                <div className="rounded-3xl bg-surface border border-hairline shadow-sm p-12 text-center">
+                  <div className="w-12 h-12 mx-auto mb-3 rounded-2xl bg-subtle border border-hairline flex items-center justify-center text-ink-muted">
                     <FileText className="w-6 h-6" aria-hidden="true" />
                   </div>
-                  <h3 className="font-display text-lg font-semibold text-[#f5f5f7] mb-2">
+                  <h3 className="type-h3 text-ink-primary mb-2">
                     No Applications Found for {candidateEmail}
                   </h3>
-                  <p className="text-[#86868b] text-xs sm:text-sm mb-6 max-w-md mx-auto">
+                  <p className="type-body text-ink-secondary text-xs sm:text-sm mb-6 max-w-md mx-auto">
                     We haven&apos;t received an application from this email yet. Explore our open roles or submit your resume!
                   </p>
                   <Link
                     to="/careers"
-                    className="inline-block px-5 py-2.5 rounded-full text-xs font-semibold bg-white text-black hover:bg-[#f5f5f7] transition-all"
+                    className="inline-block px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-brand-primary hover:bg-brand-primary-hover text-white transition-all shadow-md"
                   >
                     View Open Positions &amp; Internships →
                   </Link>
@@ -215,36 +217,36 @@ export default function ApplicationTracker() {
                 <div className="space-y-4">
                   {applications.map((app) => {
                     const statusKey = app.status?.toLowerCase() || 'applied'
-                    const badgeClass = STATUS_COLORS[statusKey] || 'bg-white/5 text-[#a1a1a6] border-white/10'
+                    const badgeClass = STATUS_COLORS[statusKey] || 'bg-subtle text-ink-secondary border-hairline'
 
                     return (
                       <motion.div
                         key={app.id}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="rounded-2xl bg-[#161618] border border-white/8 p-6 sm:p-7 hover:border-white/16 transition-all"
+                        className="rounded-3xl bg-surface border border-hairline shadow-sm p-6 sm:p-7 hover:border-brand-primary/30 transition-all"
                       >
                         <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                           <div>
-                            <span className="text-[10px] text-[#2997ff] uppercase tracking-wider font-semibold block mb-1">
+                            <span className="type-meta text-brand-primary uppercase tracking-wider font-bold block mb-1 font-mono">
                               Applied Position
                             </span>
-                            <h3 className="font-display text-xl font-semibold text-[#f5f5f7]">
+                            <h3 className="type-h3 text-ink-primary">
                               {app.job_title}
                             </h3>
-                            <p className="text-xs text-[#86868b] mt-0.5">
+                            <p className="type-caption text-ink-muted mt-0.5">
                               Submitted on {formatDate(app.applied_at)}
                             </p>
                           </div>
-                          <span className={`px-3 py-1 rounded-full text-xs font-semibold border uppercase tracking-wider ${badgeClass}`}>
+                          <span className={`px-3 py-1 rounded-full type-meta font-bold uppercase tracking-wider border ${badgeClass}`}>
                             {app.status}
                           </span>
                         </div>
 
                         {/* Status Pipeline Progress Bar */}
                         {statusKey !== 'rejected' && (
-                          <div className="my-6 p-4 bg-white/[0.02] border border-white/6 rounded-xl">
-                            <p className="text-xs text-[#86868b] mb-3 font-semibold">
+                          <div className="my-6 p-4 bg-subtle border border-hairline rounded-2xl">
+                            <p className="type-caption font-bold text-ink-primary mb-3">
                               Hiring Progression Stages
                             </p>
                             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center">
@@ -256,15 +258,15 @@ export default function ApplicationTracker() {
                                 return (
                                   <div
                                     key={step}
-                                    className={`p-2 rounded-lg text-xs font-medium border transition-all ${
+                                    className={`p-2 rounded-xl text-xs font-medium border transition-all ${
                                       isCurrent
-                                        ? 'bg-[#2997ff]/20 text-[#2997ff] border-[#2997ff]/40 font-semibold'
+                                        ? 'bg-brand-primary text-white border-brand-primary font-bold shadow-sm'
                                         : isPassed
-                                        ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                                        : 'bg-white/[0.01] text-[#86868b] border-white/5'
+                                        ? 'bg-emerald-50 text-emerald-800 border-emerald-200 font-semibold'
+                                        : 'bg-white text-ink-muted border-hairline'
                                     }`}
                                   >
-                                    <span className="block text-[10px] mb-0.5">Stage {idx + 1}</span>
+                                    <span className="block text-[10px] mb-0.5 opacity-80">Stage {idx + 1}</span>
                                     {step}
                                   </div>
                                 )
@@ -274,14 +276,14 @@ export default function ApplicationTracker() {
                         )}
 
                         {app.interview_date && (
-                          <div className="mt-4 p-4 rounded-xl bg-[#2997ff]/10 border border-[#2997ff]/20 text-xs text-[#f5f5f7]">
-                            <strong className="text-[#2997ff]">Interview Scheduled:</strong> {app.interview_date}
+                          <div className="mt-4 p-4 rounded-xl bg-brand-primary/10 border border-brand-primary/20 text-xs text-ink-primary">
+                            <strong className="text-brand-primary">Interview Scheduled:</strong> {app.interview_date}
                           </div>
                         )}
 
                         {app.hr_internal_notes && (
-                          <div className="mt-3 p-4 rounded-xl bg-white/[0.02] border border-white/6 text-xs text-[#a1a1a6]">
-                            <strong className="text-white">HR Note:</strong> {app.hr_internal_notes}
+                          <div className="mt-3 p-4 rounded-xl bg-subtle border border-hairline text-xs text-ink-secondary">
+                            <strong className="text-ink-primary">HR Note:</strong> {app.hr_internal_notes}
                           </div>
                         )}
                       </motion.div>

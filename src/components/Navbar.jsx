@@ -13,16 +13,16 @@ const CORE_SOLUTIONS = [
     desc: 'Direct ordering websites & D2C apps to stop paying 30% commissions',
     to: '/solutions/custom-web-app-development',
     badge: '30% Savings',
-    color: 'text-[#2997ff]',
-    badgeColor: 'bg-[#2997ff]/10 text-[#2997ff] border-[#2997ff]/30',
+    color: 'text-brand-primary',
+    badgeColor: 'bg-brand-primary/10 text-brand-primary border-brand-primary/20',
   },
   {
     label: 'Social Media Management',
     desc: 'Hook-Retention-CTA reels, audio denoising & 24/7 footfall engine',
     to: '/services/social-media-management',
     badge: 'Organic Footfall',
-    color: 'text-emerald-400',
-    badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    color: 'text-status-success',
+    badgeColor: 'bg-emerald-500/10 text-status-success border-emerald-500/20',
   },
 ]
 
@@ -115,7 +115,7 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
+    const handleScroll = () => setScrolled(window.scrollY > 15)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -161,17 +161,17 @@ export default function Navbar() {
         className={`
           fixed top-0 left-0 right-0 z-[100] transition-all duration-300 w-full
           ${scrolled
-            ? 'bg-[#0B0F19]/95 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
-            : 'bg-[#0B0F19]/85 backdrop-blur-md border-b border-white/6'
+            ? 'bg-white/90 backdrop-blur-md border-b border-hairline shadow-sm'
+            : 'bg-white/80 backdrop-blur-md border-b border-hairline/60'
           }
         `}
         role="banner"
       >
         <nav
-          className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 relative"
+          className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 h-16 flex items-center justify-between gap-3 relative"
           aria-label="Main navigation"
         >
-          {/* Brand Logo with explicit dimensions for zero CLS */}
+          {/* Brand Logo */}
           <Link
             to="/"
             className="flex items-center gap-2.5 group shrink-0 whitespace-nowrap"
@@ -185,21 +185,21 @@ export default function Navbar() {
               className="w-7 h-7 object-contain transition-transform duration-200 group-hover:scale-105"
             />
             <div className="flex items-center">
-              <span className="font-display text-lg font-semibold text-[#f5f5f7] tracking-tight">
+              <span className="font-heading text-lg font-bold text-ink-primary tracking-tight">
                 Open
               </span>
-              <span className="font-display text-lg font-semibold text-[#2997ff] tracking-tight">
+              <span className="font-heading text-lg font-bold text-brand-primary tracking-tight">
                 MNC
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation: Single-Row Apple Liquid Glass (Strictly hidden below lg / 1024px) */}
+          {/* Desktop Navigation: Light-First Frosted Navigation */}
           <ul
-            className="hidden lg:flex items-center gap-1 xl:gap-2 text-[13px] font-medium shrink-0 whitespace-nowrap"
+            className="hidden lg:flex items-center gap-1.5 xl:gap-2 text-[14px] font-sans font-medium shrink-0 whitespace-nowrap"
             role="list"
           >
-            {/* SOLUTIONS ▼ (Web & App Growth Systems | Social Media Management) */}
+            {/* SOLUTIONS ▼ */}
             <li
               className="relative shrink-0"
               onMouseEnter={handleSoftwareEnter}
@@ -209,10 +209,10 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setSoftwareOpen((v) => !v)}
                 className={`
-                  px-3 py-1.5 rounded-full transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer
+                  px-3.5 py-1.5 rounded-full transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer
                   ${isServicesActive || softwareOpen
-                    ? 'text-white bg-white/12 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.18)]'
-                    : 'text-[#a1a1a6] hover:text-white hover:bg-white/6'
+                    ? 'text-brand-primary bg-brand-primary/10 font-semibold'
+                    : 'text-ink-secondary hover:text-ink-primary hover:bg-subtle'
                   }
                 `}
                 aria-expanded={softwareOpen}
@@ -220,7 +220,7 @@ export default function Navbar() {
               >
                 <span>Solutions</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 opacity-80 shrink-0 ${softwareOpen ? 'rotate-180 text-[#2997ff]' : ''}`}
+                  className={`w-3.5 h-3.5 transition-transform duration-200 opacity-70 shrink-0 ${softwareOpen ? 'rotate-180 text-brand-primary' : ''}`}
                   aria-hidden="true"
                 />
               </button>
@@ -236,15 +236,15 @@ export default function Navbar() {
                     onMouseLeave={handleSoftwareLeave}
                     className="absolute top-full left-0 pt-2 z-[200] pointer-events-auto"
                   >
-                    <div className="w-[430px] p-4 rounded-2xl bg-[#0f172a] border border-slate-700 shadow-[0_24px_60px_-10px_rgba(0,0,0,0.95)]">
+                    <div className="w-[440px] p-4 rounded-2xl bg-white border border-hairline shadow-[0_20px_50px_rgba(0,0,0,0.18)] opacity-100">
                       {/* Primary B2B Growth Silos Header */}
-                      <div className="px-1 py-1 border-b border-slate-800 mb-2.5 flex items-center justify-between">
-                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block font-body">
+                      <div className="px-1 py-1 border-b border-hairline mb-2.5 flex items-center justify-between">
+                        <span className="text-[10px] text-ink-muted font-bold uppercase tracking-wider block font-mono">
                           B2B Growth Systems
                         </span>
                         <Link
                           to="/services"
-                          className="text-[11px] text-blue-400 hover:text-blue-300 hover:underline font-semibold font-body"
+                          className="text-[11px] text-brand-primary hover:text-brand-primary-hover hover:underline font-semibold font-sans"
                         >
                           All Services Hub →
                         </Link>
@@ -256,17 +256,17 @@ export default function Navbar() {
                           <Link
                             key={item.to}
                             to={item.to}
-                            className="block p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/70 hover:border-slate-600 transition-all group"
+                            className="block p-3 rounded-xl bg-subtle hover:bg-white border border-hairline hover:border-brand-primary/40 transition-all group"
                           >
                             <div className="flex items-center justify-between mb-1">
-                              <span className={`text-xs font-bold ${item.color} group-hover:brightness-125 transition-all font-display`}>
+                              <span className={`text-xs font-bold ${item.color} group-hover:brightness-90 transition-all font-heading`}>
                                 {item.label}
                               </span>
                               <span className={`text-[9px] px-2 py-0.5 rounded border font-bold uppercase tracking-wide ${item.badgeColor}`}>
                                 {item.badge}
                               </span>
                             </div>
-                            <p className="text-[11px] text-slate-400 leading-tight font-body">
+                            <p className="text-[11px] text-ink-secondary leading-tight font-sans">
                               {item.desc}
                             </p>
                           </Link>
@@ -274,24 +274,24 @@ export default function Navbar() {
                       </div>
 
                       {/* Secondary: Specialized Engineering Pillars */}
-                      <div className="pt-2.5 border-t border-slate-800">
+                      <div className="pt-2.5 border-t border-hairline">
                         <div className="flex items-center justify-between px-1 mb-2">
-                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block font-body">
+                          <span className="text-[10px] text-ink-muted font-bold uppercase tracking-wider block font-mono">
                             Specialized Engineering
                           </span>
-                          <span className="text-[9px] text-slate-500 font-mono">5 Pillars</span>
+                          <span className="text-[9px] text-ink-muted font-mono">5 Pillars</span>
                         </div>
                         <div className="grid grid-cols-2 gap-1.5">
                           {ENGINEERING_PILLARS.slice(0, 4).map((item) => (
                             <Link
                               key={item.to}
                               to={item.to}
-                              className="block p-2 rounded-xl bg-slate-800/50 hover:bg-slate-800 transition-colors group border border-slate-700/40 hover:border-slate-600"
+                              className="block p-2 rounded-xl bg-subtle/60 hover:bg-subtle transition-colors group border border-hairline hover:border-brand-primary/30"
                             >
-                              <span className="text-[11px] font-semibold text-slate-200 group-hover:text-blue-400 transition-colors line-clamp-1 block mb-0.5 font-display">
+                              <span className="text-[11px] font-semibold text-ink-primary group-hover:text-brand-primary transition-colors line-clamp-1 block mb-0.5 font-heading">
                                 {item.label}
                               </span>
-                              <span className="text-[10px] text-slate-400 line-clamp-1 block font-body">
+                              <span className="text-[10px] text-ink-muted line-clamp-1 block font-sans">
                                 {item.badge}
                               </span>
                             </Link>
@@ -309,8 +309,8 @@ export default function Navbar() {
               <NavLink
                 to="/career-guidance"
                 className={({ isActive }) => `
-                  px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap shrink-0 block
-                  ${isActive ? 'text-white bg-white/10' : 'text-[#a1a1a6] hover:text-white hover:bg-white/6'}
+                  px-3.5 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap shrink-0 block
+                  ${isActive ? 'text-brand-primary bg-brand-primary/10 font-semibold' : 'text-ink-secondary hover:text-ink-primary hover:bg-subtle'}
                 `}
               >
                 Career Guidance
@@ -322,8 +322,8 @@ export default function Navbar() {
               <NavLink
                 to="/blog"
                 className={({ isActive }) => `
-                  px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap shrink-0 block
-                  ${isActive ? 'text-white bg-white/10' : 'text-[#a1a1a6] hover:text-white hover:bg-white/6'}
+                  px-3.5 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap shrink-0 block
+                  ${isActive ? 'text-brand-primary bg-brand-primary/10 font-semibold' : 'text-ink-secondary hover:text-ink-primary hover:bg-subtle'}
                 `}
               >
                 Blog
@@ -335,8 +335,8 @@ export default function Navbar() {
               <NavLink
                 to="/about"
                 className={({ isActive }) => `
-                  px-3 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap shrink-0 block
-                  ${isActive ? 'text-white bg-white/10' : 'text-[#a1a1a6] hover:text-white hover:bg-white/6'}
+                  px-3.5 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap shrink-0 block
+                  ${isActive ? 'text-brand-primary bg-brand-primary/10 font-semibold' : 'text-ink-secondary hover:text-ink-primary hover:bg-subtle'}
                 `}
               >
                 About
@@ -344,13 +344,12 @@ export default function Navbar() {
             </li>
           </ul>
 
-          {/* Right Side — Compact Review Trigger & Primary CTA Pill (Never wraps) */}
+          {/* Right Side — Google Review & Primary CTA */}
           <div className="hidden lg:flex items-center gap-2.5 shrink-0 whitespace-nowrap">
-            {/* Google Rating Pill Button */}
             <button
               type="button"
               onClick={() => setReviewModalOpen(true)}
-              className="px-2.5 py-1.5 rounded-full text-xs font-medium bg-white/6 border border-white/12 hover:border-white/24 text-[#f5f5f7] flex items-center gap-1.5 transition-all shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] group shrink-0 whitespace-nowrap"
+              className="px-3 py-1.5 rounded-full text-xs font-medium bg-subtle border border-hairline hover:border-brand-primary/40 text-ink-primary flex items-center gap-1.5 transition-all shadow-sm group shrink-0 whitespace-nowrap font-sans"
               title="Review OPEN MNC on Google"
             >
               <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
@@ -359,23 +358,22 @@ export default function Navbar() {
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
               </svg>
-              <span className="text-[#ff9500] font-semibold tabular-nums">★ 5.0</span>
+              <span className="text-amber-500 font-bold tabular-nums">★ 5.0</span>
             </button>
 
-            {/* Primary CTA Pill Button */}
             <Link
               to="/contact"
-              className="apple-btn-primary px-4 py-1.5 text-xs font-semibold shrink-0 whitespace-nowrap"
+              className="px-5 py-2 rounded-full bg-brand-primary hover:bg-brand-primary-hover text-white text-xs font-semibold shrink-0 whitespace-nowrap shadow-[0_2px_10px_rgba(37,99,235,0.3)] transition-all font-sans"
             >
               Book a Call
             </Link>
           </div>
 
-          {/* Mobile Liquid Glass Header (<1024px: Logo + Compact CTA + Hamburger) */}
+          {/* Mobile Header (<1024px) */}
           <div className="flex items-center gap-2 lg:hidden shrink-0">
             <Link
               to="/contact"
-              className="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#2997ff] text-white hover:bg-[#0077ed] transition-colors shrink-0 whitespace-nowrap"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-primary text-white hover:bg-brand-primary-hover transition-colors shrink-0 whitespace-nowrap font-sans"
             >
               Book Call
             </Link>
@@ -383,14 +381,14 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setReviewModalOpen(true)}
-              className="px-2.5 py-1.5 rounded-full text-[11px] font-medium bg-white/6 border border-white/12 text-[#ff9500] flex items-center gap-1 tabular-nums shrink-0 whitespace-nowrap"
+              className="px-2.5 py-1.5 rounded-full text-[11px] font-medium bg-subtle border border-hairline text-amber-500 flex items-center gap-1 tabular-nums shrink-0 whitespace-nowrap font-sans"
               aria-label="Google Rating"
             >
               ★ 5.0
             </button>
 
             <button
-              className="p-2 rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-colors duration-200 shrink-0"
+              className="p-2 rounded-full text-ink-secondary hover:text-ink-primary hover:bg-subtle transition-colors shrink-0"
               onClick={() => setMobileOpen((o) => !o)}
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
@@ -414,7 +412,7 @@ export default function Navbar() {
           </div>
         </nav>
 
-        {/* Mobile Liquid Glass Full-Height Scrollable Drawer with z-50 and Body Scroll Lock */}
+        {/* Mobile Light-First Full-Height Drawer */}
         <AnimatePresence>
           {mobileOpen && (
             <motion.div
@@ -423,54 +421,54 @@ export default function Navbar() {
               animate={{ opacity: 1, height: 'calc(100vh - 64px)' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:hidden border-t border-slate-800 bg-[#0B0F19] fixed top-16 left-0 right-0 bottom-0 z-[200] overflow-y-auto w-full shadow-2xl"
+              className="lg:hidden border-t border-hairline bg-white fixed top-16 left-0 right-0 bottom-0 z-[200] overflow-y-auto w-full shadow-2xl"
             >
               <div className="px-5 py-6 space-y-3 pb-24">
                 {/* Mobile Silo 1: Solutions Accordion */}
-                <div className="border border-white/10 rounded-2xl p-4 bg-white/3">
+                <div className="border border-hairline rounded-2xl p-4 bg-subtle">
                   <button
                     type="button"
                     onClick={() => setMobileSoftwareOpen((v) => !v)}
-                    className="w-full flex items-center justify-between text-xs font-bold text-[#f5f5f7] uppercase tracking-wider py-1 cursor-pointer"
+                    className="w-full flex items-center justify-between text-xs font-bold text-ink-primary uppercase tracking-wider py-1 cursor-pointer font-sans"
                   >
                     <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#2997ff]" />
+                      <span className="w-2 h-2 rounded-full bg-brand-primary" />
                       <span>Solutions &amp; Software</span>
                     </div>
-                    <span className="text-[#86868b] text-base">{mobileSoftwareOpen ? '−' : '+'}</span>
+                    <span className="text-ink-muted text-base">{mobileSoftwareOpen ? '−' : '+'}</span>
                   </button>
                   {mobileSoftwareOpen && (
-                    <div className="mt-3 space-y-2.5 pt-3 border-t border-white/8">
+                    <div className="mt-3 space-y-2.5 pt-3 border-t border-hairline">
                       <Link
                         to="/solutions/custom-web-app-development"
-                        className="block p-3 rounded-xl bg-white/4 hover:bg-white/8 border border-white/8 transition-colors"
+                        className="block p-3 rounded-xl bg-white border border-hairline transition-colors"
                       >
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs font-semibold text-[#2997ff]">Web &amp; App Growth Systems</span>
-                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#2997ff]/10 text-[#2997ff] border border-[#2997ff]/30 font-semibold">30% Save</span>
+                          <span className="text-xs font-semibold text-brand-primary">Web &amp; App Growth Systems</span>
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-brand-primary/10 text-brand-primary border border-brand-primary/20 font-semibold font-mono">30% Save</span>
                         </div>
-                        <p className="text-[11px] text-[#86868b] leading-tight">
+                        <p className="text-[11px] text-ink-secondary leading-tight font-sans">
                           Direct ordering websites &amp; D2C apps to stop paying aggregator commissions
                         </p>
                       </Link>
                       <Link
                         to="/services/social-media-management"
-                        className="block p-3 rounded-xl bg-white/4 hover:bg-white/8 border border-white/8 transition-colors"
+                        className="block p-3 rounded-xl bg-white border border-hairline transition-colors"
                       >
                         <div className="flex items-center justify-between mb-1">
-                          <span className="text-xs font-semibold text-emerald-400">Social Media &amp; Reels Growth</span>
-                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold">Organic</span>
+                          <span className="text-xs font-semibold text-status-success">Social Media &amp; Reels Growth</span>
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-status-success border border-emerald-500/20 font-semibold font-mono">Organic</span>
                         </div>
-                        <p className="text-[11px] text-[#86868b] leading-tight">
+                        <p className="text-[11px] text-ink-secondary leading-tight font-sans">
                           Hook-Retention-CTA reels &amp; 24/7 footfall engine
                         </p>
                       </Link>
-                      <div className="pt-2 border-t border-white/6">
+                      <div className="pt-2 border-t border-hairline">
                         <div className="flex items-center justify-between mb-2 px-1">
-                          <span className="text-[10px] text-[#86868b] font-semibold uppercase tracking-wider">
+                          <span className="text-[10px] text-ink-muted font-semibold uppercase tracking-wider font-mono">
                             Specialized Engineering
                           </span>
-                          <Link to="/services" className="text-[10px] text-[#2997ff] font-medium hover:underline">
+                          <Link to="/services" className="text-[10px] text-brand-primary font-medium hover:underline font-sans">
                             All Hub →
                           </Link>
                         </div>
@@ -479,7 +477,7 @@ export default function Navbar() {
                             <Link
                               key={s.to}
                               to={s.to}
-                              className="block p-2 rounded-lg bg-white/2 hover:bg-white/6 text-xs text-[#a1a1a6] hover:text-white transition-colors"
+                              className="block p-2 rounded-lg bg-white/60 hover:bg-white text-xs text-ink-secondary hover:text-ink-primary transition-colors font-sans"
                             >
                               {s.label}
                             </Link>
@@ -490,24 +488,24 @@ export default function Navbar() {
                   )}
                 </div>
 
-                {/* Mobile Silo 2: Career Guidance & Subsidies Accordion */}
-                <div className="border border-white/10 rounded-2xl p-4 bg-white/3">
+                {/* Mobile Silo 2: Career Guidance Accordion */}
+                <div className="border border-hairline rounded-2xl p-4 bg-subtle">
                   <button
                     type="button"
                     onClick={() => setMobileCareerOpen((v) => !v)}
-                    className="w-full flex items-center justify-between text-xs font-bold text-[#f5f5f7] uppercase tracking-wider py-1 cursor-pointer"
+                    className="w-full flex items-center justify-between text-xs font-bold text-ink-primary uppercase tracking-wider py-1 cursor-pointer font-sans"
                   >
                     <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#ff9500]" />
+                      <span className="w-2 h-2 rounded-full bg-amber-500" />
                       <span>Career Guidance &amp; Subsidies</span>
                     </div>
-                    <span className="text-[#86868b] text-base">{mobileCareerOpen ? '−' : '+'}</span>
+                    <span className="text-ink-muted text-base">{mobileCareerOpen ? '−' : '+'}</span>
                   </button>
                   {mobileCareerOpen && (
-                    <div className="mt-3 space-y-2 pt-3 border-t border-white/8">
+                    <div className="mt-3 space-y-2 pt-3 border-t border-hairline">
                       <Link
                         to="/career-guidance"
-                        className="block text-xs text-[#ff9500] font-semibold py-1 hover:underline"
+                        className="block text-xs text-amber-600 font-semibold py-1 hover:underline font-sans"
                       >
                         100% Free Career Guidance Portal →
                       </Link>
@@ -515,7 +513,7 @@ export default function Navbar() {
                         <Link
                           key={s.to}
                           to={s.to}
-                          className="block text-xs text-[#a1a1a6] hover:text-white py-1 transition-colors"
+                          className="block text-xs text-ink-secondary hover:text-ink-primary py-1 transition-colors font-sans"
                         >
                           {s.label}
                         </Link>
@@ -527,46 +525,46 @@ export default function Navbar() {
                 {/* Core Navigation Links */}
                 <Link
                   to="/blog"
-                  className="block px-3 py-2.5 rounded-xl text-sm text-[#d2d2d7] hover:text-white hover:bg-white/6 transition-colors"
+                  className="block px-3 py-2.5 rounded-xl text-sm font-sans text-ink-secondary hover:text-ink-primary hover:bg-subtle transition-colors"
                 >
                   Blog &amp; Insights
                 </Link>
                 <Link
                   to="/about"
-                  className="block px-3 py-2.5 rounded-xl text-sm text-[#d2d2d7] hover:text-white hover:bg-white/6 transition-colors"
+                  className="block px-3 py-2.5 rounded-xl text-sm font-sans text-ink-secondary hover:text-ink-primary hover:bg-subtle transition-colors"
                 >
                   About OpenMNC
                 </Link>
                 <Link
                   to="/careers"
-                  className="block px-3 py-2.5 rounded-xl text-sm text-[#d2d2d7] hover:text-white hover:bg-white/6 transition-colors"
+                  className="block px-3 py-2.5 rounded-xl text-sm font-sans text-ink-secondary hover:text-ink-primary hover:bg-subtle transition-colors"
                 >
                   Careers &amp; Openings
                 </Link>
                 <Link
                   to="/contact"
-                  className="block px-3 py-2.5 rounded-xl text-sm text-[#d2d2d7] hover:text-white hover:bg-white/6 transition-colors"
+                  className="block px-3 py-2.5 rounded-xl text-sm font-sans text-ink-secondary hover:text-ink-primary hover:bg-subtle transition-colors"
                 >
                   Contact &amp; Bookings
                 </Link>
 
                 {/* Mobile Drawer Actions */}
-                <div className="pt-4 border-t border-white/10 flex flex-col gap-2.5">
+                <div className="pt-4 border-t border-hairline flex flex-col gap-2.5">
                   <button
                     type="button"
                     onClick={() => {
                       setMobileOpen(false)
                       setReviewModalOpen(true)
                     }}
-                    className="w-full text-center py-2.5 rounded-full text-xs font-medium bg-white/6 border border-white/12 text-white flex items-center justify-center gap-2"
+                    className="w-full text-center py-2.5 rounded-full text-xs font-medium bg-subtle border border-hairline text-ink-primary flex items-center justify-center gap-2 font-sans"
                   >
-                    <Star className="w-3.5 h-3.5 text-[#ff9500] fill-[#ff9500]" />
-                    <span className="text-[#ff9500] tabular-nums">★ 5.0</span>
+                    <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                    <span className="text-amber-500 tabular-nums font-bold">★ 5.0</span>
                     <span>Rate OPEN MNC on Google</span>
                   </button>
                   <Link
                     to="/contact"
-                    className="apple-btn-primary w-full text-center py-3 text-xs font-semibold"
+                    className="w-full text-center py-3 rounded-full bg-brand-primary text-white text-xs font-semibold font-sans shadow-sm"
                   >
                     Book a Discovery Call
                   </Link>
