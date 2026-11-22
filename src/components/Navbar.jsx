@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Star } from 'lucide-react'
 import GoogleReviewModal from './GoogleReviewModal.jsx'
 import { settingsApi } from '../api/settings.js'
+import { prefetchApi } from '../api/client.js'
 
 // Primary B2B Growth & Solution Systems
 const CORE_SOLUTIONS = [
@@ -140,9 +141,12 @@ export default function Navbar() {
   const handleSoftwareEnter = () => {
     clearTimeout(softwareTimeoutRef.current)
     setSoftwareOpen(true)
+    prefetchApi('/services')
+    prefetchApi('/settings')
   }
   const handleSoftwareLeave = () => {
-    softwareTimeoutRef.current = setTimeout(() => setSoftwareOpen(false), 180)
+    clearTimeout(softwareTimeoutRef.current)
+    softwareTimeoutRef.current = setTimeout(() => setSoftwareOpen(false), 280)
   }
 
   const isServicesActive =
@@ -155,7 +159,7 @@ export default function Navbar() {
     <>
       <header
         className={`
-          fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full overflow-x-hidden
+          fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full
           ${scrolled
             ? 'bg-[#000000]/80 backdrop-blur-2xl border-b border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_12px_40px_-10px_rgba(0,0,0,0.6)]'
             : 'bg-[#000000]/40 backdrop-blur-xl border-b border-white/6'
@@ -164,7 +168,7 @@ export default function Navbar() {
         role="banner"
       >
         <nav
-          className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3"
+          className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 relative"
           aria-label="Main navigation"
         >
           {/* Brand Logo with explicit dimensions for zero CLS */}
@@ -205,9 +209,9 @@ export default function Navbar() {
                 type="button"
                 onClick={() => setSoftwareOpen((v) => !v)}
                 className={`
-                  px-3 py-1.5 rounded-full transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap shrink-0
-                  ${isServicesActive
-                    ? 'text-white bg-white/10'
+                  px-3 py-1.5 rounded-full transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer
+                  ${isServicesActive || softwareOpen
+                    ? 'text-white bg-white/12 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.18)]'
                     : 'text-[#a1a1a6] hover:text-white hover:bg-white/6'
                   }
                 `}
@@ -216,7 +220,7 @@ export default function Navbar() {
               >
                 <span>Solutions</span>
                 <ChevronDown
-                  className={`w-3 h-3 transition-transform duration-200 opacity-70 shrink-0 ${softwareOpen ? 'rotate-180' : ''}`}
+                  className={`w-3.5 h-3.5 transition-transform duration-200 opacity-80 shrink-0 ${softwareOpen ? 'rotate-180 text-[#2997ff]' : ''}`}
                   aria-hidden="true"
                 />
               </button>
@@ -224,67 +228,75 @@ export default function Navbar() {
               <AnimatePresence>
                 {softwareOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                    initial={{ opacity: 0, y: 6, scale: 0.98 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 6, scale: 0.98 }}
                     transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute top-full left-0 w-[420px] mt-2 p-3 rounded-2xl bg-[#161618]/95 backdrop-blur-2xl border border-white/14 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25),0_24px_50px_-12px_rgba(0,0,0,0.7)] z-50"
+                    onMouseEnter={handleSoftwareEnter}
+                    onMouseLeave={handleSoftwareLeave}
+                    className="absolute top-full left-0 pt-2 z-50 pointer-events-auto"
                   >
-                    {/* Primary B2B Growth Silos */}
-                    <div className="px-3 py-1.5 border-b border-white/6 mb-2 flex items-center justify-between">
-                      <span className="text-[10px] text-[#86868b] font-semibold uppercase tracking-wider block">
-                        Growth Solutions
-                      </span>
-                      <Link
-                        to="/services"
-                        className="text-[11px] text-[#2997ff] hover:underline font-medium"
-                      >
-                        All Services Hub →
-                      </Link>
-                    </div>
-
-                    <div className="space-y-1.5 mb-2.5">
-                      {CORE_SOLUTIONS.map((item) => (
+                    <div className="w-[430px] p-4 rounded-2xl bg-[#161618]/98 backdrop-blur-2xl border border-white/14 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25),0_24px_50px_-12px_rgba(0,0,0,0.8)]">
+                      {/* Primary B2B Growth Silos Header */}
+                      <div className="px-1 py-1 border-b border-white/8 mb-2.5 flex items-center justify-between">
+                        <span className="text-[10px] text-[#86868b] font-bold uppercase tracking-wider block">
+                          B2B Growth Systems
+                        </span>
                         <Link
-                          key={item.to}
-                          to={item.to}
-                          className="block p-3 rounded-xl bg-white/3 hover:bg-white/8 border border-white/6 hover:border-white/12 transition-all group"
+                          to="/services"
+                          className="text-[11px] text-[#2997ff] hover:underline font-semibold"
                         >
-                          <div className="flex items-center justify-between mb-1">
-                            <span className={`text-xs font-semibold ${item.color} group-hover:brightness-125 transition-all`}>
-                              {item.label}
-                            </span>
-                            <span className={`text-[9px] px-2 py-0.5 rounded border font-semibold uppercase ${item.badgeColor}`}>
-                              {item.badge}
-                            </span>
-                          </div>
-                          <p className="text-[11px] text-[#86868b] leading-tight">
-                            {item.desc}
-                          </p>
+                          All Services Hub →
                         </Link>
-                      ))}
-                    </div>
+                      </div>
 
-                    {/* Secondary: 5 Engineering Pillars */}
-                    <div className="pt-2 border-t border-white/6">
-                      <span className="text-[10px] text-[#86868b] font-semibold uppercase tracking-wider block px-3 py-1 mb-1">
-                        Specialized Engineering
-                      </span>
-                      <div className="grid grid-cols-2 gap-1">
-                        {ENGINEERING_PILLARS.slice(0, 4).map((item) => (
+                      {/* 2 Core Growth Verticals */}
+                      <div className="space-y-2 mb-3">
+                        {CORE_SOLUTIONS.map((item) => (
                           <Link
                             key={item.to}
                             to={item.to}
-                            className="block p-2 rounded-lg hover:bg-white/6 transition-colors group"
+                            className="block p-3 rounded-xl bg-white/4 hover:bg-white/8 border border-white/6 hover:border-white/16 transition-all group"
                           >
-                            <span className="text-[11px] font-medium text-[#f5f5f7] group-hover:text-[#2997ff] transition-colors line-clamp-1">
-                              {item.label}
-                            </span>
-                            <span className="text-[10px] text-[#86868b] line-clamp-1">
-                              {item.badge}
-                            </span>
+                            <div className="flex items-center justify-between mb-1">
+                              <span className={`text-xs font-bold ${item.color} group-hover:brightness-125 transition-all`}>
+                                {item.label}
+                              </span>
+                              <span className={`text-[9px] px-2 py-0.5 rounded border font-bold uppercase tracking-wide ${item.badgeColor}`}>
+                                {item.badge}
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-[#a1a1a6] leading-tight">
+                              {item.desc}
+                            </p>
                           </Link>
                         ))}
+                      </div>
+
+                      {/* Secondary: Specialized Engineering Pillars */}
+                      <div className="pt-2.5 border-t border-white/8">
+                        <div className="flex items-center justify-between px-1 mb-2">
+                          <span className="text-[10px] text-[#86868b] font-bold uppercase tracking-wider block">
+                            Specialized Engineering
+                          </span>
+                          <span className="text-[9px] text-gray-500 font-mono">5 Pillars</span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-1.5">
+                          {ENGINEERING_PILLARS.slice(0, 4).map((item) => (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              className="block p-2 rounded-xl bg-white/2 hover:bg-white/6 transition-colors group border border-transparent hover:border-white/8"
+                            >
+                              <span className="text-[11px] font-semibold text-[#f5f5f7] group-hover:text-[#2997ff] transition-colors line-clamp-1 block mb-0.5">
+                                {item.label}
+                              </span>
+                              <span className="text-[10px] text-[#86868b] line-clamp-1 block">
+                                {item.badge}
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </motion.div>
@@ -293,7 +305,7 @@ export default function Navbar() {
             </li>
 
             {/* Career Guidance */}
-            <li className="shrink-0">
+            <li className="shrink-0" onMouseEnter={() => prefetchApi('/settings')}>
               <NavLink
                 to="/career-guidance"
                 className={({ isActive }) => `
@@ -306,7 +318,7 @@ export default function Navbar() {
             </li>
 
             {/* Blog */}
-            <li className="shrink-0">
+            <li className="shrink-0" onMouseEnter={() => prefetchApi('/blogs')}>
               <NavLink
                 to="/blog"
                 className={({ isActive }) => `
@@ -319,7 +331,7 @@ export default function Navbar() {
             </li>
 
             {/* About */}
-            <li className="shrink-0">
+            <li className="shrink-0" onMouseEnter={() => prefetchApi('/settings')}>
               <NavLink
                 to="/about"
                 className={({ isActive }) => `
@@ -415,67 +427,89 @@ export default function Navbar() {
             >
               <div className="px-5 py-6 space-y-3 pb-24">
                 {/* Mobile Silo 1: Solutions Accordion */}
-                <div className="border border-white/10 rounded-2xl p-3.5 bg-white/2">
+                <div className="border border-white/10 rounded-2xl p-4 bg-white/3">
                   <button
                     type="button"
                     onClick={() => setMobileSoftwareOpen((v) => !v)}
-                    className="w-full flex items-center justify-between text-xs font-semibold text-[#f5f5f7] uppercase tracking-wider py-1"
+                    className="w-full flex items-center justify-between text-xs font-bold text-[#f5f5f7] uppercase tracking-wider py-1 cursor-pointer"
                   >
-                    <span>Solutions &amp; Software</span>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#2997ff]" />
+                      <span>Solutions &amp; Software</span>
+                    </div>
                     <span className="text-[#86868b] text-base">{mobileSoftwareOpen ? '−' : '+'}</span>
                   </button>
                   {mobileSoftwareOpen && (
-                    <div className="mt-2.5 space-y-2 pl-2 border-l border-white/10">
+                    <div className="mt-3 space-y-2.5 pt-3 border-t border-white/8">
                       <Link
                         to="/solutions/custom-web-app-development"
-                        className="block text-xs text-[#2997ff] font-semibold py-1"
+                        className="block p-3 rounded-xl bg-white/4 hover:bg-white/8 border border-white/8 transition-colors"
                       >
-                        Web &amp; App Growth Systems (30% Commission Savings) →
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-xs font-semibold text-[#2997ff]">Web &amp; App Growth Systems</span>
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-[#2997ff]/10 text-[#2997ff] border border-[#2997ff]/30 font-semibold">30% Save</span>
+                        </div>
+                        <p className="text-[11px] text-[#86868b] leading-tight">
+                          Direct ordering websites &amp; D2C apps to stop paying aggregator commissions
+                        </p>
                       </Link>
                       <Link
                         to="/services/social-media-management"
-                        className="block text-xs text-emerald-400 font-semibold py-1"
+                        className="block p-3 rounded-xl bg-white/4 hover:bg-white/8 border border-white/8 transition-colors"
                       >
-                        Social Media &amp; Reels Growth (Footfall Engine) →
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-xs font-semibold text-emerald-400">Social Media &amp; Reels Growth</span>
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-semibold">Organic</span>
+                        </div>
+                        <p className="text-[11px] text-[#86868b] leading-tight">
+                          Hook-Retention-CTA reels &amp; 24/7 footfall engine
+                        </p>
                       </Link>
-                      <div className="pt-2 mt-1 border-t border-white/6">
-                        <Link
-                          to="/services"
-                          className="block text-xs text-gray-400 hover:text-white font-medium py-1"
-                        >
-                          All Services Hub →
-                        </Link>
-                        {ENGINEERING_PILLARS.map((s) => (
-                          <Link
-                            key={s.to}
-                            to={s.to}
-                            className="block text-xs text-[#a1a1a6] hover:text-white py-1 transition-colors"
-                          >
-                            {s.label}
+                      <div className="pt-2 border-t border-white/6">
+                        <div className="flex items-center justify-between mb-2 px-1">
+                          <span className="text-[10px] text-[#86868b] font-semibold uppercase tracking-wider">
+                            Specialized Engineering
+                          </span>
+                          <Link to="/services" className="text-[10px] text-[#2997ff] font-medium hover:underline">
+                            All Hub →
                           </Link>
-                        ))}
+                        </div>
+                        <div className="grid grid-cols-1 gap-1.5">
+                          {ENGINEERING_PILLARS.map((s) => (
+                            <Link
+                              key={s.to}
+                              to={s.to}
+                              className="block p-2 rounded-lg bg-white/2 hover:bg-white/6 text-xs text-[#a1a1a6] hover:text-white transition-colors"
+                            >
+                              {s.label}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   )}
                 </div>
 
                 {/* Mobile Silo 2: Career Guidance & Subsidies Accordion */}
-                <div className="border border-white/10 rounded-2xl p-3.5 bg-white/2">
+                <div className="border border-white/10 rounded-2xl p-4 bg-white/3">
                   <button
                     type="button"
                     onClick={() => setMobileCareerOpen((v) => !v)}
-                    className="w-full flex items-center justify-between text-xs font-semibold text-[#f5f5f7] uppercase tracking-wider py-1"
+                    className="w-full flex items-center justify-between text-xs font-bold text-[#f5f5f7] uppercase tracking-wider py-1 cursor-pointer"
                   >
-                    <span>Career Guidance &amp; Subsidies</span>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#ff9500]" />
+                      <span>Career Guidance &amp; Subsidies</span>
+                    </div>
                     <span className="text-[#86868b] text-base">{mobileCareerOpen ? '−' : '+'}</span>
                   </button>
                   {mobileCareerOpen && (
-                    <div className="mt-2.5 space-y-2 pl-2 border-l border-white/10">
+                    <div className="mt-3 space-y-2 pt-3 border-t border-white/8">
                       <Link
                         to="/career-guidance"
-                        className="block text-xs text-[#ff9500] font-medium py-1"
+                        className="block text-xs text-[#ff9500] font-semibold py-1 hover:underline"
                       >
-                        Career Guidance Portal →
+                        100% Free Career Guidance Portal →
                       </Link>
                       {CAREER_GUIDANCE_SERVICES.map((s) => (
                         <Link
