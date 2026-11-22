@@ -27,7 +27,7 @@ export default function PackageBreakdownModal({ isOpen, onClose, selectedPackage
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-dark-band/70 backdrop-blur-sm"
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm"
           aria-hidden="true"
         />
 

@@ -485,16 +485,16 @@ export default function Contact() {
         schema={localBusinessSchema}
       />
 
-      {/* Page Hero — Light theme */}
-      <section className="pt-32 pb-14 px-4 bg-white" aria-label="Contact OpenMNC">
+      {/* Page Hero — Warm Creamy Light theme */}
+      <section className="pt-32 pb-14 px-4 bg-canvas" aria-label="Contact OpenMNC">
         <div className="max-w-7xl mx-auto text-center">
-          <span className="text-[11px] text-blue-600 font-semibold tracking-widest uppercase mb-4 block font-body">
+          <span className="text-[11px] text-brand-primary font-semibold tracking-widest uppercase mb-4 block font-body">
             Worldwide &amp; Domestic Inquiries · HQ West Bengal, India
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-[56px] font-extrabold text-slate-900 mb-4 leading-tight tracking-tight">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-[56px] font-extrabold text-ink-primary mb-4 leading-tight tracking-tight">
             Let&apos;s Build Your <span className="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">Vision</span>
           </h1>
-          <p className="text-slate-600 text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
+          <p className="text-ink-secondary text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
             Direct routing to specialized advisors — whether you are a founder building software,
             a business owner scaling online, or a student claiming college subsidies.
           </p>
@@ -514,7 +514,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <main className="bg-slate-50 py-0 pb-20 px-4">
+      <main className="bg-subtle py-0 pb-20 px-4">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-14">
 
           {/* Left Column — Contact Info */}

@@ -233,27 +233,27 @@ export default function Blog() {
             </div>
           )}
 
-          {/* Bottom Callout Band (Dark contrast band rule) */}
-          <div className="mt-16 rounded-3xl bg-dark-band border border-dark-surface p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-xl text-ink-on-dark">
-            <span className="type-meta text-brand-accent-bright uppercase tracking-wider font-bold block mb-2 font-mono">
+          {/* Bottom Callout Band (Warm Subtle) */}
+          <div className="mt-16 rounded-3xl bg-subtle border border-hairline p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-sm text-ink-primary">
+            <span className="type-meta text-brand-primary uppercase tracking-wider font-bold block mb-2 font-mono">
               Have a Technical Question?
             </span>
-            <h2 className="type-h2 text-ink-on-dark mb-3">
+            <h2 className="type-h2 text-ink-primary mb-3">
               Consult with Senior Engineers Directly
             </h2>
-            <p className="type-body text-ink-on-dark-muted text-sm mb-6 max-w-lg mx-auto">
+            <p className="type-body text-ink-secondary text-sm mb-6 max-w-lg mx-auto">
               Discuss your codebase audit, cloud database migration, or free student mentorship session with zero sales pitch.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Link
                 to="/contact"
-                className="px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-white text-ink-primary hover:bg-subtle transition-all shadow-md"
+                className="px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-brand-primary text-white hover:bg-brand-primary-hover transition-all shadow-md"
               >
                 Schedule Engineering Review →
               </Link>
               <Link
                 to="/career-guidance"
-                className="px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-dark-surface text-ink-on-dark border border-white/10 hover:bg-white/10 transition-all"
+                className="px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-surface text-ink-primary border border-hairline hover:bg-white transition-all shadow-sm"
               >
                 Student Counseling Portal →
               </Link>

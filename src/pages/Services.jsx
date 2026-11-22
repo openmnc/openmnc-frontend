@@ -1647,27 +1647,27 @@ export default function Services({ initialSlug }) {
             })}
           </div>
 
-          {/* ══════ DARK CONTRAST BAND: CROSS-DISCOVERY (MAX 2 PER PAGE RULE) ══════ */}
+          {/* ══════ CROSS-DISCOVERY BANNER (WARM SUBTLE) ══════ */}
           <section
-            className="mt-20 p-8 sm:p-12 rounded-3xl bg-dark-band text-ink-on-dark border border-dark-surface shadow-2xl relative overflow-hidden"
+            className="mt-20 p-8 sm:p-12 rounded-3xl bg-subtle text-ink-primary border border-hairline shadow-sm relative overflow-hidden"
             aria-label="Cross-Discovery Banner"
           >
             <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
               <div className="max-w-2xl">
-                <span className="type-meta text-emerald-400 font-bold uppercase tracking-wider block mb-2 font-mono">
-                  <Sparkles className="w-4 h-4 text-emerald-400 inline-block mr-1.5" aria-hidden="true" />
+                <span className="type-meta text-emerald-700 font-bold uppercase tracking-wider block mb-2 font-mono">
+                  <Sparkles className="w-4 h-4 text-emerald-600 inline-block mr-1.5" aria-hidden="true" />
                   Organic Footfall &amp; Growth Engine
                 </span>
-                <h3 className="type-h2 text-ink-on-dark mb-3">
+                <h3 className="type-h2 text-ink-primary mb-3">
                   Need Traffic for Your New Platform?
                 </h3>
-                <p className="type-body text-ink-on-dark-muted text-sm sm:text-base">
+                <p className="type-body text-ink-secondary text-sm sm:text-base">
                   Pair your custom ordering software or mobile app with organic Hook-Retention-CTA Reels and local footfall systems that drive repeat buyers with zero ad spend burn.
                 </p>
               </div>
               <Link
                 to="/services/social-media-management"
-                className="px-7 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all shadow-lg whitespace-nowrap flex items-center gap-2 group shrink-0"
+                className="px-7 py-4 rounded-xl bg-status-success hover:bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md whitespace-nowrap flex items-center gap-2 group shrink-0"
               >
                 <span>Explore Social Media Growth</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

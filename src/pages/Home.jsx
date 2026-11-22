@@ -179,26 +179,26 @@ function EngineeringLifecycleFlow() {
       {steps.map((st) => (
         <div
           key={st.num}
-          className="p-6 rounded-2xl bg-dark-surface border border-slate-700/80 hover:border-slate-600 transition-all flex flex-col justify-between group"
+          className="p-6 rounded-2xl bg-surface border border-hairline hover:border-brand-primary/40 transition-all flex flex-col justify-between group shadow-sm hover:shadow-md"
         >
           <div>
             <div className="flex items-center justify-between mb-4">
-              <span className="font-mono text-2xl font-extrabold text-slate-500 group-hover:text-brand-accent-bright transition-colors">
+              <span className="font-mono text-2xl font-extrabold text-ink-muted group-hover:text-brand-primary transition-colors">
                 {st.num}
               </span>
               <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${st.color}`}>
                 {st.badge}
               </span>
             </div>
-            <h3 className="font-heading text-lg font-bold text-ink-on-dark mb-2 group-hover:text-brand-accent-bright transition-colors">
+            <h3 className="font-heading text-lg font-bold text-ink-primary mb-2 group-hover:text-brand-primary transition-colors">
               {st.title}
             </h3>
-            <p className="text-ink-on-dark-muted font-sans text-sm leading-relaxed">
+            <p className="text-ink-secondary font-sans text-sm leading-relaxed">
               {st.desc}
             </p>
           </div>
-          <div className="pt-4 mt-4 border-t border-slate-700/60 flex items-center gap-1.5 text-xs text-ink-on-dark-muted font-medium font-sans">
-            <CheckCircle2 className="w-3.5 h-3.5 text-brand-accent-bright" />
+          <div className="pt-4 mt-4 border-t border-hairline flex items-center gap-1.5 text-xs text-ink-secondary font-medium font-sans">
+            <CheckCircle2 className="w-3.5 h-3.5 text-brand-primary" />
             <span>Standard SLA Delivery</span>
           </div>
         </div>
@@ -632,17 +632,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════ CONTRAST BAND 1: VISUAL ENGINEERING LIFECYCLE (DARK BAND) ══════ */}
-      <section className="py-24 px-4 bg-dark-band" aria-label="How OpenMNC Delivers">
+      {/* ══════ SECTION 4: VISUAL ENGINEERING LIFECYCLE (SUBTLE BG) ══════ */}
+      <section className="py-24 px-4 bg-subtle border-y border-hairline" aria-label="How OpenMNC Delivers">
         <div className="section-container">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs font-bold text-brand-accent-bright uppercase tracking-widest block mb-2 font-mono">
+            <span className="text-xs font-bold text-brand-primary uppercase tracking-widest block mb-2 font-mono">
               How We Engineer Software
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-on-dark mb-3 tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink-primary mb-3 tracking-tight">
               Battle-Tested Engineering Lifecycle
             </h2>
-            <p className="text-ink-on-dark-muted text-base font-sans leading-relaxed">
+            <p className="text-ink-secondary text-base font-sans leading-relaxed">
               Every system follows our structured 4-phase production roadmap to guarantee zero downtime and 100% code ownership:
             </p>
           </div>
@@ -761,23 +761,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════ CONTRAST BAND 2: BOTTOM CTA (DARK BAND) ══════ */}
+      {/* ══════ SECTION 7: BOTTOM CTA (WARM SUBTLE BG) ══════ */}
       <section
-        className="relative py-24 px-4 overflow-hidden bg-dark-band border-t border-slate-800"
+        className="relative py-24 px-4 overflow-hidden bg-subtle border-t border-hairline"
         aria-label="Call to action"
       >
         <div className="relative max-w-4xl mx-auto text-center">
           <ScrollReveal>
-            <h2 className="font-heading text-3xl sm:text-5xl font-extrabold text-ink-on-dark mb-4 tracking-tight leading-tight">
+            <h2 className="font-heading text-3xl sm:text-5xl font-extrabold text-ink-primary mb-4 tracking-tight leading-tight">
               Stop Fighting Broken Code. Ship With Senior Engineers.
             </h2>
-            <p className="text-ink-on-dark-muted font-sans text-base sm:text-lg mb-8 max-w-xl mx-auto leading-relaxed">
+            <p className="text-ink-secondary font-sans text-base sm:text-lg mb-8 max-w-xl mx-auto leading-relaxed">
               Book a discovery call with founder Amit Barai. We sign an NDA, audit your requirements, and ship with speed.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 to="/contact"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-btn bg-brand-primary hover:bg-brand-primary-hover text-white font-sans font-semibold text-base transition-all duration-200 shadow-[0_4px_20px_rgba(37,99,235,0.4)] text-center"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-btn bg-brand-primary hover:bg-brand-primary-hover text-white font-sans font-semibold text-base transition-all duration-200 shadow-[0_4px_20px_rgba(37,99,235,0.35)] text-center"
               >
                 Book a Free Discovery Call →
               </Link>
@@ -785,7 +785,7 @@ export default function Home() {
                 href={whatsappUrl('918509684056', 'Hi Amit! I want to discuss my app project.')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-btn bg-dark-surface hover:bg-slate-700 border border-slate-700 text-ink-on-dark font-sans font-medium text-base transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-btn bg-surface hover:bg-white border border-hairline text-ink-primary font-sans font-medium text-base transition-all flex items-center justify-center gap-2 shadow-sm"
               >
                 <MessageSquare className="w-4 h-4 text-status-success" strokeWidth={1.5} aria-hidden="true" />
                 <span>WhatsApp Chat</span>

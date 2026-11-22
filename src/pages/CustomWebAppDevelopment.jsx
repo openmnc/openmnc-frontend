@@ -656,63 +656,63 @@ export default function CustomWebAppDevelopment() {
       {/* SECTION F: DARK CONTRAST BAND 1: HOW WE BUILD (MAX 2 RULE)         */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section
-        className="py-24 px-4 bg-dark-band text-ink-on-dark border-y border-dark-surface shadow-2xl relative overflow-hidden"
+        className="py-24 px-4 bg-subtle text-ink-primary border-y border-hairline shadow-sm relative overflow-hidden"
         aria-label="3-Step Build Process"
       >
         <div className="section-container max-w-5xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="type-meta text-amber-400 font-bold uppercase tracking-wider block mb-2 font-mono">
+            <span className="type-meta text-brand-primary font-bold uppercase tracking-wider block mb-2 font-mono">
               Structured Roadmap
             </span>
-            <h2 className="type-h2 text-ink-on-dark mb-4">
+            <h2 className="type-h2 text-ink-primary mb-4">
               How We Build Your Growth Engine
             </h2>
-            <p className="type-body text-ink-on-dark-muted text-sm sm:text-base">
+            <p className="type-body text-ink-secondary text-sm sm:text-base">
               A transparent, battle-tested 3-stage process from your first order audit to full customer migration:
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             {/* Step 1 */}
-            <div className="p-8 rounded-3xl bg-dark-surface border border-white/10 relative">
-              <span className="text-4xl font-extrabold text-white/10 absolute top-6 right-6 font-mono">01</span>
-              <div className="w-12 h-12 rounded-2xl bg-brand-primary/20 border border-brand-primary/40 flex items-center justify-center text-brand-primary mb-6">
+            <div className="p-8 rounded-3xl bg-surface border border-hairline shadow-sm relative hover:shadow-md transition-shadow">
+              <span className="text-4xl font-extrabold text-ink-muted/20 absolute top-6 right-6 font-mono">01</span>
+              <div className="w-12 h-12 rounded-2xl bg-brand-primary/10 border border-brand-primary/30 flex items-center justify-center text-brand-primary mb-6">
                 <BarChart3 className="w-6 h-6" />
               </div>
-              <h3 className="type-h3 text-ink-on-dark mb-3">
+              <h3 className="type-h3 text-ink-primary mb-3">
                 Business &amp; Margin Audit
               </h3>
-              <p className="type-caption text-ink-on-dark-muted leading-relaxed">
+              <p className="type-caption text-ink-secondary leading-relaxed">
                 We analyze your current order volume, platform commissions, and repeat-buyer potential to map
                 out the exact ROI before a single line of code is written.
               </p>
             </div>
 
             {/* Step 2 */}
-            <div className="p-8 rounded-3xl bg-dark-surface border border-white/10 relative">
-              <span className="text-4xl font-extrabold text-white/10 absolute top-6 right-6 font-mono">02</span>
-              <div className="w-12 h-12 rounded-2xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400 mb-6">
+            <div className="p-8 rounded-3xl bg-surface border border-hairline shadow-sm relative hover:shadow-md transition-shadow">
+              <span className="text-4xl font-extrabold text-ink-muted/20 absolute top-6 right-6 font-mono">02</span>
+              <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600 mb-6">
                 <Smartphone className="w-6 h-6" />
               </div>
-              <h3 className="type-h3 text-ink-on-dark mb-3">
+              <h3 className="type-h3 text-ink-primary mb-3">
                 Custom Engineering &amp; Analytics Setup
               </h3>
-              <p className="type-caption text-ink-on-dark-muted leading-relaxed">
+              <p className="type-caption text-ink-secondary leading-relaxed">
                 We design and develop your branded website or mobile app (iOS/Android) with integrated customer
                 databases, coupon engines, and local SEO baked in from day one.
               </p>
             </div>
 
             {/* Step 3 */}
-            <div className="p-8 rounded-3xl bg-dark-surface border border-white/10 relative">
-              <span className="text-4xl font-extrabold text-white/10 absolute top-6 right-6 font-mono">03</span>
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mb-6">
+            <div className="p-8 rounded-3xl bg-surface border border-hairline shadow-sm relative hover:shadow-md transition-shadow">
+              <span className="text-4xl font-extrabold text-ink-muted/20 absolute top-6 right-6 font-mono">03</span>
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-status-success mb-6">
                 <TrendingUp className="w-6 h-6" />
               </div>
-              <h3 className="type-h3 text-ink-on-dark mb-3">
+              <h3 className="type-h3 text-ink-primary mb-3">
                 Launch &amp; Customer Migration
               </h3>
-              <p className="type-caption text-ink-on-dark-muted leading-relaxed">
+              <p className="type-caption text-ink-secondary leading-relaxed">
                 We help you roll out your QR insert strategy, Google Business integration, and retargeting
                 workflows so repeat orders start shifting to your platform immediately.
               </p>
@@ -800,26 +800,26 @@ export default function CustomWebAppDevelopment() {
       {/* SECTION H: DARK CONTRAST BAND 2: CROSS-DISCOVERY BANNER            */}
       {/* ══════════════════════════════════════════════════════════════════ */}
       <section
-        className="py-12 px-4 bg-dark-band border-t border-dark-surface text-ink-on-dark"
+        className="py-12 px-4 bg-subtle border-t border-hairline text-ink-primary"
         aria-label="Cross-Discovery Service Link"
       >
         <div className="section-container max-w-4xl mx-auto">
-          <div className="p-6 sm:p-8 rounded-3xl bg-dark-surface border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+          <div className="p-6 sm:p-8 rounded-3xl bg-surface border border-hairline flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
             <div className="text-center sm:text-left">
-              <span className="type-meta text-emerald-400 font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/20 inline-block mb-2 font-mono">
+              <span className="type-meta text-emerald-700 font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-emerald-50 border border-emerald-200 inline-block mb-2 font-mono">
                 Cross-Vertical Growth
               </span>
-              <h3 className="type-h3 text-ink-on-dark mb-1">
+              <h3 className="type-h3 text-ink-primary mb-1">
                 Need Traffic for Your New Platform?
               </h3>
-              <p className="type-body text-ink-on-dark-muted text-xs sm:text-sm max-w-lg">
+              <p className="type-body text-ink-secondary text-xs sm:text-sm max-w-lg">
                 Pair your custom ordering platform with organic Hook-Retention-CTA Reels and local footfall
                 systems that drive repeat orders on autopilot.
               </p>
             </div>
             <Link
               to="/services/social-media-management"
-              className="px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all whitespace-nowrap shadow-lg flex items-center gap-2 group shrink-0"
+              className="px-6 py-3.5 rounded-xl bg-status-success hover:bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider transition-all whitespace-nowrap shadow-md flex items-center gap-2 group shrink-0"
             >
               <span>Explore Social Media Growth</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

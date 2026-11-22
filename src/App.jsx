@@ -34,11 +34,11 @@ const TeamAdmin = lazy(() => import('./pages/admin/TeamAdmin.jsx'))
 function PageLoader() {
   return (
     <div
-      className="min-h-screen bg-navy-950 flex flex-col items-center justify-center"
+      className="min-h-screen bg-canvas text-ink-primary flex flex-col items-center justify-center"
       aria-label="Loading content"
     >
-      <div className="w-12 h-12 rounded-full border-2 border-cyan-neon/20 border-t-cyan-neon animate-spin mb-4" />
-      <span className="text-xs text-gray-400 font-medium tracking-wider uppercase">
+      <div className="w-12 h-12 rounded-full border-2 border-brand-primary/20 border-t-brand-primary animate-spin mb-4" />
+      <span className="text-xs text-ink-muted font-medium tracking-wider uppercase">
         Loading OpenMNC...
       </span>
     </div>
@@ -47,7 +47,7 @@ function PageLoader() {
 
 function PublicLayout({ children }) {
   return (
-    <div className="min-h-screen flex flex-col w-full overflow-x-hidden">
+    <div className="min-h-screen bg-canvas text-ink-primary flex flex-col w-full overflow-x-hidden">
       <Navbar />
       <main className="min-h-[70vh] flex-1 w-full overflow-x-hidden">{children}</main>
       <Footer />

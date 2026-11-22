@@ -254,19 +254,19 @@ export default function BlogPost() {
             </div>
           )}
 
-          {/* Contextual Bottom CTA (Dark contrast band rule) */}
-          <div className="mt-12 p-8 sm:p-10 rounded-3xl bg-dark-band border border-dark-surface shadow-xl text-ink-on-dark flex flex-col sm:flex-row items-center justify-between gap-6">
+          {/* Contextual Bottom CTA (Warm Subtle) */}
+          <div className="mt-12 p-8 sm:p-10 rounded-3xl bg-subtle border border-hairline shadow-sm text-ink-primary flex flex-col sm:flex-row items-center justify-between gap-6">
             <div>
-              <h3 className="type-h3 text-ink-on-dark">
+              <h3 className="type-h3 text-ink-primary">
                 {post.cta_headline || 'Need Engineering or Educational Guidance?'}
               </h3>
-              <p className="type-caption text-ink-on-dark-muted mt-1">
+              <p className="type-caption text-ink-secondary mt-1">
                 Consult with our senior engineering team or explore 100% free counseling.
               </p>
             </div>
             <Link
               to={ctaTargetUrl}
-              className="shrink-0 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-white text-ink-primary hover:bg-subtle transition-all shadow-md"
+              className="shrink-0 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider bg-brand-primary text-white hover:bg-brand-primary-hover transition-all shadow-md"
             >
               {post.cta_button_text || 'Start Conversation →'}
             </Link>

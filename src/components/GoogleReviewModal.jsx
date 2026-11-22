@@ -25,7 +25,7 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
   return (
     <AnimatePresence>
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm"
         role="dialog"
         aria-modal="true"
         aria-labelledby="google-review-modal-title"
@@ -42,13 +42,13 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 8 }}
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 w-full max-w-md bg-[#161618] border border-white/16 rounded-3xl p-6 sm:p-7 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.3),0_28px_60px_-12px_rgba(0,0,0,0.85)] text-center overflow-hidden"
+          className="relative z-10 w-full max-w-md bg-surface border border-hairline rounded-3xl p-6 sm:p-7 shadow-2xl text-center overflow-hidden"
         >
           {/* Close button */}
           <button
             type="button"
             onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/6 border border-white/10 text-[#86868b] hover:text-white flex items-center justify-center transition-colors text-sm"
+            className="absolute top-4 right-4 w-8 h-8 rounded-full bg-subtle border border-hairline text-ink-muted hover:text-ink-primary flex items-center justify-center transition-colors text-sm"
             aria-label="Close modal"
           >
             ✕
@@ -74,37 +74,37 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
               />
             </svg>
-            <span className="font-display font-medium text-[#f5f5f7] text-xs uppercase tracking-wider">
+            <span className="font-sans font-semibold text-ink-muted text-xs uppercase tracking-wider">
               Google Business Profile
             </span>
           </div>
 
           <h3
             id="google-review-modal-title"
-            className="font-display text-xl font-semibold text-white mb-1 tracking-tight"
+            className="font-heading text-xl font-bold text-ink-primary mb-1 tracking-tight"
           >
             Review M/S. OPEN MNC LLP
           </h3>
 
-          <p className="text-[#86868b] text-xs mb-3 leading-relaxed">
+          <p className="text-ink-secondary text-xs mb-3 leading-relaxed">
             Scan the official Google QR code below with your phone camera or click to open Google Reviews directly.
           </p>
 
           {/* 5 Golden Stars */}
-          <div className="flex justify-center items-center gap-1.5 mb-4 text-[#ff9500] text-lg tabular-nums" aria-label="5 out of 5 stars">
+          <div className="flex justify-center items-center gap-1.5 mb-4 text-amber-500 text-lg tabular-nums" aria-label="5 out of 5 stars">
             <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            <span className="text-white text-xs font-semibold ml-1.5">5.0 Star Rating</span>
+            <span className="text-ink-primary text-xs font-semibold ml-1.5">5.0 Star Rating</span>
           </div>
 
           {/* Toggle View: QR Code vs Official Sticker Badge */}
-          <div className="inline-flex items-center p-1 rounded-full bg-white/6 border border-white/10 mb-4 text-xs">
+          <div className="inline-flex items-center p-1 rounded-full bg-subtle border border-hairline mb-4 text-xs">
             <button
               type="button"
               onClick={() => setViewMode('qr')}
               className={`px-3 py-1 rounded-full transition-all font-medium ${
                 viewMode === 'qr'
-                  ? 'bg-white text-black shadow-sm'
-                  : 'text-[#86868b] hover:text-white'
+                  ? 'bg-white text-ink-primary shadow-sm font-semibold'
+                  : 'text-ink-secondary hover:text-ink-primary'
               }`}
             >
               Google QR
@@ -114,8 +114,8 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
               onClick={() => setViewMode('badge')}
               className={`px-3 py-1 rounded-full transition-all font-medium ${
                 viewMode === 'badge'
-                  ? 'bg-white text-black shadow-sm'
-                  : 'text-[#86868b] hover:text-white'
+                  ? 'bg-white text-ink-primary shadow-sm font-semibold'
+                  : 'text-ink-secondary hover:text-ink-primary'
               }`}
             >
               Official Badge
@@ -132,7 +132,7 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
               title="Click to write review directly"
             >
               {viewMode === 'qr' ? (
-                <div className="w-52 h-52 bg-white p-3 rounded-2xl shadow-xl border border-white/20 flex flex-col items-center justify-center">
+                <div className="w-52 h-52 bg-white p-3 rounded-2xl shadow-md border border-hairline flex flex-col items-center justify-center">
                   <img
                     src="/google-qr-framed.png"
                     alt="Official Google Business QR Code for OPEN MNC"
@@ -143,7 +143,7 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
                   />
                 </div>
               ) : (
-                <div className="w-56 h-64 bg-white p-2 rounded-2xl shadow-xl border border-white/20 flex flex-col items-center justify-center overflow-hidden">
+                <div className="w-56 h-64 bg-white p-2 rounded-2xl shadow-md border border-hairline flex flex-col items-center justify-center overflow-hidden">
                   <img
                     src="/google-review-badge.png"
                     alt="Official Google Review Sticker Badge for OPEN MNC"
@@ -154,7 +154,7 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
             </a>
           </div>
 
-          <div className="text-[11px] text-[#86868b] uppercase tracking-wider font-medium mb-4 flex items-center justify-center gap-1.5">
+          <div className="text-[11px] text-ink-muted uppercase tracking-wider font-medium mb-4 flex items-center justify-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-[#34A853] inline-block" />
             Verified Google Business Profile
           </div>
@@ -165,7 +165,7 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
               href={targetReviewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="apple-btn-primary w-full text-xs font-semibold py-2.5 block text-center"
+              className="w-full text-xs font-semibold py-2.5 rounded-full bg-brand-primary hover:bg-brand-primary-hover text-white transition-all shadow-md block text-center"
             >
               Write a Google Review →
             </a>
@@ -175,19 +175,19 @@ export default function GoogleReviewModal({ isOpen, onClose, reviewUrl }) {
                 href={targetProfileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="apple-btn-secondary text-xs py-2 block text-center truncate"
+                className="text-xs py-2 block text-center truncate rounded-full bg-surface border border-hairline text-ink-primary hover:bg-subtle transition-all shadow-xs"
               >
                 View Profile ↗
               </a>
               <button
                 type="button"
                 onClick={handleCopy}
-                className="apple-btn-secondary text-xs py-2 text-center flex items-center justify-center gap-1.5"
+                className="text-xs py-2 text-center flex items-center justify-center gap-1.5 rounded-full bg-surface border border-hairline text-ink-primary hover:bg-subtle transition-all shadow-xs"
               >
                 {copied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" aria-hidden="true" />
-                    <span>Copied!</span>
+                    <Check className="w-3.5 h-3.5 text-status-success" aria-hidden="true" />
+                    <span className="text-status-success font-semibold">Copied!</span>
                   </>
                 ) : (
                   <>

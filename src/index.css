@@ -4,23 +4,23 @@
 
 @layer base {
   :root {
-    /* Apple Liquid Glass Material Tokens - Dark Ground by Default */
-    --bg-canvas: #000000;
-    --surface-solid: #161618;
-    --surface-elevated: #1c1c1e;
-    --text-primary: #f5f5f7;
-    --text-secondary: #86868b;
-    --hairline: rgba(255, 255, 255, 0.10);
-    --accent: #2997ff;
+    /* Warm White Creamy Theme Tokens */
+    --bg-canvas: #FAF8F5;
+    --surface-solid: #FFFFFF;
+    --surface-elevated: #FFFFFF;
+    --text-primary: #1C1917;
+    --text-secondary: #44403C;
+    --hairline: #E7DFD5;
+    --accent: #2563EB;
 
-    /* Liquid Glass (Apple Silicon / visionOS Look) */
-    --glass-bg: rgba(28, 28, 32, 0.55);
-    --glass-blur: blur(28px) saturate(190%);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.16);
-    --glass-specular-inset: inset 0 1px 0 0 rgba(255, 255, 255, 0.28),
-                            inset 0 0 24px 0 rgba(255, 255, 255, 0.04);
-    --glass-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.65),
-                    0 4px 16px -4px rgba(0, 0, 0, 0.4);
+    /* Frosted Creamy Glass Material */
+    --glass-bg: rgba(255, 255, 255, 0.88);
+    --glass-blur: blur(24px) saturate(180%);
+    --glass-border: 1px solid rgba(231, 223, 213, 0.8);
+    --glass-specular-inset: inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
+                            inset 0 0 20px 0 rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 16px 36px -10px rgba(28, 25, 23, 0.08),
+                    0 4px 12px -2px rgba(28, 25, 23, 0.04);
   }
 
   * {
@@ -47,11 +47,13 @@
   #root {
     overflow-x: hidden;
     width: 100%;
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
   }
 
   ::selection {
-    background: rgba(41, 151, 255, 0.35);
-    color: #ffffff;
+    background: rgba(37, 99, 235, 0.2);
+    color: #1C1917;
   }
 
   ::-webkit-scrollbar {
@@ -60,16 +62,16 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #000000;
+    background: #FAF8F5;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
+    background: #D8CEBE;
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.35);
+    background: #C4B5A0;
   }
 
   /* Optical Typography Rules */
@@ -98,7 +100,7 @@
 }
 
 @layer components {
-  /* ══════ APPLE LIQUID GLASS (Floating Chrome Only) ══════ */
+  /* ══════ FROSTED CREAMY GLASS (Floating Chrome Only) ══════ */
   .liquid-glass {
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
@@ -108,96 +110,94 @@
   }
 
   .liquid-glass-subtle {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(231, 223, 213, 0.6);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
   }
 
   .liquid-glass-interactive {
-    background: rgba(28, 28, 32, 0.55);
-    backdrop-filter: blur(28px) saturate(190%);
-    -webkit-backdrop-filter: blur(28px) saturate(190%);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.28), 0 12px 36px -8px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(231, 223, 213, 0.8);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.9), 0 10px 25px -5px rgba(28, 25, 23, 0.06);
     transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .liquid-glass-interactive:hover {
-    background: rgba(36, 36, 42, 0.65);
-    border-color: rgba(255, 255, 255, 0.26);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.4), 0 20px 48px -10px rgba(0, 0, 0, 0.7);
+    background: #FFFFFF;
+    border-color: rgba(37, 99, 235, 0.4);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 1), 0 14px 30px -6px rgba(28, 25, 23, 0.1);
     transform: translateY(-2px);
   }
 
   /* ══════ LAYER 1: SOLID CONTENT SURFACES (Anti-Slop) ══════ */
   .surface-solid {
-    background-color: #161618;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: #FFFFFF;
+    border: 1px solid #E7DFD5;
   }
 
   .surface-elevated {
-    background-color: #1c1c1e;
-    border: 1px solid rgba(255, 255, 255, 0.10);
+    background-color: #FFFFFF;
+    border: 1px solid #E7DFD5;
+    box-shadow: 0 4px 20px -2px rgba(28, 25, 23, 0.05);
   }
 
   .hairline-divider {
-    border-color: rgba(255, 255, 255, 0.08);
+    border-color: #E7DFD5;
   }
 
-  /* Backward Compatibility with refined Apple styling */
+  /* Warm Card Surface */
   .glass-card {
-    background-color: #161618;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: #FFFFFF;
+    border: 1px solid #E7DFD5;
     border-radius: 1.25rem;
-    box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 20px -4px rgba(28, 25, 23, 0.05);
     transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.6);
+    border-color: #D8CEBE;
+    box-shadow: 0 12px 30px -8px rgba(28, 25, 23, 0.09);
   }
 
   .glass-panel {
-    background-color: #161618;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: #FFFFFF;
+    border: 1px solid #E7DFD5;
     border-radius: 1.25rem;
   }
 
   .glass-modal {
-    background: rgba(22, 22, 24, 0.85);
-    backdrop-filter: blur(32px) saturate(190%);
-    -webkit-backdrop-filter: blur(32px) saturate(190%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.35), 0 30px 60px -15px rgba(0, 0, 0, 0.8);
+    background: #FFFFFF;
+    border: 1px solid #E7DFD5;
+    box-shadow: 0 30px 60px -15px rgba(28, 25, 23, 0.15);
   }
 
   .glass-nav {
-    background: rgba(10, 10, 12, 0.72);
-    backdrop-filter: blur(28px) saturate(190%);
-    -webkit-backdrop-filter: blur(28px) saturate(190%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+    background: rgba(250, 248, 245, 0.92);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid #E7DFD5;
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #ffffff 0%, #a1a1a6 100%);
+    background: linear-gradient(135deg, #1C1917 0%, #44403C 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .accent-gradient-text {
-    background: linear-gradient(135deg, #2997ff 0%, #0071e3 100%);
+    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .amber-gradient-text {
-    background: linear-gradient(135deg, #ff9500 0%, #d97706 100%);
+    background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -211,15 +211,15 @@
     @apply max-w-6xl mx-auto;
   }
 
-  /* Apple Stadium Pill Button */
+  /* Button Tokens */
   .apple-btn-primary {
     @apply inline-flex items-center justify-center font-medium transition-all duration-200 rounded-full px-6 py-3 text-sm;
-    background-color: #2997ff;
+    background-color: #2563EB;
     color: #ffffff;
-    box-shadow: 0 2px 8px rgba(41, 151, 255, 0.3);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
   }
   .apple-btn-primary:hover {
-    background-color: #0071e3;
+    background-color: #1D4ED8;
     transform: scale(1.02);
   }
   .apple-btn-primary:active {
@@ -228,13 +228,14 @@
 
   .apple-btn-secondary {
     @apply inline-flex items-center justify-center font-medium transition-all duration-200 rounded-full px-6 py-3 text-sm;
-    background-color: rgba(255, 255, 255, 0.08);
-    color: #f5f5f7;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: #FFFFFF;
+    color: #1C1917;
+    border: 1px solid #E7DFD5;
+    box-shadow: 0 2px 4px rgba(28, 25, 23, 0.04);
   }
   .apple-btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.14);
-    border-color: rgba(255, 255, 255, 0.25);
+    background-color: #F5EFEB;
+    border-color: #D8CEBE;
     transform: scale(1.02);
   }
   .apple-btn-secondary:active {
@@ -279,12 +280,12 @@
     @apply py-16 sm:py-20 lg:py-28;
   }
 
-  /* Soft Multi-Color Ambient Mesh (Hero / Showcase) */
+  /* Soft Multi-Color Warm Creamy Ambient Mesh (Hero / Showcase) */
   .bg-ambient-mesh {
     background-image:
-      radial-gradient(at 80% 20%, rgba(239, 246, 255, 0.9) 0px, transparent 55%),
-      radial-gradient(at 95% 60%, rgba(240, 249, 255, 0.85) 0px, transparent 50%),
-      radial-gradient(at 65% 80%, rgba(253, 244, 255, 0.7) 0px, transparent 50%);
+      radial-gradient(at 80% 20%, rgba(254, 243, 199, 0.5) 0px, transparent 55%),
+      radial-gradient(at 95% 60%, rgba(239, 246, 255, 0.6) 0px, transparent 50%),
+      radial-gradient(at 65% 80%, rgba(254, 242, 242, 0.4) 0px, transparent 50%);
   }
 }
 

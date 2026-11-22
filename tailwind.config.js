@@ -7,59 +7,59 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Surface & Background Tokens
-        canvas: "#FFFFFF",
-        subtle: "#F8FAFC",
+        // Surface & Background Tokens — Warm White Creamy Theme
+        canvas: "#FAF8F5",
+        subtle: "#F5EFEB",
         surface: "#FFFFFF",
-        "dark-band": "#0B0F19",
-        "dark-surface": "#1E293B",
+        "dark-band": "#EDE4D8",
+        "dark-surface": "#FFFFFF",
 
         // Typography Tokens
         ink: {
-          primary: "#0F172A",
-          secondary: "#475569",
-          muted: "#64748B",
-          "on-dark": "#F8FAFC",
-          "on-dark-muted": "#94A3B8",
+          primary: "#1C1917",
+          secondary: "#44403C",
+          muted: "#78716C",
+          "on-dark": "#1C1917",
+          "on-dark-muted": "#57534E",
         },
 
         // Brand & Accent Tokens
         brand: {
           primary: "#2563EB",
           "primary-hover": "#1D4ED8",
-          accent: "#0EA5E9",
-          "accent-bright": "#38BDF8",
+          accent: "#D97706",
+          "accent-bright": "#2563EB",
         },
 
         // Borders & Semantic Status
-        hairline: "#E2E8F0",
+        hairline: "#E7DFD5",
         status: {
           success: "#059669",
         },
 
-        // Backward-Compatibility Tokens (Ensures untouched pages never crash or render blank)
+        // Backward-Compatibility Tokens (Warm Creamy Defaults — Zero Pitch Black)
         navy: {
-          950: "#0B0F19",
-          900: "#0F172A",
-          800: "#1E293B",
+          950: "#FAF8F5",
+          900: "#F5EFEB",
+          800: "#FFFFFF",
         },
         cyan: {
           neon: "#2563EB",
         },
         amber: {
-          glow: "#F59E0B",
+          glow: "#D97706",
         },
         apple: {
-          canvas: "#FFFFFF",
-          matte: "#F8FAFC",
+          canvas: "#FAF8F5",
+          matte: "#F5EFEB",
           surface: "#FFFFFF",
           elevated: "#FFFFFF",
-          subtle: "#F1F5F9",
+          subtle: "#EDE4D8",
           blue: "#2563EB",
           "blue-deep": "#1D4ED8",
-          gray: "#64748B",
-          "light-gray": "#94A3B8",
-          hairline: "#E2E8F0",
+          gray: "#78716C",
+          "light-gray": "#A8A29E",
+          hairline: "#E7DFD5",
         },
       },
 

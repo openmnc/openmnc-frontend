@@ -104,26 +104,26 @@ function CareerRoadmapFlow() {
       {steps.map((st) => (
         <div
           key={st.num}
-          className="p-6 rounded-2xl bg-dark-surface border border-slate-700/80 hover:border-amber-400/50 transition-all flex flex-col justify-between group"
+          className="p-6 rounded-2xl bg-surface border border-hairline hover:border-amber-400/50 transition-all flex flex-col justify-between group shadow-sm hover:shadow-md"
         >
           <div>
             <div className="flex items-center justify-between mb-4">
-              <span className="font-mono text-2xl font-extrabold text-amber-400">
+              <span className="font-mono text-2xl font-extrabold text-amber-600">
                 {st.num}
               </span>
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-amber-500/30 text-amber-400 bg-amber-500/10 font-mono">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-amber-300 text-amber-700 bg-amber-50 font-mono">
                 Stage {st.num}
               </span>
             </div>
-            <h3 className="font-heading text-lg font-bold text-ink-on-dark mb-2 group-hover:text-amber-400 transition-colors">
+            <h3 className="font-heading text-lg font-bold text-ink-primary mb-2 group-hover:text-amber-600 transition-colors">
               {st.title}
             </h3>
-            <p className="text-ink-on-dark-muted font-sans text-sm leading-relaxed">
+            <p className="text-ink-secondary font-sans text-sm leading-relaxed">
               {st.desc}
             </p>
           </div>
-          <div className="pt-4 mt-4 border-t border-slate-700/60 flex items-center gap-1.5 text-xs text-amber-400 font-medium font-sans">
-            <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
+          <div className="pt-4 mt-4 border-t border-hairline flex items-center gap-1.5 text-xs text-amber-700 font-medium font-sans">
+            <CheckCircle2 className="w-3.5 h-3.5 text-amber-600" />
             <span>100% Free ₹0 Guidance</span>
           </div>
         </div>
@@ -306,17 +306,17 @@ export default function CareerGuidance() {
         </div>
       </section>
 
-      {/* ══════ CONTRAST BAND: HOW THE SUBSIDY PROCESS WORKS (DARK BAND) ══════ */}
-      <section className="py-24 px-4 bg-dark-band" aria-label="Step-by-step Process">
+      {/* ══════ SECTION 3: HOW THE SUBSIDY PROCESS WORKS (WARM SUBTLE BG) ══════ */}
+      <section className="py-24 px-4 bg-subtle border-y border-hairline" aria-label="Step-by-step Process">
         <div className="section-container">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-xs font-bold text-amber-400 uppercase tracking-widest block mb-2 font-mono">
+            <span className="text-xs font-bold text-amber-700 uppercase tracking-widest block mb-2 font-mono">
               Step-by-Step Transparency
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-ink-on-dark mb-3 tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl font-extrabold text-ink-primary mb-3 tracking-tight">
               How to Claim Your Admission Subsidy
             </h2>
-            <p className="text-ink-on-dark-muted text-base font-sans leading-relaxed">
+            <p className="text-ink-secondary text-base font-sans leading-relaxed">
               4 simple steps to save thousands on college tuition with zero broker interference:
             </p>
           </div>
