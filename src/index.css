@@ -240,6 +240,58 @@
   .apple-btn-secondary:active {
     transform: scale(0.98);
   }
+
+  /* ══════ PREDEFINED RESPONSIVE TYPOGRAPHY CLASSES ══════ */
+  .type-h1 {
+    @apply font-heading text-h1-mobile sm:text-h1-tablet lg:text-h1-desktop text-ink-primary;
+  }
+
+  .type-h2 {
+    @apply font-heading text-h2-mobile sm:text-h2-tablet lg:text-h2-desktop text-ink-primary;
+  }
+
+  .type-h3 {
+    @apply font-heading text-h3-mobile sm:text-h3-tablet lg:text-h3-desktop text-ink-primary;
+  }
+
+  .type-eyebrow {
+    @apply font-mono uppercase text-eyebrow-mobile sm:text-eyebrow-desktop text-brand-primary;
+  }
+
+  .type-lead {
+    @apply font-sans text-lead-mobile sm:text-lead-tablet lg:text-lead-desktop text-ink-secondary max-w-[60ch];
+  }
+
+  .type-body {
+    @apply font-sans text-body-mobile sm:text-body-desktop text-ink-secondary max-w-[65ch];
+  }
+
+  .type-meta {
+    @apply font-sans text-meta-mobile lg:text-meta-desktop text-ink-muted;
+  }
+
+  /* Standard Layout Wrappers */
+  .section-container {
+    @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-12;
+  }
+
+  .section-spacing {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+
+  /* Soft Multi-Color Ambient Mesh (Hero / Showcase) */
+  .bg-ambient-mesh {
+    background-image:
+      radial-gradient(at 80% 20%, rgba(239, 246, 255, 0.9) 0px, transparent 55%),
+      radial-gradient(at 95% 60%, rgba(240, 249, 255, 0.85) 0px, transparent 50%),
+      radial-gradient(at 65% 80%, rgba(253, 244, 255, 0.7) 0px, transparent 50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-mesh-drift {
+    animation: none;
+  }
 }
 
 @layer utilities {

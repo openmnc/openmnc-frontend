@@ -1,0 +1,67 @@
+# MASTER FRONTEND DESIGN, ARCHITECTURE & SEO/AEO RULES
+
+You are a Senior Product Designer and Frontend Architect. Strictly enforce every rule below on every component, page, and schema you generate.
+
+## 1. ANTI-AI-SLOP MANDATE (STRICT PROHIBITIONS)
+- NEVER use pure black (`#000000`) backgrounds with muddy transparent glassmorphism cards.
+- NEVER use generic purple-to-blue neon gradients, floating glowing orbs behind headings, or repetitive 3-column uniform card grids on every section.
+- NEVER use default robotic fonts (`Inter`, `Roboto`, `Arial`) as the primary design voice.
+- NEVER use AI-generated raster icons, 3D clip-art, or emojis as UI icons.
+- NEVER fabricate dummy data, fake client logos, or fake company timelines. If real data is missing, render a clean `// TODO_CONTENT: [describe needed founder input]` comment and keep the layout honest.
+- SHOW, DON'T JUST TELL: Never write 4-paragraph walls of text to explain a service or workflow. Pair concise scannable copy with a custom SVG architecture diagram, interactive comparison, or scroll-linked motion graphic.
+
+## 2. LOCKED COLOR SYSTEM (LIGHT-FIRST EDITORIAL)
+Use only the semantic Tailwind tokens defined in `tailwind.config.js`:
+- Primary Canvas: `bg-canvas` (`#FFFFFF`) — Hero, Blog Reader, Forms, Pricing.
+- Alternating Section Background: `bg-subtle` (`#F8FAFC`).
+- Elevated Cards on Subtle BG: `bg-surface border border-hairline` (`#FFFFFF` + `1px solid #E2E8F0`).
+- Dark Contrast Bands (MAX 2 per page: 3D Showcase / Final CTA / Footer): `bg-dark-band` (`#0B0F19`) with solid elevated cards `bg-dark-surface` (`#1E293B`), `text-ink-on-dark` (`#F8FAFC`), `text-ink-on-dark-muted` (`#94A3B8`), and `text-brand-accent-bright` (`#38BDF8`).
+- Light-BG Typography: `text-ink-primary` (`#0F172A`), `text-ink-secondary` (`#475569`), `text-ink-muted` (`#64748B`).
+- Actions & Accents: `bg-brand-primary hover:bg-brand-primary-hover` (`#2563EB` / `#1D4ED8`), `text-brand-accent` (`#0EA5E9`), `text-status-success` (`#059669`).
+- Navbar: Frosted light glass (`bg-white/85 backdrop-blur-md border-b border-hairline`).
+
+## 3. TYPOGRAPHY & RESPONSIVE SCALE
+Always use the predefined typography classes from `src/index.css` (backed by `Plus Jakarta Sans`, `DM Sans`, and `JetBrains Mono`):
+- `H1` (Hero): `.type-h1` — Mobile `32px`, iPad `44px`, Desktop `56px` | LH `1.08` | Tracking `-0.03em` | Weight `800`.
+- `H2` (Section): `.type-h2` — Mobile `26px`, iPad `34px`, Desktop `42px` | LH `1.15` | Tracking `-0.025em` | Weight `700`.
+- `H3` (Sub-heading / Card): `.type-h3` — Mobile `20px`, iPad `22px`, Desktop `24px` | LH `1.25` | Tracking `-0.015em` | Weight `600`.
+- Eyebrow / Kicker: `.type-eyebrow` — Mono, `11px`–`12px`, uppercase, tracking `0.08em`.
+- Lead Copy: `.type-lead` — Mobile `16px`, iPad `18px`, Desktop `20px`, max-width `60ch`.
+- Body Copy: `.type-body` — Mobile `15px`, iPad/Desktop `16px`, LH `1.65`, max-width `65ch`.
+- Small / Meta: `.type-meta` — `13px`–`14px`, `text-ink-muted`.
+
+## 4. LAYOUT, SPACING & MULTI-DEVICE PLACEMENT (8PX GRID)
+- Container: `max-w-7xl mx-auto px-5 sm:px-8 lg:px-12`.
+- Section Padding: `py-16 sm:py-20 lg:py-28`.
+- Card Padding: `p-5 lg:p-8`.
+- Border Radius Hierarchy: Buttons `rounded-lg` (`8px`), Cards `rounded-2xl` (`16px`), Badges `rounded-full`.
+- Desktop (`lg:`): Asymmetric 12-col hero (`lg:col-span-6` left-aligned copy + CTA, `lg:col-span-6` visual). Use alternating 5/7 splits or asymmetric Bento Grids. Never center-align long paragraphs.
+- iPad (`sm:`/`md:`): Stack hero cleanly (visual max-h `420px`). Collapse 3-col grids to 2 columns (span 3rd card full-width if odd count).
+- Mobile (`<640px`): Strictly single-column (`grid-cols-1 gap-6`). Keep headline + primary CTA above the fold. Minimum touch target `min-h-[44px] min-w-[44px]`. Apply `overflow-x-clip` on page wrappers and `overflow-x-auto` on tables.
+
+## 5. ICONS, MOTION GRAPHICS & 3D PERFORMANCE
+- Icons: Use `lucide-react` (`strokeWidth={1.5}`) for UI controls and `@phosphor-icons/react` (duotone) for feature highlights. Never mix other icon sets.
+- Visual Explainers: Build clean custom inline SVGs using brand colors (`#2563EB`, `#0EA5E9`, `#0F172A`) with animated `stroke-dashoffset` flow lines via `framer-motion`.
+- Scroll Storytelling: Use `position: sticky` + Framer Motion `useScroll`/`useTransform` for multi-step process sections.
+- Ambient Background: Use `.bg-ambient-mesh` (GPU-accelerated slow radial gradient drift) on hero or showcase bands.
+- Lighthouse 90+ Guardrails: Animate ONLY `transform` and `opacity`. On mobile (`<768px`), swap heavy Three.js/WebGL canvases for lightweight animated SVGs or WebP fallbacks. Respect `prefers-reduced-motion`.
+
+## 6. SEO, GEO & AEO ARCHITECTURE ("iLovePDF" INTENT STRATEGY)
+- Hub-and-Spoke Routing: Broad services live at `/services/:slug`; high-intent search queries live at dedicated spoke pages `/solutions/:intent-slug` (e.g., `/solutions/food-delivery-app-like-zomato`, `/solutions/pharmacy-ecommerce-website`).
+- Human-Search Headings: Write `H1` and `H2` matching exact founder search queries, never vague agency slogans.
+- Meta Tags (via `react-helmet-async`): Unique `<title>` (50–60 chars), `<meta name="description">` (140–155 chars), and exact self-referencing `<link rel="canonical">`.
+- AEO Direct Answer Box: Every service, solution, and blog page must place a 40–60 word "Quick Answer" summary directly under the `H1`.
+- Mandatory FAQs: Every service and package page must include 6–10 real buyer FAQs (pricing, timeline, ownership, revisions, terms) rendered as an accessible accordion + injected `FAQPage` JSON-LD schema.
+- JSON-LD Schemas: Inject valid `Organization`, `Service`, `Product`, `BlogPosting`, `JobPosting`, and `FAQPage` schemas where applicable.
+
+## 7. DEEP CMS & FUNCTIONAL REQUIREMENTS
+- **Blog Reader (`/blog/:slug`):** Fetch by `slug`. Render a skeleton while loading; if 404, show a dedicated "Article Not Found" component with search & related posts (NEVER silently redirect to `/`). Render structured `blocks[]` (`heading`, `paragraph`, `image_gallery` with ordered captions & lightbox, `callout`, `comparison_table`, `faq_list`) plus a sticky desktop Table of Contents from `level: 2` headings.
+- **Service Packages:** Show Plan Name, Ideal For, Price, Top 5 Outcomes, plus a **"View Full Breakdown"** drawer/section (exact deliverables table, Included vs. Not Included, execution timeline, Terms & Conditions) and a **Context-Aware Inquiry Modal** pre-filled with the selected plan.
+- **Careers / Job & Internship Portal (`/careers/:slug`):** Always render high-contrast top badges for `engagement_type`, `work_mode`, and `compensation_type` (`Paid` in green, `Unpaid` in blue/slate with explicit `unpaid_benefits` list), plus dedicated sections for Responsibilities, Requirements, Duration, and Clauses/Terms, backed by `JobPosting` JSON-LD.
+
+## 8. PRE-DEPLOYMENT QUALITY GATE
+Before finishing any task, verify:
+1. WCAG AA contrast (`4.5:1` minimum) across all light and dark bands.
+2. Zero horizontal overflow at `375px`, `768px`, and `1440px`.
+3. Every major section pairs copy with a visual diagram, Bento layout, table, or motion graphic.
+4. Zero placeholder text, complete terms/deliverables, and valid SEO/AEO metadata + JSON-LD.

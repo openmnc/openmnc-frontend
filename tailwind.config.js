@@ -7,65 +7,118 @@ export default {
   theme: {
     extend: {
       colors: {
-        apple: {
-          canvas: '#000000',
-          matte: '#0a0a0c',
-          surface: '#161618',
-          elevated: '#1c1c1e',
-          subtle: '#2c2c2e',
-          blue: '#2997ff',
-          'blue-deep': '#0071e3',
-          gray: '#86868b',
-          'light-gray': '#a1a1a6',
-          hairline: 'rgba(255, 255, 255, 0.10)',
+        // Surface & Background Tokens
+        canvas: "#FFFFFF",
+        subtle: "#F8FAFC",
+        surface: "#FFFFFF",
+        "dark-band": "#0B0F19",
+        "dark-surface": "#1E293B",
+
+        // Typography Tokens
+        ink: {
+          primary: "#0F172A",
+          secondary: "#475569",
+          muted: "#64748B",
+          "on-dark": "#F8FAFC",
+          "on-dark-muted": "#94A3B8",
         },
+
+        // Brand & Accent Tokens
+        brand: {
+          primary: "#2563EB",
+          "primary-hover": "#1D4ED8",
+          accent: "#0EA5E9",
+          "accent-bright": "#38BDF8",
+        },
+
+        // Borders & Semantic Status
+        hairline: "#E2E8F0",
+        status: {
+          success: "#059669",
+        },
+
+        // Backward-Compatibility Tokens (Ensures untouched pages never crash or render blank)
         navy: {
-          950: '#000000',
-          900: '#0a0a0c',
-          800: '#161618',
+          950: "#0B0F19",
+          900: "#0F172A",
+          800: "#1E293B",
         },
         cyan: {
-          neon: '#2997ff',
+          neon: "#2563EB",
         },
         amber: {
-          glow: '#ff9500',
+          glow: "#F59E0B",
+        },
+        apple: {
+          canvas: "#FFFFFF",
+          matte: "#F8FAFC",
+          surface: "#FFFFFF",
+          elevated: "#FFFFFF",
+          subtle: "#F1F5F9",
+          blue: "#2563EB",
+          "blue-deep": "#1D4ED8",
+          gray: "#64748B",
+          "light-gray": "#94A3B8",
+          hairline: "#E2E8F0",
         },
       },
+
       fontFamily: {
-        display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        body:    ['"DM Sans"', 'system-ui', 'sans-serif'],
-        sans:    ['"DM Sans"', 'system-ui', 'sans-serif'],
-        mono:    ['"JetBrains Mono"', 'monospace'],
-        grotesk: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        heading: ['"Plus Jakarta Sans"', "system-ui", "sans-serif"],
+        display: ['"Plus Jakarta Sans"', "system-ui", "sans-serif"],
+        sans: ['"DM Sans"', "system-ui", "sans-serif"],
+        body: ['"DM Sans"', "system-ui", "sans-serif"],
+        mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
+        grotesk: ['"Plus Jakarta Sans"', "system-ui", "sans-serif"],
       },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'hero-gradient': 'linear-gradient(180deg, #000000 0%, #0a0a0c 50%, #161618 100%)',
+
+      fontSize: {
+        // Hero H1 Scale
+        "h1-mobile": ["2rem", { lineHeight: "1.08", letterSpacing: "-0.03em", fontWeight: "800" }],
+        "h1-tablet": ["2.75rem", { lineHeight: "1.08", letterSpacing: "-0.03em", fontWeight: "800" }],
+        "h1-desktop": ["3.5rem", { lineHeight: "1.08", letterSpacing: "-0.03em", fontWeight: "800" }],
+
+        // Section H2 Scale
+        "h2-mobile": ["1.625rem", { lineHeight: "1.15", letterSpacing: "-0.025em", fontWeight: "700" }],
+        "h2-tablet": ["2.125rem", { lineHeight: "1.15", letterSpacing: "-0.025em", fontWeight: "700" }],
+        "h2-desktop": ["2.625rem", { lineHeight: "1.15", letterSpacing: "-0.025em", fontWeight: "700" }],
+
+        // Sub-heading / Card H3 Scale
+        "h3-mobile": ["1.25rem", { lineHeight: "1.25", letterSpacing: "-0.015em", fontWeight: "600" }],
+        "h3-tablet": ["1.375rem", { lineHeight: "1.25", letterSpacing: "-0.015em", fontWeight: "600" }],
+        "h3-desktop": ["1.5rem", { lineHeight: "1.25", letterSpacing: "-0.015em", fontWeight: "600" }],
+
+        // Eyebrow / Kicker
+        "eyebrow-mobile": ["0.6875rem", { lineHeight: "1.2", letterSpacing: "0.08em", fontWeight: "600" }],
+        "eyebrow-desktop": ["0.75rem", { lineHeight: "1.2", letterSpacing: "0.08em", fontWeight: "600" }],
+
+        // Lead & Body
+        "lead-mobile": ["1rem", { lineHeight: "1.6", fontWeight: "400" }],
+        "lead-tablet": ["1.125rem", { lineHeight: "1.6", fontWeight: "400" }],
+        "lead-desktop": ["1.25rem", { lineHeight: "1.6", fontWeight: "400" }],
+        "body-mobile": ["0.9375rem", { lineHeight: "1.65", fontWeight: "400" }],
+        "body-desktop": ["1rem", { lineHeight: "1.65", fontWeight: "400" }],
+
+        // Small / Meta
+        "meta-mobile": ["0.8125rem", { lineHeight: "1.5", fontWeight: "400" }],
+        "meta-desktop": ["0.875rem", { lineHeight: "1.5", fontWeight: "400" }],
       },
-      boxShadow: {
-        'liquid-glass': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.28), 0 20px 50px -12px rgba(0, 0, 0, 0.65), 0 4px 16px -4px rgba(0, 0, 0, 0.4)',
-        'liquid-glass-light': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 0 rgba(0, 0, 0, 0.04), 0 12px 40px -10px rgba(0, 0, 0, 0.12)',
-        'surface': '0 4px 20px rgba(0, 0, 0, 0.35)',
-        'cyan-glow': '0 0 20px rgba(41, 151, 255, 0.25)',
-        'cyan-glow-sm': '0 0 10px rgba(41, 151, 255, 0.15)',
-        'amber-glow': '0 0 20px rgba(255, 149, 0, 0.25)',
+
+      borderRadius: {
+        btn: "8px",
+        card: "16px",
       },
-      transitionTimingFunction: {
-        'apple-ease': 'cubic-bezier(0.22, 1, 0.36, 1)',
-      },
-      animation: {
-        'float': 'float 6s cubic-bezier(0.22, 1, 0.36, 1) infinite',
-        'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards',
-      },
+
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-12px)' },
+        "mesh-drift": {
+          "0%, 100%": { transform: "translate3d(0, 0, 0) scale(1)" },
+          "33%": { transform: "translate3d(2%, -2%, 0) scale(1.04)" },
+          "66%": { transform: "translate3d(-2%, 2%, 0) scale(0.98)" },
         },
-        fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(24px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
+      },
+
+      animation: {
+        "mesh-drift": "mesh-drift 16s ease-in-out infinite",
       },
     },
   },
