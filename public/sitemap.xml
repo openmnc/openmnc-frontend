@@ -4,8 +4,16 @@
   <!-- Homepage -->
   <url>
     <loc>https://openmnc.com/</loc>
-    <lastmod>2026-11-21</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- DEDICATED HIGH-AUTHORITY SERVICE SILO: CUSTOM WEB & APP SOLUTIONS -->
+  <url>
+    <loc>https://openmnc.com/solutions/custom-web-app-development</loc>
+    <lastmod>2026-11-22</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 

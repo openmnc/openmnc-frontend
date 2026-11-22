@@ -8,6 +8,7 @@ import Footer from './components/Footer.jsx'
 // Lazy-loaded public views for minimal bundle size & zero initial CLS
 const Home = lazy(() => import('./pages/Home.jsx'))
 const Services = lazy(() => import('./pages/Services.jsx'))
+const CustomWebAppDevelopment = lazy(() => import('./pages/CustomWebAppDevelopment.jsx'))
 const CareerGuidance = lazy(() => import('./pages/CareerGuidance.jsx'))
 const About = lazy(() => import('./pages/About.jsx'))
 const Careers = lazy(() => import('./pages/Careers.jsx'))
@@ -64,6 +65,24 @@ export default function App() {
               {/* ══════ PUBLIC ROUTES (ZERO ORPHANED ROUTES) ══════ */}
               <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
               
+              {/* ══════ DEDICATED HIGH-AUTHORITY SERVICE SILOS ══════ */}
+              <Route
+                path="/solutions/custom-web-app-development"
+                element={<PublicLayout><CustomWebAppDevelopment /></PublicLayout>}
+              />
+              <Route
+                path="/solutions"
+                element={<Navigate to="/solutions/custom-web-app-development" replace />}
+              />
+              <Route
+                path="/solutions/custom-web-and-app-development"
+                element={<Navigate to="/solutions/custom-web-app-development" replace />}
+              />
+              <Route
+                path="/services/custom-web-app-development"
+                element={<Navigate to="/solutions/custom-web-app-development" replace />}
+              />
+
               {/* Main Services Hub */}
               <Route path="/services" element={<PublicLayout><Services /></PublicLayout>} />
 

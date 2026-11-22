@@ -5,8 +5,28 @@ import { ChevronDown, Star } from 'lucide-react'
 import GoogleReviewModal from './GoogleReviewModal.jsx'
 import { settingsApi } from '../api/settings.js'
 
-// 5 Dedicated Laser-Focused Pillars as defined in the Master Architecture
-const SOFTWARE_PILLARS = [
+// Primary B2B Growth & Solution Systems
+const CORE_SOLUTIONS = [
+  {
+    label: 'Web & App Growth Systems',
+    desc: 'Direct ordering websites & D2C apps to stop paying 30% commissions',
+    to: '/solutions/custom-web-app-development',
+    badge: '30% Savings',
+    color: 'text-[#2997ff]',
+    badgeColor: 'bg-[#2997ff]/10 text-[#2997ff] border-[#2997ff]/30',
+  },
+  {
+    label: 'Social Media Management',
+    desc: 'Hook-Retention-CTA reels, audio denoising & 24/7 footfall engine',
+    to: '/services/social-media-management',
+    badge: 'Organic Footfall',
+    color: 'text-emerald-400',
+    badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+  },
+]
+
+// Specialized Engineering Pillars
+const ENGINEERING_PILLARS = [
   {
     label: 'Vibe-Coded App Audit & Fixing',
     desc: 'Fix broken auth, secure keys & make AI prototypes production-ready',
@@ -126,9 +146,10 @@ export default function Navbar() {
   }
 
   const isServicesActive =
-    location.pathname.startsWith('/services') &&
+    location.pathname.startsWith('/solutions') ||
+    (location.pathname.startsWith('/services') &&
     !location.pathname.includes('industrial') &&
-    !location.pathname.includes('student')
+    !location.pathname.includes('student'))
 
   return (
     <>
@@ -174,7 +195,7 @@ export default function Navbar() {
             className="hidden lg:flex items-center gap-1 xl:gap-2 text-[13px] font-medium shrink-0 whitespace-nowrap"
             role="list"
           >
-            {/* SOFTWARE SERVICES ▼ (The 5 Pillars Dropdown) */}
+            {/* SOLUTIONS ▼ (Web & App Growth Systems | Social Media Management) */}
             <li
               className="relative shrink-0"
               onMouseEnter={handleSoftwareEnter}
@@ -193,7 +214,7 @@ export default function Navbar() {
                 aria-expanded={softwareOpen}
                 aria-haspopup="true"
               >
-                <span>Software Services</span>
+                <span>Solutions</span>
                 <ChevronDown
                   className={`w-3 h-3 transition-transform duration-200 opacity-70 shrink-0 ${softwareOpen ? 'rotate-180' : ''}`}
                   aria-hidden="true"
@@ -207,11 +228,12 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 6, scale: 0.98 }}
                     transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute top-full left-0 w-96 mt-2 p-2 rounded-2xl bg-[#161618]/95 backdrop-blur-2xl border border-white/14 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25),0_24px_50px_-12px_rgba(0,0,0,0.7)] z-50"
+                    className="absolute top-full left-0 w-[420px] mt-2 p-3 rounded-2xl bg-[#161618]/95 backdrop-blur-2xl border border-white/14 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25),0_24px_50px_-12px_rgba(0,0,0,0.7)] z-50"
                   >
-                    <div className="px-3 py-2 border-b border-white/6 mb-1 flex items-center justify-between">
+                    {/* Primary B2B Growth Silos */}
+                    <div className="px-3 py-1.5 border-b border-white/6 mb-2 flex items-center justify-between">
                       <span className="text-[10px] text-[#86868b] font-semibold uppercase tracking-wider block">
-                        5 Engineering Pillars
+                        Growth Solutions
                       </span>
                       <Link
                         to="/services"
@@ -220,44 +242,50 @@ export default function Navbar() {
                         All Services Hub →
                       </Link>
                     </div>
-                    <div className="space-y-1">
-                      {SOFTWARE_PILLARS.map((item) => (
+
+                    <div className="space-y-1.5 mb-2.5">
+                      {CORE_SOLUTIONS.map((item) => (
                         <Link
                           key={item.to}
                           to={item.to}
-                          className="block p-2.5 rounded-xl hover:bg-white/6 transition-colors group"
+                          className="block p-3 rounded-xl bg-white/3 hover:bg-white/8 border border-white/6 hover:border-white/12 transition-all group"
                         >
-                          <div className="flex items-center justify-between mb-0.5">
-                            <span className="text-xs font-medium text-[#f5f5f7] group-hover:text-[#2997ff] transition-colors">
+                          <div className="flex items-center justify-between mb-1">
+                            <span className={`text-xs font-semibold ${item.color} group-hover:brightness-125 transition-all`}>
                               {item.label}
                             </span>
-                            <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/6 text-[#86868b] border border-white/10 font-semibold uppercase tabular-nums">
+                            <span className={`text-[9px] px-2 py-0.5 rounded border font-semibold uppercase ${item.badgeColor}`}>
                               {item.badge}
                             </span>
                           </div>
-                          <p className="text-[11px] text-[#86868b] leading-tight line-clamp-1">
+                          <p className="text-[11px] text-[#86868b] leading-tight">
                             {item.desc}
                           </p>
                         </Link>
                       ))}
                     </div>
-                    <div className="pt-1.5 mt-1 border-t border-white/6">
-                      <Link
-                        to="/services/social-media-management"
-                        className="block p-2 rounded-xl hover:bg-white/6 transition-colors group"
-                      >
-                        <div className="flex items-center justify-between mb-0.5">
-                          <span className="text-xs font-medium text-[#f5f5f7] group-hover:text-emerald-400 transition-colors">
-                            Social Media &amp; Reels Growth
-                          </span>
-                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold uppercase">
-                            Organic
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-[#86868b] leading-tight line-clamp-1">
-                          Hook-Retention-CTA reels, audio denoising &amp; WhatsApp walk-ins
-                        </p>
-                      </Link>
+
+                    {/* Secondary: 5 Engineering Pillars */}
+                    <div className="pt-2 border-t border-white/6">
+                      <span className="text-[10px] text-[#86868b] font-semibold uppercase tracking-wider block px-3 py-1 mb-1">
+                        Specialized Engineering
+                      </span>
+                      <div className="grid grid-cols-2 gap-1">
+                        {ENGINEERING_PILLARS.slice(0, 4).map((item) => (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            className="block p-2 rounded-lg hover:bg-white/6 transition-colors group"
+                          >
+                            <span className="text-[11px] font-medium text-[#f5f5f7] group-hover:text-[#2997ff] transition-colors line-clamp-1">
+                              {item.label}
+                            </span>
+                            <span className="text-[10px] text-[#86868b] line-clamp-1">
+                              {item.badge}
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -386,39 +414,47 @@ export default function Navbar() {
               className="lg:hidden border-t border-white/10 bg-[#161618]/98 backdrop-blur-2xl fixed top-16 left-0 right-0 bottom-0 z-50 overflow-y-auto w-full"
             >
               <div className="px-5 py-6 space-y-3 pb-24">
-                {/* Mobile Silo 1: Software & Apps Accordion */}
+                {/* Mobile Silo 1: Solutions Accordion */}
                 <div className="border border-white/10 rounded-2xl p-3.5 bg-white/2">
                   <button
                     type="button"
                     onClick={() => setMobileSoftwareOpen((v) => !v)}
                     className="w-full flex items-center justify-between text-xs font-semibold text-[#f5f5f7] uppercase tracking-wider py-1"
                   >
-                    <span>Software Services (5 Pillars)</span>
+                    <span>Solutions &amp; Software</span>
                     <span className="text-[#86868b] text-base">{mobileSoftwareOpen ? '−' : '+'}</span>
                   </button>
                   {mobileSoftwareOpen && (
                     <div className="mt-2.5 space-y-2 pl-2 border-l border-white/10">
                       <Link
-                        to="/services"
-                        className="block text-xs text-[#2997ff] font-medium py-1"
+                        to="/solutions/custom-web-app-development"
+                        className="block text-xs text-[#2997ff] font-semibold py-1"
                       >
-                        All Services Hub →
+                        Web &amp; App Growth Systems (30% Commission Savings) →
                       </Link>
-                      {SOFTWARE_PILLARS.map((s) => (
-                        <Link
-                          key={s.to}
-                          to={s.to}
-                          className="block text-xs text-[#a1a1a6] hover:text-white py-1 transition-colors"
-                        >
-                          {s.label}
-                        </Link>
-                      ))}
                       <Link
                         to="/services/social-media-management"
-                        className="block text-xs text-emerald-400 hover:text-emerald-300 font-medium py-1 transition-colors"
+                        className="block text-xs text-emerald-400 font-semibold py-1"
                       >
-                        Social Media &amp; Reels Growth →
+                        Social Media &amp; Reels Growth (Footfall Engine) →
                       </Link>
+                      <div className="pt-2 mt-1 border-t border-white/6">
+                        <Link
+                          to="/services"
+                          className="block text-xs text-gray-400 hover:text-white font-medium py-1"
+                        >
+                          All Services Hub →
+                        </Link>
+                        {ENGINEERING_PILLARS.map((s) => (
+                          <Link
+                            key={s.to}
+                            to={s.to}
+                            className="block text-xs text-[#a1a1a6] hover:text-white py-1 transition-colors"
+                          >
+                            {s.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>

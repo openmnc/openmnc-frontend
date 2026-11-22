@@ -257,26 +257,121 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════ BANK-STYLE SEPARATION SWITCHER BANNER ══════ */}
-      <section className="bg-navy-900 border-y border-amber-glow/20 py-4 px-4" aria-label="Audience Switcher">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-          <div className="flex items-center gap-3">
-            <GraduationCap className="w-6 h-6 text-amber-glow shrink-0" aria-hidden="true" />
-            <div>
-              <strong className="text-white text-xs sm:text-sm block">
-                Are you a Student or Parent seeking 12th Pass Career Guidance &amp; College Subsidies?
-              </strong>
-              <p className="text-gray-400 text-[11px] sm:text-xs">
-                We have a dedicated, 100% free portal with ₹3,000 to ₹10,000 institutional partner fee grants.
-              </p>
-            </div>
+      {/* ══════ MASTER VERTICAL SILO ROUTER (SEO & AEO ARCHITECTURE) ══════ */}
+      <section
+        className="py-16 px-4 bg-navy-900 border-y border-white/8 relative"
+        aria-label="Core Business Verticals"
+      >
+        <div className="container-max">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="text-xs font-bold text-cyan-neon uppercase tracking-wider block mb-2">
+              Clean Vertical Architecture
+            </span>
+            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-3">
+              Explore Our Dedicated Business Verticals
+            </h2>
+            <p className="text-gray-400 text-xs sm:text-sm">
+              We segregate our services into focused, high-authority silos so you get deep expertise with zero clutter:
+            </p>
           </div>
-          <Link
-            to="/career-guidance"
-            className="px-4 py-2 rounded-lg bg-amber-glow text-navy-950 font-bold text-xs uppercase tracking-wider hover:bg-amber-glow/90 shadow-amber-glow whitespace-nowrap"
-          >
-            Visit Career Guidance Portal →
-          </Link>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Silo 1: Custom Web & App Solutions */}
+            <ScrollReveal delay={0.05}>
+              <Link
+                to="/solutions/custom-web-app-development"
+                className="glass-card p-7 rounded-3xl border border-cyan-neon/30 hover:border-cyan-neon transition-all duration-300 hover:scale-[1.02] flex flex-col justify-between h-full group"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-cyan-neon/10 text-cyan-neon border border-cyan-neon/30">
+                      B2B Software &amp; Apps
+                    </span>
+                    <span className="text-xs text-gray-500 font-medium">Silo 1</span>
+                  </div>
+                  <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-cyan-neon transition-colors">
+                    Custom Web &amp; App Solutions
+                  </h3>
+                  <p className="text-xs text-cyan-neon/80 font-medium mb-3">
+                    Target: Cloud kitchens, D2C brands, pharma, retail, SMEs
+                  </p>
+                  <p className="text-gray-300 text-xs leading-relaxed mb-4">
+                    Stop paying 20%–30% aggregator commissions. We engineer custom direct ordering websites, D2C mobile apps, and customer databases with 100% data ownership.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-xs text-gray-400 font-mono text-[11px]">Plug 30% Margin Leaks</span>
+                  <span className="text-xs font-bold text-cyan-neon group-hover:translate-x-1 transition-transform">
+                    Explore Solutions →
+                  </span>
+                </div>
+              </Link>
+            </ScrollReveal>
+
+            {/* Silo 2: Social Media Management */}
+            <ScrollReveal delay={0.12}>
+              <Link
+                to="/services/social-media-management"
+                className="glass-card p-7 rounded-3xl border border-emerald-500/30 hover:border-emerald-400 transition-all duration-300 hover:scale-[1.02] flex flex-col justify-between h-full group"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                      Organic Growth Engine
+                    </span>
+                    <span className="text-xs text-gray-500 font-medium">Silo 2</span>
+                  </div>
+                  <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+                    Social Media Management
+                  </h3>
+                  <p className="text-xs text-emerald-400/80 font-medium mb-3">
+                    Target: Cafes, bakeries, local brands, real estate
+                  </p>
+                  <p className="text-gray-300 text-xs leading-relaxed mb-4">
+                    Turn Instagram &amp; Facebook into a 24/7 footfall engine with Hook-Retention-CTA Reels, professional audio denoising, and direct WhatsApp walk-in workflows.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-xs text-gray-400 font-mono text-[11px]">Zero Ad Spend Burn</span>
+                  <span className="text-xs font-bold text-emerald-400 group-hover:translate-x-1 transition-transform">
+                    Explore Social Growth →
+                  </span>
+                </div>
+              </Link>
+            </ScrollReveal>
+
+            {/* Silo 3: Career & Student Guidance */}
+            <ScrollReveal delay={0.2}>
+              <Link
+                to="/career-guidance"
+                className="glass-card p-7 rounded-3xl border border-amber-glow/30 hover:border-amber-glow transition-all duration-300 hover:scale-[1.02] flex flex-col justify-between h-full group"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-glow/10 text-amber-glow border border-amber-glow/30">
+                      100% Free ₹0 Guidance
+                    </span>
+                    <span className="text-xs text-gray-500 font-medium">Silo 3</span>
+                  </div>
+                  <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-amber-glow transition-colors">
+                    Career &amp; Student Guidance
+                  </h3>
+                  <p className="text-xs text-amber-glow/80 font-medium mb-3">
+                    Target: 12th-pass students &amp; parents
+                  </p>
+                  <p className="text-gray-300 text-xs leading-relaxed mb-4">
+                    Completely free career counseling, aptitude matching, and direct ₹3,000–₹10,000 institutional partner college fee subsidies across accredited universities.
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-xs text-gray-400 font-mono text-[11px]">Partner College Grants</span>
+                  <span className="text-xs font-bold text-amber-glow group-hover:translate-x-1 transition-transform">
+                    Visit Free Portal →
+                  </span>
+                </div>
+              </Link>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 

@@ -1608,25 +1608,27 @@ export default function Services({ initialSlug }) {
             })}
           </div>
 
-          {/* ══════ BANK-STYLE CLEAR REDIRECT TO CAREER GUIDANCE ══════ */}
-          <section className="mt-20 p-8 rounded-3xl bg-amber-glow/10 border border-amber-glow/20 relative overflow-hidden" aria-label="Career Portal Banner">
+          {/* ══════ CROSS-DISCOVERY: NEED TRAFFIC FOR YOUR NEW PLATFORM? (B2B SILO) ══════ */}
+          <section className="mt-16 p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-950/30 via-navy-900 to-navy-950 border border-emerald-500/30 relative overflow-hidden" aria-label="Cross-Discovery Banner">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
-                <span className="text-xs font-bold text-amber-glow uppercase tracking-wider block mb-1">
-                  <GraduationCap className="w-4 h-4 text-amber-glow inline-block mr-1.5" aria-hidden="true" />Looking for Higher Education &amp; Student Mentorship?
+                <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider block mb-1">
+                  <Sparkles className="w-4 h-4 text-emerald-400 inline-block mr-1.5" aria-hidden="true" />
+                  Organic Footfall &amp; Growth Engine
                 </span>
-                <h3 className="font-display text-2xl font-bold text-white mb-2">
-                  Visit the OpenMNC 100% Free Career Guidance Portal
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-2">
+                  Need Traffic for Your New Platform?
                 </h3>
-                <p className="text-gray-300 text-sm max-w-xl">
-                  A separate wing dedicated to 12th-pass students. Claim ₹3,000–₹10,000 partner college fee subsidies and 3-month advanced industrial IoT/AI training.
+                <p className="text-gray-300 text-xs sm:text-sm max-w-xl">
+                  Pair your custom ordering software or mobile app with organic Hook-Retention-CTA Reels and local footfall systems that drive repeat buyers with zero ad spend burn.
                 </p>
               </div>
               <Link
-                to="/career-guidance"
-                className="px-6 py-3.5 rounded-xl bg-amber-glow text-navy-950 font-bold text-xs uppercase tracking-wider hover:bg-amber-glow/90 shadow-amber-glow transition-all whitespace-nowrap"
+                to="/services/social-media-management"
+                className="px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all shadow-lg whitespace-nowrap flex items-center gap-2 group shrink-0"
               >
-                Go to Career Guidance Portal →
+                <span>Explore Social Media Growth</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
           </section>
