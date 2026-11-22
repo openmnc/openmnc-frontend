@@ -9,11 +9,15 @@ import {
   Briefcase,
   MessageSquare,
   CheckCircle2,
+  ArrowRight,
+  ShieldCheck,
+  Building,
+  Award,
+  Sparkles,
 } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
 import SectionHeader from '../components/SectionHeader.jsx'
 import ScrollReveal from '../components/ScrollReveal.jsx'
-import GlowButton from '../components/GlowButton.jsx'
 import ThreeBackground from '../components/ThreeBackground.jsx'
 import GoogleReviewModal from '../components/GoogleReviewModal.jsx'
 import apiClient from '../api/client.js'
@@ -22,25 +26,25 @@ import { studentGuidanceFaqSchema, courseSchema } from '../utils/jsonld.js'
 
 const BENEFITS = [
   {
-    icon: <GraduationCap className="w-8 h-8 text-amber-glow" aria-hidden="true" />,
+    icon: <GraduationCap className="w-8 h-8 text-amber-400" strokeWidth={1.5} aria-hidden="true" />,
     title: '100% Free Career Guidance',
     desc: 'Unbiased aptitude counseling for 12th Science, Commerce & Arts students. Zero consultation fees, zero agent commissions.',
     badge: '₹0 Student Cost',
   },
   {
-    icon: <BadgePercent className="w-8 h-8 text-amber-glow" aria-hidden="true" />,
+    icon: <BadgePercent className="w-8 h-8 text-amber-400" strokeWidth={1.5} aria-hidden="true" />,
     title: '₹3,000 to ₹10,000 Fee Subsidy',
     desc: 'Official industrial partnership subsidy discounted directly from your partner college admission fees.',
     badge: 'Direct Discount',
   },
   {
-    icon: <Cpu className="w-8 h-8 text-amber-glow" aria-hidden="true" />,
+    icon: <Cpu className="w-8 h-8 text-amber-400" strokeWidth={1.5} aria-hidden="true" />,
     title: '3-Month Industrial Training',
     desc: 'Live hands-on training in Robotics, Drones, IoT microcontrollers, and modern AI/Web engineering.',
     badge: 'Live Projects',
   },
   {
-    icon: <Briefcase className="w-8 h-8 text-amber-glow" aria-hidden="true" />,
+    icon: <Briefcase className="w-8 h-8 text-amber-400" strokeWidth={1.5} aria-hidden="true" />,
     title: 'Internship & PPO Opportunities',
     desc: 'Work on live OpenMNC production systems, earn performance stipends, and build a verified portfolio.',
     badge: 'Career Launch',
@@ -77,9 +81,66 @@ const FAQS = [
   },
 ]
 
+function CareerRoadmapFlow() {
+  const steps = [
+    {
+      num: '01',
+      title: 'Free Aptitude Evaluation',
+      desc: 'Fill out your 12th stream & marks. Our academic mentor assesses your real strengths and career goals.',
+    },
+    {
+      num: '02',
+      title: 'College & Stream Matching',
+      desc: 'Compare UGC/AICTE-accredited partner universities based on genuine placement stats, faculty, and fees.',
+    },
+    {
+      num: '03',
+      title: 'Direct Campus Tour & Admission',
+      desc: 'Visit verified campuses with transparent fee breakdowns — zero agent commissions or hidden broker fees.',
+    },
+    {
+      num: '04',
+      title: '₹3k–₹10k Grant Deducted',
+      desc: 'Receive your official OpenMNC Industrial Partnership Grant letter, offset directly against admission fees.',
+    },
+  ]
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-10">
+      {steps.map((st) => (
+        <div
+          key={st.num}
+          className="p-6 rounded-2xl bg-[#0f172a] border border-amber-500/20 hover:border-amber-400/50 transition-all flex flex-col justify-between group"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <span className="font-mono text-2xl font-extrabold text-amber-500">
+                {st.num}
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-amber-500/30 text-amber-400 bg-amber-500/10 font-mono">
+                Stage {st.num}
+              </span>
+            </div>
+            <h3 className="font-display text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+              {st.title}
+            </h3>
+            <p className="text-slate-300 font-body text-sm leading-relaxed">
+              {st.desc}
+            </p>
+          </div>
+          <div className="pt-4 mt-4 border-t border-slate-800 flex items-center gap-1.5 text-xs text-amber-400 font-medium font-body">
+            <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
+            <span>100% Free ₹0 Guidance</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function CareerGuidance() {
   const [activeFaq, setActiveFaq] = useState(null)
-  const [submitState, setSubmitState] = useState('idle') // idle | submitting | success | error
+  const [submitState, setSubmitState] = useState('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const [reviewModalOpen, setReviewModalOpen] = useState(false)
 
@@ -128,7 +189,7 @@ export default function CareerGuidance() {
 
       {/* ══════ HERO SECTION ══════ */}
       <section
-        className="relative pt-28 sm:pt-36 pb-20 px-4 bg-navy-950 overflow-hidden"
+        className="relative pt-32 pb-20 px-4 bg-[#0B0F19] overflow-hidden"
         aria-label="Career Guidance Hero"
       >
         <div className="absolute inset-0 aspect-[16/9] sm:aspect-auto overflow-hidden pointer-events-none">
@@ -136,17 +197,19 @@ export default function CareerGuidance() {
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-glow/10 border border-amber-glow/30 text-amber-glow text-xs font-semibold tracking-wider uppercase mb-6 shadow-sm">
-            <GraduationCap className="w-4 h-4 text-amber-glow shrink-0" aria-hidden="true" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold tracking-wider uppercase mb-6 shadow-sm font-body">
+            <GraduationCap className="w-4 h-4 text-amber-400 shrink-0" aria-hidden="true" />
             <span>OpenMNC Academy &amp; Higher Education Portal · 100% Free For Students</span>
           </div>
 
           <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-            Confused After 12th? Get <span className="text-amber-glow">100% Free Career Guidance</span> &amp; Claim{' '}
-            <span className="gradient-text">₹3,000–₹10,000 Fee Subsidies.</span>
+            Confused After 12th? Get <span className="text-amber-400">100% Free Career Guidance</span> &amp; Claim{' '}
+            <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
+              ₹3,000–₹10,000 Fee Subsidies.
+            </span>
           </h1>
 
-          <p className="text-slate-300 text-base sm:text-xl max-w-3xl mx-auto leading-relaxed mb-8">
+          <p className="text-slate-300 text-base sm:text-xl max-w-3xl mx-auto leading-relaxed mb-8 font-body font-normal">
             Don&apos;t pay high broker commissions or risk joining low-placement colleges. As an authorized
             industrial technology partner, OpenMNC helps you choose the right college and stream based on genuine aptitude
             — and discounts ₹3,000 to ₹10,000 directly from your admission fees.
@@ -155,7 +218,7 @@ export default function CareerGuidance() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
             <a
               href="#student-apply"
-              className="px-8 py-4 rounded-xl bg-amber-glow text-navy-950 font-bold text-base shadow-amber-glow hover:scale-105 active:scale-95 transition-all w-full sm:w-auto"
+              className="px-8 py-4 rounded-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-base shadow-[0_4px_20px_rgba(245,158,11,0.4)] transition-all w-full sm:w-auto font-body text-center"
             >
               Claim Free Guidance &amp; Subsidy →
             </a>
@@ -166,7 +229,7 @@ export default function CareerGuidance() {
               )}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-semibold text-base transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+              className="px-8 py-4 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-medium text-base transition-all flex items-center justify-center gap-2 w-full sm:w-auto font-body"
             >
               <MessageSquare className="w-4 h-4 text-emerald-400" aria-hidden="true" />
               <span>Chat With Academic Counselor</span>
@@ -174,30 +237,30 @@ export default function CareerGuidance() {
           </div>
 
           {/* Quick Trust Highlights */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl mx-auto pt-6 border-t border-white/10 text-left">
-            <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-              <span className="text-amber-glow font-bold text-sm block">100% Free</span>
-              <span className="text-gray-400 text-xs">Zero student or parent charges</span>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8 border-t border-slate-800 text-left">
+            <div className="p-4 rounded-2xl bg-[#0f172a] border border-slate-800">
+              <span className="text-amber-400 font-bold text-base block font-display">100% Free</span>
+              <span className="text-slate-300 text-xs sm:text-sm font-body">Zero student or parent charges</span>
             </div>
-            <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-              <span className="text-cyan-neon font-bold text-sm block">₹3k – ₹10k</span>
-              <span className="text-gray-400 text-xs">Direct fee deduction grant</span>
+            <div className="p-4 rounded-2xl bg-[#0f172a] border border-slate-800">
+              <span className="text-blue-400 font-bold text-base block font-display">₹3k – ₹10k</span>
+              <span className="text-slate-300 text-xs sm:text-sm font-body">Direct fee deduction grant</span>
             </div>
-            <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-              <span className="text-purple-400 font-bold text-sm block">12+ Partners</span>
-              <span className="text-gray-400 text-xs">UGC &amp; AICTE accredited colleges</span>
+            <div className="p-4 rounded-2xl bg-[#0f172a] border border-slate-800">
+              <span className="text-purple-400 font-bold text-base block font-display">12+ Partners</span>
+              <span className="text-slate-300 text-xs sm:text-sm font-body">UGC &amp; AICTE accredited</span>
             </div>
-            <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-              <span className="text-emerald-400 font-bold text-sm block">Real IoT Labs</span>
-              <span className="text-gray-400 text-xs">Robotics &amp; AI project training</span>
+            <div className="p-4 rounded-2xl bg-[#0f172a] border border-slate-800">
+              <span className="text-emerald-400 font-bold text-base block font-display">Real IoT Labs</span>
+              <span className="text-slate-300 text-xs sm:text-sm font-body">Robotics &amp; AI project training</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* ══════ THE 4 PILLARS OF OPENMNC ACADEMY ══════ */}
-      <section className="py-20 px-4 bg-navy-900 border-y border-white/5" aria-label="Key Benefits">
-        <div className="container-max">
+      <section className="py-20 px-4 bg-[#0a0e1a] border-y border-slate-800" aria-label="Key Benefits">
+        <div className="max-w-7xl mx-auto">
           <SectionHeader
             eyebrow="Distinct From Software Services"
             title="The OpenMNC Career &amp; EdTech Engine"
@@ -207,16 +270,16 @@ export default function CareerGuidance() {
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {BENEFITS.map((item, i) => (
               <ScrollReveal key={item.title} delay={i * 0.1}>
-                <div className="glass-card p-6 h-full flex flex-col justify-between hover:border-amber-glow/40 transition-all duration-300">
+                <div className="p-7 rounded-3xl bg-[#0f172a] border border-slate-800 hover:border-amber-400/50 transition-all duration-300 h-full flex flex-col justify-between shadow-sm">
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-4xl" aria-hidden="true">{item.icon}</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-glow/10 text-amber-glow border border-amber-glow/20">
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">
                         {item.badge}
                       </span>
                     </div>
-                    <h3 className="font-display text-lg font-bold text-white mb-2">{item.title}</h3>
-                    <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">{item.desc}</p>
+                    <h3 className="font-display text-xl font-bold text-white mb-2">{item.title}</h3>
+                    <p className="text-slate-300 text-sm leading-relaxed font-body">{item.desc}</p>
                   </div>
                 </div>
               </ScrollReveal>
@@ -226,25 +289,25 @@ export default function CareerGuidance() {
       </section>
 
       {/* ══════ POPULAR COURSE PATHWAYS ══════ */}
-      <section className="py-20 px-4 bg-navy-950" aria-label="Eligible Degree & Diploma Streams">
-        <div className="container-max">
+      <section className="py-20 px-4 bg-[#0B0F19]" aria-label="Eligible Degree & Diploma Streams">
+        <div className="max-w-7xl mx-auto">
           <SectionHeader
             eyebrow="Degree &amp; Diploma Tracks"
             title="Eligible Degree Streams for Partner Subsidies"
             subtitle="Get admission guidance and institutional subsidies across top technical and management universities."
           />
 
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {ELIGIBLE_COURSES.map((course) => (
-              <div key={course.code} className="glass-card p-6 border border-white/10 hover:border-cyan-neon/30 transition-all">
+              <div key={course.code} className="p-6 rounded-2xl bg-[#0f172a] border border-slate-800 hover:border-amber-500/40 transition-all shadow-sm">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-display text-lg font-bold text-white">{course.code}</h3>
-                  <span className="text-xs px-2.5 py-1 rounded bg-white/5 text-cyan-neon font-semibold border border-white/10">
+                  <span className="text-xs px-2.5 py-1 rounded bg-slate-800 text-blue-400 font-semibold border border-slate-700 font-mono">
                     {course.duration}
                   </span>
                 </div>
-                <p className="text-gray-300 text-xs sm:text-sm mb-4 leading-relaxed">{course.name}</p>
-                <div className="text-[11px] text-amber-glow font-bold flex items-center gap-1.5">
+                <p className="text-slate-300 text-sm mb-4 leading-relaxed font-body">{course.name}</p>
+                <div className="text-xs text-amber-400 font-bold flex items-center gap-1.5 font-body">
                   <span>✓</span> Direct ₹3,000–₹10,000 admission fee grant eligible
                 </div>
               </div>
@@ -253,64 +316,31 @@ export default function CareerGuidance() {
         </div>
       </section>
 
-      {/* ══════ HOW THE SUBSIDY PROCESS WORKS ══════ */}
-      <section className="py-20 px-4 bg-navy-900 border-t border-white/5" aria-label="Step-by-step Process">
-        <div className="container-max">
+      {/* ══════ HOW THE SUBSIDY PROCESS WORKS (WITH VISUAL ROADMAP) ══════ */}
+      <section className="py-20 px-4 bg-[#0a0e1a] border-t border-slate-800" aria-label="Step-by-step Process">
+        <div className="max-w-7xl mx-auto">
           <SectionHeader
             eyebrow="Step-by-Step Transparency"
             title="How to Claim Your Admission Subsidy"
             subtitle="4 simple steps to save thousands on college tuition with zero broker interference."
           />
 
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                step: '01',
-                title: 'Submit Student Profile',
-                desc: 'Fill out the form below with your 12th marks, stream, and preferred field of study.',
-              },
-              {
-                step: '02',
-                title: 'Free 1-on-1 Counseling',
-                desc: 'Our academic mentor analyzes your career aptitude and discusses optimal college choices with you & your parents.',
-              },
-              {
-                step: '03',
-                title: 'College Selection',
-                desc: 'Select from our audited, AICTE/UGC-accredited partner institutions with verified placement tracks.',
-              },
-              {
-                step: '04',
-                title: 'Direct Fee Deduction',
-                desc: 'Receive your official OpenMNC Industrial Partnership Grant letter: ₹3,000 to ₹10,000 discounted from your college fees.',
-              },
-            ].map((s) => (
-              <div key={s.step} className="glass-card p-6 text-center relative">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-full border border-amber-glow/40 bg-navy-950 flex items-center justify-center font-display text-amber-glow font-bold">
-                  {s.step}
-                </div>
-                <h3 className="font-display font-bold text-white text-base mb-2">{s.title}</h3>
-                <p className="text-gray-400 text-xs leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
-          </div>
+          <CareerRoadmapFlow />
         </div>
       </section>
 
       {/* ══════ DIRECT APPLICATION FORM SECTION ══════ */}
-      <section id="student-apply" className="py-20 px-4 bg-navy-950" aria-label="Student Application Form">
+      <section id="student-apply" className="py-20 px-4 bg-[#0B0F19]" aria-label="Student Application Form">
         <div className="max-w-3xl mx-auto">
-          <div className="glass-card p-6 sm:p-10 border border-amber-glow/30 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-amber-glow/10 rounded-full blur-2xl pointer-events-none" />
-
+          <div className="p-8 sm:p-10 rounded-3xl bg-[#0f172a] border border-amber-500/30 shadow-2xl relative overflow-hidden">
             <div className="text-center mb-8">
-              <span className="text-xs text-amber-glow font-bold uppercase tracking-wider block mb-2">
+              <span className="text-xs text-amber-400 font-bold uppercase tracking-wider block mb-2 font-mono">
                 Priority Application
               </span>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mb-2">
                 Apply for Free Career Guidance &amp; College Subsidy
               </h2>
-              <p className="text-gray-400 text-xs sm:text-sm">
+              <p className="text-slate-300 text-sm font-body">
                 Takes only 60 seconds. Our counselor will contact you within 24 hours.
               </p>
             </div>
@@ -322,19 +352,19 @@ export default function CareerGuidance() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="text-center py-10"
                 >
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-amber-glow/15 border border-amber-glow/30 flex items-center justify-center text-amber-glow">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
                     <CheckCircle2 className="w-8 h-8" aria-hidden="true" />
                   </div>
                   <h3 className="font-display text-2xl font-bold text-white mb-2">
                     Application Received!
                   </h3>
-                  <p className="text-gray-300 text-sm max-w-md mx-auto mb-6">
+                  <p className="text-slate-300 text-sm max-w-md mx-auto mb-6 font-body">
                     Our academic counselor will review your academic background and call you or reach out via WhatsApp with partner college subsidy details.
                   </p>
                   <button
                     type="button"
                     onClick={() => setSubmitState('idle')}
-                    className="text-amber-glow text-xs font-bold hover:underline"
+                    className="text-amber-400 text-xs font-bold hover:underline font-body"
                   >
                     ← Submit Another Application
                   </button>
@@ -348,52 +378,52 @@ export default function CareerGuidance() {
                 >
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-medium text-gray-300 mb-1">
+                      <label className="block text-xs font-medium text-slate-300 mb-1 font-body">
                         Student Full Name <span className="text-red-400">*</span>
                       </label>
                       <input
                         {...register('name', { required: 'Name is required' })}
                         placeholder="Rahul Sharma"
-                        className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-glow/40"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40 font-body"
                       />
-                      {errors.name && <p className="text-red-400 text-[11px] mt-1">{errors.name.message}</p>}
+                      {errors.name && <p className="text-red-400 text-[11px] mt-1 font-body">{errors.name.message}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-gray-300 mb-1">
+                      <label className="block text-xs font-medium text-slate-300 mb-1 font-body">
                         WhatsApp / Phone Number <span className="text-red-400">*</span>
                       </label>
                       <input
                         type="tel"
                         {...register('phone', { required: 'Phone number is required' })}
                         placeholder="+91 85096 84056"
-                        className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-glow/40"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40 font-body"
                       />
-                      {errors.phone && <p className="text-red-400 text-[11px] mt-1">{errors.phone.message}</p>}
+                      {errors.phone && <p className="text-red-400 text-[11px] mt-1 font-body">{errors.phone.message}</p>}
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-medium text-gray-300 mb-1">
+                      <label className="block text-xs font-medium text-slate-300 mb-1 font-body">
                         Email Address <span className="text-red-400">*</span>
                       </label>
                       <input
                         type="email"
                         {...register('email', { required: 'Email is required' })}
                         placeholder="rahul@example.com"
-                        className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-glow/40"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40 font-body"
                       />
-                      {errors.email && <p className="text-red-400 text-[11px] mt-1">{errors.email.message}</p>}
+                      {errors.email && <p className="text-red-400 text-[11px] mt-1 font-body">{errors.email.message}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-gray-300 mb-1">
+                      <label className="block text-xs font-medium text-slate-300 mb-1 font-body">
                         Education Status
                       </label>
                       <select
                         {...register('education_level')}
-                        className="w-full px-4 py-2.5 rounded-lg bg-navy-900 border border-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-glow/40"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40 font-body"
                       >
                         <option value="12th Pass (Science - PCM/PCB)">12th Pass (Science - PCM/PCB)</option>
                         <option value="12th Pass (Commerce)">12th Pass (Commerce)</option>
@@ -405,51 +435,51 @@ export default function CareerGuidance() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-gray-300 mb-1">
+                    <label className="block text-xs font-medium text-slate-300 mb-1 font-body">
                       Preferred Degree Stream or Target Career
                     </label>
                     <input
                       {...register('preferred_field')}
                       placeholder="e.g. B.Tech Computer Science, AI & Robotics, BCA, or BBA"
-                      className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-glow/40"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40 font-body"
                     />
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-amber-glow/10 border border-amber-glow/20 space-y-2">
-                    <label className="flex items-center gap-2 cursor-pointer text-xs text-white">
+                  <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 space-y-2.5">
+                    <label className="flex items-start gap-2.5 cursor-pointer text-xs sm:text-sm text-slate-200 font-body">
                       <input
                         type="checkbox"
                         defaultChecked
                         {...register('interested_in_college_subsidy')}
-                        className="rounded text-amber-glow focus:ring-0"
+                        className="mt-0.5 rounded text-amber-500 focus:ring-0"
                       />
                       <span>Apply for ₹3,000 – ₹10,000 Official Partner College Fee Subsidy</span>
                     </label>
-                    <label className="flex items-center gap-2 cursor-pointer text-xs text-white">
+                    <label className="flex items-start gap-2.5 cursor-pointer text-xs sm:text-sm text-slate-200 font-body">
                       <input
                         type="checkbox"
                         defaultChecked
                         {...register('interested_in_training')}
-                        className="rounded text-amber-glow focus:ring-0"
+                        className="mt-0.5 rounded text-amber-500 focus:ring-0"
                       />
                       <span>Interested in 3-Month Advanced Industrial IoT &amp; AI Training</span>
                     </label>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-gray-300 mb-1">
+                    <label className="block text-xs font-medium text-slate-300 mb-1 font-body">
                       Your Questions / Specific Target Colleges
                     </label>
                     <textarea
                       rows={3}
                       {...register('message')}
                       placeholder="Tell us what state/city you prefer or any specific doubts about fees, college placement, or course selection..."
-                      className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-glow/40 resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500/40 resize-none font-body"
                     />
                   </div>
 
                   {errorMsg && (
-                    <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
+                    <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-body">
                       {errorMsg}
                     </div>
                   )}
@@ -457,7 +487,7 @@ export default function CareerGuidance() {
                   <button
                     type="submit"
                     disabled={submitState === 'submitting'}
-                    className="w-full py-3.5 rounded-xl bg-amber-glow text-navy-950 font-bold text-xs uppercase tracking-wider shadow-amber-glow hover:bg-amber-glow/90 transition-all disabled:opacity-50"
+                    className="w-full py-4 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm uppercase tracking-wider shadow-[0_4px_20px_rgba(245,158,11,0.4)] transition-all disabled:opacity-50 font-body"
                   >
                     {submitState === 'submitting'
                       ? 'Submitting Application...'
@@ -471,7 +501,7 @@ export default function CareerGuidance() {
       </section>
 
       {/* ══════ STUDENT & PARENT FAQS ══════ */}
-      <section className="py-20 px-4 bg-navy-900 border-t border-white/5" aria-label="Student FAQs">
+      <section className="py-20 px-4 bg-[#0a0e1a] border-t border-slate-800" aria-label="Student FAQs">
         <div className="max-w-4xl mx-auto">
           <SectionHeader
             eyebrow="Common Questions"
@@ -485,18 +515,18 @@ export default function CareerGuidance() {
               return (
                 <div
                   key={idx}
-                  className="rounded-xl bg-white/5 backdrop-blur-md border border-white/10 overflow-hidden"
+                  className="rounded-2xl bg-[#0f172a] border border-slate-800 overflow-hidden"
                 >
                   <button
                     type="button"
                     onClick={() => setActiveFaq(isOpen ? null : idx)}
-                    className="w-full text-left px-5 py-4 flex items-center justify-between text-sm sm:text-base font-semibold text-white/90 hover:text-amber-glow transition-colors"
+                    className="w-full text-left px-6 py-4 flex items-center justify-between text-base font-semibold text-white hover:text-amber-400 transition-colors font-display"
                   >
                     <span>{faq.q}</span>
-                    <span className="text-amber-glow text-lg">{isOpen ? '−' : '+'}</span>
+                    <span className="text-amber-400 text-lg font-mono">{isOpen ? '−' : '+'}</span>
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-5 text-xs sm:text-sm text-gray-300 border-t border-white/5 pt-3 leading-relaxed">
+                    <div className="px-6 pb-6 text-sm text-slate-300 border-t border-slate-800/80 pt-4 leading-relaxed font-body">
                       {faq.a}
                     </div>
                   )}
@@ -506,12 +536,12 @@ export default function CareerGuidance() {
           </div>
 
           {/* Bottom Review & Rate Callout */}
-          <div className="mt-14 glass-card p-6 text-center border border-white/10">
-            <p className="text-xs text-gray-400 mb-2">Have you consulted with our academic advisors?</p>
+          <div className="mt-14 p-6 rounded-2xl bg-[#0f172a] text-center border border-slate-800">
+            <p className="text-sm text-slate-300 mb-2 font-body">Have you consulted with our academic advisors?</p>
             <button
               type="button"
               onClick={() => setReviewModalOpen(true)}
-              className="inline-flex items-center gap-2 text-xs font-semibold text-amber-400 hover:underline"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-amber-400 hover:underline font-body"
             >
               <span>★ 5.0</span> Rate OpenMNC on Google Business Profile →
             </button>

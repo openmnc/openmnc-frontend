@@ -159,10 +159,10 @@ export default function Navbar() {
     <>
       <header
         className={`
-          fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full
+          fixed top-0 left-0 right-0 z-[100] transition-all duration-300 w-full
           ${scrolled
-            ? 'bg-[#000000]/80 backdrop-blur-2xl border-b border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15),0_12px_40px_-10px_rgba(0,0,0,0.6)]'
-            : 'bg-[#000000]/40 backdrop-blur-xl border-b border-white/6'
+            ? 'bg-[#0B0F19]/95 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
+            : 'bg-[#0B0F19]/85 backdrop-blur-md border-b border-white/6'
           }
         `}
         role="banner"
@@ -234,17 +234,17 @@ export default function Navbar() {
                     transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
                     onMouseEnter={handleSoftwareEnter}
                     onMouseLeave={handleSoftwareLeave}
-                    className="absolute top-full left-0 pt-2 z-50 pointer-events-auto"
+                    className="absolute top-full left-0 pt-2 z-[200] pointer-events-auto"
                   >
-                    <div className="w-[430px] p-4 rounded-2xl bg-[#161618]/98 backdrop-blur-2xl border border-white/14 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25),0_24px_50px_-12px_rgba(0,0,0,0.8)]">
+                    <div className="w-[430px] p-4 rounded-2xl bg-[#0f172a] border border-slate-700 shadow-[0_24px_60px_-10px_rgba(0,0,0,0.95)]">
                       {/* Primary B2B Growth Silos Header */}
-                      <div className="px-1 py-1 border-b border-white/8 mb-2.5 flex items-center justify-between">
-                        <span className="text-[10px] text-[#86868b] font-bold uppercase tracking-wider block">
+                      <div className="px-1 py-1 border-b border-slate-800 mb-2.5 flex items-center justify-between">
+                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block font-body">
                           B2B Growth Systems
                         </span>
                         <Link
                           to="/services"
-                          className="text-[11px] text-[#2997ff] hover:underline font-semibold"
+                          className="text-[11px] text-blue-400 hover:text-blue-300 hover:underline font-semibold font-body"
                         >
                           All Services Hub →
                         </Link>
@@ -256,17 +256,17 @@ export default function Navbar() {
                           <Link
                             key={item.to}
                             to={item.to}
-                            className="block p-3 rounded-xl bg-white/4 hover:bg-white/8 border border-white/6 hover:border-white/16 transition-all group"
+                            className="block p-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/70 hover:border-slate-600 transition-all group"
                           >
                             <div className="flex items-center justify-between mb-1">
-                              <span className={`text-xs font-bold ${item.color} group-hover:brightness-125 transition-all`}>
+                              <span className={`text-xs font-bold ${item.color} group-hover:brightness-125 transition-all font-display`}>
                                 {item.label}
                               </span>
                               <span className={`text-[9px] px-2 py-0.5 rounded border font-bold uppercase tracking-wide ${item.badgeColor}`}>
                                 {item.badge}
                               </span>
                             </div>
-                            <p className="text-[11px] text-[#a1a1a6] leading-tight">
+                            <p className="text-[11px] text-slate-400 leading-tight font-body">
                               {item.desc}
                             </p>
                           </Link>
@@ -274,24 +274,24 @@ export default function Navbar() {
                       </div>
 
                       {/* Secondary: Specialized Engineering Pillars */}
-                      <div className="pt-2.5 border-t border-white/8">
+                      <div className="pt-2.5 border-t border-slate-800">
                         <div className="flex items-center justify-between px-1 mb-2">
-                          <span className="text-[10px] text-[#86868b] font-bold uppercase tracking-wider block">
+                          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block font-body">
                             Specialized Engineering
                           </span>
-                          <span className="text-[9px] text-gray-500 font-mono">5 Pillars</span>
+                          <span className="text-[9px] text-slate-500 font-mono">5 Pillars</span>
                         </div>
                         <div className="grid grid-cols-2 gap-1.5">
                           {ENGINEERING_PILLARS.slice(0, 4).map((item) => (
                             <Link
                               key={item.to}
                               to={item.to}
-                              className="block p-2 rounded-xl bg-white/2 hover:bg-white/6 transition-colors group border border-transparent hover:border-white/8"
+                              className="block p-2 rounded-xl bg-slate-800/50 hover:bg-slate-800 transition-colors group border border-slate-700/40 hover:border-slate-600"
                             >
-                              <span className="text-[11px] font-semibold text-[#f5f5f7] group-hover:text-[#2997ff] transition-colors line-clamp-1 block mb-0.5">
+                              <span className="text-[11px] font-semibold text-slate-200 group-hover:text-blue-400 transition-colors line-clamp-1 block mb-0.5 font-display">
                                 {item.label}
                               </span>
-                              <span className="text-[10px] text-[#86868b] line-clamp-1 block">
+                              <span className="text-[10px] text-slate-400 line-clamp-1 block font-body">
                                 {item.badge}
                               </span>
                             </Link>
@@ -423,7 +423,7 @@ export default function Navbar() {
               animate={{ opacity: 1, height: 'calc(100vh - 64px)' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="lg:hidden border-t border-white/10 bg-[#161618]/98 backdrop-blur-2xl fixed top-16 left-0 right-0 bottom-0 z-50 overflow-y-auto w-full"
+              className="lg:hidden border-t border-slate-800 bg-[#0B0F19] fixed top-16 left-0 right-0 bottom-0 z-[200] overflow-y-auto w-full shadow-2xl"
             >
               <div className="px-5 py-6 space-y-3 pb-24">
                 {/* Mobile Silo 1: Solutions Accordion */}

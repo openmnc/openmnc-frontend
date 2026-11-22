@@ -32,9 +32,11 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', 'Inter', 'system-ui', 'sans-serif'],
-        display: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
-        grotesk: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', 'Inter', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        body:    ['"DM Sans"', 'system-ui', 'sans-serif'],
+        sans:    ['"DM Sans"', 'system-ui', 'sans-serif'],
+        mono:    ['"JetBrains Mono"', 'monospace'],
+        grotesk: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
