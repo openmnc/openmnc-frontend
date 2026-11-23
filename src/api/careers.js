@@ -27,6 +27,7 @@ export const careersApi = {
   getApplications: (params = {}) => apiClient.get('/careers/admin/applications', { params }),
   updateApplicationStatus: (id, data) =>
     apiClient.put(`/careers/admin/applications/${id}/status`, data),
+  deleteApplication: (id) => apiClient.delete(`/careers/admin/applications/${id}`),
 }
 
 export default careersApi

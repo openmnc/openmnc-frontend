@@ -39,6 +39,18 @@ export default function ContactList() {
     setNotes(sub.notes || '')
   }
 
+  async function handleDeleteLead() {
+    if (!selectedSubmission) return
+    if (!window.confirm(`Delete lead from "${selectedSubmission.name}"? This cannot be undone.`)) return
+    try {
+      await apiClient.delete(`/contact/${selectedSubmission.id}`)
+      setSubmissions((prev) => prev.filter((s) => s.id !== selectedSubmission.id))
+      setSelectedSubmission(null)
+    } catch {
+      alert('Failed to delete lead.')
+    }
+  }
+
   async function handleUpdateLead() {
     if (!selectedSubmission) return
     setSavingStatus(true)
@@ -268,6 +280,12 @@ export default function ContactList() {
                     className="w-full py-2.5 rounded-full text-xs font-semibold bg-[#2997ff] text-white hover:bg-[#0071e3] transition-all disabled:opacity-50"
                   >
                     {savingStatus ? 'Saving...' : 'Update Lead Status →'}
+                  </button>
+                  <button
+                    onClick={handleDeleteLead}
+                    className="w-full py-2.5 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 transition-all mt-2"
+                  >
+                    🗑 Delete Lead Permanently
                   </button>
                 </div>
               </div>

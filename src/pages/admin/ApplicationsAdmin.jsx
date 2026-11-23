@@ -53,6 +53,18 @@ export default function ApplicationsAdmin() {
     setInterviewDate(app.interview_date || '')
   }
 
+  async function handleDeleteApp() {
+    if (!selectedApp) return
+    if (!window.confirm(`Delete application from "${selectedApp.candidate_name}"? This cannot be undone.`)) return
+    try {
+      await careersApi.deleteApplication(selectedApp.id)
+      setApplications((prev) => prev.filter((a) => a.id !== selectedApp.id))
+      setSelectedApp(null)
+    } catch {
+      alert('Failed to delete application.')
+    }
+  }
+
   async function handleUpdateStatus() {
     if (!selectedApp) return
     setUpdatingStatus(true)
@@ -319,6 +331,12 @@ export default function ApplicationsAdmin() {
                     className="w-full py-2.5 rounded-full text-xs font-semibold bg-[#2997ff] text-white hover:bg-[#0071e3] transition-all disabled:opacity-50"
                   >
                     {updatingStatus ? 'Updating...' : 'Save Progression →'}
+                  </button>
+                  <button
+                    onClick={handleDeleteApp}
+                    className="w-full py-2.5 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 transition-all mt-2"
+                  >
+                    🗑 Delete Application Permanently
                   </button>
                 </div>
               </div>
